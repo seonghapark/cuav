@@ -84,6 +84,10 @@ $ sudo apt install python-rosinstall python-rosinstall-generator python-wstool b
 $ pip3 install scipy librosa tensorflow flask pika rospkg catkin_pkg matplotlib
 ```
 
+### pip upgrade가 되지 않을 때 (cannot import main)
+```
+$ hash -d pip
+```
 
 ### ros make
 
