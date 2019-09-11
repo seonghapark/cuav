@@ -35,4 +35,7 @@ Inbae Kang
 
 - ROS
 ![ROS](https://i.imgur.com/eVVKMlF.png)
+
+3. ROS Tutorial 진행을 위해 Ubuntu 16.04 LTS 버전 설치 준비.
+
 * * *
