@@ -57,24 +57,9 @@ $ sudo apt-get install python-rosinstall
 ```
 
 ### bashrc 설정
-`vi ~/.bashrc`에 들어가서
 
 ```
-#ROS
-alias eb='nano ~/.bashrc'
-alias sb='source ~/.bashrc'
-alias cw='cd /home/project/cuav/ROS_system/catkin_ws'
-alias cs='cd /home/project/cuav/ROS_system/catkin_ws/src'
-alias cm='cd /home/project/cuav/ROS_system/catkin_ws && catkin_make'
-source /opt/ros/kinetic/setup.bash
-source /home/project/cuav/ROS_system/catkin_ws/devel/setup.bash
-export ROS_PACKAGE_PATH=/home/project/cuav/ROS_system/catkin_ws/src/:/opt/ros/kinetic/share
-export ROS_MASTER_URI=http://localhost:11311
-export ROS_HOSTNAME=localhost
-```
-입력
-
-```
+$ echo "source /opt/ros/kinetic/setup.bash" >> ~/.bashrc
 $ source ~/.bashrc
 ```
 
@@ -85,8 +70,13 @@ $ pip3 install scipy librosa tensorflow flask pika rospkg catkin_pkg matplotlib
 ```
 
 ### pip upgrade가 되지 않을 때 (cannot import main)
+python=2.x
 ```
-$ hash -d pip
+$ sudo -H pip install --upgrade pip
+```
+python=3.x
+```
+$ sudo -H pip3 install --upgrade pip
 ```
 
 ### ros make
