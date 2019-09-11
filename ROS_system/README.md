@@ -22,11 +22,6 @@ $ git clone -b fall2019 --single-branch https://github.com/seonghapark/counterUA
 ```
 
 
-###  install in Ubuntu
-```
-$ wget https://raw.githubusercontent.com/orocapangyo/meetup/master/190830/install_ros_melodic.sh && chmod 755 ./install_ros_melodic.sh && bash ./install_ros_melodic.sh
-```
-
 ### NTP(Network Time Protocol) 설정
 ```
 $ sudo apt-get install -y chrony ntpdate
@@ -40,7 +35,7 @@ $ sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) ma
 
 ### 키 설정
 ```
-$ sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
+$ sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 421C365BD9FF1F717815A3895523BAEEB01FA116
 ```
 
 ### 패키지 인덱스 업데이트
@@ -48,12 +43,12 @@ $ sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E
 $ sudo apt-get update
 ```
 
-### ROS Melodic 설치
+### ROS Kinetic 설치
 ```
-$ sudo apt install ros-melodic-desktop-full
+$ sudo apt-get install ros-kinetic-desktop-full
 
 # 설치 확인
-$ apt search ros-melodic
+$ apt search ros-kinetic
 ```
 
 ### Initialize rosdep
