@@ -1,8 +1,2 @@
-# Counter UAV Radar - Fall 2019
-
-Youngjin
-Inbae
-Kyungyeon 
-Haeeun
-Kyeongnam
-Dojin
+# Git repo for extended counter UAV project
+- from Sep. 2019

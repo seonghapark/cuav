@@ -1,2 +1,0 @@
-model_checkpoint_path: "cuav_rnn.ckpt-4400"
-all_model_checkpoint_paths: "cuav_rnn.ckpt-4400"
