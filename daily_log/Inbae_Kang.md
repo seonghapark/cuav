@@ -24,4 +24,15 @@ Inbae Kang
 
 1. Read Paper "Combination of Radar and Audio Sensors for Identification of Rotor-type Unmanned Aerial Vehicles (UAVs)"
 
+## 2019-09-11
+
+1. 회의를 통해서 역할 분담. ROS part 배정
+
+2. 회의 내용을 바탕으로 전체적인 그림 정리.
+
+- System Architecture
+![System Architecture](https://i.imgur.com/J9cstXA.png)
+
+- ROS
+![ROS](https://i.imgur.com/eVVKMlF.png)
 * * *
