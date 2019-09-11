@@ -1,6 +1,6 @@
 # Daily log of Dojin Kim
 
-## 2019-09-04 ~ 2019-09-10
+## 2019-09-04 ~ 2019-09-06 (1주차)
 
 ### 2019-09-04
 * 구체적인 주제 회의
@@ -17,7 +17,9 @@
 * 기존 코드 run해보기
   - ROS_system에 있는 코드 run하기 위해 환경설정하기
   - VMWare로 Ubuntu 설치
-  
+
+## 2019-09-09 ~ 2019-09-13 (2주차)
+
 ### 2019-09-09
   - VMWare Ubuntu에 설치 완료
   - ROS_system에 있는 코드 run 완료
@@ -27,5 +29,6 @@
   - docker로 ROS 설치 및 코드 클론 성공, 그러나 코드 run 실패
   - Combination of Radar and Audio Sensors for Identification of Rotor-type Unmanned Aerial Vehicles (UAVs) 논문 읽기
 
-
-
+### 2019-09-11
+  - Project내 역할 분배
+  - DJI phantom dataset image 획득
