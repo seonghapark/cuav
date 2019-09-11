@@ -9,18 +9,12 @@ $ sudo chmod 777 /home/project
 $ cd /home/project/
 ```
 
-전체 프로젝트를 다운받으려면
+전체 프로젝트를 클론받기
 
 ```
-$ git clone https://github.com/seonghapark/counterUAV.git
+$ git clone https://github.com/seonghapark/cuav.git
 $ git checkout fall2019
 ```
-
-이 브랜치만 다운받으려면
-```
-$ git clone -b fall2019 --single-branch https://github.com/seonghapark/counterUAV.git
-```
-
 
 ### NTP(Network Time Protocol) 설정
 ```
@@ -69,12 +63,12 @@ $ sudo apt-get install python-rosinstall
 #ROS
 alias eb='nano ~/.bashrc'
 alias sb='source ~/.bashrc'
-alias cw='cd /home/project/counterUAV/ROS_system/catkin_ws'
-alias cs='cd /home/project/counterUAV/ROS_system/catkin_ws/src'
-alias cm='cd /home/project/counterUAV/ROS_system/catkin_ws && catkin_make'
-source /opt/ros/melodic/setup.bash
-source /home/project/counterUAV/ROS_system/catkin_ws/devel/setup.bash
-export ROS_PACKAGE_PATH=/home/project/counterUAV/ROS_system/catkin_ws/src/:/opt/ros/melodic/share
+alias cw='cd /home/project/cuav/ROS_system/catkin_ws'
+alias cs='cd /home/project/cuav/ROS_system/catkin_ws/src'
+alias cm='cd /home/project/cuav/ROS_system/catkin_ws && catkin_make'
+source /opt/ros/kinetic/setup.bash
+source /home/project/cuav/ROS_system/catkin_ws/devel/setup.bash
+export ROS_PACKAGE_PATH=/home/project/cuav/ROS_system/catkin_ws/src/:/opt/ros/kinetic/share
 export ROS_MASTER_URI=http://localhost:11311
 export ROS_HOSTNAME=localhost
 ```
@@ -107,7 +101,7 @@ $ roscore
 ```
 
 새로운 터미널을 연 뒤
-`/home/project/counterUAV/ROS_system/catkin_ws` 에서
+`/home/project/cuav/ROS_system/catkin_ws` 에서
 ```
 $ rosrun ros_counteruav scripts/start.sh
 ```
