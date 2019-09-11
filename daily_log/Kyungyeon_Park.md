@@ -39,7 +39,7 @@
 
 ### 2019-09-11
 - 전체 회의
-  - **Making rail using Stepping Motor** 로 나의 목표가 정해짐
+  - **Making rail using Stepping Motor** 로 나의 목표가 정해짐 > 9월 전에 제작을 목표로
 - Stepping Motor 조사
   - stepping motor의 종류, 장단점에 대해 알아봄
   - 만들어야 할 rail의 형태를 조사해 봄
