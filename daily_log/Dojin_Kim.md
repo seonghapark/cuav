@@ -32,3 +32,7 @@
 ### 2019-09-11
   - Project내 역할 분배
   - DJI phantom dataset image 획득
+  
+### 2019-09-12
+  - DJI phantom dataset image 획득 및 정리. 
+  - Training set 500, Test set 200 확보함
