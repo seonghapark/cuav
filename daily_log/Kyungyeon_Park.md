@@ -43,3 +43,9 @@
 - Stepping Motor 조사
   - stepping motor의 종류, 장단점에 대해 알아봄
   - 만들어야 할 rail의 형태를 조사해 봄
+
+### 2019-09-12
+- Stepping Motor 조사
+  - 구매 어떻게 할지 알아봄
+  - 이번주 토요일에 radar팀이 radar를 받아보고, 크기와 무게를 알려주면 모터와 프로파일 선정 예정
+- job fair 구경
