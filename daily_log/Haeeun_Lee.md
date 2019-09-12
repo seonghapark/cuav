@@ -18,3 +18,13 @@
 ### 2019.09.10
 1. radar_audio 논문 읽기
 2. 코드 분석
+
+### 2019.09.11
+1. vmware Fusion에 ubuntu 16.04, ROS kinetice으로 다시 설치
+2. 코드 분석
+
+### 2019.09.12
+1. make_sar_image.py 실행
+2. make_sar_image.py 코드 분석
+3. SAR, FMCW 등 개념 조사
+
