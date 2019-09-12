@@ -14,6 +14,17 @@
 |:--:|:--:|
 |2019-09-09 **Mon**|Ubuntu에서 파일 실행 성공: 실행 시 bashrc설정 > rosrun|
 |2019-09-10 **Tue**|**논문 읽기**<br>Combination of Radar and Audio Sensors for Identification of Rotor-type Unmanned Aerial Vehicles (UAVs)<br><br>ROS_system 코드 분석|
-|2019-09-11 **Wed**|**[역할: 드론 제어]**<br> - DJI Phantom2 확보<br> - 베터리 확보 <br> - grounstation 확보 <br> - control manual tutorial 숙지<br><br>드론에 대한 전반적인 기본지식 공부|
-|2019-09-12 **Thr**||
+|2019-09-11 **Wed**|**[역할: 드론 제어]**<br> - DJI Phantom2 확보<br> - 베터리 확보 <br> - groundstation 확보 <br> - control manual tutorial 숙지<br><br>드론에 대한 전반적인 기본지식 공부|
+|2019-09-12 **Thr**|**조사**<br> - DJI Phantom2 & 베터리: 모델은 확인하였으나, 오작동이 있음<br> - groundstation: Anthony 교수님네 농장에서 할 수 있는지 직접 확인 맡기<br> - control manual tutorial: 현재까지의 검색으로는 프로그래밍이 가능한지 확인할 음수 없음. [[link](https://www.dronezon.com/diy-drone-repair-videos/dji-innovation-drones/dji-ground-station-app-setting-up-phantom-2-waypoint-tutorial/)] 읽어보기<br><br>Eric 교수님께 여쭤본 결과, Parrot모델을 사용하는 것이 더 적합하다는 답장을 받음|
 |2019-09-13 **Fri**||
+
+<br><br><br>
+
+## 2019-09-16 ~ 2019-09-22
+|날짜|내용|
+|:--:|:--:|
+|2019-09-16 **Mon**||
+|2019-09-17 **Tue**||
+|2019-09-18 **Wed**||
+|2019-09-19 **Thr**||
+|2019-09-20 **Fri**||
