@@ -38,4 +38,13 @@ Inbae Kang
 
 3. ROS Tutorial 진행을 위해 Ubuntu 16.04 LTS 버전 설치 준비.
 
+## 2019-09-12
+
+1. 오전 중에 치과에 다녀옴.
+
+2. ROS Tutorial을 진행하기 위해서, Ubuntu 16.04 LTS 버전을 랩탑에 설치
+
+3. ROS 환경 구축 및 ROS 설치
+
+
 * * *
