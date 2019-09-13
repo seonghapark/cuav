@@ -3,11 +3,11 @@
 import numpy
 import scipy
 import scipy.signal
-import pylab
+import matplotlib.pylab as pylab
 import wave
 try:
   import scipy.interpolate
-except Exception, e:
+except Exception as e:
   print 'Try installing the latest Numpy-MKL and the latest SciPy.'
   print "If you got those libs from Enthought or your distribution's"
   print "package manager, you may need to find an alternate build or"
@@ -277,7 +277,7 @@ def plot_img(sar_img_data):
   trunc_image = 20 * numpy.log10(abs(trunc_image))
 
   pylab.figure()
-  pylab.pcolormesh(crossrange, downrange, trunc_image, edgecolors='None')
+  pylab.pcolormesh(crossrange, downrange, trunc_image, edgecolors='None', cmap='jet')
   pylab.plt.gca().invert_yaxis()
   pylab.colorbar()
   pylab.clim([numpy.max(trunc_image)-40, numpy.max(trunc_image)-0])
