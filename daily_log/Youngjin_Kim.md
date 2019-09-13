@@ -29,3 +29,6 @@ Youngjin Kim
 2. radar와 sar의 개념에 대한 공부
 3. sample code review
 
+2019.09.13
+1. 화상 회의를 통해 radar 팀에서 해야할 일들 정리 및 자문 구함.
+2. sample code의 colormap 설정 등 code에 사용한 모듈을 공부
