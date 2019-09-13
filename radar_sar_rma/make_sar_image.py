@@ -277,7 +277,7 @@ def plot_img(sar_img_data):
   trunc_image = 20 * numpy.log10(abs(trunc_image))
 
   pylab.figure()
-  pylab.pcolormesh(crossrange, downrange, trunc_image, edgecolors='None')
+  pylab.pcolormesh(crossrange, downrange, trunc_image, edgecolors='None', cmap='jet')
   pylab.plt.gca().invert_yaxis()
   pylab.colorbar()
   pylab.clim([numpy.max(trunc_image)-40, numpy.max(trunc_image)-0])
