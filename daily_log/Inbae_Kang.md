@@ -48,7 +48,7 @@ Inbae Kang
 
 ## 2019-09-13
 
-1.ROS Tutorial 진행.
+1. ROS Tutorial 진행.
 
 2. Tutorial 진행하며 [내용 정리](https://github.com/cleverdevk/ROS_Tutorial)
 
