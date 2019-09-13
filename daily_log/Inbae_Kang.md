@@ -50,7 +50,6 @@ Inbae Kang
 
 1.ROS Tutorial 진행.
 
-2. Tutorial 진행하며 정리
-[Tutorial 정리](https://github.com/cleverdevk/ROS_Tutorial)
+2. Tutorial 진행하며 [내용 정리](https://github.com/cleverdevk/ROS_Tutorial)
 
 * * *
