@@ -27,5 +27,15 @@
   - docker로 ROS 설치 및 코드 클론 성공, 그러나 코드 run 실패
   - Combination of Radar and Audio Sensors for Identification of Rotor-type Unmanned Aerial Vehicles (UAVs) 논문 읽기
 
-
-
+### 2019-09-11
+  - Project내 역할 분배
+  - DJI phantom dataset image 획득
+  
+### 2019-09-12
+  - DJI phantom dataset image 획득 및 정리. 
+  - Training set 500, Test set 200 확보함
+  
+### 2019-09-13
+  - parrot dataset image 획득 및 정리
+  - 기존 coco dataset에 pre-trained된 yolov3모델에 새로운 class 추가하는 방법 찾기
+  - tensorflow yolov3로 object detection 하는 프로그램 test
