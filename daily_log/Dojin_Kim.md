@@ -36,3 +36,8 @@
 ### 2019-09-12
   - DJI phantom dataset image 획득 및 정리. 
   - Training set 500, Test set 200 확보함
+  
+### 2019-09-13
+  - parrot dataset image 획득 및 정리
+  - 기존 coco dataset에 pre-trained된 yolov3모델에 새로운 class 추가하는 방법 찾기
+  - tensorflow yolov3로 object detection 하는 프로그램 test
