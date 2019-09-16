@@ -65,3 +65,12 @@
 
 - 랩에 stepping motor 있는지 확인 -> Car E가 찾아봐야 아는데 지금 휴가를 가서 다다음주에 돌아온다고 함. 일단 교수님께 여쭤본 상태
 - 라즈베리파이 B2를 받아 Raspbian 설치 및 파이썬 설치
+
+<br/>
+
+## 2019-09-16 ~ 2019-09-20
+
+### 2019-09-16
+- rail을 만들때 필요한 stepper motor와 driver를 선정
+  - [stpper motor](https://www.amazon.com/Usongshine-Geared-Stepper-Motor-Ratio/dp/B07V359RFB/ref=sr_1_5?keywords=nema+17&qid=1568662364&s=hi&sr=1-5)
+  - [driver](https://www.amazon.com/Stepper-Driver-TB6600-Controller-Single/dp/B07H55MH23/ref=asc_df_B07H55MH23/?tag=hyprod-20&linkCode=df0&hvadid=309802506143&hvpos=1o4&hvnetw=g&hvrand=13175866527852851402&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9016722&hvtargid=pla-558289099173&psc=1)
