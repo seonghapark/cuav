@@ -12,20 +12,15 @@ $ cd /home/project/
 전체 프로젝트를 다운받으려면
 
 ```
-$ git clone https://github.com/seonghapark/counterUAV.git
+$ git clone https://github.com/seonghapark/cuav.git
 $ git checkout fall2019
 ```
 
 이 브랜치만 다운받으려면
 ```
-$ git clone -b fall2019 --single-branch https://github.com/seonghapark/counterUAV.git
+$ git clone -b fall2019 --single-branch https://github.com/seonghapark/cuav.git
 ```
 
-
-###  install in Ubuntu
-```
-$ wget https://raw.githubusercontent.com/orocapangyo/meetup/master/190830/install_ros_melodic.sh && chmod 755 ./install_ros_melodic.sh && bash ./install_ros_melodic.sh
-```
 
 ### NTP(Network Time Protocol) 설정
 ```
@@ -33,20 +28,6 @@ $ sudo apt-get install -y chrony ntpdate
 $ sudo ntpdate -q ntp.ubuntu.com
 ```
 
-### 소스 리스트 추가 
-```
-$ sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
-```
-
-### 키 설정
-```
-$ sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
-```
-
-### 패키지 인덱스 업데이트
-```
-$ sudo apt-get update
-```
 
 ### ROS Kinetic 설치
 **한번에 설치 가능**
@@ -56,64 +37,9 @@ wget https://raw.githubusercontent.com/ROBOTIS-GIT/robotis_tools/master/install_
 
 [출처] ROS Kinetic 1줄 설치! (오픈소스 소프트웨어 & 하드웨어: 로봇 기술 공유 카페 (오로카)) |작성자 표윤석
 
-### ROS Melodic 설치
-```
-$ sudo apt install ros-melodic-desktop-full
-
-# 설치 확인
-$ apt search ros-melodic
-```
-
-### Initialize rosdep
-```
-$ sudo rosdep init
-$ rosdep update
-```
-
-### rosinstall 설치
-```
-$ sudo apt-get install python-rosinstall
-```
-
-### bashrc 설정
-`vi ~/.bashrc`에 들어가서
-
-```
-#ROS
-alias eb='nano ~/.bashrc'
-alias sb='source ~/.bashrc'
-alias cw='cd /home/project/counterUAV/ROS_system/catkin_ws'
-alias cs='cd /home/project/counterUAV/ROS_system/catkin_ws/src'
-alias cm='cd /home/project/counterUAV/ROS_system/catkin_ws && catkin_make'
-source /opt/ros/melodic/setup.bash
-source /home/project/counterUAV/ROS_system/catkin_ws/devel/setup.bash
-export ROS_PACKAGE_PATH=/home/project/counterUAV/ROS_system/catkin_ws/src/:/opt/ros/melodic/share
-export ROS_MASTER_URI=http://localhost:11311
-export ROS_HOSTNAME=localhost
-```
-입력
-
-```
-$ source ~/.bashrc
-```
-
-### 파이썬 패키지 설치
-```
-$ sudo apt install python-rosinstall python-rosinstall-generator python-wstool build-essential
-$ pip3 install scipy librosa tensorflow flask pika rospkg catkin_pkg matplotlib
-```
 
 
-### ros make
-
-catkin_ws 폴더에 들어가서
-
-```
-$ pip3 install empy
-$ catkin_make
-```
-
-### ros 실행 >> 오류날경우 bashrc 다시 설정
+### ros 실행
 
 ```
 $ roscore
