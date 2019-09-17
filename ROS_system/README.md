@@ -48,6 +48,14 @@ $ sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E
 $ sudo apt-get update
 ```
 
+### ROS Kinetic 설치
+**한번에 설치 가능**
+```
+wget https://raw.githubusercontent.com/ROBOTIS-GIT/robotis_tools/master/install_ros_kinetic.sh && chmod 755 ./install_ros_kinetic.sh && bash ./install_ros_kinetic.sh
+```
+
+[출처] ROS Kinetic 1줄 설치! (오픈소스 소프트웨어 & 하드웨어: 로봇 기술 공유 카페 (오로카)) |작성자 표윤석
+
 ### ROS Melodic 설치
 ```
 $ sudo apt install ros-melodic-desktop-full
