@@ -51,7 +51,7 @@
   - 해당 모델로 opencv dnn과 pytorch에서 drone detection 성공 (tensorflow는 오류 발생)
     => 정확도 높여야함<br/>
     
-    ![drone-detection](https://i.imgur.com/5UL6AvU.gif)
+    [Drone-detection](https://i.imgur.com/5UL6AvU.gifv)
 
 
   - [drone_detection Repo](https://github.com/dojinkimm/drone_detection)에 작업중인 코드 업로드
