@@ -32,3 +32,7 @@ Youngjin Kim
 2019.09.13
 1. 화상 회의를 통해 radar 팀에서 해야할 일들 정리 및 자문 구함.
 2. sample code의 colormap 설정 등 code에 사용한 모듈을 공부
+
+2019.09.16
+1. Conference Room에서 radar를 작동해 real time으로 데이터를 받아오는것을 실험 및 확인.
+2. real time data를 wmv로 변환하여 visualize 하였을 때 어떤식으로 나오는지 확인하였으나 아무것도 나오지 않음.
