@@ -60,7 +60,7 @@
 
 ### 2019-09-18
   - 라즈베리파이 OS 설치 및 카메라 장착
-  - 기존 [drone_detection Repo](https://github.com/dojinkimm/drone_detection) clone 받아서 코드 실행 해봄.
+  - 기존 [drone_detection Repo](https://github.com/dojinkimm/drone_detection) clone 받아서 코드 실행
     - torch 설치 Fail
-    - opencv DNN으로 run해봤으나 1초에 1프레임도 안나옴
+    - opencv DNN으로 영상 detection 프로그램 run 됐으나 1초에 1프레임도 안나옴
   - 웹캠 실행해봤으나 매우 느림, 개선할 수 있는 방법 찾아봐야 함
