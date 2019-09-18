@@ -49,7 +49,11 @@
 ### 2019-09-17
   - [drone-net](https://github.com/chuanenlin/drone-net) 에서 약 2600장에 학습된 yolo 모델 발견
   - 해당 모델로 opencv dnn과 pytorch에서 drone detection 성공 (tensorflow는 오류 발생)
-    => 정확도 높여야함
+    => 정확도 높여야함<br/>
+    
+    [Drone-detection](https://i.imgur.com/5UL6AvU.gifv)
+
+
   - [drone_detection Repo](https://github.com/dojinkimm/drone_detection)에 작업중인 코드 업로드
   - 라즈베리파이와 카메라 확보, 모니터와 HDMI선 구매해야함 
 

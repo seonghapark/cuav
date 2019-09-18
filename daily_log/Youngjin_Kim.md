@@ -36,3 +36,6 @@ Youngjin Kim
 2019.09.16
 1. Conference Room에서 radar를 작동해 real time으로 데이터를 받아오는것을 실험 및 확인.
 2. real time data를 wmv로 변환하여 visualize 하였을 때 어떤식으로 나오는지 확인하였으나 아무것도 나오지 않음.
+
+2019.2019.17
+1. RabbitMQ로 작성된 코드를 ROS로 변경하여 돌리기 위해 VM 설정 및 ROSKinetic 재설치 후 한줄 설치 코드 README 작성
