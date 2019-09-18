@@ -80,3 +80,8 @@
   - [ball screw](https://www.amazon.com/CNCCANEN-SFU1605-1200mm-Antibacklash-Machining-Ballscrew/dp/B07T1QM8KN/ref=sr_1_45?keywords=ballscrew&qid=1568730875&sr=8-45)
   - [coupler](https://www.amazon.com/YOTINO-Flexible-Couplings-RepRap-3D/dp/B07DC2CV6T/ref=sr_1_4?crid=3I30KJH6BL5VR&keywords=nema+17+coupler&qid=1568733483&s=industrial&sprefix=nema17+cou%2Cindustrial%2C158&sr=1-4)
 - stepper motor를 제어하기 위한 python 코드 개발
+
+### 2019-09-18
+- [rail 초안 작성](https://ibb.co/PcphmZz): 선에 가해지는 스트레스가 지속적으로 발생할 것 같다는 피드백을 받음
+  => 먼저 레일을 완성하고 radar 팀과 상의하여 최대한 간섭이 없는 방향으로 설치할 예정
+- stepper motor를 제어하기 위한 python 코드 개발
