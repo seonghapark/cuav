@@ -74,3 +74,9 @@
 - rail을 만들때 필요한 stepper motor와 driver를 선정
   - [stpper motor](https://www.amazon.com/Usongshine-Geared-Stepper-Motor-Ratio/dp/B07V359RFB/ref=sr_1_5?keywords=nema+17&qid=1568662364&s=hi&sr=1-5)
   - [driver](https://www.amazon.com/Stepper-Driver-TB6600-Controller-Single/dp/B07H55MH23/ref=asc_df_B07H55MH23/?tag=hyprod-20&linkCode=df0&hvadid=309802506143&hvpos=1o4&hvnetw=g&hvrand=13175866527852851402&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9016722&hvtargid=pla-558289099173&psc=1)
+
+### 2019-09-17
+- rail을 만들때 필요한 ball screw와 coupler 선정
+  - [ball screw](https://www.amazon.com/CNCCANEN-SFU1605-1200mm-Antibacklash-Machining-Ballscrew/dp/B07T1QM8KN/ref=sr_1_45?keywords=ballscrew&qid=1568730875&sr=8-45)
+  - [coupler](https://www.amazon.com/YOTINO-Flexible-Couplings-RepRap-3D/dp/B07DC2CV6T/ref=sr_1_4?crid=3I30KJH6BL5VR&keywords=nema+17+coupler&qid=1568733483&s=industrial&sprefix=nema17+cou%2Cindustrial%2C158&sr=1-4)
+- stepper motor를 제어하기 위한 python 코드 개발
