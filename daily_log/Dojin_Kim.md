@@ -64,3 +64,9 @@
     - torch 설치 Fail
     - opencv DNN으로 영상 detection 프로그램 run 됐으나 1초에 1프레임도 안나옴
   - 웹캠 실행해봤으나 매우 느림, 개선할 수 있는 방법 찾아봐야 함
+  
+### 2019-09-19
+  - 라즈베리파이에서 opencv dnn으로 drone detect 프로그램 실행 (약 0.5FPS)
+  - Pytorch와 Tensoflow로 해보려고 시도
+  - 파이썬 버전이 꼬여서 수정중
+  - 기존 컴퓨터에서는 opencv dnn이 pytorch, tensorflow보다 빠름
