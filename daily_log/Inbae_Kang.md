@@ -72,4 +72,13 @@ Inbae Kang
 
 2. Tutorial 진행하며 [내용 정리](https://github.com/cleverdevk/ROS_Tutorial)
 
+
+## 2019-09-19
+
+1. ROS Tutorial 진행.
+
+2. Tutorial 진행하며 [내용 정리](https://github.com/cleverdevk/ROS_Tutorial)
+
+3. [ROS Design Documnet](https://www.notion.so/cleverdevk/ROS-Design-9cbf88796d634cb692d4113f3f8526bd) 작성
+
 * * *
