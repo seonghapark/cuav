@@ -45,3 +45,8 @@ Youngjin Kim
 2. radar 패키지 생성
 3. raw data 교환을 위한 메시지 raw.msg 생성
 4. 해야 할 일 : custom message를 생성하였으니 파이썬 코드에서 import를 하여 사용하는 법 찾기
+
+2019.09.19
+1. raw data를 받아 parsing 하는 부분 작성
+2. parsing후 sar imaging하기 위한 wav로 변환
+3. wav data를 ifft 및 sar imaging 하기 위한 전처리 해야 함 
