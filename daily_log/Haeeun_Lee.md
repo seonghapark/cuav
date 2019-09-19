@@ -47,3 +47,6 @@
 1. radar 패키지 및 raw 메시지 생성
 2. ros 패키지 생성 및 커스텀 메시지 생성하는 법 md로 정리
 3. msg import 되지 않는 문제 해결 필요
+
+### 2019.09.19
+1. raw 데이터 생성해서 ros로 publish 하는 코드 작성 (0_r_get_data.py 수정)
