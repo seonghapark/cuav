@@ -1,0 +1,8 @@
+prefix=/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/install
+
+Name: radar
+Description: Description of radar
+Version: 0.0.0
+Cflags: -I/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/install/include
+Libs: -L/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/install/lib -lradar
+Requires: roscpp rospy std_msgs message_runtime
