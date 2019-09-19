@@ -169,7 +169,7 @@ class ifft_handler():
 
 def listener():
     rospy.init_node('analyzer',anonymous=True)
-    rospy.Subscriber('raw',raw)
+   rospy.Subscriber('raw',raw)
 
 if __name__ == '__main__':
     #print('Connect RMQ')
