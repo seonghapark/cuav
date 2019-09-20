@@ -87,5 +87,6 @@
 - stepper motor를 제어하기 위한 python 코드 개발
 
 ### 2019-09-19
-- [스테핑 모터와 드라이버를 조립함](https://ibb.co/pdK1Vh2)
+- 주문한 stepper motor와 drive를 수령함
+- [stepper motor와 driver를 조립함](https://ibb.co/pdK1Vh2)
 - [작성한 파이썬 코드를 가지고 모터를 작동시켜 봄](https://youtu.be/C7Emrwi_g5c)
