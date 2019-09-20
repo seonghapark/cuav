@@ -85,3 +85,7 @@
 - [rail 초안 작성](https://ibb.co/PcphmZz): 선에 가해지는 스트레스가 지속적으로 발생할 것 같다는 피드백을 받음
   => 먼저 레일을 완성하고 radar 팀과 상의하여 최대한 간섭이 없는 방향으로 설치할 예정
 - stepper motor를 제어하기 위한 python 코드 개발
+
+### 2019-09-19
+- [스테핑 모터와 드라이버를 조립함](https://ibb.co/pdK1Vh2)
+- [작성한 파이썬 코드를 가지고 모터를 작동시켜 봄](https://youtu.be/C7Emrwi_g5c)
