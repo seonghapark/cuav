@@ -97,7 +97,7 @@
 
 ### 2019-09-20
 - 영어 수업
-- rail 관련 [위키](https://github.com/seonghapark/cuav/wiki/Making-Rail) 작성
+- [rail 관련 위키](https://github.com/seonghapark/cuav/wiki/Making-Rail) 작성
 - 전체 회의
   - 계획
     - 아직 Eric 교수님이 학교에 오시지 않아 주문이 제대로 안되는 상태. 다음주 안으로 레일까지 제작할 예정
