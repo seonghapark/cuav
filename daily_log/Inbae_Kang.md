@@ -81,4 +81,11 @@ Inbae Kang
 
 3. [ROS Design Documnet](https://www.notion.so/cleverdevk/ROS-Design-9cbf88796d634cb692d4113f3f8526bd) 작성
 
+
+## 2019-09-20
+
+
+1. [ROS Design Documnet](https://www.notion.so/cleverdevk/ROS-Design-9cbf88796d634cb692d4113f3f8526bd) 작성
+
 * * *
+
