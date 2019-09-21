@@ -27,7 +27,7 @@
 |2019-09-17 **Tue**|**조사**<br> Ground Station을 중심으로 조사 [[조사내용](https://www.notion.so/kkyy0126/Drone-d0a25a86697b49c4b291fe0baea0b49e)] <br><br> - **SDK**: 개발을 **처음**부터 만드는 것을 기준으로 작성됨.<br>즉, **Ground Station을 사용**하는 것이 시간, 효율적으로 좋다는 결론을 내림<br><br> - **Ground Station**: Mission Planner와 UgCS 중 하나를 사용하는 것이 좋을 듯<br> * Mission Planner: 가장 먼저 만들어진 GCS이며 가장 완전한 기능을 갖춤 <br> * UgCS: 쉬운 GCS, 비행 금지 구역이 내장됨+만들 수 있음|
 |2019-09-18 **Wed**|**조사**<br>Mission Planner와 UgCS를 설치하여 비교한 결과, **UgCS**를 사용하는 것이 낫다는 결론을 내림<br>이후 UgCS 사용법에 대해 조사|
 |2019-09-19 **Thr**|**사용법 조사**<br>**UgCS**의 사용법에 대해 조사 후, 직접 경로를 만들어 실행시켜봄(시뮬레이션)<br>![successsssss](https://user-images.githubusercontent.com/38516906/65274900-68ff1880-daf2-11e9-91a3-83570acd133b.gif)|
-|2019-09-20 **Fri**||
+|2019-09-20 **Fri**|**사용법 조사**<br>**UgCS**의 사용법 정리중|
 
 <br><br><br>
 
