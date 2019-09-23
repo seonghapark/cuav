@@ -70,3 +70,11 @@
   - Pytorch와 Tensoflow로 해보려고 시도
   - 파이썬 버전이 꼬여서 수정중
   - 기존 컴퓨터에서는 opencv dnn이 pytorch, tensorflow보다 빠름
+  
+### 2019-09-20
+  - FPS 높일 방법 찾아봄
+  - ROS에서 opencv 실행할 때 고려해야할 점들 찾아봄
+  
+  
+## 2019-09-23 ~ 2019-09-27
+  

@@ -50,3 +50,6 @@ Youngjin Kim
 1. raw data를 받아 parsing 하는 부분 작성
 2. parsing후 sar imaging하기 위한 wav로 변환
 3. wav data를 ifft 및 sar imaging 하기 위한 전처리 해야 함 
+
+2019.09.20
+1. 화상 회의를 통해 radar에서 분업할 부분과 수정해야 할 부분 정립

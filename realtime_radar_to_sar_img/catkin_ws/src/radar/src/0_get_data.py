@@ -5,23 +5,19 @@ import os
 
 from serial import Serial, SerialException
 import argparse
-# import pika
 
 import time
-import numpy as np
-
-import struct
 
 import rospy
 from radar.msg import raw
 from radar.msg import rail
-EXCHANGE_NAME = 'radar'
 
+EXCHANGE_NAME = 'radar'
 data = bytearray()
 
-# class ros_communication():
 def callback(end):
     global data
+    print("publish")
     pub = rospy.Publisher('raw', raw, queue_size=10)
     raw_data = raw()
 
@@ -34,11 +30,16 @@ def callback(end):
     raw_data.num = 1
     pub.publish(raw)
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8774ab54bb19f3d609ff6cd282e66d044250fde6
 def main(args):
     rospy.init_node('get_data', anonymous=True)
     rospy.Subscriber('rail', rail, callback)
     try:
+        rospy.init_node('get_data', anonymous=True)
+        rospy.Subscriber('rail', rail, callback)
         print('begin receiving...')
         with Serial(args.device, 115200) as serial:
             while True:
