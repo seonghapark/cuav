@@ -1,0 +1,8 @@
+prefix=/home/cleverdevk/REAL_GUAVA/cuav/GUAVA/catkin_ws/devel
+
+Name: radar
+Description: Description of radar
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/cleverdevk/REAL_GUAVA/cuav/GUAVA/catkin_ws/devel/lib 
+Requires: 
