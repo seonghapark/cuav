@@ -52,6 +52,7 @@ add_message_files(
    FILES
    raw.msg
    rail.msg
+   wav.msg
  )
 
 ## Generate services in the 'srv' folder
