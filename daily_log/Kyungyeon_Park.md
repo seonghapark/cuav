@@ -88,7 +88,16 @@
 
 ### 2019-09-19
 - 주문한 stepper motor와 drive를 수령함
-- 주문한 driver의 어뎁터가(12V, 3A) 아직 도착하지 않아 기존에 있는 어뎁터(12V, 1A)를 사용하여
+- stepper motor 조립
+  - [stepper motor와 driver를 조립함](https://ibb.co/pdK1Vh2)
+- stepper motor 실행
+  - [작성한 파이썬 코드를 가지고 모터를 작동시켜 봄](https://youtu.be/C7Emrwi_g5c)
+  - 주문한 driver의 어뎁터가(12V, 3A) 아직 도착하지 않아 기존에 있는 어뎁터(12V, 1A)를 사용하여
 작동시에 조금 속도가 느림(모터는 12V, 1.6A)
-- [stepper motor와 driver를 조립함](https://ibb.co/pdK1Vh2)
-- [작성한 파이썬 코드를 가지고 모터를 작동시켜 봄](https://youtu.be/C7Emrwi_g5c)
+
+### 2019-09-20
+- 영어 수업
+- [rail 관련 위키](https://github.com/seonghapark/cuav/wiki/Making-Rail) 작성
+- 전체 회의
+  - 계획
+    - 아직 Eric 교수님이 학교에 오시지 않아 주문이 제대로 안되는 상태. 다음주 안으로 레일까지 제작할 예정
