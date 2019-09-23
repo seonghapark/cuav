@@ -61,6 +61,7 @@ def callback(data):
     wav_data = wav()
     wav_data.data = audio
     wav_data.num = raw_data.num
+    wav_data.sr = 5862
     # Publish Audio Numpy data
     pub = rospy.Publisher('wav',wav,queue_size=1)
     pub.publish(wav_data)
