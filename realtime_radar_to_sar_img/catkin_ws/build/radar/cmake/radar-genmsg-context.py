@@ -1,6 +1,6 @@
 # generated from genmsg/cmake/pkg-genmsg.context.in
 
-messages_str = "/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/src/radar/msg/raw.msg"
+messages_str = "/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/src/radar/msg/raw.msg;/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/src/radar/msg/rail.msg"
 services_str = ""
 pkg_name = "radar"
 dependencies_str = "std_msgs"

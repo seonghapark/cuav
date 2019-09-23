@@ -126,7 +126,6 @@ endif()
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/build/gtest/cmake_install.cmake")
-  include("/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/build/pubtest/cmake_install.cmake")
   include("/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/build/radar/cmake_install.cmake")
 
 endif()

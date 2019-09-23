@@ -1,8 +1,0 @@
-prefix=/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/devel
-
-Name: pubtest
-Description: Description of pubtest
-Version: 0.0.0
-Cflags: 
-Libs: -L/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/devel/lib 
-Requires: 

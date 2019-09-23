@@ -54,6 +54,7 @@ CMAKE_BINARY_DIR = /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/build
 include radar/CMakeFiles/radar_generate_messages_eus.dir/progress.make
 
 radar/CMakeFiles/radar_generate_messages_eus: /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/devel/share/roseus/ros/radar/msg/raw.l
+radar/CMakeFiles/radar_generate_messages_eus: /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/devel/share/roseus/ros/radar/msg/rail.l
 radar/CMakeFiles/radar_generate_messages_eus: /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/devel/share/roseus/ros/radar/manifest.l
 
 
@@ -62,12 +63,18 @@ radar/CMakeFiles/radar_generate_messages_eus: /home/project/cuav/realtime_radar_
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating EusLisp code from radar/raw.msg"
 	cd /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/build/radar && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/src/radar/msg/raw.msg -Iradar:/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/src/radar/msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p radar -o /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/devel/share/roseus/ros/radar/msg
 
+/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/devel/share/roseus/ros/radar/msg/rail.l: /opt/ros/kinetic/lib/geneus/gen_eus.py
+/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/devel/share/roseus/ros/radar/msg/rail.l: /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/src/radar/msg/rail.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating EusLisp code from radar/rail.msg"
+	cd /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/build/radar && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/src/radar/msg/rail.msg -Iradar:/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/src/radar/msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p radar -o /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/devel/share/roseus/ros/radar/msg
+
 /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/devel/share/roseus/ros/radar/manifest.l: /opt/ros/kinetic/lib/geneus/gen_eus.py
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating EusLisp manifest code for radar"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating EusLisp manifest code for radar"
 	cd /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/build/radar && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py -m -o /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/devel/share/roseus/ros/radar radar std_msgs
 
 radar_generate_messages_eus: radar/CMakeFiles/radar_generate_messages_eus
 radar_generate_messages_eus: /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/devel/share/roseus/ros/radar/msg/raw.l
+radar_generate_messages_eus: /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/devel/share/roseus/ros/radar/msg/rail.l
 radar_generate_messages_eus: /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/devel/share/roseus/ros/radar/manifest.l
 radar_generate_messages_eus: radar/CMakeFiles/radar_generate_messages_eus.dir/build.make
 

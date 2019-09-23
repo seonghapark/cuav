@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#! /usr/bin/env python3
 import sys
 from scipy.io import wavfile
 import os
@@ -34,13 +34,10 @@ def callback(end):
     raw_data.num = 1
     pub.publish(raw)
 
-# rail end signal
-def listener(self):
-    rospy.init_node('get_data', anonymous=True)
-    rospy.Subscriber('rail', rail, callback)
-    rospy.spin()
 
 def main(args):
+    rospy.init_node('get_data', anonymous=True)
+    rospy.Subscriber('rail', rail, callback)
     try:
         print('begin receiving...')
         with Serial(args.device, 115200) as serial:
@@ -49,14 +46,14 @@ def main(args):
                     data.extend(serial.read(serial.inWaiting()))
                 else:
                     time.sleep(0.01)
+        rospy.spin()
     except (KeyboardInterrupt, Exception) as ex:
         print(ex)
     finally:
-        print('Close all')(args)
+        print('Close all')
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-d', '--device', dest='device', help='Device path')
-    listener()
     main(parser.parse_args())

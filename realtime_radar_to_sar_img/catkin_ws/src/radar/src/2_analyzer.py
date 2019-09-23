@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#! /usr/bin/env python3
 
 import numpy as np
 import sys
@@ -213,15 +213,13 @@ def callback(data):
     sync, data = parser.parse()
     # stacking audio data
     audio = np.vstack((sync,data))
-    wav_data = wav()
+
+    #wav_data = wav()
     #TODO: make wav.msg
-    wav_data.data = audio
-
-    #TODO: IFFT
-
+    #wav_data.data = audio
     # Publish Audio Numpy data
-    pub = rospy.Publisher('wav',wav,queue_size=1)
-    pub.publish(wav_data)
+    #pub = rospy.Publisher('wav',wav,queue_size=1)
+    #pub.publish(wav_data)
 
 def listener():
     rospy.init_node('analyzer',anonymous=True)

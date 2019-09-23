@@ -1,4 +1,4 @@
-#! /usr/bin/env python
+#! /usr/bin/env python3
 
 import rospy
 from radar.msg import rail
@@ -10,4 +10,4 @@ message = rail()
 message.end = True
 while not rospy.is_shutdown():
     pub.publish(message)
-    rospy.sleep()
+    rate.sleep()
