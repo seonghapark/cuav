@@ -10,4 +10,4 @@ message = rail()
 message.end = True
 while not rospy.is_shutdown():
     pub.publish(message)
-    rospy.sleep()
+    rate.sleep()
