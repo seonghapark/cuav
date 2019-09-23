@@ -12,11 +12,11 @@
 ## 2019-09-09 ~ 2019-09-15
 |날짜|내용|
 |:--:|:--:|
-|2019-09-09 **Mon**|Ubuntu에서 파일 실행 성공: 실행 시 bashrc설정 > rosrun|
-|2019-09-10 **Tue**|**논문 읽기**<br>Combination of Radar and Audio Sensors for Identification<br>of Rotor-type Unmanned Aerial Vehicles (UAVs)<br><br>ROS_system 코드 분석|
-|2019-09-11 **Wed**|**[역할: 드론 제어]**<br> - DJI Phantom2 확보<br> - 베터리 확보 <br> - groundstation 확보 <br> - control manual tutorial 숙지<br><br>드론에 대한 전반적인 기본지식 공부|
-|2019-09-12 **Thr**|**조사**<br> - DJI Phantom2 & 베터리: 모델은 확인하였으나, 오작동이 있음<br> - 드론 실험 장소: Anthony 교수님네 농장에서 할 수 있는지 직접 확인 맡기<br> - control manual tutorial: [[link](https://www.dronezon.com/diy-drone-repair-videos/dji-innovation-drones/dji-ground-station-app-setting-up-phantom-2-waypoint-tutorial/)] 읽어보기<br><br>Eric 교수님께 여쭤본 결과, Parrot모델을 사용하는 것이 더 적합하다는 답장을 받음|
-|2019-09-13 **Fri**|**조사**<br> - DJI Phantom2에 대해 좀 더 알아보기: groundstation, SDK <br> - Parrot 알아보기: SDK구축 후 IOS 시뮬레이터를 사용하여 개발하는 것까지 알아냄<br><br>Eric 교수님과 대화 나눠보기: Phantom2 -> groundstation로 쉽게 조작 가능(5~10m), re-programming이 아닌 기존의 sw를 이용해 제어입력<br>다른 모델 사용은 어떤가 또한 여쭤보기|
+|2019<br>-09-09<br>**Mon**|Ubuntu에서 파일 실행 성공: 실행 시 bashrc설정 > rosrun|
+|2019<br>-09-10<br>**Tue**|**논문 읽기**<br>Combination of Radar and Audio Sensors for Identification<br>of Rotor-type Unmanned Aerial Vehicles (UAVs)<br><br>ROS_system 코드 분석|
+|2019<br>-09-11<br>**Wed**|**[역할: 드론 제어]**<br> - DJI Phantom2 확보<br> - 베터리 확보 <br> - groundstation 확보 <br> - control manual tutorial 숙지<br><br>드론에 대한 전반적인 기본지식 공부|
+|2019<br>-09-12<br>**Thr**|**조사**<br> - DJI Phantom2 & 베터리: 모델은 확인하였으나, 오작동이 있음<br> - 드론 실험 장소: Anthony 교수님네 농장에서 할 수 있는지 직접 확인 맡기<br> - control manual tutorial: [[link](https://www.dronezon.com/diy-drone-repair-videos/dji-innovation-drones/dji-ground-station-app-setting-up-phantom-2-waypoint-tutorial/)] 읽어보기<br><br>Eric 교수님께 여쭤본 결과, Parrot모델을 사용하는 것이 더 적합하다는 답장을 받음|
+|2019<br>-09-13<br>**Fri**|**조사**<br> - DJI Phantom2에 대해 좀 더 알아보기: groundstation, SDK <br> - Parrot 알아보기: SDK구축 후 IOS 시뮬레이터를 사용하여 개발하는 것까지 알아냄<br><br>Eric 교수님과 대화 나눠보기: Phantom2 -> groundstation로 쉽게 조작 가능(5~10m), re-programming이 아닌 기존의 sw를 이용해 제어입력<br>다른 모델 사용은 어떤가 또한 여쭤보기|
 
 <br><br><br>
 
@@ -34,8 +34,19 @@
 ## 2019-09-23 ~ 2019-09-29
 |날짜|내용|
 |:--:|:--:|
-|2019-09-23 **Mon**||
+|2019-09-23 **Mon**|**사용법 조사**<br>**UgCS**의 사용법 정리중[[link](https://www.notion.so/kkyy0126/UgCS-529b849fc534436f984a51d8a7b8cca8)]<br><br>컨퍼런스룸의 위경도 좌표 정리<br>![aaa](https://user-images.githubusercontent.com/38516906/65458420-9104b980-de1b-11e9-974c-074829030132.PNG)|
 |2019-09-24 **Tue**||
 |2019-09-25 **Wed**||
 |2019-09-26 **Thr**||
 |2019-09-27 **Fri**||
+
+<br><br><br>
+
+## 2019-09-30 ~ 2019-10-06
+|날짜|내용|
+|:--:|:--:|
+|2019-09-30 **Mon**||
+|2019-10-01 **Tue**||
+|2019-10-02 **Wed**||
+|2019-10-03 **Thr**||
+|2019-10-04 **Fri**||
