@@ -47,7 +47,7 @@ def main(args):
     except (KeyboardInterrupt, Exception) as ex:
         print(ex)
     finally:
-        print('Close all')
+        print('Close all',args)
 
 
 if __name__ == '__main__':
