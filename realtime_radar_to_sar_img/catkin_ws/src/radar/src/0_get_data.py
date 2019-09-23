@@ -30,10 +30,6 @@ def callback(end):
     raw_data.num = 1
     pub.publish(raw)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 8774ab54bb19f3d609ff6cd282e66d044250fde6
 def main(args):
     rospy.init_node('get_data', anonymous=True)
     rospy.Subscriber('rail', rail, callback)
