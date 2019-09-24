@@ -33,8 +33,9 @@ def feet2meters(feet):
 
 def open_wave(fn):
   '''Returns a tuple of sync_samples, data_samples, and sample_rate.'''
-  wavefile = wave.open(fn, 'r')
-  raw_data = wavefile.readframes(wavefile.getnframes())
+  #wavefile = wave.open(fn, 'r')
+  #raw_data = wavefile.readframes(wavefile.getnframes())
+
   samples = numpy.fromstring(raw_data, dtype=numpy.int16)
   # try to use 128-bit float for the renormalization
   try:
@@ -320,9 +321,9 @@ def make_sar_image(setup_data):
 
   plot_img(sar_img_data)
 
-def main():
+def main(data):
   parser = argparse.ArgumentParser(description="Generate a SAR image outputted by default to 'sar_image.png' from a WAV file of appropriate data.")
-  parser.add_argument('-f', nargs='?', type=str, default='mit-towardswarehouse.wav', help="Filename containing SAR data in appropriate format (default: mit-towardswarehouse.wav (prefix filename with 'mit-' to use MIT's frequency range if your VCO range is different))")
+  #parser.add_argument('-f', nargs='?', type=str, default='mit-towardswarehouse.wav', help="Filename containing SAR data in appropriate format (default: mit-towardswarehouse.wav (prefix filename with 'mit-' to use MIT's frequency range if your VCO range is different))")
   parser.add_argument('-o', nargs='?', type=str, default='sar_image.png', help="Filename to save the SAR image to (default: sar_image.png)")
   parser.add_argument('-rs', nargs='?', type=float, default=30.0, help='Downrange distance (ft) to calibration target at scene center (default: 30)')
   parser.add_argument('-cr1', nargs='?', type=float, default=-80.0, help='Farthest crossrange distance (ft) left of scene center shown in image viewport (default: -80, minimum: -170)')
@@ -333,7 +334,7 @@ def main():
 
   args = parser.parse_args()
 
-  assert os.path.exists(args.f), "Data file %s not found." % args.f
+  #assert os.path.exists(args.f), "Data file %s not found." % args.f
   try:
     with open(args.o, 'w'):
       pass
@@ -349,5 +350,13 @@ def main():
 
   make_sar_image(setup_data)
 
+def listener() :
+  rospy.init_node('make_sar_image', anonymous=True)
+  rospy.Subscriber('wav', wav, main)
+  rospy.spin()
+
+
 if __name__ == '__main__':
-  main()
+  print('Connect ROS')
+  listener()
+
