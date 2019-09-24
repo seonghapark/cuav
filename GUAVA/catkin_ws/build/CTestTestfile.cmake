@@ -6,5 +6,6 @@
 # testing this directory and lists subdirectories to be tested as well.
 subdirs(gtest)
 subdirs(camera)
-subdirs(main)
 subdirs(radar)
+subdirs(main)
+subdirs(practice)

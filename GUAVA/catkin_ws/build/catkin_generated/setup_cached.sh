@@ -7,4 +7,5 @@
 # new environment variables
 
 # modified environment variables
+export PKG_CONFIG_PATH="/home/project/cuav/GUAVA/catkin_ws/devel/lib/pkgconfig:$PKG_CONFIG_PATH"
 export PWD="/home/project/cuav/GUAVA/catkin_ws/build"
