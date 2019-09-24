@@ -8,4 +8,6 @@
     (:file "_package_rail" :depends-on ("_package"))
     (:file "raw" :depends-on ("_package_raw"))
     (:file "_package_raw" :depends-on ("_package"))
+    (:file "wav" :depends-on ("_package_wav"))
+    (:file "_package_wav" :depends-on ("_package"))
   ))

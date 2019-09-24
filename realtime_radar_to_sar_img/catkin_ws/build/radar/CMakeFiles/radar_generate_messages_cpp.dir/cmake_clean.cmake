@@ -2,6 +2,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/radar_generate_messages_cpp"
   "/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/devel/include/radar/raw.h"
   "/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/devel/include/radar/rail.h"
+  "/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/devel/include/radar/wav.h"
 )
 
 # Per-language clean rules from dependency scanning.

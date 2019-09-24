@@ -5,5 +5,7 @@
    "RAIL"
    "<RAW>"
    "RAW"
+   "<WAV>"
+   "WAV"
   ))
 

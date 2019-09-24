@@ -36,6 +36,7 @@ if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspeci
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/radar/msg" TYPE FILE FILES
     "/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/src/radar/msg/raw.msg"
     "/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/src/radar/msg/rail.msg"
+    "/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/src/radar/msg/wav.msg"
     )
 endif()
 
