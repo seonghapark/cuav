@@ -10,6 +10,7 @@ from radar.msg import raw, wav
 from scipy.io import wavfile
 
 EXCHANGE_NAME = 'radar'
+SAMPLE_RATE = 44100
 
 class RadarBinaryParser():
     def __init__(self, raw_data, sr=5862):
@@ -52,16 +53,18 @@ def callback(data):
     raw_data.data = data.data
     raw_data.num = data.num
     # parse text binary file
-    parser = RadarBinaryParser(raw_data.data, sr=5862)
+    parser = RadarBinaryParser(raw_data.data, sr=SAMPLE_RATE)
     sync, data = parser.parse()
     # stacking audio data
-    audio = np.vstack((sync,data))
-    audio = audio.T.astype(np.int16)
-    rospy.loginfo(audio)
+    #audio = np.vstack((sync,data))
+    #audio = audio.T.astype(np.int16)
+    #rospy.loginfo(audio)
+
     wav_data = wav()
-    wav_data.data = audio
+    wav_data.data = data.astype(np.int16)
+    wav_data.sync = sync.astype(np.int16)
     wav_data.num = raw_data.num
-    wav_data.sr = 5862
+    wav_data.sr = SAMPLE_RATE
     # Publish Audio Numpy data
     pub = rospy.Publisher('wav',wav,queue_size=1)
     pub.publish(wav_data)
