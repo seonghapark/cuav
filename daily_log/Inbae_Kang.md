@@ -87,5 +87,12 @@ Inbae Kang
 
 1. [ROS Design Documnet](https://www.notion.so/cleverdevk/ROS-Design-9cbf88796d634cb692d4113f3f8526bd) 작성
 
+## 2019-09-23
+
+
+1. [ROS Design Documnet](https://www.notion.so/cleverdevk/ROS-Design-9cbf88796d634cb692d4113f3f8526bd) 작성 및 github에 업로드
+
+2. 새로운 GUAVA 디렉토리에 ROS Workspace 생성 및 패키지 생성
+
 * * *
 
