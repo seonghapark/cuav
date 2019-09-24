@@ -5,6 +5,8 @@ import scipy
 import scipy.signal
 import matplotlib.pylab as pylab
 import wave
+import rospy
+from radar.msg import wav
 try:
   import scipy.interpolate
 except Exception as e:
@@ -31,23 +33,40 @@ def meters2feet(meters):
 def feet2meters(feet):
   return feet * 0.3048
 
-def open_wave(fn):
+def open_wave(data):
   '''Returns a tuple of sync_samples, data_samples, and sample_rate.'''
   #wavefile = wave.open(fn, 'r')
   #raw_data = wavefile.readframes(wavefile.getnframes())
-
-  samples = numpy.fromstring(raw_data, dtype=numpy.int16)
+  raw_data = data.data
+  raw_sync = data.sync
+  raw_data = numpy.array(raw_data, dtype=numpy.int16)
+  raw_sync = numpy.array(raw_sync, dtype=numpy.int16)
+  print('shape of data : ', raw_data.shape, 'shape of sync : ', raw_sync.shape)
+  #raw_data = numpy.fromstring(raw_data, dtype=numpy.int16)
+  #raw_sync = numpy.fromstring(raw_sync, dtype=numpy.int16)
+  #samples = numpy.fromstring(raw_data, dtype=numpy.int16)
   # try to use 128-bit float for the renormalization
   try:
-    normed_samples = samples / numpy.float128(numpy.iinfo(numpy.int16).max)
+    #normed_samples = samples / numpy.float128(numpy.iinfo(numpy.int16).max)
+    normed_data = raw_data / numpy.float128(numpy.iinfo(numpy.int16).max)
+    normed_sync = raw_sync / numpy.float128(numpy.iinfo(numpy.int16).max)
   except:
-    normed_samples = samples / float(numpy.iinfo(numpy.int16).max)
-  sync_samples = normed_samples[0::2]
-  data_samples = normed_samples[1::2]
+    #normed_samples = samples / float(numpy.iinfo(numpy.int16).max)
+    normed_data = raw_data / float(numpy.iinfo(numpy.int16).max)
+    normed_sync = raw_sync / float(numpy.iinfo(numpy.int16).max)
+  #sync_samples = normed_samples[0::2]
+  #data_samples = normed_samples[1::2]
+  sync_samples = normed_sync[::2]
+  data_samples = normed_data[::2]
   # Need to invert these to match Matlab code for some reason.
   sync_samples *= -1
   data_samples *= -1
-  return sync_samples, data_samples, wavefile.getframerate()
+
+  print('sync samples')
+  print(sync_samples)
+  print('data samples')
+  print(data_samples)
+  return sync_samples, data_samples, data.sr
 
 
 # Solely this following function is licensed under the cc-by-sa
@@ -306,21 +325,26 @@ def plot_img(sar_img_data):
 def make_sar_image(setup_data):
   '''Gets the frames from an input file, performs the RMA on the SAR data,
   and saves to an output image.'''
-  filename = setup_data['filename']
+  print('making sar image')
+  sif = get_sar_frames(*open_wave(setup_data['filename']), pulse_period=MOD_PULSE_PERIOD)
 
+  '''
   sif = get_sar_frames(*open_wave(filename), pulse_period=MOD_PULSE_PERIOD)
-
   if setup_data['bgsub']:
     sif_bg = get_sar_frames(*open_wave(setup_data['bgsub']), pulse_period=MOD_PULSE_PERIOD)
     for i in range(len(sif)):
       if i < len(sif_bg):
         sif[i] -= sif_bg[i]
+  '''
 
   Rs = setup_data['Rs']
   freq_range = VCO_FREQ_RANGE
+
+  '''
   prefix = filename.split('/')[-1].split('-')[0].lower()
   if prefix == 'mit':
     freq_range = None
+  '''
 
   sar_img_data = RMA(sif, pulse_period=MOD_PULSE_PERIOD, freq_range=freq_range, Rs=feet2meters(Rs))
 
@@ -333,8 +357,10 @@ def make_sar_image(setup_data):
 
   #print(sar_img_data)
   plot_img(sar_img_data)
+  print('finish plotting image')
 
 def main(data):
+  print('data received')
   parser = argparse.ArgumentParser(description="Generate a SAR image outputted by default to 'sar_image.png' from a WAV file of appropriate data.")
   #parser.add_argument('-f', nargs='?', type=str, default='mit-towardswarehouse.wav', help="Filename containing SAR data in appropriate format (default: mit-towardswarehouse.wav (prefix filename with 'mit-' to use MIT's frequency range if your VCO range is different))")
   parser.add_argument('-o', nargs='?', type=str, default='sar_image.png', help="Filename to save the SAR image to (default: sar_image.png)")
@@ -359,8 +385,7 @@ def main(data):
   if args.bgsub is not None:
     assert os.path.exists(args.bgsub), "Background substitution file %s not found." % args.bgsub
 
-  setup_data = {'filename': args.f, 'outfilename': args.o, 'Rs': args.rs, 'cr1': args.cr1, 'cr2': args.cr2, 'dr1': args.dr1, 'dr2': args.dr2, 'bgsub': args.bgsub}
-
+  setup_data = {'filename': data, 'outfilename': args.o, 'Rs': args.rs, 'cr1': args.cr1, 'cr2': args.cr2, 'dr1': args.dr1, 'dr2': args.dr2, 'bgsub': args.bgsub}
   make_sar_image(setup_data)
 
 def listener() :

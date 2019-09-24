@@ -5,6 +5,7 @@ import time
 import rospy
 from radar.msg import raw
 
+SAMPLE_RATE = 44100
 def talker():
     pub = rospy.Publisher('raw', raw, queue_size=1)
     rospy.init_node('fake_data_sender', anonymous=True)
@@ -16,7 +17,7 @@ def talker():
     
     data = file.read()
     i = 0
-    max_num = int(len(data)//(5862*2))
+    max_num = int(len(data)//(SAMPLE_RATE*2))
     try:
         # divide input
         while not rospy.is_shutdown():             
@@ -26,9 +27,9 @@ def talker():
             else :
                 break
             if i<max_num-1 :
-                raw_data.data = data[i*(5862*2):(i+1)*(5862*2)+1]
+                raw_data.data = data[i*(SAMPLE_RATE*2):(i+1)*(SAMPLE_RATE*2)+1]
             else :
-                raw_data.data = data[i*(5862*2):len(data)]
+                raw_data.data = data[i*(SAMPLE_RATE*2):len(data)]
             
             raw_data.num = i
 
