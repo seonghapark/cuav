@@ -1,8 +1,8 @@
-# Install script for directory: /home/cleverdevk/REAL_GUAVA/cuav/GUAVA/catkin_ws/src/camera
+# Install script for directory: /home/project/cuav/GUAVA/catkin_ws/src/camera
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/cleverdevk/REAL_GUAVA/cuav/GUAVA/catkin_ws/install")
+  set(CMAKE_INSTALL_PREFIX "/home/project/cuav/GUAVA/catkin_ws/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -33,17 +33,17 @@ if(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/cleverdevk/REAL_GUAVA/cuav/GUAVA/catkin_ws/build/camera/catkin_generated/installspace/camera.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/project/cuav/GUAVA/catkin_ws/build/camera/catkin_generated/installspace/camera.pc")
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/camera/cmake" TYPE FILE FILES
-    "/home/cleverdevk/REAL_GUAVA/cuav/GUAVA/catkin_ws/build/camera/catkin_generated/installspace/cameraConfig.cmake"
-    "/home/cleverdevk/REAL_GUAVA/cuav/GUAVA/catkin_ws/build/camera/catkin_generated/installspace/cameraConfig-version.cmake"
+    "/home/project/cuav/GUAVA/catkin_ws/build/camera/catkin_generated/installspace/cameraConfig.cmake"
+    "/home/project/cuav/GUAVA/catkin_ws/build/camera/catkin_generated/installspace/cameraConfig-version.cmake"
     )
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/camera" TYPE FILE FILES "/home/cleverdevk/REAL_GUAVA/cuav/GUAVA/catkin_ws/src/camera/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/camera" TYPE FILE FILES "/home/project/cuav/GUAVA/catkin_ws/src/camera/package.xml")
 endif()
 

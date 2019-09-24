@@ -7,4 +7,4 @@
 # new environment variables
 
 # modified environment variables
-export PWD="/home/cleverdevk/REAL_GUAVA/cuav/GUAVA/catkin_ws/build"
+export PWD="/home/project/cuav/GUAVA/catkin_ws/build"

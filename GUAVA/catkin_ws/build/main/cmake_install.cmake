@@ -1,8 +1,8 @@
-# Install script for directory: /home/cleverdevk/REAL_GUAVA/cuav/GUAVA/catkin_ws/src/main
+# Install script for directory: /home/project/cuav/GUAVA/catkin_ws/src/main
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/cleverdevk/REAL_GUAVA/cuav/GUAVA/catkin_ws/install")
+  set(CMAKE_INSTALL_PREFIX "/home/project/cuav/GUAVA/catkin_ws/install")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -33,17 +33,17 @@ if(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/cleverdevk/REAL_GUAVA/cuav/GUAVA/catkin_ws/build/main/catkin_generated/installspace/main.pc")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/project/cuav/GUAVA/catkin_ws/build/main/catkin_generated/installspace/main.pc")
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/main/cmake" TYPE FILE FILES
-    "/home/cleverdevk/REAL_GUAVA/cuav/GUAVA/catkin_ws/build/main/catkin_generated/installspace/mainConfig.cmake"
-    "/home/cleverdevk/REAL_GUAVA/cuav/GUAVA/catkin_ws/build/main/catkin_generated/installspace/mainConfig-version.cmake"
+    "/home/project/cuav/GUAVA/catkin_ws/build/main/catkin_generated/installspace/mainConfig.cmake"
+    "/home/project/cuav/GUAVA/catkin_ws/build/main/catkin_generated/installspace/mainConfig-version.cmake"
     )
 endif()
 
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/main" TYPE FILE FILES "/home/cleverdevk/REAL_GUAVA/cuav/GUAVA/catkin_ws/src/main/package.xml")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/main" TYPE FILE FILES "/home/project/cuav/GUAVA/catkin_ws/src/main/package.xml")
 endif()
 
