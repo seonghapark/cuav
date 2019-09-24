@@ -53,3 +53,10 @@ Youngjin Kim
 
 2019.09.20
 1. 화상 회의를 통해 radar에서 분업할 부분과 수정해야 할 부분 정립
+
+2019.09.23
+1. 개발 환경 Python2 에서 Python3로 변경
+2. radar 패키지에 rail 포함 및 통신을 위한 topic 정리
+3. radar 없이 실험하기 위한 fake data sender code 작성
+4. analyzer code에서 wav파일을 넘겨주기 위해 custom message 작성 및 코드 수정
+5. 회의를 통해 전체 프로젝트는 하나의 패키지가 아닌 구분된 패키지로 구성하기로 정함.

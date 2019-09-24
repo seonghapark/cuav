@@ -98,6 +98,8 @@ def get_sar_frames(sync_samples, data_samples, sample_rate, pulse_period=20e-3):
   long_enough_silent_regions = filter(lambda x: x[1] - x[0] > minimum_silence_len,
       silent_regions)
 
+  long_enough_silent_regions = list(long_enough_silent_regions)
+
   _, start = long_enough_silent_regions.pop(0)
   data_ranges = []
   # we don't need all the samples within a frame, arbitrarily (matching matlab)
@@ -117,14 +119,14 @@ def get_sar_frames(sync_samples, data_samples, sample_rate, pulse_period=20e-3):
     # scan to next positive segment
     if sync_samples[start] > 0: # starting in a positive segment
       break_at_next_positive = False
-      for i in xrange(start, min(start + min_time, end)):
+      for i in range(start, min(start + min_time, end)):
         if sync_samples[i] < 0: # hit negative section
           break_at_next_positive = True
         elif sync_samples[i] > 0 and break_at_next_positive:
           start = i
           break
     else: # starting in a negative segment
-      for i in xrange(start, min(start + min_time, end)):
+      for i in range(start, min(start + min_time, end)):
         if sync_samples[i] > 0:
           start = i
           break
@@ -179,7 +181,7 @@ def RMA(sif, pulse_period=20e-3, freq_range=None, Rs=9.0):
   '''STEP 1: Cross-range FFT, turns S(x_n, w(t)) into S(Kx, Kr)'''
   # Add padding if we have less than this number of crossrange samples:
   # (requires numpy 1.7 or above)
-  rows = (max(2048, len(sif)) - len(sif)) / 2
+  rows = (max(2048, len(sif)) - len(sif)) // 2
   try:
     sif_padded = numpy.pad(sif, [[rows, rows], [0, 0]], 'constant', constant_values=0)
   except Exception as e:
@@ -229,7 +231,7 @@ def RMA(sif, pulse_period=20e-3, freq_range=None, Rs=9.0):
     S_st = numpy.zeros((len(Ky), len(Ky_even)), dtype=numpy.complex)
   # if we implement an interpolation-free method of stolt interpolation,
   # we can get rid of this for loop...
-  for i in xrange(len(Ky)):
+  for i in range(len(Ky)):
     interp_fn = scipy.interpolate.interp1d(Ky[i], S_mf[i], bounds_error=False, fill_value=0)
     S_st[i] = interp_fn(Ky_even)
 
@@ -254,7 +256,7 @@ def plot_img(sar_img_data):
   # Extract S_image, S_st_shape, Ky_len, delta_x, kstart, kstop, Rs, cr1, cr2, dr1, dr2 
   # from sar_img_data
   S_image = sar_img_data['Py_S_image']
-  for k, v in sar_img_data.iteritems():
+  for k, v in sar_img_data.items():
     if k != 'Py_S_image':
       exec('%s=%s' % (k, repr(v)))
   bw = C*(kstop-kstart)/(4*PI)
@@ -272,7 +274,7 @@ def plot_img(sar_img_data):
   downrange = numpy.linspace(-1*dr1, -1*dr2, trunc_image.shape[0]) + Rs
   crossrange = numpy.linspace(cr1, cr2, trunc_image.shape[1])
 
-  for i in xrange(0, trunc_image.shape[1]):
+  for i in range(0, trunc_image.shape[1]):
     trunc_image[:,i] = (trunc_image[:,i]).transpose() * (abs(downrange*0.3048))**(3/2.0)
   trunc_image = 20 * numpy.log10(abs(trunc_image))
 
