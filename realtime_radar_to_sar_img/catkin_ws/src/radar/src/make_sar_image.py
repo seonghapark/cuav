@@ -256,7 +256,19 @@ def plot_img(sar_img_data):
   '''Creates the 2D SAR image and saves it as sar_img_data['outfilename'], default sar_image.png.'''
   # Extract S_image, S_st_shape, Ky_len, delta_x, kstart, kstop, Rs, cr1, cr2, dr1, dr2 
   # from sar_img_data
+  print(sar_img_data)
   S_image = sar_img_data['Py_S_image']
+  kstart = sar_img_data['kstart']
+  kstop = sar_img_data['kstop']
+  S_st_shape = sar_img_data['S_st_shape']
+  dr1 = sar_img_data['dr1']
+  dr2 = sar_img_data['dr2']
+  cr1 = sar_img_data['cr1']
+  cr2 = sar_img_data['cr2']
+  delta_x = sar_img_data['delta_x']
+  Ky_len = sar_img_data['Ky_len']
+  Rs = sar_img_data['Rs']
+
   for k, v in sar_img_data.items():
     if k != 'Py_S_image':
       exec('%s=%s' % (k, repr(v)))
@@ -319,6 +331,7 @@ def make_sar_image(setup_data):
   sar_img_data['dr1'] = setup_data['dr1'] + Rs
   sar_img_data['dr2'] = setup_data['dr2'] + Rs
 
+  #print(sar_img_data)
   plot_img(sar_img_data)
 
 def main(data):
