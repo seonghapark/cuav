@@ -3,6 +3,6 @@ prefix=/home/project/cuav/GUAVA/catkin_ws/install
 Name: radar
 Description: Description of radar
 Version: 0.0.0
-Cflags: 
+Cflags: -I/home/project/cuav/GUAVA/catkin_ws/install/include
 Libs: -L/home/project/cuav/GUAVA/catkin_ws/install/lib 
-Requires: 
+Requires: roscpp rospy std_msgs message_runtime

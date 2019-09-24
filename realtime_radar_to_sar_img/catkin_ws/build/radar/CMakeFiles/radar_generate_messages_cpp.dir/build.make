@@ -55,6 +55,7 @@ include radar/CMakeFiles/radar_generate_messages_cpp.dir/progress.make
 
 radar/CMakeFiles/radar_generate_messages_cpp: /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/devel/include/radar/raw.h
 radar/CMakeFiles/radar_generate_messages_cpp: /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/devel/include/radar/rail.h
+radar/CMakeFiles/radar_generate_messages_cpp: /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/devel/include/radar/wav.h
 
 
 /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/devel/include/radar/raw.h: /opt/ros/kinetic/lib/gencpp/gen_cpp.py
@@ -69,9 +70,16 @@ radar/CMakeFiles/radar_generate_messages_cpp: /home/project/cuav/realtime_radar_
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating C++ code from radar/rail.msg"
 	cd /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/src/radar && /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/build/catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/src/radar/msg/rail.msg -Iradar:/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/src/radar/msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p radar -o /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/devel/include/radar -e /opt/ros/kinetic/share/gencpp/cmake/..
 
+/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/devel/include/radar/wav.h: /opt/ros/kinetic/lib/gencpp/gen_cpp.py
+/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/devel/include/radar/wav.h: /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/src/radar/msg/wav.msg
+/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/devel/include/radar/wav.h: /opt/ros/kinetic/share/gencpp/msg.h.template
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating C++ code from radar/wav.msg"
+	cd /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/src/radar && /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/build/catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/src/radar/msg/wav.msg -Iradar:/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/src/radar/msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p radar -o /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/devel/include/radar -e /opt/ros/kinetic/share/gencpp/cmake/..
+
 radar_generate_messages_cpp: radar/CMakeFiles/radar_generate_messages_cpp
 radar_generate_messages_cpp: /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/devel/include/radar/raw.h
 radar_generate_messages_cpp: /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/devel/include/radar/rail.h
+radar_generate_messages_cpp: /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/devel/include/radar/wav.h
 radar_generate_messages_cpp: radar/CMakeFiles/radar_generate_messages_cpp.dir/build.make
 
 .PHONY : radar_generate_messages_cpp

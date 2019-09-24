@@ -55,6 +55,7 @@ include radar/CMakeFiles/radar_generate_messages_py.dir/progress.make
 
 radar/CMakeFiles/radar_generate_messages_py: /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/devel/lib/python2.7/dist-packages/radar/msg/_raw.py
 radar/CMakeFiles/radar_generate_messages_py: /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/devel/lib/python2.7/dist-packages/radar/msg/_rail.py
+radar/CMakeFiles/radar_generate_messages_py: /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/devel/lib/python2.7/dist-packages/radar/msg/_wav.py
 radar/CMakeFiles/radar_generate_messages_py: /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/devel/lib/python2.7/dist-packages/radar/msg/__init__.py
 
 
@@ -68,15 +69,22 @@ radar/CMakeFiles/radar_generate_messages_py: /home/project/cuav/realtime_radar_t
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Python from MSG radar/rail"
 	cd /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/build/radar && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/src/radar/msg/rail.msg -Iradar:/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/src/radar/msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p radar -o /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/devel/lib/python2.7/dist-packages/radar/msg
 
+/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/devel/lib/python2.7/dist-packages/radar/msg/_wav.py: /opt/ros/kinetic/lib/genpy/genmsg_py.py
+/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/devel/lib/python2.7/dist-packages/radar/msg/_wav.py: /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/src/radar/msg/wav.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating Python from MSG radar/wav"
+	cd /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/build/radar && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/src/radar/msg/wav.msg -Iradar:/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/src/radar/msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p radar -o /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/devel/lib/python2.7/dist-packages/radar/msg
+
 /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/devel/lib/python2.7/dist-packages/radar/msg/__init__.py: /opt/ros/kinetic/lib/genpy/genmsg_py.py
 /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/devel/lib/python2.7/dist-packages/radar/msg/__init__.py: /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/devel/lib/python2.7/dist-packages/radar/msg/_raw.py
 /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/devel/lib/python2.7/dist-packages/radar/msg/__init__.py: /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/devel/lib/python2.7/dist-packages/radar/msg/_rail.py
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating Python msg __init__.py for radar"
+/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/devel/lib/python2.7/dist-packages/radar/msg/__init__.py: /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/devel/lib/python2.7/dist-packages/radar/msg/_wav.py
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Generating Python msg __init__.py for radar"
 	cd /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/build/radar && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py -o /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/devel/lib/python2.7/dist-packages/radar/msg --initpy
 
 radar_generate_messages_py: radar/CMakeFiles/radar_generate_messages_py
 radar_generate_messages_py: /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/devel/lib/python2.7/dist-packages/radar/msg/_raw.py
 radar_generate_messages_py: /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/devel/lib/python2.7/dist-packages/radar/msg/_rail.py
+radar_generate_messages_py: /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/devel/lib/python2.7/dist-packages/radar/msg/_wav.py
 radar_generate_messages_py: /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/devel/lib/python2.7/dist-packages/radar/msg/__init__.py
 radar_generate_messages_py: radar/CMakeFiles/radar_generate_messages_py.dir/build.make
 

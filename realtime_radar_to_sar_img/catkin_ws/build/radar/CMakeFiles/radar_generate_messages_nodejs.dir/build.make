@@ -55,6 +55,7 @@ include radar/CMakeFiles/radar_generate_messages_nodejs.dir/progress.make
 
 radar/CMakeFiles/radar_generate_messages_nodejs: /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/devel/share/gennodejs/ros/radar/msg/raw.js
 radar/CMakeFiles/radar_generate_messages_nodejs: /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/devel/share/gennodejs/ros/radar/msg/rail.js
+radar/CMakeFiles/radar_generate_messages_nodejs: /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/devel/share/gennodejs/ros/radar/msg/wav.js
 
 
 /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/devel/share/gennodejs/ros/radar/msg/raw.js: /opt/ros/kinetic/lib/gennodejs/gen_nodejs.py
@@ -67,9 +68,15 @@ radar/CMakeFiles/radar_generate_messages_nodejs: /home/project/cuav/realtime_rad
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Javascript code from radar/rail.msg"
 	cd /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/build/radar && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/src/radar/msg/rail.msg -Iradar:/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/src/radar/msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p radar -o /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/devel/share/gennodejs/ros/radar/msg
 
+/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/devel/share/gennodejs/ros/radar/msg/wav.js: /opt/ros/kinetic/lib/gennodejs/gen_nodejs.py
+/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/devel/share/gennodejs/ros/radar/msg/wav.js: /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/src/radar/msg/wav.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating Javascript code from radar/wav.msg"
+	cd /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/build/radar && ../catkin_generated/env_cached.sh /usr/bin/python /opt/ros/kinetic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/src/radar/msg/wav.msg -Iradar:/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/src/radar/msg -Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg -p radar -o /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/devel/share/gennodejs/ros/radar/msg
+
 radar_generate_messages_nodejs: radar/CMakeFiles/radar_generate_messages_nodejs
 radar_generate_messages_nodejs: /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/devel/share/gennodejs/ros/radar/msg/raw.js
 radar_generate_messages_nodejs: /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/devel/share/gennodejs/ros/radar/msg/rail.js
+radar_generate_messages_nodejs: /home/project/cuav/realtime_radar_to_sar_img/catkin_ws/devel/share/gennodejs/ros/radar/msg/wav.js
 radar_generate_messages_nodejs: radar/CMakeFiles/radar_generate_messages_nodejs.dir/build.make
 
 .PHONY : radar_generate_messages_nodejs

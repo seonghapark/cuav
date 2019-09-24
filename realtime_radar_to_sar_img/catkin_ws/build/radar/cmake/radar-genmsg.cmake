@@ -1,6 +1,6 @@
 # generated from genmsg/cmake/pkg-genmsg.cmake.em
 
-message(STATUS "radar: 2 messages, 0 services")
+message(STATUS "radar: 3 messages, 0 services")
 
 set(MSG_I_FLAGS "-Iradar:/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/src/radar/msg;-Istd_msgs:/opt/ros/kinetic/share/std_msgs/cmake/../msg")
 
@@ -27,6 +27,11 @@ add_custom_target(_radar_generate_messages_check_deps_${_filename}
   COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "radar" "/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/src/radar/msg/rail.msg" ""
 )
 
+get_filename_component(_filename "/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/src/radar/msg/wav.msg" NAME_WE)
+add_custom_target(_radar_generate_messages_check_deps_${_filename}
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "radar" "/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/src/radar/msg/wav.msg" ""
+)
+
 #
 #  langs = gencpp;geneus;genlisp;gennodejs;genpy
 #
@@ -41,6 +46,12 @@ _generate_msg_cpp(radar
 )
 _generate_msg_cpp(radar
   "/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/src/radar/msg/rail.msg"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/radar
+)
+_generate_msg_cpp(radar
+  "/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/src/radar/msg/wav.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/radar
@@ -64,6 +75,8 @@ get_filename_component(_filename "/home/project/cuav/realtime_radar_to_sar_img/c
 add_dependencies(radar_generate_messages_cpp _radar_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/src/radar/msg/rail.msg" NAME_WE)
 add_dependencies(radar_generate_messages_cpp _radar_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/src/radar/msg/wav.msg" NAME_WE)
+add_dependencies(radar_generate_messages_cpp _radar_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
 add_custom_target(radar_gencpp)
@@ -82,6 +95,12 @@ _generate_msg_eus(radar
 )
 _generate_msg_eus(radar
   "/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/src/radar/msg/rail.msg"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/radar
+)
+_generate_msg_eus(radar
+  "/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/src/radar/msg/wav.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/radar
@@ -105,6 +124,8 @@ get_filename_component(_filename "/home/project/cuav/realtime_radar_to_sar_img/c
 add_dependencies(radar_generate_messages_eus _radar_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/src/radar/msg/rail.msg" NAME_WE)
 add_dependencies(radar_generate_messages_eus _radar_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/src/radar/msg/wav.msg" NAME_WE)
+add_dependencies(radar_generate_messages_eus _radar_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
 add_custom_target(radar_geneus)
@@ -123,6 +144,12 @@ _generate_msg_lisp(radar
 )
 _generate_msg_lisp(radar
   "/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/src/radar/msg/rail.msg"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/radar
+)
+_generate_msg_lisp(radar
+  "/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/src/radar/msg/wav.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/radar
@@ -146,6 +173,8 @@ get_filename_component(_filename "/home/project/cuav/realtime_radar_to_sar_img/c
 add_dependencies(radar_generate_messages_lisp _radar_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/src/radar/msg/rail.msg" NAME_WE)
 add_dependencies(radar_generate_messages_lisp _radar_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/src/radar/msg/wav.msg" NAME_WE)
+add_dependencies(radar_generate_messages_lisp _radar_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
 add_custom_target(radar_genlisp)
@@ -164,6 +193,12 @@ _generate_msg_nodejs(radar
 )
 _generate_msg_nodejs(radar
   "/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/src/radar/msg/rail.msg"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/radar
+)
+_generate_msg_nodejs(radar
+  "/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/src/radar/msg/wav.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/radar
@@ -187,6 +222,8 @@ get_filename_component(_filename "/home/project/cuav/realtime_radar_to_sar_img/c
 add_dependencies(radar_generate_messages_nodejs _radar_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/src/radar/msg/rail.msg" NAME_WE)
 add_dependencies(radar_generate_messages_nodejs _radar_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/src/radar/msg/wav.msg" NAME_WE)
+add_dependencies(radar_generate_messages_nodejs _radar_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
 add_custom_target(radar_gennodejs)
@@ -209,6 +246,12 @@ _generate_msg_py(radar
   ""
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/radar
 )
+_generate_msg_py(radar
+  "/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/src/radar/msg/wav.msg"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/radar
+)
 
 ### Generating Services
 
@@ -227,6 +270,8 @@ add_dependencies(radar_generate_messages radar_generate_messages_py)
 get_filename_component(_filename "/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/src/radar/msg/raw.msg" NAME_WE)
 add_dependencies(radar_generate_messages_py _radar_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/src/radar/msg/rail.msg" NAME_WE)
+add_dependencies(radar_generate_messages_py _radar_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/project/cuav/realtime_radar_to_sar_img/catkin_ws/src/radar/msg/wav.msg" NAME_WE)
 add_dependencies(radar_generate_messages_py _radar_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
