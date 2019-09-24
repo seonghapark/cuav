@@ -1,0 +1,2 @@
+bool start
+bool direction

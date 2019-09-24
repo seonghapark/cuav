@@ -67,6 +67,7 @@ def callback(data):
     wav_data.sr = SAMPLE_RATE
     # Publish Audio Numpy data
     pub = rospy.Publisher('wav',wav,queue_size=1)
+    print(wav_data.data, wav_data.sync)
     pub.publish(wav_data)
 
 def listener():

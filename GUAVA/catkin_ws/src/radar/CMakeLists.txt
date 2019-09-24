@@ -51,8 +51,11 @@ find_package(catkin REQUIRED COMPONENTS
 add_message_files(
    FILES
    raw.msg
-   rail.msg
    wav.msg
+   img.msg
+   railstart.msg
+   railstop.msg
+   result.msg
  )
 
 ## Generate services in the 'srv' folder
