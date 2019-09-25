@@ -63,3 +63,6 @@
 1. make_sar_impage.py python3로 수정
 2. 변경된 패키지 구조 및 메시지에 맞게 0_get_data.py 수정
 3. git conflict 해결해야 함
+
+### 2019.09.25
+1. 레이더 필드 테스트
