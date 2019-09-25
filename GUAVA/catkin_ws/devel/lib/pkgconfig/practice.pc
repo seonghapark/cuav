@@ -1,8 +1,0 @@
-prefix=/home/project/cuav/GUAVA/catkin_ws/devel
-
-Name: practice
-Description: Description of practice
-Version: 0.0.0
-Cflags: 
-Libs: -L/home/project/cuav/GUAVA/catkin_ws/devel/lib 
-Requires: 
