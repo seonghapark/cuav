@@ -5,10 +5,10 @@ import argparse
 import time
 
 import rospy
-from main.msg import start
 from radar.msg import raw
 from radar.msg import railstart
 from radar.msg import railstop
+from std_msgs.msg import String
 
 EXCHANGE_NAME = 'radar'
 data = bytearray()
@@ -62,7 +62,7 @@ def callback1(start, args):
 
 def main(args):
     rospy.init_node('get_data', anonymous=True)
-    rospy.Subscriber('start', start, callback1, (args))
+    rospy.Subscriber('start', String, callback1, (args))
     rospy.Subscriber('terminate', railstop, callback2)
     rospy.spin()
 
