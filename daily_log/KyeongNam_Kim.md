@@ -35,7 +35,7 @@
 |날짜|내용|
 |:--:|:--:|
 |2019-09-23 **Mon**|**사용법 조사**<br>**UgCS**의 사용법 정리중[[link](https://www.notion.so/kkyy0126/UgCS-529b849fc534436f984a51d8a7b8cca8)]<br><br>컨퍼런스룸의 위경도 좌표 정리<br>![aaa](https://user-images.githubusercontent.com/38516906/65458420-9104b980-de1b-11e9-974c-074829030132.PNG)|
-|2019-09-24 **Tue**||
+|2019-09-24 **Tue**|**통신기 조사**<br>UgCS에 사용하기 위해서는 2.4GHz 또는 900MHz datalink를 사용해야 함(무선연결)<br>스토리지룸에 2.4GHz Wireless DataLink Module이 존재하여 대여 및 driver 설치<br><br>DJI Phantom2 경로 제작(좌우)<br><br>DJI Phantom2 수령|
 |2019-09-25 **Wed**||
 |2019-09-26 **Thr**||
 |2019-09-27 **Fri**||

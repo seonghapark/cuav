@@ -60,3 +60,8 @@ Youngjin Kim
 3. radar 없이 실험하기 위한 fake data sender code 작성
 4. analyzer code에서 wav파일을 넘겨주기 위해 custom message 작성 및 코드 수정
 5. 회의를 통해 전체 프로젝트는 하나의 패키지가 아닌 구분된 패키지로 구성하기로 정함.
+
+2019.09.24
+1. make-sar-image.py 코드 분석 및 수정
+2. realtime radar 데이터를 가져오기 위한 sample rate 측정 실험 및 data type 설정을 위한 msg 작성
+3. 분할해서 작업하던 코드를 병합하여 하나의 패키지로 만드는 과정 진행.

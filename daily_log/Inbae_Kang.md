@@ -94,5 +94,13 @@ Inbae Kang
 
 2. 새로운 GUAVA 디렉토리에 ROS Workspace 생성 및 패키지 생성
 
+## 2019-09-24
+
+1. ROSPY Tutorial 진행
+
+2. Main Pacakge의 Decision 노드 작성
+
+3. git conflict 문제 발생.
+
 * * *
 

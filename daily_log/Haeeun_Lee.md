@@ -58,3 +58,8 @@
 1. ros 관련 코드 python3 사용하도록 변경
 2. 수정된 코드에 따라 ros 패키지 구조 변경 중 
 3. make_sar_image.py python3로 수정 중
+
+### 2019.09.24
+1. make_sar_impage.py python3로 수정
+2. 변경된 패키지 구조 및 메시지에 맞게 0_get_data.py 수정
+3. git conflict 해결해야 함
