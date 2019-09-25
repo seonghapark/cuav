@@ -65,3 +65,8 @@ Youngjin Kim
 1. make-sar-image.py 코드 분석 및 수정
 2. realtime radar 데이터를 가져오기 위한 sample rate 측정 실험 및 data type 설정을 위한 msg 작성
 3. 분할해서 작업하던 코드를 병합하여 하나의 패키지로 만드는 과정 진행.
+
+2019.09.25
+1. ros을 실행시키기 위한 스크립트인 .launch 생성
+2. 야외에서 레이더 위치에 따른 데이터를 수집하기 위한 실험 진행
+
