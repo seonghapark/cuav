@@ -116,4 +116,4 @@
 ### 2019-09-25
 - 부품이 아직 오지 않았음
 - ROS kinetic을 Docker위에서 실행시켜 봄
-   [관련 Wiki](https://github.com/seonghapark/cuav/wiki/Run-in-Ubuntu-18.04) 작성
+  - [관련 Wiki](https://github.com/seonghapark/cuav/wiki/Run-in-Ubuntu-18.04) 작성
