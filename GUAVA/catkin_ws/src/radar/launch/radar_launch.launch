@@ -1,6 +1,8 @@
 <launch>
-    <node pkg="radar" type="make_sar_image.py" name="make_sar_image"></node>
-    <node pkg="radar" type="2_analyzer.py" name="analyzer"></node>
-    <node pkg="radar" type="0_get_data.py" name="get_data" args="-d /dev/ttyACM0"></node>
-    <node pkg="radar" type="fake_rail.py" name="fake_rail"></node>
+    <arg name="file" default="$(find radar)/src/20181009_100023_binary.txt"/>
+    <node pkg="radar" type="make_sar_image.py" name="make_sar_image"/>
+    <node pkg="radar" type="2_analyzer.py" name="analyzer"/>
+    <!--<node pkg="radar" type="0_get_data.py" name="get_data" args="-d /dev/ttyACM0"/> -->
+    <node pkg="radar" type="fake_data_sender.py" name="fake_data_sender" args="$(arg file)"/>
+    <node pkg="radar" type="fake_rail.py" name="fake_rail"/>
 </launch>
