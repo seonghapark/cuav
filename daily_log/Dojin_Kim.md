@@ -86,4 +86,9 @@
 ### 2019-09-24
   - 라즈베리파이 ROS 설치 실패
   - Colab으로 학습 시도 중
+
+### 2019-09-25
+  - Colab으로 yolo tiny 드론 학습 완료 확인
+  - Feature extraction을 사용하기 위해 coco dataset 다운로드 및 정리
+  - Colab으로 yolov3 학습하기 위해 필요한 dataset, cfg, data, names 파일들 정리
   
