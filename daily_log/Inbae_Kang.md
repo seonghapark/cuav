@@ -102,5 +102,18 @@ Inbae Kang
 
 3. git conflict 문제 발생.
 
+## 2019-09-25
+
+1. ROSPY Tutorial 진행
+
+2. Main Pacakge의 Decision 노드 작성
+
+## 2019-09-26
+
+1. ROSPY Tutorial 진행
+
+2. Main Pacakge의 Decision 노드 수정
+
+3. Raspberry Pi에 설치 중
 * * *
 
