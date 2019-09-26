@@ -91,4 +91,7 @@
   - Colab으로 yolo tiny 드론 학습 완료 확인
   - Feature extraction을 사용하기 위해 coco dataset 다운로드 및 정리
   - Colab으로 yolov3 학습하기 위해 필요한 dataset, cfg, data, names 파일들 정리
-  
+
+### 2019-09-26
+  - drone, person, car labelling 작업
+  - pascal voc 사진들 변경
