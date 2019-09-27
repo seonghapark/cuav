@@ -117,3 +117,14 @@
 - 부품이 아직 오지 않았음
 - ROS kinetic을 Docker위에서 실행시켜 봄
   - [관련 Wiki](https://github.com/seonghapark/cuav/wiki/Run-in-Ubuntu-18.04) 작성
+  
+### 2019-09-26
+- 전체 회의
+- 라즈베리파이에 ROS 설치 시도 >> 계속 오류 발생. OS를 Raspbian이 아닌 Ubuntu mate으로 바꿔서 시도 예정
+
+### 2019-09-27
+- 영어 수업
+- Motor driver의 어뎁터가 도착함. 드라이버와 연결해서 정상 작동 확인해 봄
+- 다음 값을 계산해 [Wiki](https://github.com/seonghapark/cuav/wiki/Making-Rail#calculate-step-size)에 작성
+  - 모터가 정확히 한 바퀴 도는데 필요한 Step
+  - 모터를 돌려 물체가 1 inch 가는데 필요한 Step
