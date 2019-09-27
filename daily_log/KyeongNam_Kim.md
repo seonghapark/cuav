@@ -27,7 +27,7 @@
 |2019-09-17 **Tue**|**조사**<br> Ground Station을 중심으로 조사 [[조사내용](https://www.notion.so/kkyy0126/Drone-d0a25a86697b49c4b291fe0baea0b49e)] <br><br> - **SDK**: 개발을 **처음**부터 만드는 것을 기준으로 작성됨.<br>즉, **Ground Station을 사용**하는 것이 시간, 효율적으로 좋다는 결론을 내림<br><br> - **Ground Station**: Mission Planner와 UgCS 중 하나를 사용하는 것이 좋을 듯<br> * Mission Planner: 가장 먼저 만들어진 GCS이며 가장 완전한 기능을 갖춤 <br> * UgCS: 쉬운 GCS, 비행 금지 구역이 내장됨+만들 수 있음|
 |2019-09-18 **Wed**|**조사**<br>Mission Planner와 UgCS를 설치하여 비교한 결과, **UgCS**를 사용하는 것이 낫다는 결론을 내림<br>이후 UgCS 사용법에 대해 조사|
 |2019-09-19 **Thr**|**사용법 조사**<br>**UgCS**의 사용법에 대해 조사 후, 직접 경로를 만들어 실행시켜봄(시뮬레이션)<br>![successsssss](https://user-images.githubusercontent.com/38516906/65274900-68ff1880-daf2-11e9-91a3-83570acd133b.gif)|
-|2019-09-20 **Fri**|**사용법 조사**<br>**UgCS**의 사용법 정리중|
+|2019-09-20 **Fri**|**사용법 조사**<br>**UgCS**의 사용법 정리중| 
 
 <br><br><br>
 
@@ -37,8 +37,8 @@
 |2019-09-23 **Mon**|**사용법 조사**<br>**UgCS**의 사용법 정리중[[link](https://www.notion.so/kkyy0126/UgCS-529b849fc534436f984a51d8a7b8cca8)]<br><br>컨퍼런스룸의 위경도 좌표 정리<br>![aaa](https://user-images.githubusercontent.com/38516906/65458420-9104b980-de1b-11e9-974c-074829030132.PNG)|
 |2019-09-24 **Tue**|**통신기 조사**<br>UgCS에 사용하기 위해서는 2.4GHz 또는 900MHz datalink를 사용해야 함(무선연결)<br>스토리지룸에 2.4GHz Wireless DataLink Module이 존재하여 대여 및 driver 설치<br><br>DJI Phantom2 경로 제작(좌우)<br><br>DJI Phantom2 수령|
 |2019-09-25 **Wed**|**DJI Phantom2 공부**<br>DJI Phantom2 베터리, 어뎁터, 충전기, 프로펠러 대여<br>조작방법 공부: 전원 on 및 비행 준비까지의 과정 공부(Kar Ee와 함께 진행)|
-|2019-09-26 **Thr**||
-|2019-09-27 **Fri**||
+|2019-09-26 **Thr**|UgCS 공부: DJI Phantom2와 연동 & 툴 다루기|
+|2019-09-27 **Fri**|UgCS 공부<br><br>DJI Phantom2 setup 영상 제작<br>[![video](https://user-images.githubusercontent.com/38516906/65806197-718cca00-e156-11e9-854b-2a711b94e804.jpg)](https://www.youtube.com/watch?v=ZRwFmM1wtMI)|
 
 <br><br><br>
 
