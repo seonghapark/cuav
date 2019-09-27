@@ -74,3 +74,7 @@ Youngjin Kim
 1. 화상 회의 진행. 현재까지 진행상황 점검 및 질의응답/멘토링
 2. Radar Raw data 의 구조 및 어떤식으로 작동하는 지에 대한 분석
 3. sar imaging하기 위해 sync를 어떻게 처리해야 하는지에 대한 구상중.
+
+2019.09.27
+1. analyzer 노드와 sar-imaging 노드 사이의 데이터 전송을 위한 custom message 수정 및 데이터 전송이 성공적으로 이루어짐 확인.
+2. sar-imaging하기 위한 데이터 전송이 완료되었으므로, sar-imaging 예시 코드를 현재 우리가 가진 레이더 데이터에 맞게 작동하도록 코드 분석 및 수정 필요.
