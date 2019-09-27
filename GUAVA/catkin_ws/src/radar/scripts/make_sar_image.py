@@ -39,32 +39,35 @@ def open_wave(data):
   #raw_data = wavefile.readframes(wavefile.getnframes())
   raw_data = data.data
   raw_sync = data.sync
-  raw_data = numpy.array(raw_data, dtype=numpy.int16)
-  raw_sync = numpy.array(raw_sync, dtype=numpy.int16)
-  print('shape of data : ', raw_data.shape, 'shape of sync : ', raw_sync.shape)
+  raw_data = numpy.array(raw_data, dtype=numpy.uint16)
+  raw_sync = numpy.array(raw_sync, dtype=numpy.uint16)
+  print('data : ', raw_data.shape)
+  print(raw_data)
+  print('sync : ', raw_sync.shape)
+  print(raw_sync)
   #raw_data = numpy.fromstring(raw_data, dtype=numpy.int16)
   #raw_sync = numpy.fromstring(raw_sync, dtype=numpy.int16)
   #samples = numpy.fromstring(raw_data, dtype=numpy.int16)
   # try to use 128-bit float for the renormalization
   try:
     #normed_samples = samples / numpy.float128(numpy.iinfo(numpy.int16).max)
-    normed_data = raw_data / numpy.float128(numpy.iinfo(numpy.int16).max)
-    normed_sync = raw_sync / numpy.float128(numpy.iinfo(numpy.int16).max)
+    normed_data = raw_data / numpy.float128(numpy.iinfo(numpy.uint16).max)
+    normed_sync = raw_sync / numpy.float128(numpy.iinfo(numpy.uint16).max)
   except:
     #normed_samples = samples / float(numpy.iinfo(numpy.int16).max)
-    normed_data = raw_data / float(numpy.iinfo(numpy.int16).max)
-    normed_sync = raw_sync / float(numpy.iinfo(numpy.int16).max)
+    normed_data = raw_data / float(numpy.iinfo(numpy.uint16).max)
+    normed_sync = raw_sync / float(numpy.iinfo(numpy.uint16).max)
   #sync_samples = normed_samples[0::2]
   #data_samples = normed_samples[1::2]
-  sync_samples = normed_sync[::2]
-  data_samples = normed_data[::2]
+  sync_samples = normed_sync
+  data_samples = normed_data
   # Need to invert these to match Matlab code for some reason.
   sync_samples *= -1
   data_samples *= -1
 
-  print('sync samples')
+  print('sync samples after normalization')
   print(sync_samples)
-  print('data samples')
+  print('data samples after normalization')
   print(data_samples)
   return sync_samples, data_samples, data.sr
 

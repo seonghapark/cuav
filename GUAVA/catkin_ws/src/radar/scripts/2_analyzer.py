@@ -69,13 +69,14 @@ def callback(data):
     #rospy.loginfo(audio)
 
     wav_data = wav()
-    wav_data.data = data.astype(np.uint8)
-    wav_data.sync = sync.astype(np.uint8)
+    wav_data.data = data.astype(np.uint16)
+    print('wav_data :', len(wav_data.data))
+    wav_data.sync = sync.astype(np.uint16)
+    print('wav_sync : ', len(wav_data.sync))
     wav_data.num = raw_data.num
     wav_data.sr = SAMPLE_RATE
     # Publish Audio Numpy data
     pub = rospy.Publisher('wav',wav,queue_size=1)
-    print(wav_data.data, wav_data.sync)
     pub.publish(wav_data)
 
 def listener():
