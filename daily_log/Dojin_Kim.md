@@ -95,3 +95,10 @@
 ### 2019-09-26
   - drone, person, car labelling 작업
   - pascal voc 사진들 변경
+  
+### 2019-09-27
+  - drone, person, car labelling 라벨링 완료
+    - 약 드론 2600장, 사람+차량 2500장
+  - colab에서 yolov3에 학습
+  
+## 2019-09-30 ~ 2019-10-04
