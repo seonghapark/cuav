@@ -201,9 +201,10 @@ def RMA(sif, pulse_period=20e-3, freq_range=None, Rs=9.0):
   N, M = len(sif), len(sif[0])
 
   # construct Kr axis
-  delta_x = feet2meters(2/12.0) # Assuming 2 inch antenna spacing between frames.
+  delta_x = feet2meters(2/12.0) # Assuming 2 inch antenna spacing between frames. (1 feet = 12 inch)
   bandwidth = freq_range[1] - freq_range[0]
   center_freq = bandwidth/2 + freq_range[0]
+  # make Kr axis by Slicing (4*PI/C)*(center_freq - bandwidth/2) ~ (4*PI/C)*(center_freq + bandwidth/2) to number of samples in measured over time period(M)
   Kr = numpy.linspace(((4*PI/C)*(center_freq - bandwidth/2)), ((4*PI/C)*(center_freq + bandwidth/2)), M)
 
   # smooth data with hanning window
