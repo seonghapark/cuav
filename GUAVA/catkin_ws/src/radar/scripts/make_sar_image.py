@@ -93,7 +93,7 @@ def contiguous_regions(condition):
     # If the end of condition is True, append the length of the array
     idx = numpy.r_[idx, condition.size]
   # Reshape the result into two columns
-  idx.shape = (-1,2)
+  idx.shape = (-1,2) #make 2D array. -1 is inferred from the length of array (actually, It is length divide by 2)
   return idx
 
 def get_sar_frames(sync_samples, data_samples, sample_rate, pulse_period=20e-3):
@@ -116,13 +116,15 @@ def get_sar_frames(sync_samples, data_samples, sample_rate, pulse_period=20e-3):
   ramp_up_time = pulse_period # the length of the flat top of a sync sample, the time (20 ms) for the frequency modulation to go from lowest to highest.
   minimum_silence_len = sample_rate * 4 * ramp_up_time # arbitrary amount of silence between frames
   # 0.1 is arbitrarily the limit of sensitivity we have for this
-  condition = numpy.abs(sync_samples) < 0.1
-  silent_regions = contiguous_regions(condition)
+  condition = numpy.abs(sync_samples) < 0.1 # If condition is True : Sync is low value(False data) | False : Sync is high(True data)
+  silent_regions = contiguous_regions(condition) #silent_regions : 2D Array that is first column is Start idx of Silent Area (False data), second is end idx of Silent Area
+  #select silent regions that is longer than minimum silence length
   long_enough_silent_regions = filter(lambda x: x[1] - x[0] > minimum_silence_len,
       silent_regions)
-
+  #make a list from selected silent regions returned by filter function.
   long_enough_silent_regions = list(long_enough_silent_regions)
 
+  #get start idx of True data. that is second column of silent regions(idx of silent regions ends)
   _, start = long_enough_silent_regions.pop(0)
   data_ranges = []
   # we don't need all the samples within a frame, arbitrarily (matching matlab)
@@ -133,12 +135,16 @@ def get_sar_frames(sync_samples, data_samples, sample_rate, pulse_period=20e-3):
   frame_size = int(0.02 * sample_rate)
   start += frame_size
 
+  #make list of True data ranges. algorithm is same above
+  #start idx of data region : end idx of silent region + 1
+  #end idx of data region : start idx of next silent region
   for region in long_enough_silent_regions:
     data_ranges.append([start+1, region[0]])
-    start = region[1] + frame_size
+    start = region[1] + frame_size #add frame size(boundary calculated above)
 
   sar_frames = []
   for start, end in data_ranges:
+    # find second complete positive-valued period
     # scan to next positive segment
     if sync_samples[start] > 0: # starting in a positive segment
       break_at_next_positive = False
@@ -153,15 +159,17 @@ def get_sar_frames(sync_samples, data_samples, sample_rate, pulse_period=20e-3):
         if sync_samples[i] > 0:
           start = i
           break
+    # Now, start is idx of second complete positive-valued period.
+
     # Take Hilbert Transform of each frame.
     # Sadly hilbert() doesn't support float128, so we make a default float
     # type and add the data to it before taking the transform.
     # There's potential for averaging multiple samples per frame instead of just
     # taking one, but that is not done here.
-    frame = numpy.zeros(frame_size)
-    frame += data_samples[start:start+frame_size]
-    frame = scipy.signal.hilbert(frame)
-    sar_frames.append(frame)
+    frame = numpy.zeros(frame_size) # make frame setted by data 0
+    frame += data_samples[start:start+frame_size] # add data of second complete positive-valued period
+    frame = scipy.signal.hilbert(frame) # Take Hilbert Transform of frame
+    sar_frames.append(frame) # append result frame to list
 
   # Post-processing: due to the transmit-to-receive antenna coupling, there is
   # a DC phase component in the frames. We can get rid of it by subtracting
