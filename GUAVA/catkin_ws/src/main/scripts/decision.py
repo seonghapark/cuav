@@ -4,6 +4,7 @@
 import rospy
 from threading import Thread
 from std_msgs.msg import String
+from main.msg import start
 
 status = [False, False]
 
@@ -15,15 +16,18 @@ def callback_camera(data):
 	status[1] = True
 def is_ready(pub_storage, pub_web):
 	i = 0
-	while status[0] == False or status[1] == False:
-		if i%8000000==0:
-			print("waiting results...")
-		i += 1
-	#if two results are received...
+	try:
+		while status[0] == False or status[1] == False:
+			if i%8000000==0:
+				print("waiting results...")
+			i += 1
+		#if two results are received...
 	
-	### processing results... ###
+		### processing results... ###
 
-	#in later.. the type is not String type. that will be change to custom message type
+		#in later.. the type is not String type. that will be change to custom message type
+	except KeyboardInterrupt:
+		pass
 	rate = rospy.Rate(10)
 	result_message = "done!"
 	rospy.loginfo("storage! I'm " + result_message)
@@ -35,7 +39,7 @@ def is_ready(pub_storage, pub_web):
 	
 
 def decision():
-	pub = rospy.Publisher('start', String, queue_size=10)
+	pub = rospy.Publisher('start', start, queue_size=10)
 	rospy.init_node('decision', anonymous=True)
 	rate = rospy.Rate(10)
 	#while not rospy.is_shutdown():
