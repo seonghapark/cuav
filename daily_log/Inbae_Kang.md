@@ -115,5 +115,14 @@ Inbae Kang
 2. Main Pacakge의 Decision 노드 수정
 
 3. Raspberry Pi에 설치 중
+
+## 2019-09-30
+
+1. ROS Design 문서 수정.
+
+2. Message Definition 문서 작성.
+
+3. decision node에서 사용하는 message 파일 생성 및 빌드
+
 * * *
 
