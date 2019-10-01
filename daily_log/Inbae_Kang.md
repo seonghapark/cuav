@@ -124,5 +124,13 @@ Inbae Kang
 
 3. decision node에서 사용하는 message 파일 생성 및 빌드
 
+## 2019-10-01
+
+1. ROS Design 문서 수정.
+
+2. Message Definition 문서 수정.
+
+3. Camera Pacakage 기본 code 작성.
+
 * * *
 
