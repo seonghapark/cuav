@@ -51,11 +51,29 @@ Rail에 고정된 RADAR는 양 끝을 움직이면서 SAR 이미지를 만들어
 
 ## 리허설 (처음 노드 구성부터 결과값을 얻기 까지의 진행을 기술)
 
-1. ROS 시스템이 구동되고(master 노드 및 모든 노드들이 생성 됨), RAIL이 움직이면서 RADAR가 데이터 수집을 시작한다. 
-2. 동시에 CAMERA도 사진을 촬영하고 모델을 통해서 분류를 한다. (여기서 카메라가 얼마나 사진을 수집하고 분류할 수 있을지에 따라서 어떻게 처리를 할지 추후에 결정) 
-3. 레일이 끝에 도달하면,  is_stop 토픽에 한 주기가 끝났다고 message를 publish. 
-4. 해당 토픽을 subscribe하고 있는 get_data node는 지금까지 쌓인 binary data를 wav 토픽에 publish함.
-5. IFFT 및 wav 데이터로 변환 후에 make_sar_image 노드가 받을 수 있도록 publish함.
-6. SAR Image를 만들고 img_radar 토픽에 publish하고, classifier_radar노드가 분류.
-7. RADAR와 CAMERA는 각각 result_radar, result_camera 토픽에 publish하여 Decision노드가 받아서 두 정보를 같이 이용할 수 있도록 함. ( 두 정보를 어떻게 사용할지에 대해서는 추후에 결정 )
-8. Decision 노드는 최종 결과를 내서 WEB노드가 받아서 visualization 하도록 publish.
+1. 메인 노드에서 ROSCORE가 실행됨. 나머지 레일/레이더 노드와 카메라 노드에서는 실행 환경을 갖추기 위한 Shell Script를 실행한다.
+2. Decision노드가 Start 토픽에 메시지를 보낸다.
+3. 메시지를 받은 두 노드는
+    1. Radar 노드는 레일노드에게 움직이도록 operate 토픽에 메시지를 publish 후 데이터 수집을 시작.
+    2. Camera 노드는 데이터 수집을 시작.
+4. 레일이 끝에 도달하면,  terminate 토픽에 한 주기가 끝났다고 message를 publish. 
+5. 해당 토픽을 subscribe하고 있는 get_data node는 지금까지 쌓인 binary data를 wav 토픽에 publish함.
+6. IFFT 및 wav 데이터로 변환 후에 make_sar_image 노드가 받을 수 있도록 publish함.
+7. SAR Image를 만들고 img_radar 토픽에 publish하고, classifier_radar노드가 분류.
+8. RADAR와 CAMERA는 각각 result_radar, result_camera 토픽에 publish하여 Decision노드가 받아서 두 정보를 같이 이용할 수 있도록 함. ( 두 정보를 어떻게 사용할지에 대해서는 추후에 결정 )
+9. Decision 노드는 최종 결과를 내서 WEB노드가 받아서 visualization 하도록 publish.
+10. 또한 최종 결과를 Storage 노드에 publish하여 데이터를 저장할 수 있도록 한다.
+
+## 실제 환경 구성
+
+### 하드웨어 구성
+
+- 카메라 라즈베리파이
+- 레이더/레일 라즈베리파이
+- 메인 라즈베리파이
+
+### 네트워크
+
+- ROS에서 [여러 기기 연결하기](https://razbotics.wordpress.com/2018/01/23/ros-on-multiple-computers-connecting-raspberry-pi-with-pc-over-lan/) 링크 참조.
+- 각각의 실행하기 전 환경을 shell script로 만들어 두고, ssh를 통해서 실행하는 것으로 계획.
+- 하나의 공유기를 통해서 로컬 네트워크로 내부 고정아이피를 통해서 통신.
