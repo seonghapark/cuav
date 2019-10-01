@@ -79,5 +79,10 @@ Youngjin Kim
 1. analyzer 노드와 sar-imaging 노드 사이의 데이터 전송을 위한 custom message 수정 및 데이터 전송이 성공적으로 이루어짐 확인.
 2. sar-imaging하기 위한 데이터 전송이 완료되었으므로, sar-imaging 예시 코드를 현재 우리가 가진 레이더 데이터에 맞게 작동하도록 코드 분석 및 수정 필요.
 
-2019.09.28
+2019.09.30
 1. sar-imaging code 분석 (ROS 연결 - 데이터 input - sar frame 만들어 쌓기 까지)
+
+2019.10.01
+1. sar-imaging code에 필요한 수식 및 로직 공부 (Range Migration Algorithm)
+2. sar-image frame 이 쌓이는 로직 팀원들에게 설명
+3. radar 실험 및 결과 정리.
