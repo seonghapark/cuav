@@ -14,23 +14,22 @@ EXCHANGE_NAME = 'radar'
 data = bytearray()
 flag = False
 start_radar = bool()
+i = 0
 
 def callback2(rail):
     global data
     global start_radar
+    global i
     start_radar = False
 
     print("publish")
     pub = rospy.Publisher('raw', raw, queue_size=10)
     raw_data = raw()
 
-    lengthMSb = bytes([11025 >> 8])
-    lengthLSb = bytes([11025 & 0xFF])
-    binary_data = lengthMSb + lengthLSb
+    raw_data.data = data
+    raw_data.num = i
+    i += 1
     data = bytearray()
-
-    raw_data.data = binary_data
-    raw_data.num = 1
     pub.publish(raw_data)
 
 def callback1(start, args):
