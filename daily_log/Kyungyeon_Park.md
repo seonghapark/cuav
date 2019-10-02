@@ -148,4 +148,5 @@
 ### 2019-10-02
 - rail 라즈베리파이에 raspbian jessie를 깔아봄
   - raspbian buster에는 ros kinetic이 안깔리는 것을 확인
+- radar 팀의 세미나를 들음
 
