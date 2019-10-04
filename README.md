@@ -108,6 +108,8 @@ I took part of analyzing python codes.  Under this paragraph is explaining how c
 - I succeed transferring data between nodes in ROS.
 - But SAR image doesn't come out, I think this is because difference of radar between MIT's and ours. I need to adjust parameters such as sample rate, radio frequency, pulse period. After adjusting these parameters, I wish SAR image comes out properly.
 
+p.s. I tried to study Range Migration Algorithm, but it's bit too hard for me.. haha..
+
 ---
 
 
@@ -147,4 +149,4 @@ Now I'm changing `draw.py` to ROS for checking figure of raw data from radar.
 **4. Moving back and forth in 120cm**
 ![image](https://user-images.githubusercontent.com/44107947/66232059-03945580-e6b6-11e9-9b95-439c666f6e94.png)
 
-p.s. I tried to study Range Migration Algorithm, but it's bit too hard for me.. haha..
+
