@@ -163,3 +163,5 @@ The parts came slowly, so in advance, I calculated some data about the step that
 Next, I installed ROS on the raspberry pi of the rail to be used to control the stepper motor. Previously I used Raspbian Buster as my OS for Raspberry Pi, but when I installed ROS Kinetic on Raspbian buster, I kept getting an error. So I used Raspbian Jessie for my OS and I could successfully install ROS on the Raspberry Pi. Also, I installed the ROS on the Raspberry Pi of the camera side.
 
 The process of connecting wires and making rails is detailed in the [Making rail Wiki](https://github.com/seonghapark/cuav/wiki/Making-Rail). I would appreciate it for your reference.
+
+After the fall break, I will assemble the profile, ball screw and nut housing I ordered today. Also, I will talk with the Radar team about how to allocate the radar and make the radar suppoter with a 3d printer.
