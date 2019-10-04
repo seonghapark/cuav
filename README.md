@@ -4,7 +4,6 @@ Youngjin
 Inbae
 Kyungyeon 
 Haeeun
-Kyeongnam
 
 <br/>
 김도진 - <br/>
@@ -22,3 +21,10 @@ Below is repository I am working on for camera detection
 
 [drone_detection Repo](https://github.com/dojinkimm/drone_detection)
   
+<br><br><br>
+
+#### Kyeongnam Kim-
+ My role in this project is to control drones automatically.  
+I'm going to use DJI Phantom 2(Drone) and UgCS(Ground Station Software).
+* UgCS: I'm currently researching how to connect laptops-smartphones-DJI Phantom2 while learning how to use UgCS. I'm going to try again because the connection between the laptop and the drone was successful, but the connection between the smartphone and the drone was unsuccessful. Also, I am going to investigate whether I can adjust ground station without my smartphone.
+* DJI Phantom2: I'm learning about drone preparation and drone control with Kar Ee. According to Kar Ee, the drone will have a green light if it's calibration in the area where the GPS is caught. Since I have been banned from flying drones from K-Square's conference room, I plan to fly drone from Professor Tony's farm. I'm going to ask Professor Tony that whether I can fly drones on his farm after learning some basic drone control.
