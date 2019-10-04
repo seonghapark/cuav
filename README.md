@@ -150,3 +150,16 @@ Now I'm changing `draw.py` to ROS for checking figure of raw data from radar.
 ![image](https://user-images.githubusercontent.com/44107947/66232059-03945580-e6b6-11e9-9b95-439c666f6e94.png)
 
 
+<br/>
+
+**Kyungyeon Park**
+
+I was in charge of making rail. There are not a lot of components in KSQ, so I have to buy all the components. But the components are late and the progress is being delayed. First, I ordered the motor and the motor driver and assembled it with the Raspberry Pi. Next, I ordered the power adapter and the ball screw and connected it with the motor, the motor driver and the Raspberry Pi. I tried to use the robot profile in KSQ as a rail support, but it didn't match with the ball screw so I ordered a new 30mm x 60mm profile. I expect new items to arrive by the end of the fall break. The supporter on which the radar will be placed will be printed out by the 3D printer, fixed in the profile with bearings and screwed in the nut housing (ball screw nut) (see figure below).
+
+<img src="https://i.ibb.co/g4NmHqD/rail.jpg" width="50%">
+
+The parts came slowly, so in advance, I calculated some data about the step that stepper motor needs to go one round and the step that stepper needs to go 1 inch. I've been experimenting with the python code to see whether the motor is running exactly one round, and it seems to run one round. But I think I need to think about how to prove this exactly. The calculation is correct, but there seems to be a little error due to friction.
+
+Next, I installed ROS on the raspberry pi of the rail to be used to control the stepper motor. Previously I used Raspbian Buster as my OS for Raspberry Pi, but when I installed ROS Kinetic on Raspbian buster, I kept getting an error. So I used Raspbian Jessie for my OS and I could successfully install ROS on the Raspberry Pi. Also, I installed the ROS on the Raspberry Pi of the camera side.
+
+The process of connecting wires and making rails is detailed in the [Making rail Wiki](https://github.com/seonghapark/cuav/wiki/Making-Rail). I would appreciate it for your reference.
