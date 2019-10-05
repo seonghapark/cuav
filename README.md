@@ -99,39 +99,35 @@ p.s. I tried to study Range Migration Algorithm, but it's bit too hard for me.. 
 **Haeeun** <br/>
 
 I took part of test radar. 
-Before the test, We try to understand and construct the node of radar. Then I changed `get_data.py` to ROS. We performed field test to check the radar and we could check some facts through it. The results are under the documents. 
+Before the test, I try to understand and construct the ROS node of radar. Then I changed `get_data.py` to ROS. I performed field test to check the radar and we could check some facts through it. The results are under the documents. 
 Now I'm changing `draw.py` to ROS for checking figure of raw data from radar.
 
+
 ### Indoor
+It was tested in the conference room. A person moved back and forth with an iron plate(about 30x30).
 ![image](https://user-images.githubusercontent.com/44107947/66231980-d182f380-e6b5-11e9-808c-be64434d26ab.png)
 ![image](https://user-images.githubusercontent.com/44107947/66231988-d8116b00-e6b5-11e9-8572-15e8a708d1ba.png)
-- It was tested in conference room
-- A person moved back and forth with an iron plate(about 30x30).
+
 
 ### Outdoor
+I tested at empty place between K-SW Square and Anvil. It is assumed that it can recognize things in about 12m. A person moved back and forth with an iron plate(about 30x30).
+Next, I changed the heigt of antenna. The result 3 was measured holding by hand and the height is about 120cm. I could see that noise was reduced than when the radar was on the table. It is not sure that the reason is the table or height of the radar, but I requested that a rail will be over 120cm.
 
 **1. Nothing**
 ![image](https://user-images.githubusercontent.com/44107947/66232011-e5c6f080-e6b5-11e9-9f76-61325392820f.png)
-
-- We tested at empty place between K-SW Square and Anvil.
 
 **2. Moving back and forth**
 ![image](https://user-images.githubusercontent.com/44107947/66232031-ef505880-e6b5-11e9-9d61-a481e8b915c3.png)
 ![image](https://user-images.githubusercontent.com/44107947/66232035-f5463980-e6b5-11e9-9632-be1b4356e5e3.png)
 
-- It is assumed that it can recognize things in about 12m.
-- A person moved back and forth with an iron plate(about 30x30).
-
-**3. Change antenna height (around 120cm)**
+**3. Changing antenna height (around 120cm)**
 ![image](https://user-images.githubusercontent.com/44107947/66232048-fd05de00-e6b5-11e9-8a80-5f24dd806123.png)
-
-- It was measured holding by hand and the height is about 120cm.
-- We can check that noise was reduced than when the radar was on the table.
-- It is not sure that the reason is the table or height of the radar, but we requested that a rail will be over 120cm.
 
 **4. Moving back and forth in 120cm**
 ![image](https://user-images.githubusercontent.com/44107947/66232059-03945580-e6b6-11e9-9b95-439c666f6e94.png)
 
+
+After fall break, I'll complete changing code and test on the rail. I think that I need to check the specific time of delay  for making SAR image. Additionally I'll test to find height and condition for reducing noise of radar.
 
 <br/>
 
