@@ -38,7 +38,6 @@ I'm going to use DJI Phantom 2(Drone) and UgCS(Ground Station Software).
 - So far, I have had trouble installing ROS Kinetic on the Raspberry Pi, but it is currently resolved. In addition, I plan to write shell scripts to build an environment for testing and to specify test scenarios and rehearsals. I also plan to write custom messages and materialize the code as the message types for each part become specific.
 
 #### Youngjin  
-# Making SAR image from Radar data
 
 We're trying to detect UAV using radar and camera. In this system, radar and camera are used to identify object in surveillance area.
 
