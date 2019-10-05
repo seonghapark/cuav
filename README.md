@@ -44,22 +44,17 @@ We're trying to detect UAV using radar and camera. In this system, radar and cam
 
 This is Radar team. We receive data from radar, which is moving over the connected rail. Rail starts moving one end of the side and moves to the other end of the side. Velocity of moving rail should be constant. When rail finishes move side to side, one SAR image data is produced. We use this image to classify the object in front of radar. Our goal is classify 4 kinds of object, Human, Car, UAV, and etc.
 
-I took part of analyzing python codes.  Under this paragraph is explaining how codes work, how data are move, how SAR image is generate.
+I took part of analyzing python codes.  Under this paragraph is explaining how ROS nodes work, how data are move, how SAR image is generate.
 
 ---
 
 # Get Data From Radar (0_get_data.py)
 
-- When 'radar start' signal received, send 'start moving' signal to rail.
-- After send signal to rail, radar begins to receive data.
-- Stacks data until rail finishes move one side to the other side.
-- When rail sends signal of 'finish movement', publish stacked data (BYTE Array).
+- When 'radar start' signal received, send 'start moving' signal to rail. After signal is sended to rail, radar begins to receive data. Received data are Stacked until rail finishes move one side to the other side. When rail sends signal of 'finish movement', publish stacked data to 'BYTE Array' form.
 
 # Analyze and Parse Raw data (2_analyzer.py)
 
-- Wait until raw data is passed by data receiver(0_get_data.py).
-- Parse raw data into two part, sync and data.
-- Binary form of data
+- Analyzer waits until raw data is passed by data receiver(0_get_data.py). When data arrive, parse raw data into two part, sync and data. Under this paragraph is form and characteristics of binary data
 
     ---
 
@@ -82,31 +77,23 @@ I took part of analyzing python codes.  Under this paragraph is explaining how c
 
 # Process data and make SAR image (make_sar_image.py)
 
-- Wait until parsed data is passed by analyzer(2_analyzer.py).
-- make SAR image from parsed data.
+- This node waits until parsed data is passed by analyzer(2_analyzer.py). It makes SAR image from parsed data. There are Three steps to make SAR images.
     1. Get SAR frame
-        - Use sync to separate Frame.
-        - There should be long enough period of silence between sync, so we have to set threshold of silence length.
-        - After setting minimum silence length, find regions where length between two syncs are over minimum silence length. These regions are where we slice data to get SAR frame.
-        - Each region, slice data for get SAR frame. Important thing is use the **second complete positive-valued period** in the region.
-        - After slicing data, take Hilbert Transform of each frame.
-        - When finishes get SAR frames, subtract mean of all SAR frames from each frames. It gets rid of DC phase component which occurred from transmit-to-receive antenna.
+        - Use sync to separate Frame. There should be long enough period of silence between sync, so we have to set threshold of silence length. After setting minimum silence length, find regions where length between two syncs are over minimum silence length. These regions are where we slice data to get SAR frame. Each region, slice data for get SAR frame. Important thing is use the **second complete positive-valued period** in the region. After slicing data, take Hilbert Transform of each frame. When finishes get SAR frames, subtract mean of all SAR frames from each frames. It gets rid of DC phase component which occurred from transmit-to-receive antenna.
     2. Range Migration Algorithm(RMA)
         - Apply RMA to SAR frames, Produces SAR image.
     3. Plot image
-        - Plot image to user.
-        - We use this image to classify objects(UAV, Car, Human, etc.), So publish image data to classifier.
+        - Plotting image to user. We use this image to classify objects(UAV, Car, Human, etc.), So publish image data to classifier.
 
 # Classify object using SAR image
 
-- Probability of using CNN or RNN to classify objects from image data.
+- Probability of using CNN or RNN to classify objects from image data. It can be decided when we succeed at making SAR image.
 
 ---
 
 ## Things to do
 
-- I succeed transferring data between nodes in ROS.
-- But SAR image doesn't come out, I think this is because difference of radar between MIT's and ours. I need to adjust parameters such as sample rate, radio frequency, pulse period. After adjusting these parameters, I wish SAR image comes out properly.
+- I succeed transferring data between nodes in ROS. But some reason, SAR image doesn't come out, I think this is because difference of radar between MIT's and ours. I need to adjust parameters such as sample rate, radio frequency, pulse period. After adjusting these parameters, I wish SAR image comes out properly.
 
 p.s. I tried to study Range Migration Algorithm, but it's bit too hard for me.. haha..
 
