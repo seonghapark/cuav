@@ -69,10 +69,7 @@ I took part of analyzing python codes.  Under this paragraph is explaining how R
 
     ---
 
-- Receiver module of radar receive produces 10-bit data and divide those data to two bytes.
-- Each byte has half of data.
-- Combine Two byte and produce one pair of sync and data
-- Publish parsed data.
+- Receiver module of radar receive produces 10-bit data and divide those data to two bytes. Each byte has half of data. Combine these Two bytes and produce one pair of output, 'sync and data'. After finish parsing, Publish parsed data.
 
 # Process data and make SAR image (make_sar_image.py)
 
