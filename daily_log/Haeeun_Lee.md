@@ -89,4 +89,14 @@
 	- 레이더 높이
 
 ### 2019.10.02
-1. draw.py 관련 Thread 
+1. draw.py 관련 Thread 공부
+
+### 2019.10.03
+Firestarter 강의
+
+### 2019.10.04
+1. README 작성
+
+### 2019.10.10
+1. draw.py 수정
+2. radar.sh 작성
