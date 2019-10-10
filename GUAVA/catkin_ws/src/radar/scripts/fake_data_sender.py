@@ -5,7 +5,7 @@ import time
 import rospy
 from radar.msg import raw
 
-SAMPLE_RATE = 44100
+SAMPLE_RATE = 5862
 def talker():
     pub = rospy.Publisher('raw', raw, queue_size=1)
     rospy.init_node('fake_data_sender', anonymous=True)

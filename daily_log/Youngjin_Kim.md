@@ -86,3 +86,11 @@ Youngjin Kim
 1. sar-imaging code에 필요한 수식 및 로직 공부 (Range Migration Algorithm)
 2. sar-image frame 이 쌓이는 로직 팀원들에게 설명
 3. radar 실험 및 결과 정리.
+
+2019.10.02
+1. radar에서 데이터를 받아와서 sar 이미지를 만드는 과정을 정리한 문서 작성
+2. 팀원들에게 레이더 작동 원리에 대한 세미나 진행
+
+2019.10.04
+1. PLaCE Conversation Class 수업 진행.
+2. 레이더 실험 진행 결과 보고서 작성.

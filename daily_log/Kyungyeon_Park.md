@@ -128,3 +128,25 @@
 - 다음 값을 계산해 [Wiki](https://github.com/seonghapark/cuav/wiki/Making-Rail#calculate-step-size)에 작성
   - 모터가 정확히 한 바퀴 도는데 필요한 Step
   - 모터를 돌려 물체가 1 inch 가는데 필요한 Step
+
+<br/>
+
+## 2019-09-30 ~ 2019-10-04
+
+### 2019-09-30
+- 라즈베리파이에 ros kinetic 설치를 시도해봄
+  - 포맷하고 다시해봤는데도 저번주 목요일과 같은 오류가 계속 발생
+  - 다른 버전의 raspbian으로 시도해 보고, 안되면 다른 OS 사용 예정
+  - raspbian이 라즈베리파이가 추천하는 OS이기 때문에 최대한 rapbian을 사용하는 방향으로 가려고 함.
+
+### 2019-10-01
+- 레일이 도착, 레일을 조립함
+  - coupler는 도착하지 않아 아직 모터와 연결을 못한 상태
+  - profile을 새로 사고 레일 위에 올릴 받침대는 직접 만들어야 할듯
+- radar 팀의 세미나를 잠깐 들음
+
+### 2019-10-02
+- rail 라즈베리파이에 raspbian jessie를 깔아봄
+  - raspbian buster에는 ros kinetic이 안깔리는 것을 확인
+- radar 팀의 세미나를 들음
+

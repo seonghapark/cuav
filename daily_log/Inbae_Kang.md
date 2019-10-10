@@ -132,5 +132,9 @@ Inbae Kang
 
 3. Camera Pacakage 기본 code 작성.
 
+## 2019-10-02
+
+1. Storage node 코드 작성
+
 * * *
 
