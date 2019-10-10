@@ -10,7 +10,7 @@ from radar.msg import raw, wav
 from scipy.io import wavfile
 
 EXCHANGE_NAME = 'radar'
-SAMPLE_RATE = 44100
+SAMPLE_RATE = 5862
 
 class RadarBinaryParser():
     def __init__(self, raw_data, sr=5862):

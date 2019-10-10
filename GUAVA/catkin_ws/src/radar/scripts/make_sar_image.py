@@ -114,10 +114,18 @@ def get_sar_frames(sync_samples, data_samples, sample_rate, pulse_period=20e-3):
   and an array of frames is returned.
   '''
   ramp_up_time = pulse_period # the length of the flat top of a sync sample, the time (20 ms) for the frequency modulation to go from lowest to highest.
-  minimum_silence_len = sample_rate * 4 * ramp_up_time # arbitrary amount of silence between frames
+  minimum_silence_len = sample_rate * ramp_up_time # arbitrary amount of silence between frames
+  print('minimum_silence_len : ', minimum_silence_len)
   # 0.1 is arbitrarily the limit of sensitivity we have for this
-  condition = numpy.abs(sync_samples) < 0.1 # If condition is True : Sync is low value(False data) | False : Sync is high(True data)
+  condition = numpy.abs(sync_samples) < 1e-5 # If condition is True : Sync is low value(False data) | False : Sync is high(True data)
+  print('condition : ')
+  print(condition)
+  print('num of False : ',list(condition).count(False))
+  print('num of True : ',list(condition).count(True))
   silent_regions = contiguous_regions(condition) #silent_regions : 2D Array that is first column is Start idx of Silent Area (False data), second is end idx of Silent Area
+  print('silent regions : ')
+  for regions in silent_regions :
+    print(regions, 'len : ', regions[1]-regions[0])
   #select silent regions that is longer than minimum silence length
   long_enough_silent_regions = filter(lambda x: x[1] - x[0] > minimum_silence_len,
       silent_regions)
