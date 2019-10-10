@@ -94,3 +94,7 @@ Youngjin Kim
 2019.10.04
 1. PLaCE Conversation Class 수업 진행.
 2. 레이더 실험 진행 결과 보고서 작성.
+
+2019.10.10
+1. SAR imaging에 필요한 parameter 수정 실험 진행.
+2. roslaunch 사용하지 않기로 함. 대신 shell script파일 사용.
