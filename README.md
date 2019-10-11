@@ -121,6 +121,8 @@ I took part of analyzing python codes.  Under this paragraph is explaining how R
 
 p.s. I tried to study Range Migration Algorithm, but it's bit too hard for me.. haha..
 
+### I looked for some reference for that, and I think this would help to understand the concept: https://pdfs.semanticscholar.org/2db7/070ca6eb79c289fb515067c25c9ce3de1cab.pdf. What I understand is RMA is a set of methods to modify raw radar data with regard its angular and linear movement to illustrate the results in one image (plot).
+
 ---
 
 
