@@ -21,6 +21,7 @@ import argparse
 from math import pi as PI
 C = 3e8 # light speed approximation
 MOD_PULSE_PERIOD = 20e-3
+#TODO : check for Frequency range of VCO
 VCO_FREQ_RANGE = [2400e6, 2591e6] # at 25 degrees, taken from datasheet
 #       for my particular VCO given my adjugment of Vtune range.
 #
@@ -45,6 +46,7 @@ def open_wave(data):
   print(raw_data)
   print('sync : ', raw_sync.shape)
   print(raw_sync)
+  print('sample rate : ', data.sr)
   #raw_data = numpy.fromstring(raw_data, dtype=numpy.int16)
   #raw_sync = numpy.fromstring(raw_sync, dtype=numpy.int16)
   #samples = numpy.fromstring(raw_data, dtype=numpy.int16)
@@ -114,6 +116,7 @@ def get_sar_frames(sync_samples, data_samples, sample_rate, pulse_period=20e-3):
   and an array of frames is returned.
   '''
   ramp_up_time = pulse_period # the length of the flat top of a sync sample, the time (20 ms) for the frequency modulation to go from lowest to highest.
+  #TODO : check for minimum silence length
   minimum_silence_len = sample_rate * ramp_up_time # arbitrary amount of silence between frames
   print('minimum_silence_len : ', minimum_silence_len)
   # 0.1 is arbitrarily the limit of sensitivity we have for this
@@ -124,8 +127,10 @@ def get_sar_frames(sync_samples, data_samples, sample_rate, pulse_period=20e-3):
   print('num of True : ',list(condition).count(True))
   silent_regions = contiguous_regions(condition) #silent_regions : 2D Array that is first column is Start idx of Silent Area (False data), second is end idx of Silent Area
   print('silent regions : ')
+  tmp = 0
   for regions in silent_regions :
-    print(regions, 'len : ', regions[1]-regions[0])
+    tmp += regions[1]-regions[0]
+  print('average : ', tmp/len(silent_regions))
   #select silent regions that is longer than minimum silence length
   long_enough_silent_regions = filter(lambda x: x[1] - x[0] > minimum_silence_len,
       silent_regions)
