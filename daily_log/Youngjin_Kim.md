@@ -98,3 +98,6 @@ Youngjin Kim
 2019.10.10
 1. SAR imaging에 필요한 parameter 수정 실험 진행.
 2. roslaunch 사용하지 않기로 함. 대신 shell script파일 사용.
+
+2019.10.15
+1. SAR imaging 코드 수정 및 첫 결과물 확인.
