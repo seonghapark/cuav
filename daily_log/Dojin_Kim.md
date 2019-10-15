@@ -123,5 +123,9 @@
   - Feedback 받고 README 수정
   - Handson ML 
   
+## 2019-10-15 ~ 2019-10-18
+
+### 2019-10-15
+  - ROS 설치된 라즈베리파이에 opencv 설치 시도.... troubleshooting 중
  
  
