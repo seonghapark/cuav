@@ -136,5 +136,11 @@ Inbae Kang
 
 1. Storage node 코드 작성
 
+## 2019-10-15
+
+1. raspberry pi kinetic에서 python3 사용하도록 설정
+
+2. raspberry pi와 main pc 사이에 ROS 상에서 통신
+
 * * *
 
