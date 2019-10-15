@@ -5,7 +5,8 @@ from threading import Thread
 import matplotlib.colors as colors
 from matplotlib.colors import BoundaryNorm
 
-import matplotlib.pylab as plt
+#import matplotlib.pylab as plt
+import matplotlib.pyplot as plt
 from matplotlib import animation
 
 import numpy as np
@@ -21,80 +22,27 @@ from radar.msg import wav
 
 EXCHANGE_NAME = 'radar'
 
-'''
-class rmq_commumication(Thread):
+class ros_communication(Thread):
     def __init__(self, plotter):
         Thread.__init__(self)
         self.result_time = []
         self.result_data = []
         self.plot = plotter
-        self.channel = self.get_connection()
-        self.in_queue = self.subscribe(self.channel)
 
-
-    def get_connection(self, url='amqp://localhost'):
-    # def get_connection(self, url='amqp:192.168.2.177'):
-        parameters = pika.URLParameters(url)
-
-        parameters.connection_attempts = 5
-        parameters.retry_delay = 5.0
-        parameters.socket_timeout = 2.0
-        connection = pika.BlockingConnection(parameters)
-
-        channel = connection.channel()
-
-        channel.exchange_declare(
-            EXCHANGE_NAME,
-            exchange_type='direct',
-            durable=True
-        )
-        return channel
-
-
-    def subscribe(self, channel):
-        result = channel.queue_declare('', exclusive=True)
-        in_queue = result.method.queue
-        channel.queue_bind(
-            queue=in_queue,
-            exchange=EXCHANGE_NAME,
-            routing_key='ifft'
-        )
-        return in_queue
-
-
-    def run(self):
-        print('run')
-        # self.channel.basic_consume(self._callback, queue=self.in_queue, no_ack=True)
-        # self.channel.basic_consume(self._callback, queue=self.in_queue)
-        self.channel.basic_consume('',  self._callback)
-        try:
-            self.channel.start_consuming()
-        except:
-            pass
-        # except Exception as ex:
-        #     print('oops', str(ex))
-
-
-    def _callback(self, channel, method, properties, body):
-        # print("_callback: ", 'channel: ', channel, ' method: ', method, ' properties: ', properties, ' body: ',body)
-        headers = properties.headers
-        self.data_disassembler(bytearray(body), headers)
+    def _callback(self, data):
+        self.data_disassembler(data)
         self.plot.set(self.result_time, self.result_data)
 
-
-    def data_disassembler(self, body, properties):
-        self.result_time = np.fromstring(np.array(body[:properties['result_time']]), dtype=np.float64)
-
-        self.result_data = np.fromstring(np.array(body[properties['result_time']:]), dtype=np.float64)
+    def data_disassembler(self, data):
+        self.result_time = np.fromstring(np.array(data.sync), dtype=np.float64)
+        self.result_data = np.fromstring(np.array(data.data), dtype=np.float64)
         self.result_data = np.reshape(self.result_data, (int(len(self.result_time)), int(len(self.result_data)/len(self.result_time))))
-
         self.plot.set(self.result_time, self.result_data)
-'''
-
 
 
 class colorgraph_handler():
     def __init__(self):
+        print('init colorgraph')
         ## constants for frame
         self.n = int(5512/50)  # Samples per a ramp up-time
         # self.n = int(5512/50)
@@ -128,7 +76,6 @@ class colorgraph_handler():
         self.colorbar = plt.colorbar()
         self.colorlabel = self.colorbar.set_label('Intensity (dB)')
 
-
     def set(self, result_time, result_data):
         print('set')
         if self.previous != result_time.item(0):
@@ -136,24 +83,18 @@ class colorgraph_handler():
             self.q_result_time.put(result_time)
             self.q_result_data.put(result_data)
 
-        # print(self.previous, result_time.item(0), type(self.previous), type(result_time.item(0)))
-        # time.sleep(0.9)
-
     def get(self):
         if not self.q_result_time.empty():
-            # print('get')
+            print('get')
             self.data_t = self.q_result_time.get()
             self.data_val = self.q_result_data.get()
-
             self.data_tlen = len(self.data_t)
 
-            # print(self.data_t.item(0))
-        # print(self.data_t, self.data_val)
-
     def animate(self, time):
-        # print('data', self.data_val, self.data_val.shape)
+        print('data', self.data_val, self.data_val.shape)
         self.get()
 
+        print('data', self.data_val, self.data_val.shape)
         time = time+1
 
         if time > self.set_t:
@@ -162,33 +103,26 @@ class colorgraph_handler():
             # makes it look ok when the animation loops
             lim = self.ax.set_xlim(0, self.set_t)
 
-        # print(self.data_t.shape, self.data_val.shape, self.data_tlen)
-        plt.pcolormesh(self.data_t, self.y, self.data_val[:self.data_tlen].T, cmap=self.cmap, norm=self.norm)
-        # print('animate ')
+        print(self.data_t.shape, self.y.shape, self.data_val.shape)
+        print(type(self.data_t), type(self.y), type(self.data_val[:self.data_tlen].T))
+        print(self.data_tlen)
+        plt.pcolormesh(self.data_t, self.y, self.data_val[:self.data_tlen].T, norm=self.norm, cmap=self.cmap)
+        print('animate ')
 
         return self.ax
 
     def draw_graph(self):
-        # ani = animation.FuncAnimation(self.fig, self.animate, init_func=self.animate_init, interval=1000)#, frames=self.set_t, repeat=False)
-        # ani = animation.FuncAnimation(self.fig, self.animate, interval=1000, frames=range(0,5))
+        print('draw_graph')
         ani = animation.FuncAnimation(self.fig, self.animate, interval=1000, blit=False)
         plt.show()
 
-def listener():
-    rospy.init_node('draw', anonymous=True)
-    rospy.Subscriber('wav', wav, plot.draw_graph())
-    rospy.spin()
 
 if __name__ == '__main__':
-    print('Connect ROS')
     plot = colorgraph_handler()
-    listener()
-    # rabbitmq = rmq_commumication(plot)
-    # print(rabbitmq.max_detect)
+    ros = ros_communication(plot)
 
-    #rabbitmq.start()
-
-'''
+    rospy.init_node('draw', anonymous=True)
+    rospy.Subscriber('wav', wav, ros.data_disassembler)
     try:
         while(True):
             # print('main while(True)')
@@ -198,14 +132,8 @@ if __name__ == '__main__':
             else:
                 # print('queue is not empty')
                 break
-
-        # print('while(False)')
-
-        plot.draw_graph()  # It takes approximately 500 ms
-
+        plot.draw_graph()
     except(KeyboardInterrupt, Exception) as ex:
         print(ex)
     finally:
         print('Close all')
-        rabbitmq.channel.close()
-'''

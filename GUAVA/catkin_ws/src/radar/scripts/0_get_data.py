@@ -5,9 +5,7 @@ import argparse
 import time
 
 import rospy
-from radar.msg import raw
-from radar.msg import railstart
-from radar.msg import railstop
+from radar.msg import raw, railstart, railstop
 from std_msgs.msg import String
 
 EXCHANGE_NAME = 'radar'
@@ -31,6 +29,7 @@ def callback2(rail):
     i += 1
     data = bytearray()
     pub.publish(raw_data)
+
 
 def callback1(start, args):
     global flag
@@ -58,6 +57,7 @@ def callback1(start, args):
             else:
                 time.sleep(0.01)
         print('end receiving')
+
 
 def main(args):
     rospy.init_node('get_data', anonymous=True)
