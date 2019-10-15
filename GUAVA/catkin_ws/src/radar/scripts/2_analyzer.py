@@ -53,6 +53,7 @@ class RadarBinaryParser():
 
 def callback(data):
     print('raw data received, num : ', data.num)
+    pub = rospy.Publisher('wav',wav,queue_size=1)
     raw_data = raw()
     raw_data.data = data.data
     raw_data.num = data.num
@@ -76,7 +77,6 @@ def callback(data):
     wav_data.num = raw_data.num
     wav_data.sr = SAMPLE_RATE
     # Publish Audio Numpy data
-    pub = rospy.Publisher('wav',wav,queue_size=1)
     pub.publish(wav_data)
     print('data published')
 

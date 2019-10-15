@@ -384,7 +384,7 @@ def make_sar_image(setup_data):
   print('finish plotting image')
 
 def main(data):
-  print('data received')
+  print('data received, num :', data.num)
   parser = argparse.ArgumentParser(description="Generate a SAR image outputted by default to 'sar_image.png' from a WAV file of appropriate data.")
   #parser.add_argument('-f', nargs='?', type=str, default='mit-towardswarehouse.wav', help="Filename containing SAR data in appropriate format (default: mit-towardswarehouse.wav (prefix filename with 'mit-' to use MIT's frequency range if your VCO range is different))")
   parser.add_argument('-o', nargs='?', type=str, default='sar_image.png', help="Filename to save the SAR image to (default: sar_image.png)")

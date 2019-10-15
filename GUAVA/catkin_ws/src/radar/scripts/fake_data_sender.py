@@ -53,6 +53,7 @@ def talker():
     finally:
         print('Close all')
         file.close()
+        a=input()
 
 if __name__ == '__main__':
     try:
