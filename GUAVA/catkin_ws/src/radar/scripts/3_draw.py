@@ -31,11 +31,12 @@ class ros_communication(Thread):
 
     def _callback(self, data):
         self.data_disassembler(data)
-        self.plot.set(self.result_time, self.result_data)
+        #self.plot.set(self.result_time, self.result_data)
 
     def data_disassembler(self, data):
         self.result_time = np.fromstring(np.array(data.sync), dtype=np.float64)
         self.result_data = np.fromstring(np.array(data.data), dtype=np.float64)
+        #self.result_data = np.reshape(self.result_data, (int(len(self.result_time)), int(len(self.result_data)/len(self.result_time))))
         self.result_data = np.reshape(self.result_data, (int(len(self.result_time)), int(len(self.result_data)/len(self.result_time))))
         self.plot.set(self.result_time, self.result_data)
 
@@ -72,7 +73,7 @@ class colorgraph_handler():
         #self.ylim = plt.ylim(0, 1)  ## For bottom noise
         self.cmap = plt.get_cmap('jet')
         self.norm = colors.BoundaryNorm([i for i in range(-80,1)], ncolors=self.cmap.N, clip=True)
-        self.pcolormesh = plt.pcolormesh(self.data_t, self.y, self.data_val.T, cmap=self.cmap, norm=self.norm)
+        self.pcolormesh = plt.pcolormesh(self.data_t, self.y, self.data_val.T, norm=self.norm, cmap=self.cmap)
         self.colorbar = plt.colorbar()
         self.colorlabel = self.colorbar.set_label('Intensity (dB)')
 
@@ -81,6 +82,7 @@ class colorgraph_handler():
         if self.previous != result_time.item(0):
             self.previous = result_time.item(0)
             self.q_result_time.put(result_time)
+            print(result_data.shape)
             self.q_result_data.put(result_data)
 
     def get(self):

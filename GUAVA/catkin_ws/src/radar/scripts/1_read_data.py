@@ -21,6 +21,7 @@ if __name__ == '__main__':
     file_name = sys.argv[1]
     file = open(file_name, "rb")
     read_data = file.read()
+    read_data = bytearray(read_data)
     print('file read')
 
     try:
@@ -32,7 +33,6 @@ if __name__ == '__main__':
             raw_data.data = read_data[i * 11724:(i + 1) * 11724]
             #print(raw_data.num)
             #print(raw_data.data)
-            data = bytearray()
             fake_data.publish(raw_data)
             time.sleep(0.1)
 

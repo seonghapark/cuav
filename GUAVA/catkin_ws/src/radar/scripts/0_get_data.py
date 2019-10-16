@@ -67,6 +67,7 @@ def main(args):
 
 
 if __name__ == '__main__':
+    print('get_data')
     parser = argparse.ArgumentParser()
     parser.add_argument('-d', '--device', dest='device', help='Device path')
     main(parser.parse_args())
