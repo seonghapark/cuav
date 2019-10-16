@@ -150,3 +150,34 @@
   - raspbian buster에는 ros kinetic이 안깔리는 것을 확인
 - radar 팀의 세미나를 들음
 
+### 2019-10-03
+- fire starter 수업을 들음.
+
+<br/>
+
+## 2019-10-07 ~ 2019-10-11
+
+### 2019-10-10
+- profile, coupler, nut housing이 도착함.
+- 조립을 하고 필요한 connector를 3D프린터로 모델링함.
+
+### 2019-10-11
+- 모델링한 결과물이 출력됨.
+- KSQ에 부품과 맞는 나사가 없어 사러 갔다 옴.
+- 관련 [Wiki](https://github.com/seonghapark/cuav/wiki/Making-Rail#making-rail)를 작성함.
+
+<br/>
+
+## 2019-10-14 ~ 2019-10-18
+
+### 2019-10-14
+- fire starter 수업을 들음.
+
+### 2019-10-15
+- 모터를 고정시킬 connector를 만들어야 한다는걸 꺠달음.
+- BK12, BF12를 다시 조립하고 치수를 정확하게 측정하여 도면을 그림.
+- 영어수업
+
+### 2019-10-16
+- 모터까지 고정시킬 connector를 새로 모델링함.
+- 레이더를 고정시킬 connector를 모델링함.
