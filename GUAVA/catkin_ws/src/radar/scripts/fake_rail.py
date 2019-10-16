@@ -5,7 +5,7 @@ from radar.msg import railstop
 
 rospy.init_node("fake_rail")
 pub = rospy.Publisher('terminate', railstop, queue_size=1)
-rate = rospy.Rate(0.5)
+rate = rospy.Rate(0.05)
 message = railstop()
 message.terminate = True
 while not rospy.is_shutdown():
