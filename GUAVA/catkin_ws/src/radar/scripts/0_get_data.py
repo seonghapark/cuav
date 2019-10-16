@@ -26,6 +26,8 @@ def callback2(rail):
 
     raw_data.data = data
     raw_data.num = i
+    print('data num : ',i)
+    print('data length : ', data.shape)
     i += 1
     data = bytearray()
     pub.publish(raw_data)
@@ -67,6 +69,7 @@ def main(args):
 
 
 if __name__ == '__main__':
+    print('get_data')
     parser = argparse.ArgumentParser()
     parser.add_argument('-d', '--device', dest='device', help='Device path')
     main(parser.parse_args())
