@@ -26,6 +26,8 @@ def callback2(rail):
 
     raw_data.data = data
     raw_data.num = i
+    print('data num : ',i)
+    print('data length : ', data.shape)
     i += 1
     data = bytearray()
     pub.publish(raw_data)
