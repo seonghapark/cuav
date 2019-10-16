@@ -9,4 +9,4 @@ sleep 3
 gnome-terminal -e "rosrun radar 2_analyzer.py"
 sleep 3
 #gnome-terminal -e "rosrun radar 0_get_data.py"
-gnome-terminal -e "rosrun radar fake_data_sender.py ../test_data/without_plate.txt"
+gnome-terminal -e "rosrun radar fake_data_sender.py ../test_data/with_plate.txt"

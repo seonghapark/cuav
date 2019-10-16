@@ -7,6 +7,8 @@ import matplotlib.pylab as pylab
 import wave
 import rospy
 from radar.msg import wav
+import time
+
 try:
   import scipy.interpolate
 except Exception as e:
@@ -372,7 +374,10 @@ def make_sar_image(setup_data):
 
   sar_img_data = RMA(sif, pulse_period=MOD_PULSE_PERIOD, freq_range=freq_range, Rs=feet2meters(Rs))
 
-  sar_img_data['outfilename'] = setup_data['outfilename']
+  #sar_img_data['outfilename'] = setup_data['outfilename']
+  file_path = '../outputs/'
+  file_name = time.strftime("%Y%m%d_%H%M%S") + '_sar_image.png'
+  sar_img_data['outfilename'] = file_path + file_name
   sar_img_data['Rs'] = Rs
   sar_img_data['cr1'] = setup_data['cr1']
   sar_img_data['cr2'] = setup_data['cr2']
