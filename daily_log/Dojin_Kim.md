@@ -128,4 +128,6 @@
 ### 2019-10-15
   - ROS 설치된 라즈베리파이에 opencv 설치 시도.... troubleshooting 중
  
- 
+### 2019-10-16
+	- Camera node 코드 작성
+	- Railstart하면 yolo network load하고 frame들과 detect된 object이름들을 저장한 다음에 railstop때 publish하는 코드 작성
