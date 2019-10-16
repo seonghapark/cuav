@@ -19,7 +19,7 @@ class DetectBoxes:
         self.nmsThreshold = nms_threshold
 
     # detect bounding boxes from given frame
-    def detect_bounding_boxes(self, frame, output):
+    def detect_bounding_boxes(self, frame, output, detected_objects):
         '''
         frame: frame from video or webcam
         output: detected information generated from darknet
@@ -28,7 +28,9 @@ class DetectBoxes:
         width = frame.shape[1]
 
         if self.nmsThreshold is not 0:
-            self.detect_yolo(frame, output, width, height)
+            detected_objects = self.detect_yolo(frame, output, width, height)
+				
+				return detected_objects
 
     def detect_yolo(self, frame, output, frame_width, frame_height):
         '''
@@ -61,14 +63,19 @@ class DetectBoxes:
         # Using non-maximum suppression remove overlapping boxes
         # with low confidence
         indices = cv2.dnn.NMSBoxes(boxes, confidences, self.confThreshold, self.nmsThreshold)
-        for i in indices:
+        labels = []
+				for i in indices:
             i = i[0]
             box = boxes[i]
             left = box[0]
             top = box[1]
             width = box[2]
             height = box[3]
-            self.draw_boxes(frame, class_ids[i], confidences[i], left, top, left + width, top + height)
+						# add labels
+						labels.append(self.classes[class_ids[i]])
+						self.draw_boxes(frame, class_ids[i], confidences[i], left, top, left + width, top + height)
+				return labels
+
 
     # draw boxes higher than confidence threshold
     def draw_boxes(self, frame, class_id, conf, left, top, right, bottom):
