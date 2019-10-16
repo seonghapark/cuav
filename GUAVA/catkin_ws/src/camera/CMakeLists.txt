@@ -49,11 +49,12 @@ find_package(catkin REQUIRED COMPONENTS
 
 ## cleverdevk : decomment and add msgname.msg to add msg files
 ## Generate messages in the 'msg' folder
-# add_message_files(
-#   FILES
-#   Message1.msg
-#   Message2.msg
-# )
+ add_message_files(
+   FILES
+   railstart.msg
+	 railstop.msg
+	 sendframe.msg
+ )
 
 ## Generate services in the 'srv' folder
 # add_service_files(
