@@ -18,3 +18,7 @@ print(lan)
 command1 = "export ROS_MASTER_URI=http://"+master_uri+":11311/"
 command2 = "export ROS_HOSTNAME="+ros_ip
 command3 = "export ROS_IP="+ros_ip
+
+os.system(command1)
+os.system(command2)
+os.system(command3)
