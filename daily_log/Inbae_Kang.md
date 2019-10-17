@@ -142,5 +142,11 @@ Inbae Kang
 
 2. raspberry pi와 main pc 사이에 ROS 상에서 통신
 
+## 2019-10-16
+
+1. 각 device에서 통신을 위한 기본 설정 스크립트 작성
+
+2. ROS Design 문서 업데이트
+
 * * *
 
