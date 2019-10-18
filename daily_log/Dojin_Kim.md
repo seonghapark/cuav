@@ -131,3 +131,7 @@
 ### 2019-10-16
 	- Camera node 코드 작성
 	- Railstart하면 yolo network load하고 frame들과 detect된 object이름들을 저장한 다음에 railstop때 publish하는 코드 작성
+
+### 2019-10-17
+	- camera ros코드 작성 완료
+	- 테스트 위해 ROS설치된 라즈베리파이에 opencv 설치하려고 했으나,,,,,실패
