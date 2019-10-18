@@ -22,6 +22,7 @@ import os
 import argparse
 from math import pi as PI
 C = 3e8 # light speed approximation
+#TODO : check pulse period
 MOD_PULSE_PERIOD = 20e-3
 #TODO : check for Frequency range of VCO
 VCO_FREQ_RANGE = [2400e6, 2591e6] # at 25 degrees, taken from datasheet
@@ -65,6 +66,7 @@ def open_wave(data):
   #data_samples = normed_samples[1::2]
   sync_samples = normed_sync
   data_samples = normed_data
+  #TODO : check if invert really needs or not.
   # Need to invert these to match Matlab code for some reason.
   sync_samples *= -1
   data_samples *= -1
@@ -192,9 +194,10 @@ def get_sar_frames(sync_samples, data_samples, sample_rate, pulse_period=20e-3):
   for i, e in enumerate(sar_frames):
     sar_frames[i] = e - numpy.mean(sar_frames, 0)
 
+  #TODO : check sar_frames shape
   return sar_frames
 
-
+#TODO : adjust Rs value
 def RMA(sif, pulse_period=20e-3, freq_range=None, Rs=9.0):
   '''Performs the Range Migration Algorithm.
   Returns a dictionary containing the finished S_image matrix
@@ -268,6 +271,7 @@ def RMA(sif, pulse_period=20e-3, freq_range=None, Rs=9.0):
   Compensates range curvature of all other scatterers by warping the signal data.
   '''
 
+  #TODO : check ksatrt, kstop value
   kstart, kstop = 73, 108.5 # match MIT's matlab -- why are these values chosen?
   Ky_even = numpy.linspace(kstart, kstop, 1024)
 
