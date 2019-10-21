@@ -138,3 +138,13 @@
 
 ### 2019-10-18
 	- 라즈베리파이 초기화하고 다시 설치 및 opencv 재설치 시도
+
+## 2019-10-21 ~ 2019-10-25
+
+### 2019-10-21
+	- 라즈베리파이에 opencv 3.4 설치 완료
+	- ROS camera node design 일부 수정
+		- get_frame node는 동일
+		- classifier_camera가 2개의 topic에 다른 정보 publish
+			- 하나는 realtime으로 image와 object detect된 정보를 publish
+			- 다른 하나는 SAR image가 한 cycle을 돌고 신호를 주면 지금까지 detect된 frame들과 object들을 분석 및 요약해서 publish
