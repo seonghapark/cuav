@@ -148,5 +148,13 @@ Inbae Kang
 
 2. ROS Design 문서 업데이트
 
+## 2019-10-21
+
+1. ROS Design Camera 부분 topic 업데이트
+
+2. Log Convention 작성
+
+3. 수정된 node에 따라서 decision 노드 코드 
+
 * * *
 
