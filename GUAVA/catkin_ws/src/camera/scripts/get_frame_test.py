@@ -8,6 +8,7 @@ from detection_boxes import DetectBoxes
 from threading import Thread
 from std_msgs.msg import String
 from camera.msg import railstart, railstop, sendframe
+from cv_bridge import CvBridge, CvBridgeError 
 
 start_camera = bool()
 camera_imgs = []
@@ -26,7 +27,11 @@ def get_outputs_names(net):
 
 def get_frame():
 	pub_operate = rospy.Publisher('operate', railstart, queue_size=10) 
-	rate = rospy.Rate(10)
+	pub = rospy.Publisher('img_camera', sendframe, queue_size=100)
+	frame_data = sendframe()
+
+	#rate = rospy.Rate(10) # not sure this is necessary
+	bridge = CvBridge()
 
 	operate = railstart()
 	operate.start = True
@@ -49,11 +54,12 @@ def get_frame():
 		print("No webcam")
 		sys.exit(1)
 	
-	while cap.isOpened():
+	while cap.isOpened() and start_camera:  		
 		has_frame, frame = cap.read()
 
 		if not has_frame:
 			break
+
 
 		blob = cv2.dnn.blobFromImage(frame, 1/255, (resolution, resolution), (0, 0, 0), True, crop=False)
 
@@ -69,10 +75,13 @@ def get_frame():
 		cv2.putText(frame, label, (40, 40), cv2.FONT_HERSHEY_SIMPLEX, 0.75, (255, 0, 0), 2)
 
 		print("FPS {:5.2f}".format(1000/elapsed))
-		
+
 		# save image frames
-		camera_imgs.append(frame)
-		
+		frame = np.uint8(frame)
+		frame_data.object = detected_objects
+		frame_data.frame = bridge.cv2_to_imgmsg(frame, encoding="passthrough")
+		pub.publish(frame_data)
+
 
 		if cv2.waitKey(1) & 0xFF == ord('q'):
 			break
@@ -81,8 +90,6 @@ def get_frame():
 	cap.release()
 
 	
-
-
 	### Get Frame from Raspberry Pi Camera Module ###
 	#                                               #
         #      code for getting frame  will be here     #
@@ -109,17 +116,8 @@ def callback_end(data):
 	global detected_objects
 	start_camera = False
 	
-	print("publish")
-	pub = rospy.Publisher('img_camera', sendframe, queue_size=10)
-	frame_data = sendframe()
-
-	frame_data.frame = camera_imgs
-	frame_data.object = detected_objects
-
 	camera_imgs = []
 	detected_objects = []
-	pub.publish(frame_data)
-
 
 if __name__ == '__main__':	
 	rospy.init_node('get_frame', anonymous=True)
