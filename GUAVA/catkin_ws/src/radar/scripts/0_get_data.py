@@ -21,13 +21,13 @@ def callback2(rail):
     start_radar = False
 
     print("publish")
-    pub = rospy.Publisher('raw', raw, queue_size=10)
+    pub = rospy.Publisher('raw', raw, queue_size=1)
     raw_data = raw()
 
     raw_data.data = data
     raw_data.num = i
     print('data num : ',i)
-    print('data length : ', data.shape)
+    print('data length : ', len(data))
     i += 1
     data = bytearray()
     pub.publish(raw_data)
@@ -37,7 +37,7 @@ def callback1(start, args):
     global flag
     global start_radar
     print('Start Rail')
-    pub_operate = rospy.Publisher('operate', railstart, queue_size=10)
+    pub_operate = rospy.Publisher('operate', railstart, queue_size=1)
 
     operate = railstart()
     operate.start = True
