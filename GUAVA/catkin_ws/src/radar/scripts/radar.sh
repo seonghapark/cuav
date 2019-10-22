@@ -9,7 +9,7 @@ sleep 1
 #sleep 1
 gnome-terminal -e "rosrun radar 2_analyzer.py"
 sleep 1
-gnome-terminal -e "rosrun radar 0_get_data.py -d /dev/ttyACM0"
+gnome-terminal -e "rosrun radar 0_receiver.py -d /dev/ttyACM0"
 #gnome-terminal -e "rosrun radar fake_data_sender.py ../test_data/with_plate.txt"
 sleep 1
 gnome-terminal -e "rosrun radar fake_rail.py"
