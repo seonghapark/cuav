@@ -7,9 +7,10 @@ import rospy
 from radar.msg import raw, wav
 
 package_name = 'radar'
-node_name = 'get_data'
+node_name = 'analyzer'
 str_time = str(datetime.now()).replace(' ', '_')
-file_name = '../logs/analyzer/' + str_time + '_' + package_name + '_' + node_name + '.log'
+directory = '/home/project/cuav/GUAVA/catkin_ws/src/radar/logs/analyzer/'
+file_name = directory + str_time + '_' + package_name + '_' + node_name + '.log'
 f = open(file_name, 'w')
 data = bytearray()
 SAMPLE_RATE = 5862

@@ -12,7 +12,8 @@ from std_msgs.msg import String
 package_name = 'radar'
 node_name = 'receiver'
 str_time = str(datetime.now()).replace(' ', '_')
-file_name = '../logs/receiver/' + str_time + '_' + package_name + '_' + node_name + '.log'
+directory = '/home/project/cuav/GUAVA/catkin_ws/src/radar/logs/receiver/'
+file_name = directory + str_time + '_' + package_name + '_' + node_name + '.log'
 f = open(file_name, 'w')
 data = bytearray()
 flag = False
@@ -86,7 +87,7 @@ def callback1(start, args):
 
 
 def listener(args):
-    rospy.init_node('get_data', anonymous=True)
+    rospy.init_node('receiver', anonymous=True)
     rospy.Subscriber('start', String, callback1, (args))
     rospy.Subscriber('terminate', railstop, callback2)
     rospy.spin()
