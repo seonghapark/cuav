@@ -1,16 +1,19 @@
 #! /usr/bin/env python3
 
 import numpy as np
-import sys
-from scipy.fftpack import fft
-import os
-import time
+from datetime import datetime
+
 import rospy
 from radar.msg import raw, wav
-from scipy.io import wavfile
 
-EXCHANGE_NAME = 'radar'
+package_name = 'radar'
+node_name = 'get_data'
+str_time = str(datetime.now()).replace(' ', '_')
+file_name = '../logs/analyzer/' + str_time + '_' + package_name + '_' + node_name + '.log'
+f = open(file_name, 'w')
+data = bytearray()
 SAMPLE_RATE = 5862
+
 
 class RadarBinaryParser():
     def __init__(self, raw_data, sr=5862):
@@ -21,7 +24,6 @@ class RadarBinaryParser():
 
     '''get sync, data and headers from text binary file.
     '''
-
     def parse(self):
         data = bytearray(self.raw_data)
         # print(len(data))
@@ -51,19 +53,27 @@ class RadarBinaryParser():
         # print(self.sync, self.data, len(self.sync), len(self.data))
         return self.sync, self.data
 
+
 def callback(data):
-    print('raw data received, num : ', data.num)
-    pub = rospy.Publisher('wav',wav,queue_size=1)
+    str_time = str(datetime.now()).replace(' ', '_')
+    log = '[{}/{}][{}][{}] {}'.format(package_name, node_name, 'SUB', str_time, 'Subscribe from raw')
+    print(log, file=f)
+
+    log = '[{}/{}][{}] [{}]'.format(package_name, node_name, str_time, 'Data num : ', data.num)
+    print(log, file=f)
+
+    pub = rospy.Publisher('wav', wav, queue_size=1)
     raw_data = raw()
     raw_data.data = data.data
     raw_data.num = data.num
     # parse text binary file
     parser = RadarBinaryParser(raw_data.data, sr=SAMPLE_RATE)
     sync, data = parser.parse()
-    print('data : ',data.shape)
-    print(data)
-    print('sync : ',sync.shape)
-    print(sync)
+
+    str_time = str(datetime.now()).replace(' ', '_')
+    log = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, 'Data : ', data.shape, ' Sync : ', sync.shape)
+    print(log, file=f)
+
     # stacking audio data
     #audio = np.vstack((sync,data))
     #audio = audio.T.astype(np.int16)
@@ -71,23 +81,30 @@ def callback(data):
 
     wav_data = wav()
     wav_data.data = data.astype(np.uint16)
-    print('wav_data :', len(wav_data.data))
     wav_data.sync = sync.astype(np.uint16)
-    print('wav_sync : ', len(wav_data.sync))
     wav_data.num = raw_data.num
     wav_data.sr = SAMPLE_RATE
+
+    str_time = str(datetime.now()).replace(' ', '_')
+    log = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, 'wav_data : ', len(wav_data.data),
+                                    ' wav_sync : ', len(wav_data.sync))
+    print(log, file=f)
+
     # Publish Audio Numpy data
     pub.publish(wav_data)
-    print('data published')
+    str_time = str(datetime.now()).replace(' ', '_')
+    log = '[{}/{}][{}][{}] {}'.format(package_name, node_name, 'PUB', str_time, 'Publish to wav')
+    print(log, file=f)
+
 
 def listener():
     rospy.init_node('analyzer',anonymous=True)
     rospy.Subscriber('raw',raw,callback)
     rospy.spin()
 
-if __name__ == '__main__':
-    print('analyzer')
-    #rabbitmq = rmq_commumication()
-    print('Connect ROS')
-    listener()
 
+if __name__ == '__main__':
+    str_time = str(datetime.now()).replace(' ', '_')
+    log = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, 'analyzer connects ROS')
+    print(log, file=f)
+    listener()
