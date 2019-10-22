@@ -48,14 +48,12 @@ def get_frame():
     net.setPreferableTarget(cv2.dnn.DNN_TARGET_CPU)
     print("Network successfully loaded")
 
-    # class names ex) person, car, truck, and etc.
-    PATH_TO_LABELS = "cfg/coco-drone.names"
-
     # load detection class, default confidence threshold is 0.5
-    detect = DetectBoxes(PATH_TO_LABELS, confidence_threshold=args.confidence, nms_threshold=args.nmsThreshold)
+    detect = DetectBoxes(args.labels, confidence_threshold=args.confidence, nms_threshold=args.nmsThreshold)
 
     try:
         cap = cv2.VideoCapture(0)
+        print("Start reading image frames from Webcam")
     except IOError:
         print("No webcam")
         sys.exit(1)
@@ -89,7 +87,7 @@ def get_frame():
 
         # save image frames
         frame = np.uint8(frame)
-        frame_data.frame = bridge.cv2_to_imgmsg(frame, encoding="passthrough")
+        frame_data.frame = bridge.cv2_to_imgmsg(frame, "bgr8") # encoding="passthrough",
         pub.publish(frame_data)
 
         if cv2.waitKey(1) & 0xFF == ord('q'):
@@ -115,6 +113,8 @@ def callback_end(data):
 if __name__ == '__main__':
     rospy.init_node('get_frame', anonymous=True)
     rospy.Subscriber('start', String, callback_start)
-    # main node 전체 종료 subscribe 해야 함
-	# rospy.Subscriber('terminate', railstop, callback_end)
-	rospy.spin()
+    rospy.spin()
+    # main node 전체 종료 subscribe
+    # rospy.Subscriber('terminate', railstop, callback_end)
+
+
