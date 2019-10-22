@@ -10,6 +10,7 @@ class ClassifierCamera:
 		self.detected_frames = []
 		self.detected_objects = []
 		self.detected_percentages = []
+		self.bridge = CvBridge()
 
 	def preprocess_frames(self):
 		try:
@@ -24,7 +25,7 @@ class ClassifierCamera:
 		realtime_frame = rospy.Publisher('realtime_camera', sendframe, queue_size=10)
 
 		# accumulate detected frames + labels + percentages
-		cv_image = CvBridge.imgmsg_to_cv2(frame_data.frame, "bgr8")
+		cv_image = self.bridge.imgmsg_to_cv2(frame_data.frame, "bgr8")
 		cv2.imshow("YOLO", cv_image)
 		print(frame_data.object)
 		print(frame_data.percentage)
@@ -40,7 +41,7 @@ class ClassifierCamera:
 
 			# preprocess summarized data
 			frame, send_data.object, send_data.percentage = self.preprocess_frames()
-			send_data.frame = CvBridge.cv2_to_imgmsg(frame, "bgr8")  # encoding="passthrough",
+			send_data.frame = self.bridge.cv2_to_imgmsg(frame, "bgr8")  # encoding="passthrough",
 
 			print("SUMMARY CALLBACK")
 			print(send_data.object)
@@ -61,5 +62,4 @@ if __name__ == '__main__':
 	rospy.Subscriber('img_camera', sendframe, classifier_camera.realtime_callback)
 	rospy.Subscriber('operate', Bool, classifier_camera.summary_callback)
 	rospy.spin()
-
 
