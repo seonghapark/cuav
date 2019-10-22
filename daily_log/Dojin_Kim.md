@@ -148,3 +148,10 @@
 		- classifier_camera가 2개의 topic에 다른 정보 publish
 			- 하나는 realtime으로 image와 object detect된 정보를 publish
 			- 다른 하나는 SAR image가 한 cycle을 돌고 신호를 주면 지금까지 detect된 frame들과 object들을 분석 및 요약해서 publish
+
+### 2019-10-22
+	- get_frame 코드 작성
+		- Object detect하고 detect되서 bounding box그린 frame, detect된 object의 label, 확률 publish
+	- classifier_camera 코드 작성
+		- 실시간으로 받은 frame바로 publish
+		- rail end 가 True라는 것을 subscribe하면 지금까지 받은 frame들 분석(이 부분 아직 하지 못함)및 publish
