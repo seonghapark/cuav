@@ -51,9 +51,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## Generate messages in the 'msg' folder
  add_message_files(
    FILES
-   railstart.msg
-	 railstop.msg
-	 sendframe.msg
+   sendframe.msg
  )
 
 ## Generate services in the 'srv' folder
@@ -73,8 +71,8 @@ find_package(catkin REQUIRED COMPONENTS
 ## Generate added messages and services with any dependencies listed here
  generate_messages(
    DEPENDENCIES
-   std_msgs  # Or other packages containing msgs
- )
+   std_msgs 
+)
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##

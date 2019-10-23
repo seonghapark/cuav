@@ -156,5 +156,12 @@ Inbae Kang
 
 3. 수정된 node에 따라서 decision 노드 코드 
 
+## 2019-10-22
+
+1. main package nodes logging code 작성
+
+2. Log Convention 수정
+
+3. project introduction ppt 작성 중
 * * *
 

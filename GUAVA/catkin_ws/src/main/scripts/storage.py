@@ -6,8 +6,20 @@ from std_msgs.msg import String
 from datetime import datetime
 # from main.msg import result
 
+#log file generate
+directory = '/home/project/cuav/GUAVA/catkin_ws/src/main/logs/storage/'
+str_time = str(datetime.now()).replace(' ','_')
+file_name = directory + str_time + '_' + 'main' + '_' + 'storage' + '.log'	
+file_log = open(file_name,'w')
+
+
 def callback_result(data):
 	rospy.loginfo(rospy.get_caller_id() + "I heard %s", data.data)
+	#publish/subscribe log
+	str_time2 = str(datetime.now()).replace(' ','_')
+	log_result ='[{}/{}][{}][{}] {}'.format('main','storage','SUB',str_time2,"Get Message From <result> topic : "+data.data)
+	print(log_result,file=file_log)
+	print(log_result)
 	
 	# assign the value from parameter(message) to local variable #
 	#							     #
@@ -26,6 +38,13 @@ def callback_result(data):
 	f.close()
 
 def storage():
+
+	#log
+	str_time = str(datetime.now()).replace(' ','_')
+	log ='[{}/{}][{}] {}'.format('main','storage',str_time,'storage node is initialized..')
+	print(log)
+	print(log,file=file_log)
+
 	rospy.init_node('storage', anonymous=True)
 	rospy.Subscriber('result', String, callback_result)
 	rospy.spin()
