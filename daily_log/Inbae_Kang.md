@@ -163,5 +163,11 @@ Inbae Kang
 2. Log Convention 수정
 
 3. project introduction ppt 작성 중
+
+## 2019-10-23
+
+1. Rail node 코드 작성
+
+2. project introduction ppt 작성 중
 * * *
 
