@@ -1,9 +1,10 @@
+#!/usr/bin/env python3
 import cv2
 import sys
 import rospy
 import argparse
 import numpy as np
-from detection_boxes import DetectBoxes
+from .detection_boxes import DetectBoxes
 from std_msgs.msg import String
 from camera.msg import sendrealtime
 from cv_bridge import CvBridge, CvBridgeError
