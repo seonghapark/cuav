@@ -155,3 +155,9 @@
 	- classifier_camera 코드 작성
 		- 실시간으로 받은 frame바로 publish
 		- rail end 가 True라는 것을 subscribe하면 지금까지 받은 frame들 분석(이 부분 아직 하지 못함)및 publish
+
+
+### 2019-10-23
+	- ROS 코드 실행 위해 환경 configure (CMakeList, package.xml 수정)
+	- gnome-terminal 설치, roscore, rosrun 실행환경 구축
+	- cv_bridge 설치 시도했으나 실패(이 부분만 성공하면 camera코드 실행될 것 같음)
