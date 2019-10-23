@@ -112,4 +112,7 @@
 
 ### 2019.10.22
 1. 로그 남기도록 코드 수정
-2. sar-reference 논문 번역
+2. sar-reference 논문 공부
+
+### 2019.10.23
+1. sar-reference 논문 
