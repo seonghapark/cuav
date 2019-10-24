@@ -18,7 +18,7 @@ def arg_parse():
     parser.add_argument("--video", help="Path where video is located",
                         default="assets/drone_video_short.mp4", type=str)
     parser.add_argument("--config", help="Yolov3 config file", default="cfg/yolo-drone.cfg")
-    parser.add_argument("--weight", help="Yolov3 weight file", default="weights/yolov3-tiny-drone.weights")
+    parser.add_argument("--weight", help="Yolov3 weight file", default="weights/yolo-drone.weights")
     parser.add_argument("--labels", help="Yolov3 label file", default="cfg/coco-drone.names")
     parser.add_argument("--conf", dest="confidence", help="Confidence threshold for predictions", default=0.5)
     parser.add_argument("--nms", dest="nmsThreshold", help="NMS threshold", default=0.4)
