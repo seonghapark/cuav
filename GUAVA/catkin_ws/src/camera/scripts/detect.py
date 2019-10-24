@@ -1,7 +1,7 @@
 import cv2
 import sys
 import argparse
-from detection_boxes import DetectBoxes
+from detect_box_old import DetectBoxes
 
 
 def arg_parse():
@@ -10,8 +10,8 @@ def arg_parse():
     parser = argparse.ArgumentParser(description='Yolov3')
     parser.add_argument("--video", help="Path where video is located",
                         default="assets/drone_video_short.mp4", type=str)
-    parser.add_argument("--config", help="Yolov3 config file", default="cfg/yolov3-drone.cfg")
-    parser.add_argument("--weight", help="Yolov3 weight file", default="weights/yolov3-drone.weights")
+    parser.add_argument("--config", help="Yolov3 config file", default="cfg/yolo-drone.cfg")
+    parser.add_argument("--weight", help="Yolov3 weight file", default="weights/yolo-drone.weights")
     parser.add_argument("--conf", dest="confidence", help="Confidence threshold for predictions", default=0.5)
     parser.add_argument("--nms", dest="nmsThreshold", help="NMS threshold", default=0.4)
     parser.add_argument("--resolution", dest='resol', help="Input resolution of network. Higher "
@@ -76,7 +76,6 @@ def main():
         label = 'Time per frame : %0.0f ms' % elapsed
         cv2.putText(frame, label, (40, 40), cv2.FONT_HERSHEY_SIMPLEX, 0.75, (255, 0, 0), 2)
 
-        cv2.imshow(winName, frame)
         print("FPS {:5.2f}".format(1000/elapsed))
 
         if cv2.waitKey(1) & 0xFF == ord('q'):
