@@ -169,5 +169,11 @@ Inbae Kang
 1. Rail node 코드 작성
 
 2. project introduction ppt 작성 중
+
+## 2019-10-24
+
+1. project instruction ppt
+
+2. Raspberry PI에 ROS 설치된 Ubuntu 설치
 * * *
 
