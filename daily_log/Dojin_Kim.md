@@ -161,3 +161,8 @@
 	- ROS 코드 실행 위해 환경 configure (CMakeList, package.xml 수정)
 	- gnome-terminal 설치, roscore, rosrun 실행환경 구축
 	- cv_bridge 설치 시도했으나 실패(이 부분만 성공하면 camera코드 실행될 것 같음)
+
+### 2019-10-24
+  - cv_bridge, sensor_msgs 직접 github에서 다운 받고 패키지 저장, 그러나 catkin_make 실패
+	- ROS에 문제가 있을 것 같아서 새롭게 ROS+Raspberry pi 이미지를 다운 받아서 다시 설치 시도
+	
