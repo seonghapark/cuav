@@ -122,3 +122,6 @@ Youngjin Kim
 
 2019.10.23
 1. RMA 논문 분석 완료 및 정리.
+
+2019.10.24
+1. make_sar_image.py RMA 함수 분석 및 코멘트 작성.
