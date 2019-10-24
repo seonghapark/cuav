@@ -115,4 +115,8 @@
 2. sar-reference 논문 공부
 
 ### 2019.10.23
-1. sar-reference 논문 
+1. sar-reference 논문 공부
+
+### 2019.10.24
+1. sar-reference 논문 공부
+2. 파동과 관련된 개념 공부
