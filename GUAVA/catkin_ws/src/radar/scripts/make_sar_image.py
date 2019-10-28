@@ -289,6 +289,7 @@ def RMA(sif, pulse_period=20e-3, freq_range=None, Rs=9.0):
     '''
 
     Krr, Kxx = numpy.meshgrid(Kr, Kx)
+    # Rs : Xref(reference position of X axis)
     phi_mf = Rs * numpy.sqrt(Krr ** 2 - Kxx ** 2)
     # Remark: it seems that eq 10.8 is actually phi_mf(Kx, Kr) = -Rs*Kr + Rs*sqrt(Kr^2 - Kx^2)
     # Thus the MIT code appears wrong. To conform to the text, uncomment the following line:
