@@ -107,7 +107,7 @@ qt-gui==0.3.11
 qt-gui-cpp==0.3.11
 qt-gui-py-common==0.3.11
 reportlab==3.3.0
-requests==2.9.1
+requests==2.20.0
 resampy==0.2.2
 resource-retriever==1.12.4
 rocon-console==0.3.2
