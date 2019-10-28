@@ -164,5 +164,11 @@
 
 ### 2019-10-24
   - cv_bridge, sensor_msgs 직접 github에서 다운 받고 패키지 저장, 그러나 catkin_make 실패
-	- ROS에 문제가 있을 것 같아서 새롭게 ROS+Raspberry pi 이미지를 다운 받아서 다시 설치 시도
+	- ROS에 문제가 있을 것 같아서 새롭게 ROS+Raspberry pi 이미지를 다운 받아서 다시 설치 시
 	
+
+## 2019-10-28 ~ 2019-11-01
+
+### 2019-10-28
+ - 라즈베리파이에 ros-kinetic opencv 설치
+ - opencv가 python2 버전으로 설정되어있어서 python3 버전으로 가능하게 수정중
