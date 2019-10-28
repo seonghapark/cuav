@@ -97,7 +97,7 @@ pyserial==3.4
 python-apt==1.1.0b1+ubuntu0.16.4.5
 python-dateutil==2.8.0
 python-debian==0.1.27
-python-gnupg==0.3.8
+python-gnupg==0.4.4
 python-qt-binding==0.3.4
 python-systemd==231
 pyxdg==0.25
