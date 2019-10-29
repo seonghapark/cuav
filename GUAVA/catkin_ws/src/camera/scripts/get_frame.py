@@ -6,10 +6,8 @@ import argparse
 import numpy as np
 from .detection_boxes import DetectBoxes
 from std_msgs.msg import String
-from camera.msg import sendrealtime
+from camera.msg import sendframe
 from cv_bridge import CvBridge, CvBridgeError
-
-
 
 def arg_parse():
     """ Parsing Arguments for detection """
@@ -28,93 +26,107 @@ def arg_parse():
     return parser.parse_args()
 
 
-def get_outputs_names(net):
-    # names of network layers e.g. conv_0, bn_0, relu_0....
-    layer_names = net.getLayerNames()
-    return [layer_names[i[0] - 1] for i in net.getUnconnectedOutLayers()]
+class GetFrame:
+    def __init__(self):
+        self.operate = rospy.Subscriber('operate', String, self.callback)
+        self.send_frame = rospy.Publisher('img_camera', sendframe, queue_size=100)
+        self.net = None
+        self.detect = None
+        self.args = arg_parse()
+        self.frame_data = sendframe()
+        self.bridge = CvBridge()
+        return
+
+    def callback(self, data):
+        rospy.loginfo(rospy.get_caller_id() + "I heard %s", data.data)
+        print("start get_frame")
+
+        if data == "init":
+            self.initialize()
+        elif data == "start":
+            self.start()
+        elif data == "end":
+            self.end()
+
+    def initialize(self):     
+        print("Loading network.....")
+        self.net = cv2.dnn.readNetFromDarknet(self.args.config, self.args.weight)
+        self.net.setPreferableBackend(cv2.dnn.DNN_BACKEND_OPENCV)
+        self.net.setPreferableTarget(cv2.dnn.DNN_TARGET_CPU)
+        print("Network successfully loaded")
+
+        # load detection class, default confidence threshold is 0.5
+        self.detect = DetectBoxes(self.args.labels, confidence_threshold=self.args.confidence, nms_threshold=self.args.nmsThreshold)
 
 
-def get_frame():
-    args = arg_parse()
+    @staticmethod
+    def get_outputs_names(net):
+        # names of network layers e.g. conv_0, bn_0, relu_0....
+        layer_names = net.getLayerNames()
+        return [layer_names[i[0] - 1] for i in net.getUnconnectedOutLayers()]
 
-    pub = rospy.Publisher('img_camera', sendrealtime, queue_size=100)
-    frame_data = sendrealtime()
+    def start(self):
+        try:
+            cap = cv2.VideoCapture(0)
+            print("Start reading image frames from Webcam")
+        except IOError:
+            print("No webcam")
+            sys.exit(1)
 
-    # rate = rospy.Rate(10) # not sure this is necessary
-    bridge = CvBridge()
+        while cap.isOpened():
+            hasFrame, frame = cap.read()
+            # if end of frame, program is terminated
+            if not hasFrame:
+                break
 
-    print("Loading network.....")
-    net = cv2.dnn.readNetFromDarknet(args.config, args.weight)
-    net.setPreferableBackend(cv2.dnn.DNN_BACKEND_OPENCV)
-    net.setPreferableTarget(cv2.dnn.DNN_TARGET_CPU)
-    print("Network successfully loaded")
+            # Create a 4D blob from a frame.
+            blob = cv2.dnn.blobFromImage(frame, 1 / 255, (int(args.resol), int(args.resol)), (0, 0, 0), True,
+                                        crop=False)
 
-    # load detection class, default confidence threshold is 0.5
-    detect = DetectBoxes(args.labels, confidence_threshold=args.confidence, nms_threshold=args.nmsThreshold)
+            # Set the input to the network
+            net.setInput(blob)
 
-    try:
-        cap = cv2.VideoCapture(0)
-        print("Start reading image frames from Webcam")
-    except IOError:
-        print("No webcam")
-        sys.exit(1)
+            # Runs the forward pass
+            network_output = net.forward(get_outputs_names(net))
 
-    while cap.isOpened():
-        hasFrame, frame = cap.read()
-        # if end of frame, program is terminated
-        if not hasFrame:
-            break
+            # Extract the bounding box and draw rectangles
+            frame_data.object, frame_data.percentage = detect.detect_bounding_boxes(frame, network_output)
 
-        # Create a 4D blob from a frame.
-        blob = cv2.dnn.blobFromImage(frame, 1 / 255, (int(args.resol), int(args.resol)), (0, 0, 0), True,
-                                     crop=False)
+            # Efficiency information
+            t, _ = net.getPerfProfile()
+            elapsed = abs(t * 1000.0 / cv2.getTickFrequency())
+            label = 'Time per frame : %0.0f ms' % elapsed
+            cv2.putText(frame, label, (40, 40), cv2.FONT_HERSHEY_SIMPLEX, 0.75, (255, 0, 0), 2)
 
-        # Set the input to the network
-        net.setInput(blob)
+            print("FPS {:5.2f}".format(1000/elapsed))
 
-        # Runs the forward pass
-        network_output = net.forward(get_outputs_names(net))
+            # save image frames
+            # frame_convert = np.uint8(frame)
+            # frame_data.frame = bridge.cv2_to_imgmsg(frame_convert, "bgr8") # encoding="passthrough",
+            # pub.publish(frame_data)
+            try:
+                self.frame_data = self.bridge.cv2_to_imgmsg(frame, "bgr8")
+                self.send_frame.publish(frame_data)
+            except CvBridgeError as e:
+                print(e)
 
-        # Extract the bounding box and draw rectangles
-        frame_data.object, frame_data.percentage = detect.detect_bounding_boxes(frame, network_output)
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                break
 
-        # Efficiency information
-        t, _ = net.getPerfProfile()
-        elapsed = abs(t * 1000.0 / cv2.getTickFrequency())
-        label = 'Time per frame : %0.0f ms' % elapsed
-        cv2.putText(frame, label, (40, 40), cv2.FONT_HERSHEY_SIMPLEX, 0.75, (255, 0, 0), 2)
-
-        print("FPS {:5.2f}".format(1000/elapsed))
-
-        # save image frames
-        frame = np.uint8(frame)
-        frame_data.frame = bridge.cv2_to_imgmsg(frame, "bgr8") # encoding="passthrough",
-        pub.publish(frame_data)
-
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
-
-    print("Camera detection ended")
-    # releases video and removes all windows generated by the program
-    cap.release()
-    # Terminate if no more camera detection available
-    callback_end()
-
-
-def callback_start(data):
-    rospy.loginfo(rospy.get_caller_id() + "I heard %s", data.data)
-    print("start get_frame")
-    get_frame()
-
-
-def callback_end(data):
-    sys.exit(1)
-
+        print("Camera detection ended")
+        # releases video and removes all windows generated by the program
+        cap.release()
+    
+    def end(self):
+        return
 
 if __name__ == '__main__':
+    g_frame = GetFrame()
     rospy.init_node('get_frame', anonymous=True)
-    rospy.Subscriber('start', String, callback_start)
-    rospy.spin()
+    try:
+        rospy.spin()
+    except KeyboardInterrupt:
+        print("Shut down - keyboard interruption")
     # main node 전체 종료 subscribe
     # rospy.Subscriber('terminate', railstop, callback_end)
 

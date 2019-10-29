@@ -47,7 +47,7 @@ def main():
     winName = 'YOLO-Opencv-DNN'
     try:
         # Read Video file
-        cap = cv2.VideoCapture(VIDEO_PATH)
+        cap = cv2.VideoCapture(0)
     except IOError:
         print("Input video file", VIDEO_PATH, "doesn't exist")
         sys.exit(1)
@@ -76,6 +76,9 @@ def main():
         label = 'Time per frame : %0.0f ms' % elapsed
         cv2.putText(frame, label, (40, 40), cv2.FONT_HERSHEY_SIMPLEX, 0.75, (255, 0, 0), 2)
 
+        print("FPS {:5.2f}".format(1000/elapsed))
+        
+        cv2.imshow(winName, frame)
         print("FPS {:5.2f}".format(1000/elapsed))
 
         if cv2.waitKey(1) & 0xFF == ord('q'):
