@@ -133,3 +133,7 @@ Youngjin Kim
 2019.10.28
 1. 레이더와 레일 간 패키지 분리에 대한 토의 진행.
 2. 패키지 분리 및 노드 정리 회의 결과에 따른 코드 변경사항 확인.
+
+2019.10.29
+1. RNN model(LSTM) 개념 및 원리 공부.
+2. Google Colab에서 keras 모듈을 이용해 urban sound classification 예제 코드 작성.
