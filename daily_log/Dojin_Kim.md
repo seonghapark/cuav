@@ -172,3 +172,9 @@
 ### 2019-10-28
  - 라즈베리파이에 ros-kinetic opencv 설치
  - opencv가 python2 버전으로 설정되어있어서 python3 버전으로 가능하게 수정중
+
+### 2019-10-29
+ - python3에서 opencv작동 완료
+ - ros node들 작동 완료
+ - sh 파일 작성해서 자동으로 모든 script들이 실행되도록 해야함
+ - classifier_camera, get_frame 코드 수정
