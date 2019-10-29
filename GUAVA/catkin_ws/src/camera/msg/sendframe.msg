@@ -1,3 +1,4 @@
 uint8[] frame
-string[] object
+String[] object
 float64[] percent
+String operate
