@@ -37,10 +37,12 @@ class GetFrame:
         return
 
     def callback(self, data):
-        print("start get_frame")
+        print("start get_frame -", data)
         if data == "init":
+            print('initialization')
             self.initialize()
         elif data == "start" or data == "end":
+            print('start or end')
             self.get_frame(data)
 
     def initialize(self):     
@@ -67,6 +69,7 @@ class GetFrame:
         return [layer_names[i[0] - 1] for i in net.getUnconnectedOutLayers()]
 
     def get_frame(self, operate):
+        print("get_frame")
         while self.cap.isOpened():
             hasFrame, frame = self.cap.read()
             # if end of frame, program is terminated

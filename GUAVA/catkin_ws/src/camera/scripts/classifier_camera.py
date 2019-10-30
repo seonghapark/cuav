@@ -15,8 +15,8 @@ class ClassifierCamera:
 		self.bridge = CvBridge()
 		self.send_frame = sendframe()
 		self.classify = rospy.Subscriber('img_camera', sendframe, self.callback)
-		self.realtime = rospy.Publisher('realtime_camera', sendframe, queue_size=10)
-		self.summary = rospy.Publisher('summary_camera', sendframe, queue_size=10)
+		self.realtime = rospy.Publisher('realtime_camera', sendframe, queue_size=3)
+		self.summary = rospy.Publisher('summary_camera', sendframe, queue_size=3)
 
 	def preprocess_frames(self):
 		try:
@@ -69,6 +69,7 @@ class ClassifierCamera:
 		elif data.operate == "end":
 			pass
 			# self.summary_callback(data)
+
 
 if __name__ == '__main__':
 	classifier_camera = ClassifierCamera()
