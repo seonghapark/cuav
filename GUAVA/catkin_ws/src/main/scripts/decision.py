@@ -4,62 +4,75 @@
 import rospy
 from threading import Thread
 from std_msgs.msg import String
-from main.msg import start
+from main.msg import operate
 from datetime import datetime
+import time
 
+init_finish = False
+cycle_finish = False
 status = [False, False]
 
-#log file generate
-directory = '/home/project/cuav/GUAVA/catkin_ws/src/main/logs/decision/'
-str_time = str(datetime.now()).replace(' ','_')
-file_name = directory + str_time + '_' + 'main' + '_' + 'decision' + '.log'
-file_log = open(file_name,'w')
+def callback_rail_end(data, args):
+	pub_log = args
+	global init_finish
+	global cycle_finish
+	rospy.loginfo(rospy.get_caller_id() + " : %s", data.data)
+	if data.data == "init_finish":
+		init_finish = True
+	if data.data == "cycle_finish":
+		cycle_finish = True
+	
+	#publish/subscribe log
+	str_time2 = str(datetime.now()).replace(' ','_')
+	log_result ='[{}/{}][{}][{}] {}'.format('main','decision','SUB',str_time2,"Get Message From <rail_end> topic : "+data.data)
+	pub_log.publish(log_result)
+	print(log_result)
 
 
-def callback_radar(data):
-	rospy.loginfo(rospy.get_caller_id() + "I heard %s", data.data)
+def callback_radar(data, args):
+	pub_log = args
+	rospy.loginfo(rospy.get_caller_id() + " : %s", data.data)
 	status[0] = True
         
 	#publish/subscribe log
 	str_time2 = str(datetime.now()).replace(' ','_')
 	log_result ='[{}/{}][{}][{}] {}'.format('main','decision','SUB',str_time2,"Get Message From <result_radar> topic : "+data.data)
-	print(log_result,file=file_log)
+	pub_log.publish(log_result)
 	print(log_result)
 
-def callback_summary_camera(data):
+def callback_summary_camera(data, args):
+	pub_log = args
 	rospy.loginfo(rospy.get_caller_id() + "I heard %s", data.data)
 	status[1] = True
 
 	#publish/subscribe log
 	str_time2 = str(datetime.now()).replace(' ','_')
 	log_result ='[{}/{}][{}][{}] {}'.format('main','decision','SUB',str_time2,"Get Message From <summary_camera> topic : "+data.data)
-	print(log_result,file=file_log)
+	pub_log.publish(log_result)
 	print(log_result)
 
-def callback_realtime_camera(data):
+def callback_realtime_camera(data, args):
+	pub_log = args
 	rospy.loginfo(rospy.get_caller_id() + "I heard %s", data.data)
 	
-	print(log_result,file=file_log)
 	#publish/subscriber log
 	str_time3 = str(datetime.now()).replace(' ', '_')
-	log_result ='[{}/{}][{}][{}] {}'.format('main','decision','SUB',str_time2,"Get Message From <realtime_camera> topic : "+data.data)
-	print(log_result,file=file_log)
+	log_result ='[{}/{}][{}][{}] {}'.format('main','decision','SUB',str_time3,"Get Message From <realtime_camera> topic : "+data.data)
+	pub_log.publish(args)
 	print(log_result)
 
 	#transmit information to web node whenever receiving data.
 
 def is_ready(pub_storage, pub_web):
-	i = 0
+	time.sleep(2)
+	print("waiting results...")
 	try:
 		while status[0] == False or status[1] == False:
-			if i%8000000==0:
-				print("waiting results...")
-			i += 1
+			pass
 		#if two results are received...
-	
 		### processing results... ###
 
-		#in later.. the type is not String type. that will be change to custom message type
+		#later.. the type is not String type. that will be change to custom message type
 	except KeyboardInterrupt:
 		pass
 	rate = rospy.Rate(10)
@@ -69,51 +82,84 @@ def is_ready(pub_storage, pub_web):
 	
 	pub_storage.publish("storage!, I'm " + result_message)
 	pub_web.publish("web!, I'm " + result_message)
-	rate.sleep()
+	#rate.sleep()
 	
 
-def decision():
+def decision(pub_log):
 
-	#log
-	str_time = str(datetime.now()).replace(' ','_')
-	log ='[{}/{}][{}] {}'.format('main','storage',str_time,'decision node is initialized..')
-	print(log)
-	print(log,file=file_log)	
+	init()
 
-	pub = rospy.Publisher('start', start, queue_size=10)
-	rospy.init_node('decision', anonymous=True)
+	############################ init phase ################################
+	
+	init_message = operate()
+	init_message.command = "init"
+	init_message.direction = True
+
+	pub = rospy.Publisher('operate', operate, queue_size=10)
+	#pub_log = rospy.Publisher('logs', String, queue_size=10)
 	rate = rospy.Rate(10)
-	#while not rospy.is_shutdown():
-	start_message = "Let's get it! current time : %s" % rospy.get_time()
-	rospy.loginfo(start_message)
-	pub.publish(start_message)
+
+	rospy.loginfo(init_message)
+	pub.publish(init_message)
 	
 	#publish/subscribe log
 	str_time2 = str(datetime.now()).replace(' ','_')
-	log_result ='[{}/{}][{}][{}] {}'.format('main','storage','PUB',str_time2,"Publsih Message to <result> topic : "+start_message)
-	print(log_result,file=file_log)
+	log_result ='[{}/{}][{}][{}] {}'.format('main','decision','PUB',str_time2,"Publsih Message to <operate> topic : "+init_message.command)
+	pub_log.publish(log_result)
 	print(log_result)
-	rate.sleep()
+	#rate.sleep()
 
-def decision_subscriber():
-	rospy.Subscriber('result_radar', String, callback_radar)
-	rospy.Subscriber('summary_camera', String, callback_summary_camera)
-	rospy.Subscriber('realtime_camera', String, callback_realtime_camera)
-	rospy.spin()
+
+
+	# wait signal from railnode
+	print("waiting init finished..")	
+	while init_finish == False:
+		pass
+	print("start phase..")
+	############################ start phase ################################
+
+	start_message = operate()
+	start_message.command = "start"
+	start_message.direction = True #default value.
+
+	rospy.loginfo(start_message)
+	pub.publish(start_message)
+
+	#publish/subscribe log
+	str_time2 = str(datetime.now()).replace(' ','_')
+	log_result ='[{}/{}][{}][{}] {}'.format('main','decision','PUB',str_time2,"Publsih Message to <operate> topic : "+start_message.command)
+	pub_log.publish(log_result)
+	print(log_result)
+	#rate.sleep()
+
+def init():
+	rospy.init_node('decision', anonymous=True)
+	# log
+	str_time = str(datetime.now()).replace(' ', '_')
+	log = '[{}/{}][{}] {}'.format('main', 'storage', str_time, 'decision node is initialized..')
+	print(log)
+	pub_log.publish(log)
+
+	rospy.Subscriber('result_radar', String, callback_radar, pub_log)
+	rospy.Subscriber('summary_camera', String, callback_summary_camera, pub_log)
+	rospy.Subscriber('realtime_camera', String, callback_realtime_camera, pub_log)
+	rospy.Subscriber('rail_end', String, callback_rail_end, pub_log)
+
 
 if __name__ == '__main__':
 	
 	pub_storage = rospy.Publisher('result_storage', String, queue_size=10)
 	pub_web = rospy.Publisher('result_web', String, queue_size=10)
-	
-	th2 = Thread(target=is_ready,args=(pub_storage,pub_web))
+	pub_log = rospy.Publisher('logs', String, queue_size=10)
 
-	decision()
+
+
+	th2 = Thread(target=is_ready, args=(pub_storage, pub_web))
 	th2.start()
-	decision_subscriber()
+	decision(pub_log)
+	rospy.spin()
 	th2.join()
 
-	file_log.close()
 
 	
 	

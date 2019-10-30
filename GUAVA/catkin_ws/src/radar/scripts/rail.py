@@ -34,7 +34,7 @@ def callback_operate(data):
 
 	#publish/subscribe log
 	str_time2 = str(datetime.now()).replace(' ','_')
-	log_result ='[{}/{}][{}][{}] {}'.format('radar','rail','PUB',str_time2,"Publsih Message to <terminate> topic : "+start_message)
+	log_result ='[{}/{}][{}][{}] {}'.format('radar','rail','PUB',str_time2,"Publsih Message to <terminate> topic : "+terminate_message)
 	print(log_result,file=file_log)
 	print(log_result)
 
