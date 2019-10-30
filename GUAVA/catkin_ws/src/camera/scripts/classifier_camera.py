@@ -29,9 +29,9 @@ class ClassifierCamera:
 
 	def realtime_callback(self, frame_data):
 		print("Send frame in realtime")
-		try:
+		self.realtime.publish(frame_data)
+                try:
 			cv_image = self.bridge.imgmsg_to_cv2(frame_data.frame, "bgr8")
-			cv2.imshow("YOLO", cv_image)
 			print(frame_data.object)
 			print(frame_data.percentage)
 		except CvBridgeError as e:
@@ -71,7 +71,7 @@ class ClassifierCamera:
 			self.realtime_callback(data)
 		elif data.operate == "end":
     			
-			self.summary_callback(data)
+			# self.summary_callback(data)
     			
 
 if __name__ == '__main__':
