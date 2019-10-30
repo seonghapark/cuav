@@ -14,7 +14,7 @@ class ClassifierCamera:
 		self.detected_percentages = []
 		self.bridge = CvBridge()
 		self.send_frame = sendframe()
-		self.classify = rospy.Subscriber('img_camera', sendframe, classifier_camera.callback)
+		self.classify = rospy.Subscriber('img_camera', sendframe, self.callback)
 		self.realtime = rospy.Publisher('realtime_camera', sendframe, queue_size=10)
 		self.summary = rospy.Publisher('summary_camera', sendframe, queue_size=10)
 

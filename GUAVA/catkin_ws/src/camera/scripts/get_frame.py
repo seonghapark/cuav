@@ -4,7 +4,7 @@ import sys
 import rospy
 import argparse
 import numpy as np
-from .detection_boxes import DetectBoxes
+from detection_boxes import DetectBoxes
 from std_msgs.msg import String
 from camera.msg import sendframe
 from cv_bridge import CvBridge, CvBridgeError
