@@ -70,7 +70,7 @@ class ClassifierCamera:
 		if data.operate == "start":
 			self.realtime_callback(data)
 		elif data.operate == "end":
-    			
+                    pass	
 			# self.summary_callback(data)
     			
 
