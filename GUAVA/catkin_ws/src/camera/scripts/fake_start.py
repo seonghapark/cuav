@@ -8,7 +8,7 @@ rospy.init_node("fake_decision")
 pub = rospy.Publisher('operate', String, queue_size=1)
 rate = rospy.Rate(0.05)
 message = "init"
+print("system start")
+pub.publish(message)
 while not rospy.is_shutdown():
-    print("system start")
-    pub.publish(message)
     rate.sleep()
