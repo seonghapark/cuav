@@ -9,8 +9,6 @@ from std_msgs.msg import String
 
 package_name = 'radar'
 node_name = 'analyzer'
-str_time = str(datetime.now()).replace(' ', '_')
-log = rospy.Publisher('log', String, queue_size=10)
 data = bytearray()
 SAMPLE_RATE = 5862
 
@@ -53,12 +51,14 @@ class RadarBinaryParser():
         return self.sync, self.data
 
 
-def callback(data):
+def callback(data, log):
     str_time = str(datetime.now()).replace(' ', '_')
     log_text = '[{}/{}][{}][{}] {}'.format(package_name, node_name, 'SUB', str_time, 'Subscribe from raw')
+    print(log_text)
     log.publish(log_text)
 
     log_text = '[{}/{}][{}] [{}]'.format(package_name, node_name, str_time, 'Data num : ', data.num)
+    print(log_text)
     log.publish(log_text)
 
     pub = rospy.Publisher('wav', wav, queue_size=1)
@@ -71,6 +71,7 @@ def callback(data):
 
     str_time = str(datetime.now()).replace(' ', '_')
     log_text = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, 'Data : ', data.shape, ' Sync : ', sync.shape)
+    print(log_text)
     log.publish(log_text)
 
     # stacking audio data
@@ -87,23 +88,28 @@ def callback(data):
     str_time = str(datetime.now()).replace(' ', '_')
     log_text = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, 'wav_data : ', len(wav_data.data),
                                     ' wav_sync : ', len(wav_data.sync))
+    print(log_text)
     log.publish(log_text)
 
     # Publish Audio Numpy data
     pub.publish(wav_data)
     str_time = str(datetime.now()).replace(' ', '_')
     log_text = '[{}/{}][{}][{}] {}'.format(package_name, node_name, 'PUB', str_time, 'Publish to wav')
+    print(log_text)
     log.publish(log_text)
 
 
 def listener():
     rospy.init_node('analyzer', anonymous=True)
-    rospy.Subscriber('raw', raw, callback)
+
+    log = rospy.Publisher('log', String, queue_size=10)
+    str_time = str(datetime.now()).replace(' ', '_')
+    log_text = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, 'analyzer connects ROS')
+    print(log_text)
+    log.publish(log_text)
+    rospy.Subscriber('raw', raw, callback, (log))
     rospy.spin()
 
 
 if __name__ == '__main__':
-    str_time = str(datetime.now()).replace(' ', '_')
-    log_text = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, 'analyzer connects ROS')
-    log.publish(log_text)
     listener()
