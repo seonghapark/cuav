@@ -79,7 +79,6 @@ def main():
         print("FPS {:5.2f}".format(1000/elapsed))
         
         cv2.imshow(winName, frame)
-        print("FPS {:5.2f}".format(1000/elapsed))
 
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break

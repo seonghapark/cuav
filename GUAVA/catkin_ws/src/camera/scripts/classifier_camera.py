@@ -14,24 +14,23 @@ class ClassifierCamera:
 		self.detected_percentages = []
 		self.bridge = CvBridge()
 		self.send_frame = sendframe()
-		self.classify = rospy.Subscriber('img_camera', sendframe, classifier_camera.callback)
-		self.realtime = rospy.Publisher('realtime_camera', sendframe, queue_size=10)
-		self.summary = rospy.Publisher('summary_camera', sendframe, queue_size=10)
-
+		self.classify = rospy.Subscriber('img_camera', sendframe, self.callback)
+		self.realtime = rospy.Publisher('realtime_camera', sendframe, queue_size=3)
+		self.summary = rospy.Publisher('summary_camera', sendframe, queue_size=3)
 
 	def preprocess_frames(self):
 		try:
 			for o, p in zip(self.detected_objects, self.detected_percentages):
-				print(o,p)
+				print(o, p)
 			return self.detected_frames[0], self.detected_objects[0], self.detected_percentages[0]
 		except EOFError:
 			print("EOF error")
 
 	def realtime_callback(self, frame_data):
 		print("Send frame in realtime")
+		self.realtime.publish(frame_data)
 		try:
 			cv_image = self.bridge.imgmsg_to_cv2(frame_data.frame, "bgr8")
-			cv2.imshow("YOLO", cv_image)
 			print(frame_data.object)
 			print(frame_data.percentage)
 		except CvBridgeError as e:
@@ -46,7 +45,7 @@ class ClassifierCamera:
 		print("Send summarized frame")
 		
 		# preprocess summarized data
-		frame, self.send_frame.object, self.send_data.percentage = self.preprocess_frames()
+		frame, self.send_frame.object, self.send_frame.percent = self.preprocess_frames()
 
 		try:   
 			self.send_frame.operate = frame_data.operate
@@ -56,13 +55,11 @@ class ClassifierCamera:
 			print(e)
 
 		print("SUMMARY CALLBACK")
-		print(send_data.object)
-		print(send_data.percentage)
 
 		# empty data
 		self.detected_frames.clear()
 		self.detected_objects.clear()
-		self.detected_percentage.clear()
+		self.detected_percentages.clear()
 
 	def callback(self, data):
 
@@ -70,9 +67,9 @@ class ClassifierCamera:
 		if data.operate == "start":
 			self.realtime_callback(data)
 		elif data.operate == "end":
-    			
-			self.summary_callback(data)
-    			
+			pass
+			# self.summary_callback(data)
+
 
 if __name__ == '__main__':
 	classifier_camera = ClassifierCamera()

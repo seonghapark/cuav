@@ -1,4 +1,4 @@
-uint8[] frame
-String[] object
+string[] object
 float64[] percent
-String operate
+string operate
+sensor_msgs/Image frame
