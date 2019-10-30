@@ -37,11 +37,11 @@ class GetFrame:
         return
 
     def callback(self, data):
-        print("start get_frame -", data)
-        if data == "init":
+        print("start get_frame -", data.data)
+        if data.data == "init":
             print('initialization')
             self.initialize()
-        elif data == "start" or data == "end":
+        elif data.data == "start" or data == "end":
             print('start or end')
             self.get_frame(data)
 
@@ -87,8 +87,9 @@ class GetFrame:
             network_output = self.net.forward(self.get_outputs_names(self.net))
 
             # Extract the bounding box and draw rectangles
-            self.frame_data.object, self.frame_data.percent = self.detect.detect_bounding_boxes(frame, network_output)
-
+            # self.frame_data.object, self.frame_data.percent = self.detect.detect_bounding_boxes(frame, network_output)
+            # print(self.frame_data.object)
+            # print(self.frame_data.percent)
             # Efficiency information
             t, _ = self.net.getPerfProfile()
             elapsed = abs(t * 1000.0 / cv2.getTickFrequency())
@@ -96,12 +97,14 @@ class GetFrame:
             cv2.putText(frame, label, (40, 40), cv2.FONT_HERSHEY_SIMPLEX, 0.75, (255, 0, 0), 2)
 
             print("FPS {:5.2f}".format(1000/elapsed))
+            cv2.imshow("Frame", frame)
 
             # save image frames
             self.frame_data.operate = operate
             try:   
-                self.frame_data.frame = self.bridge.cv2_to_imgmsg(frame, "bgr8")
-                self.send_frame.publish(self.frame_data)
+                #self.frame_data.frame = self.bridge.cv2_to_imgmsg(frame, "bgr8")
+                print('image converted')
+                # self.send_frame.publish(self.frame_data)
             except CvBridgeError as e:
                 print(e)
 
