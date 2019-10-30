@@ -9,6 +9,8 @@ pub = rospy.Publisher('operate', String, queue_size=1)
 rate = rospy.Rate(5)
 message = "init"
 print("system start")
-pub.publish(message)
 while not rospy.is_shutdown():
-    rate.sleep()
+    rospy.sleep(1)
+    pub.publish(message)
+    print('init sended')
+    rospy.sleep(600)
