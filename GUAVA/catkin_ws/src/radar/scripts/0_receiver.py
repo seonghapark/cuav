@@ -4,26 +4,27 @@ import argparse
 
 import time
 from datetime import datetime
+from threading import Thread
 
 import rospy
-from radar.msg import raw, railstart, railstop
+from radar.msg import raw
+from main.msg import operate
 from std_msgs.msg import String
 
 package_name = 'radar'
 node_name = 'receiver'
-str_time = str(datetime.now()).replace(' ', '_')
-log = rospy.Publisher('log', String, queue_size=10)
 data = bytearray()
-flag = False
-start_radar = bool()
+flag = bool()
 i = 0
 
-def callback2(rail):
-    global data, start_radar, i
-    start_radar = False
+
+def callback2(operate, log):
+    global data, flag, i
+    flag = False
 
     str_time = str(datetime.now()).replace(' ', '_')
-    log_text = '[{}/{}][{}][{}] {}'.format(package_name, node_name, 'SUB', str_time, 'Subscribe from railstop')
+    log_text = '[{}/{}][{}][{}] {}'.format(package_name, node_name, 'SUB', str_time, 'Subscribe from end')
+    print(log_text)
     log.publish(log_text)
 
     pub = rospy.Publisher('raw', raw, queue_size=1)
@@ -34,6 +35,7 @@ def callback2(rail):
 
     str_time = str(datetime.now()).replace(' ', '_')
     log_text = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, 'Data num : ', i, ' Data length : ', len(data))
+    print(log_text)
     log.publish(log_text)
 
     i += 1
@@ -42,61 +44,53 @@ def callback2(rail):
     pub.publish(raw_data)
     str_time = str(datetime.now()).replace(' ', '_')
     log_text = '[{}/{}][{}][{}] {}'.format(package_name, node_name, 'PUB', str_time, 'Publish to raw')
+    print(log_text)
     log.publish(log_text)
 
 
-def callback1(start, args):
-    global flag, start_radar
+def callback1(operate, args):
+    global flag
+    log = args[0]
 
     str_time = str(datetime.now()).replace(' ', '_')
-    log_text = '[{}/{}][{}][{}] {}'.format(package_name, node_name, 'SUB', str_time, 'Subscribe from start')
-    log.publish(log_text)
-
-    pub_operate = rospy.Publisher('operate', railstart, queue_size=1)
-    operate = railstart()
-    operate.start = True
-
-    if not flag:
-        operate.direction = True
-        flag = True
-    else:
-        operate.direction = False
-        flag = False
-
-    pub_operate.publish(operate)
-    str_time = str(datetime.now()).replace(' ', '_')
-    log_text = '[{}/{}][{}][{}] {}'.format(package_name, node_name, 'PUB', str_time, 'Publish to operate')
+    log_text = '[{}/{}][{}][{}] {}'.format(package_name, node_name, 'SUB', str_time, 'Subscribe from operate : start')
+    print(log_text)
     log.publish(log_text)
 
     #rail starts moving, get data from radar
-    start_radar = True
-    with Serial(args.device, 115200) as serial:
+    flag = True
+    with Serial(args[1].device, 115200) as serial:
         str_time = str(datetime.now()).replace(' ', '_')
         log_text = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, 'Begin receiving')
+        print(log_text)
         log.publish(log_text)
 
-        while start_radar:
+        while flag:
             if serial.inWaiting() > 0:
                 data.extend(serial.read(serial.inWaiting()))
             else:
                 time.sleep(0.01)
         str_time = str(datetime.now()).replace(' ', '_')
         log_text = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, 'End receiving')
+        print(log_text)
         log.publish(log_text)
 
 
 def listener(args):
     rospy.init_node('receiver', anonymous=True)
-    rospy.Subscriber('start', String, callback1, (args))
-    rospy.Subscriber('terminate', railstop, callback2)
+
+    log = rospy.Publisher('log', String, queue_size=10)
+    str_time = str(datetime.now()).replace(' ', '_')
+    log_text = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, 'receiver connects ROS')
+    print(log_text)
+    log.publish(log_text)
+
+    rospy.Subscriber('operate', operate, callback1, (log, args))
+    rospy.Subscriber('end', operate, callback2, (log))
     rospy.spin()
 
 
 if __name__ == '__main__':
-    str_time = str(datetime.now()).replace(' ', '_')
-    log_text = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, 'receiver connects ROS')
-    log.publish(log_text)
-
     parser = argparse.ArgumentParser()
     parser.add_argument('-d', '--device', dest='device', help='Device path')
 
