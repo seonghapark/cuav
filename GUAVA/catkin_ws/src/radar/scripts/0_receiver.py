@@ -12,9 +12,7 @@ from std_msgs.msg import String
 package_name = 'radar'
 node_name = 'receiver'
 str_time = str(datetime.now()).replace(' ', '_')
-directory = '/home/project/cuav/GUAVA/catkin_ws/src/radar/logs/receiver/'
-file_name = directory + str_time + '_' + package_name + '_' + node_name + '.log'
-f = open(file_name, 'w')
+log = rospy.Publisher('log', String, queue_size=10)
 data = bytearray()
 flag = False
 start_radar = bool()
@@ -25,8 +23,8 @@ def callback2(rail):
     start_radar = False
 
     str_time = str(datetime.now()).replace(' ', '_')
-    log = '[{}/{}][{}][{}] {}'.format(package_name, node_name, 'SUB', str_time, 'Subscribe from railstop')
-    print(log, file=f)
+    log_text = '[{}/{}][{}][{}] {}'.format(package_name, node_name, 'SUB', str_time, 'Subscribe from railstop')
+    log.publish(log_text)
 
     pub = rospy.Publisher('raw', raw, queue_size=1)
     raw_data = raw()
@@ -35,24 +33,24 @@ def callback2(rail):
     raw_data.num = i
 
     str_time = str(datetime.now()).replace(' ', '_')
-    log = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, 'Data num : ', i, ' Data length : ', len(data))
-    print(log, file=f)
+    log_text = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, 'Data num : ', i, ' Data length : ', len(data))
+    log.publish(log_text)
 
     i += 1
     data = bytearray()
 
     pub.publish(raw_data)
     str_time = str(datetime.now()).replace(' ', '_')
-    log = '[{}/{}][{}][{}] {}'.format(package_name, node_name, 'PUB', str_time, 'Publish to raw')
-    print(log, file=f)
+    log_text = '[{}/{}][{}][{}] {}'.format(package_name, node_name, 'PUB', str_time, 'Publish to raw')
+    log.publish(log_text)
 
 
 def callback1(start, args):
     global flag, start_radar
 
     str_time = str(datetime.now()).replace(' ', '_')
-    log = '[{}/{}][{}][{}] {}'.format(package_name, node_name, 'SUB', str_time, 'Subscribe from start')
-    print(log, file=f)
+    log_text = '[{}/{}][{}][{}] {}'.format(package_name, node_name, 'SUB', str_time, 'Subscribe from start')
+    log.publish(log_text)
 
     pub_operate = rospy.Publisher('operate', railstart, queue_size=1)
     operate = railstart()
@@ -67,23 +65,24 @@ def callback1(start, args):
 
     pub_operate.publish(operate)
     str_time = str(datetime.now()).replace(' ', '_')
-    log = '[{}/{}][{}][{}] {}'.format(package_name, node_name, 'PUB', str_time, 'Publish to operate')
-    print(log, file=f)
+    log_text = '[{}/{}][{}][{}] {}'.format(package_name, node_name, 'PUB', str_time, 'Publish to operate')
+    log.publish(log_text)
 
     #rail starts moving, get data from radar
     start_radar = True
     with Serial(args.device, 115200) as serial:
         str_time = str(datetime.now()).replace(' ', '_')
-        log = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, 'Begin receiving')
-        print(log, file=f)
+        log_text = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, 'Begin receiving')
+        log.publish(log_text)
+
         while start_radar:
             if serial.inWaiting() > 0:
                 data.extend(serial.read(serial.inWaiting()))
             else:
                 time.sleep(0.01)
         str_time = str(datetime.now()).replace(' ', '_')
-        log = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, 'End receiving')
-        print(log, file=f)
+        log_text = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, 'End receiving')
+        log.publish(log_text)
 
 
 def listener(args):
@@ -91,14 +90,12 @@ def listener(args):
     rospy.Subscriber('start', String, callback1, (args))
     rospy.Subscriber('terminate', railstop, callback2)
     rospy.spin()
-    f.close()
 
 
 if __name__ == '__main__':
     str_time = str(datetime.now()).replace(' ', '_')
-    log = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, 'receiver connects ROS')
-    print(log)
-    print(log, file=f)
+    log_text = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, 'receiver connects ROS')
+    log.publish(log_text)
 
     parser = argparse.ArgumentParser()
     parser.add_argument('-d', '--device', dest='device', help='Device path')
