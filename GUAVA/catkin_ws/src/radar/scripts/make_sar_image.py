@@ -4,9 +4,11 @@ import numpy
 import scipy
 import scipy.signal
 import matplotlib.pylab as pylab
+import time
+
 import rospy
 from radar.msg import wav
-import time
+from std_msgs.msg import String
 
 try:
     import scipy.interpolate
@@ -25,9 +27,7 @@ from datetime import datetime
 package_name = 'radar'
 node_name = 'make_sar_image'
 str_time = str(datetime.now()).replace(' ', '_')
-directory = '/home/project/cuav/GUAVA/catkin_ws/src/radar/logs/make_sar_image/'
-file_name = directory + str_time + '_' + package_name + '_' + node_name + '.log'
-f = open(file_name, 'w')
+log = rospy.Publisher('log', String, queue_size=10)
 C = 3e8  # light speed approximation
 # TODO : check pulse period
 MOD_PULSE_PERIOD = 20e-3
@@ -59,9 +59,9 @@ def open_wave(data):
     raw_sync = numpy.array(raw_sync, dtype=numpy.uint16)
 
     str_time = str(datetime.now()).replace(' ', '_')
-    log = '[{}/{}][{}] {}'.format(package_name, node_name, str_time,
+    log_text = '[{}/{}][{}] {}'.format(package_name, node_name, str_time,
                                   'Data : ', raw_data.shape, ' Sync : ', raw_sync.shape, ' Sample rate : ', data.sr)
-    print(log, file=f)
+    log.publish(log_text)
 
     # raw_data = numpy.fromstring(raw_data, dtype=numpy.int16)
     # raw_sync = numpy.fromstring(raw_sync, dtype=numpy.int16)
@@ -85,12 +85,15 @@ def open_wave(data):
     data_samples *= -1
 
     str_time = str(datetime.now()).replace(' ', '_')
-    log = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, 'sync samples after normalization \n',
-                                  sync_samples)
+    # log1 = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, 'sync samples after normalization \n',
+    #                              sync_samples)
     # print(log, file=f)
-    log2 = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, 'data samples after normalization \n',
-                                   data_samples)
-    print(log, log2, file=f)
+    # log2 = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, 'data samples after normalization \n',
+    #                               data_samples)
+    log_text = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, 'sync samples after normalization \n',
+                                  sync_samples, '\ndata samples after normalization \n', data_samples)
+    # print(log1, log2, file=f)
+    log.publish(log_text)
 
     return sync_samples, data_samples, data.sr
 
@@ -157,13 +160,17 @@ def get_sar_frames(sync_samples, data_samples, sample_rate, pulse_period=20e-3):
     # print('average : ', tmp/len(silent_regions))
 
     str_time = str(datetime.now()).replace(' ', '_')
-    log1 = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, 'minimum_silence_len : ', minimum_silence_len)
-    log2 = '[{}/{}][{}] {}'.format(package_name, node_name, str_time,
-                                   'num of False : ', list(condition).count(False), 'num of True : ',
-                                   list(condition).count(True))
-    log3 = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, 'average of silent regions : ',
-                                   tmp / len(silent_regions))
-    print(log1, log2, log3, file=f)
+    # log1 = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, 'minimum_silence_len : ', minimum_silence_len)
+    # log2 = '[{}/{}][{}] {}'.format(package_name, node_name, str_time,
+    #                               'num of False : ', list(condition).count(False), 'num of True : ',
+    #                               list(condition).count(True))
+    # log3 = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, 'average of silent regions : ',
+    #                               tmp / len(silent_regions))
+    log_text = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, 'minimum_silence_len : ', minimum_silence_len,
+                                       'num of False : ', list(condition).count(False), 'num of True : ', list(condition).count(True),
+                                       'average of silent regions : ', tmp / len(silent_regions))
+    # print(log1, log2, log3, file=f)
+    log.publish(log_text)
 
     # select silent regions that is longer than minimum silence length
     long_enough_silent_regions = filter(lambda x: x[1] - x[0] > minimum_silence_len,
@@ -392,8 +399,8 @@ def make_sar_image(setup_data):
     '''Gets the frames from an input file, performs the RMA on the SAR data,
     and saves to an output image.'''
     str_time = str(datetime.now()).replace(' ', '_')
-    log = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, 'Making sar image')
-    print(log, file=f)
+    log_text = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, 'Making sar image')
+    log.publish(log_text)
 
     sif = get_sar_frames(*open_wave(setup_data['filename']), pulse_period=MOD_PULSE_PERIOD)
 
@@ -431,17 +438,17 @@ def make_sar_image(setup_data):
     plot_img(sar_img_data)
 
     str_time = str(datetime.now()).replace(' ', '_')
-    log = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, 'Finish plotting image')
-    print(log, file=f)
+    log_text = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, 'Finish plotting image')
+    log.publish(log_text)
 
 
 def main(data):
     str_time = str(datetime.now()).replace(' ', '_')
-    log = '[{}/{}][{}][{}] {}'.format(package_name, node_name, 'SUB', str_time, 'Subscribe from wav')
-    print(log, file=f)
+    log_text = '[{}/{}][{}][{}] {}'.format(package_name, node_name, 'SUB', str_time, 'Subscribe from wav')
+    log.publish(log_text)
 
-    log = '[{}/{}][{}] [{}]'.format(package_name, node_name, str_time, 'Data num : ', data.num)
-    print(log, file=f)
+    log_text = '[{}/{}][{}] [{}]'.format(package_name, node_name, str_time, 'Data num : ', data.num)
+    log.publish(log_text)
 
     parser = argparse.ArgumentParser(
         description="Generate a SAR image outputted by default to 'sar_image.png' from a WAV file of appropriate data.")
@@ -490,6 +497,6 @@ def listener():
 
 if __name__ == '__main__':
     str_time = str(datetime.now()).replace(' ', '_')
-    log = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, 'make_sar_image connects ROS')
-    print(log, file=f)
+    log_text = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, 'make_sar_image connects ROS')
+    log.publish(log_text)
     listener()
