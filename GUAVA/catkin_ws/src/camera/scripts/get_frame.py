@@ -41,9 +41,11 @@ class GetFrame:
         if data.data == "init":
             print('initialization')
             self.initialize()
-        elif data.data == "start" or data == "end":
-            print('start or end')
+        elif data.data == "start":
+            print('start')
             self.get_frame(data)
+        elif data.data == 'end':
+            print('end')
 
     def initialize(self):     
         print("Loading network.....")
@@ -53,7 +55,7 @@ class GetFrame:
         print("Network successfully loaded")
 
         # load detection class, default confidence threshold is 0.5
-        self.detect = DetectBoxes(self.args.labels, confidence_threshold=self.args.confidence, nms_threshold=self.args.nmsThreshold)
+        self.detect = DetectBoxes(self.args.labels, confidence_threshold=float(self.args.confidence), nms_threshold=float(self.args.nmsThreshold))
         
         try:
             self.cap = cv2.VideoCapture(0)
@@ -87,9 +89,10 @@ class GetFrame:
             network_output = self.net.forward(self.get_outputs_names(self.net))
 
             # Extract the bounding box and draw rectangles
-            # self.frame_data.object, self.frame_data.percent = self.detect.detect_bounding_boxes(frame, network_output)
-            # print(self.frame_data.object)
-            # print(self.frame_data.percent)
+            self.frame_data.object, self.frame_data.percent = self.detect.detect_bounding_boxes(frame, network_output)
+            print(self.frame_data.object)
+            print(self.frame_data.percent)
+
             # Efficiency information
             t, _ = self.net.getPerfProfile()
             elapsed = abs(t * 1000.0 / cv2.getTickFrequency())
