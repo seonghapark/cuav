@@ -1,14 +1,21 @@
 #! /usr/bin/env python3
 
 import rospy
-from std_msgs.msg import String
+from main.msg import operate
 
 print('fake_start')
 rospy.init_node("fake_start")
-pub = rospy.Publisher('start', String, queue_size=1)
-rate = rospy.Rate(0.05)
-message = "hello"
+start = rospy.Publisher('operate', operate, queue_size=1)
+end = rospy.Publisher('end', operate, queue_size=1)
+message = operate()
+rate = rospy.Rate(0.2)
 while not rospy.is_shutdown():
+    rate.sleep()
+    message.command = 'start'
     print("system start")
-    pub.publish(message)
+    start.publish(message)
+    rate.sleep()
+    message.command = 'end'
+    print("system end")
+    end.publish(message)
     rate.sleep()
