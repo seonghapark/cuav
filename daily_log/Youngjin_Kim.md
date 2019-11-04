@@ -137,3 +137,10 @@ Youngjin Kim
 2019.10.29
 1. RNN model(LSTM) 개념 및 원리 공부.
 2. Google Colab에서 keras 모듈을 이용해 urban sound classification 예제 코드 작성.
+
+2019.10.30
+1. urban sound classification accuracy 높이기 위한 코드 수정.
+
+2019.11.04
+1. RNN 구조 학습 및 전 summer 팀의 코드 분석을 통해 어떤 모델을 사용할 지 공부.
+2. radar 이동 속도에 따른 make sar image 코드를 어떻게 수정해야 할 지 코드 분석.
