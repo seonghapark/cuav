@@ -187,3 +187,6 @@
 		- 만들어진 frame ros msg 포맷으로 convert시 error 발생
 		- 기존 drone만 detect하는 tiny yolo가 0.2 FPS, 1 frame에 5초 정도가 걸리는 현상 발생, 추후 모델 재학습 혹은 변경 필요함
 
+### 2019-10-31
+	- roscore 해서 이미지 detection까지 완성, 그러나 이미지 message로 전송하려고 할 때 에러 발생
+	- Pythonpath 오류나서 이미지 재설치
