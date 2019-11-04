@@ -7,6 +7,7 @@ import rospy
 from radar.msg import raw, wav
 from std_msgs.msg import String
 
+log = rospy.Publisher('log', String, queue_size=10)
 package_name = 'radar'
 node_name = 'analyzer'
 data = bytearray()
@@ -57,7 +58,8 @@ def callback(data, log):
     print(log_text)
     log.publish(log_text)
 
-    log_text = '[{}/{}][{}] [{}]'.format(package_name, node_name, str_time, 'Data num : ', data.num)
+    str_msg = 'Data num : ' + str(data.num)
+    log_text = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, str_msg)
     print(log_text)
     log.publish(log_text)
 
@@ -70,7 +72,8 @@ def callback(data, log):
     sync, data = parser.parse()
 
     str_time = str(datetime.now()).replace(' ', '_')
-    log_text = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, 'Data : ', data.shape, ' Sync : ', sync.shape)
+    str_msg = 'Data : ' + str(data.shape) + ' Sync : ' + str(sync.shape)
+    log_text = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, str_msg)
     print(log_text)
     log.publish(log_text)
 
@@ -86,8 +89,8 @@ def callback(data, log):
     wav_data.sr = SAMPLE_RATE
 
     str_time = str(datetime.now()).replace(' ', '_')
-    log_text = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, 'wav_data : ', len(wav_data.data),
-                                    ' wav_sync : ', len(wav_data.sync))
+    str_msg = 'wav_data : ' + str(len(wav_data.data)) + ' wav_sync : '+ str(len(wav_data.sync))
+    log_text = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, str_msg)
     print(log_text)
     log.publish(log_text)
 
@@ -100,9 +103,10 @@ def callback(data, log):
 
 
 def listener():
+    global log
     rospy.init_node('analyzer', anonymous=True)
 
-    log = rospy.Publisher('log', String, queue_size=10)
+    #log = rospy.Publisher('log', String, queue_size=10)
     str_time = str(datetime.now()).replace(' ', '_')
     log_text = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, 'analyzer connects ROS')
     print(log_text)
