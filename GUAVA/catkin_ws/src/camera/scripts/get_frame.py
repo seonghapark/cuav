@@ -100,14 +100,14 @@ class GetFrame:
             cv2.putText(frame, label, (40, 40), cv2.FONT_HERSHEY_SIMPLEX, 0.75, (255, 0, 0), 2)
 
             print("FPS {:5.2f}".format(1000/elapsed))
-            cv2.imshow("Frame", frame)
+            # cv2.imshow("Frame", frame)
 
             # save image frames
             self.frame_data.operate = operate
             try:   
-                #self.frame_data.frame = self.bridge.cv2_to_imgmsg(frame, "bgr8")
+                self.frame_data.frame = self.bridge.cv2_to_imgmsg(frame, encoding="passthrough")
                 print('image converted')
-                # self.send_frame.publish(self.frame_data)
+                self.send_frame.publish(self.frame_data)
             except CvBridgeError as e:
                 print(e)
 
@@ -126,6 +126,6 @@ if __name__ == '__main__':
         rospy.spin()
     except KeyboardInterrupt:
         print("Shut down - keyboard interruption")
-    # main node 전체 종료 subscribe
+    # main node  subscribe
     # rospy.Subscriber('terminate', railstop, callback_end)
 
