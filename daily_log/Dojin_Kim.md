@@ -197,3 +197,9 @@
 	- cv2_to_imgmsg 로 image publish 완료
 	- get_frame, classifier 수정
 	- 그러나, imgmsg_to_cv2 과정에서 오류 발생, cv_bridge github를 다운 받아서 다시 실행중
+
+### 2019-11-05
+	- cv_bridge 다운받아서 catkin_make로 변환 성공
+	- log convention 추가
+	- camera.sh 파일 작성
+	- 카메라로 찍고, detect하고 message 전달 성공
