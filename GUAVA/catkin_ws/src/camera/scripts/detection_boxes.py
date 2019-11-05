@@ -74,7 +74,7 @@ class DetectBoxes:
             # add labels
             labels.append(self.classes[class_ids[i]])
             # add percentage
-            percentage.append(confidence[i])
+            percentage.append(confidences[i])
             self.draw_boxes(frame, class_ids[i], confidences[i], left, top, left + width, top + height)
         return labels, percentage
 

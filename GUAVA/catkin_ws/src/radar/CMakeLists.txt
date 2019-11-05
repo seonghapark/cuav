@@ -53,8 +53,6 @@ add_message_files(
    raw.msg
    wav.msg
    img.msg
-   railstart.msg
-   railstop.msg
    result.msg
  )
 

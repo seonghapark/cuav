@@ -178,3 +178,22 @@
  - ros node들 작동 완료
  - sh 파일 작성해서 자동으로 모든 script들이 실행되도록 해야함
  - classifier_camera, get_frame 코드 수정
+
+### 2019-10-30
+	- fake_start, fake_rail 코드 작성해서 decision node에서 시작을 하는 것과 비슷한 프로세스를 적용함
+	- bash 파일을 작성해서 roscore는 백그라운드 나머지는 gterminal로 실행되게 함
+	- 현재 수정 필요한 부분:
+		- detection후에 bounding box를 그리는 상황에서 type error 발생
+		- 만들어진 frame ros msg 포맷으로 convert시 error 발생
+		- 기존 drone만 detect하는 tiny yolo가 0.2 FPS, 1 frame에 5초 정도가 걸리는 현상 발생, 추후 모델 재학습 혹은 변경 필요함
+
+### 2019-10-31
+	- roscore 해서 이미지 detection까지 완성, 그러나 이미지 message로 전송하려고 할 때 에러 발생
+	- Pythonpath 오류나서 이미지 재설치
+
+## 2019-11-04 ~ 2019-11-08
+
+### 2019-11-04
+	- cv2_to_imgmsg 로 image publish 완료
+	- get_frame, classifier 수정
+	- 그러나, imgmsg_to_cv2 과정에서 오류 발생, cv_bridge github를 다운 받아서 다시 실행중
