@@ -34,7 +34,8 @@ def callback2(operate, log):
     raw_data.num = i
 
     str_time = str(datetime.now()).replace(' ', '_')
-    log_text = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, 'Data num : ', i, ' Data length : ', len(data))
+    string_msg = 'Data num : ' + str(i) + ', Data length: ' + str(len(data))
+    log_text = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, string_msg)
     print(log_text)
     log.publish(log_text)
 

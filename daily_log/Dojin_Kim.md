@@ -190,3 +190,10 @@
 ### 2019-10-31
 	- roscore 해서 이미지 detection까지 완성, 그러나 이미지 message로 전송하려고 할 때 에러 발생
 	- Pythonpath 오류나서 이미지 재설치
+
+## 2019-11-04 ~ 2019-11-08
+
+### 2019-11-04
+	- cv2_to_imgmsg 로 image publish 완료
+	- get_frame, classifier 수정
+	- 그러나, imgmsg_to_cv2 과정에서 오류 발생, cv_bridge github를 다운 받아서 다시 실행중
