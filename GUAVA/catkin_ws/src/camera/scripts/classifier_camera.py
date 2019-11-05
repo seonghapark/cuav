@@ -28,20 +28,18 @@ class ClassifierCamera:
 
 	def realtime_callback(self, frame_data):
 		print("Send frame in realtime")
-		self.realtime.publish(frame_data)
+		# self.realtime.publish(frame_data)
 		try:
-			cv_image = self.bridge.imgmsg_to_cv2(frame_data.frame, encoding="passthrough")
-			print(frame_data.object)
-			print(frame_data.percentage)
+                    cv_image = self.bridge.imgmsg_to_cv2(frame_data.frame, encoding="bgr8")
 		except CvBridgeError as e:
 			print(e)
 
 		cv2.imshow("Frame", cv_image)
 
 		# accumulate detected frames + labels + percentages
-		self.detected_frames.append(cv_image)
+		# self.detected_frames.append(cv_image)
 		self.detected_objects.append(frame_data.object)
-		self.detected_percentages.append(frame_data.percentage)
+		self.detected_percentages.append(frame_data.percent)
 
 	def summary_callback(self, frame_data):
 		print("Send summarized frame")
