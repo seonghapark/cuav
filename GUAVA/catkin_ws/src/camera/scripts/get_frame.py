@@ -72,8 +72,10 @@ class GetFrame:
 
     def get_frame(self, operate):
         print("get_frame")
+        # if start signal came before init signal
         if not self.cap.isOpened():
             self.initialize()
+
         while self.cap.isOpened():
             hasFrame, frame = self.cap.read()
             # if end of frame, program is terminated
@@ -92,8 +94,6 @@ class GetFrame:
 
             # Extract the bounding box and draw rectangles
             self.frame_data.object, self.frame_data.percent = self.detect.detect_bounding_boxes(frame, network_output)
-            # print(self.frame_data.object)
-            # print(self.frame_data.percent)
 
             # Efficiency information
             t, _ = self.net.getPerfProfile()
@@ -102,7 +102,6 @@ class GetFrame:
             cv2.putText(frame, label, (40, 40), cv2.FONT_HERSHEY_SIMPLEX, 0.75, (255, 0, 0), 2)
 
             print("FPS {:5.2f}".format(1000/elapsed))
-            # cv2.imshow("Frame", frame)
 
             # save image frames
             self.frame_data.operate = operate.data
@@ -110,13 +109,8 @@ class GetFrame:
                 self.frame_data.frame = self.bridge.cv2_to_imgmsg(frame, encoding="passthrough")
                 self.send_frame.publish(self.frame_data)
                 print('image published')
-                
-                a = self.bridge.imgmsg_to_cv2(self.frame_data.frame, desired_encoding='passthrough')
-
             except CvBridgeError as e:
                 print(e)
-
-            cv2.imshow("frame", a)
 
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
@@ -133,6 +127,3 @@ if __name__ == '__main__':
         rospy.spin()
     except KeyboardInterrupt:
         print("Shut down - keyboard interruption")
-    # main node  subscribe
-    # rospy.Subscriber('terminate', railstop, callback_end)
-

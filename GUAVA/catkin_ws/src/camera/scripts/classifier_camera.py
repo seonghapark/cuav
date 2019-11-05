@@ -28,16 +28,16 @@ class ClassifierCamera:
 
 	def realtime_callback(self, frame_data):
 		print("Send frame in realtime")
-		# self.realtime.publish(frame_data)
+		self.realtime.publish(frame_data)
 		try:
-                    cv_image = self.bridge.imgmsg_to_cv2(frame_data.frame, encoding="bgr8")
+			cv_image = self.bridge.imgmsg_to_cv2(frame_data.frame, desired_encoding="passthrough")
 		except CvBridgeError as e:
 			print(e)
 
 		cv2.imshow("Frame", cv_image)
 
 		# accumulate detected frames + labels + percentages
-		# self.detected_frames.append(cv_image)
+		self.detected_frames.append(cv_image)
 		self.detected_objects.append(frame_data.object)
 		self.detected_percentages.append(frame_data.percent)
 
@@ -49,7 +49,7 @@ class ClassifierCamera:
 
 		try:   
 			self.send_frame.operate = frame_data.operate
-			self.send_frame.frame = self.bridge.cv2_to_imgmsg(frame, "bgr8")
+			self.send_frame.frame = self.bridge.cv2_to_imgmsg(frame, encoding="passthrough")
 			self.summary.publish(self.send_frame)
 		except CvBridgeError as e:
 			print(e)
@@ -62,8 +62,6 @@ class ClassifierCamera:
 		self.detected_percentages.clear()
 
 	def callback(self, data):
-
-		print("Start classifier camera")
 		if data.operate == "start":
 			self.realtime_callback(data)
 		elif data.operate == "end":
@@ -72,6 +70,7 @@ class ClassifierCamera:
 
 
 if __name__ == '__main__':
+	print("Start classifier camera")
 	classifier_camera = ClassifierCamera()
 	rospy.init_node('classifier_camera', anonymous=True)
 	try:
