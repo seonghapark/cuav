@@ -28,18 +28,18 @@ def arg_parse():
 
 
 class GetFrame:
-    def __init__(self):
+    def __init__(self, node_name, log_pub):
         self.operate = rospy.Subscriber('operate', String, self.callback)
-        self.send_frame = rospy.Publisher('img_camera', sendframe, queue_size=3)
-        self.log = rospy.Publisher('log', String, queue_size=10)
-        self.node_name = "get_frame"
+        self.pub_frame = rospy.Publisher('img_camera', sendframe, queue_size=3)
+        # self.log = rospy.Publisher('log', String, queue_size=10)
+        self.log = log_pub
+        self.node_name = node_name
         self.net = None
         self.detect = None
         self.cap = None
         self.args = arg_parse()
         self.frame_data = sendframe()
         self.bridge = CvBridge()
-        self.log.publish(log_generator(self.node_name, "get_frame connects ROS"))
 
     def callback(self, data):
         if data.data == "init":
@@ -111,7 +111,7 @@ class GetFrame:
             self.frame_data.operate = operate.data
             try:   
                 self.frame_data.frame = self.bridge.cv2_to_imgmsg(frame, encoding="passthrough")
-                self.send_frame.publish(self.frame_data)
+                self.pub_frame.publish(self.frame_data)
                 self.log.publish(log_generator(self.node_name, "img_camera", "pub"))
             except CvBridgeError as e:
                 print(e)
@@ -125,8 +125,10 @@ class GetFrame:
 
 
 if __name__ == '__main__':
-    g_frame = GetFrame()
     rospy.init_node('get_frame', anonymous=True)
+    log = rospy.Publisher('log', String, queue_size=10)
+    log.publish(log_generator('get_frame', "Start get_frame"))
+    g_frame = GetFrame('get_frame', log)
     try:
         rospy.spin()
     except KeyboardInterrupt:
