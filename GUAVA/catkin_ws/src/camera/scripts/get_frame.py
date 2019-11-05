@@ -126,7 +126,7 @@ class GetFrame:
 
 if __name__ == '__main__':
     rospy.init_node('get_frame', anonymous=True)
-    log = rospy.Publisher('log', String, queue_size=10)
+    log = rospy.Publisher('logs', String, queue_size=10)
     log.publish(log_generator('get_frame', "Start get_frame"))
     g_frame = GetFrame('get_frame', log)
     try:

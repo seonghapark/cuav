@@ -77,7 +77,7 @@ class ClassifierCamera:
 
 if __name__ == '__main__':
 	rospy.init_node('classifier_camera', anonymous=True)
-	log = rospy.Publisher('log', String, queue_size=10)
+	log = rospy.Publisher('logs', String, queue_size=10)
 	log.publish(log_generator("classifier_camera", "Start classifier_camera"))
 	classifier_camera = ClassifierCamera('classifier_camera', log)
 	try:
