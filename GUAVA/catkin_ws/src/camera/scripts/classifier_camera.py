@@ -31,10 +31,12 @@ class ClassifierCamera:
 		self.realtime.publish(frame_data)
 		try:
 			cv_image = self.bridge.imgmsg_to_cv2(frame_data.frame, desired_encoding="passthrough")
+			print('"Image converted')
 		except CvBridgeError as e:
 			print(e)
 
-		cv2.imshow("Frame", cv_image)
+		cv2.imshow("classify Frame", cv_image)
+		cv2.waitKey(30)
 
 		# accumulate detected frames + labels + percentages
 		self.detected_frames.append(cv_image)
