@@ -144,3 +144,7 @@ Youngjin Kim
 2019.11.04
 1. RNN 구조 학습 및 전 summer 팀의 코드 분석을 통해 어떤 모델을 사용할 지 공부.
 2. radar 이동 속도에 따른 make sar image 코드를 어떻게 수정해야 할 지 코드 분석.
+
+2019.11.05
+1. MFCC및 mel spectogram의 특성 공부.
+2. sar imaging code 파라미터 분석.
