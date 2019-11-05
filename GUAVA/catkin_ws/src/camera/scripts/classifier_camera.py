@@ -13,8 +13,8 @@ class ClassifierCamera:
 		self.classify = rospy.Subscriber('img_camera', sendframe, self.callback)
 		self.realtime = rospy.Publisher('realtime_camera', sendframe, queue_size=3)
 		self.summary = rospy.Publisher('summary_camera', sendframe, queue_size=3)
-                self.log = log_pub
-                self.node_name = node_name
+		self.log = log_pub
+		self.node_name = node_name
 		self.detected_frames = []
 		self.detected_objects = []
 		self.detected_percentages = []
@@ -77,10 +77,10 @@ class ClassifierCamera:
 
 if __name__ == '__main__':
 	rospy.init_node('classifier_camera', anonymous=True)
-        log = rospy.Publisher('log', String, queue_size=10)
+	log = rospy.Publisher('log', String, queue_size=10)
 	log.publish(log_generator("classifier_camera", "Start classifier_camera"))
-        classifier_camera = ClassifierCamera('classifier_camera', log)
-        try:
+	classifier_camera = ClassifierCamera('classifier_camera', log)
+	try:
 		rospy.spin()
 	except KeyboardInterrupt:
 		print("Shut down - keyboard interruption")
