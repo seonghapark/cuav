@@ -4,90 +4,109 @@ import argparse
 
 import time
 from datetime import datetime
-from threading import Thread
 
 import rospy
 from radar.msg import raw
 from main.msg import operate
 from std_msgs.msg import String
 
-package_name = 'radar'
-node_name = 'receiver'
-data = bytearray()
-flag = bool()
-i = 0
+PACKAGE_NAME = 'radar'
+NODE_NAME = 'receiver'
+DATA = bytearray()
+FLAG = bool()
+I = 0
 
+rospy.init_node('receiver', anonymous=True)
+log = rospy.Publisher('logs', String, queue_size=10)
+pub_raw = rospy.Publisher('raw', raw, queue_size=1)
+realtime = rospy.Publisher('realtime', raw, queue_size=10)
 
-def callback2(operate, log):
-    global data, flag, i
-    flag = False
+def publish(operate):
+    global DATA, FLAG, I
+    FLAG = False
 
     str_time = str(datetime.now()).replace(' ', '_')
-    log_text = '[{}/{}][{}][{}] {}'.format(package_name, node_name, 'SUB', str_time, 'Subscribe from end')
+    log_text = '[{}/{}][{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, 'SUB', str_time, 'Subscribe from end')
     print(log_text)
     log.publish(log_text)
 
-    pub = rospy.Publisher('raw', raw, queue_size=1)
+    #pub = rospy.Publisher('raw', raw, queue_size=1)
     raw_data = raw()
-
-    raw_data.data = data
-    raw_data.num = i
+    raw_data.data = DATA
+    raw_data.num = I
 
     str_time = str(datetime.now()).replace(' ', '_')
-    string_msg = 'Data num : ' + str(i) + ', Data length: ' + str(len(data))
-    log_text = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, string_msg)
+    msg = 'Data num : ' + str(I) + ', Data length: ' + str(len(DATA))
+    log_text = '[{}/{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, str_time, msg)
     print(log_text)
     log.publish(log_text)
 
-    i += 1
-    data = bytearray()
+    I += 1
+    DATA = bytearray()
 
-    pub.publish(raw_data)
+    pub_raw.publish(raw_data)
     str_time = str(datetime.now()).replace(' ', '_')
-    log_text = '[{}/{}][{}][{}] {}'.format(package_name, node_name, 'PUB', str_time, 'Publish to raw')
-    print(log_text)
+    log_text = '[{}/{}][{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, 'PUB', str_time, 'Publish to raw')
     log.publish(log_text)
+    print(log_text)
 
 
-def callback1(operate, args):
-    global flag
-    log = args[0]
+def start(operate, args):
+    global FLAG, DATA
 
     str_time = str(datetime.now()).replace(' ', '_')
-    log_text = '[{}/{}][{}][{}] {}'.format(package_name, node_name, 'SUB', str_time, 'Subscribe from operate : start')
+    log_text = '[{}/{}][{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, 'SUB', str_time, 'Subscribe from operate : start')
     print(log_text)
     log.publish(log_text)
 
     #rail starts moving, get data from radar
-    flag = True
-    with Serial(args[1].device, 115200) as serial:
-        str_time = str(datetime.now()).replace(' ', '_')
-        log_text = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, 'Begin receiving')
-        print(log_text)
-        log.publish(log_text)
+    FLAG = True
+    start_time = time.time()
 
-        while flag:
-            if serial.inWaiting() > 0:
-                data.extend(serial.read(serial.inWaiting()))
-            else:
-                time.sleep(0.01)
-        str_time = str(datetime.now()).replace(' ', '_')
-        log_text = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, 'End receiving')
-        print(log_text)
-        log.publish(log_text)
-
-
-def listener(args):
-    rospy.init_node('receiver', anonymous=True)
-
-    log = rospy.Publisher('log', String, queue_size=10)
     str_time = str(datetime.now()).replace(' ', '_')
-    log_text = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, 'receiver connects ROS')
+    log_text = '[{}/{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, str_time, 'Begin receiving')
     print(log_text)
     log.publish(log_text)
 
-    rospy.Subscriber('operate', operate, callback1, (log, args))
-    rospy.Subscriber('end', operate, callback2, (log))
+    with Serial(args.device, 115200) as serial:
+        while FLAG:
+            if serial.inWaiting() > 0:
+                DATA.extend(serial.read(serial.inWaiting()))
+            else:
+                time.sleep(0.01)
+
+            current_time = time.time()
+            if current_time - start_time > 1.0:
+                if len(DATA) >= 11025:
+                    raw_data = raw()
+                    raw_data.data = DATA[:11025]
+                    raw_data.num = I
+                    realtime.publish(raw_data)
+
+                    str_time = str(datetime.now()).replace(' ', '_')
+                    log_text = '[{}/{}][{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, 'PUB', str_time, 'Publish to realtime')
+                    log.publish(log_text)
+                    print(log_text)
+
+                start_time = current_time
+
+        str_time = str(datetime.now()).replace(' ', '_')
+        log_text = '[{}/{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, str_time, 'End receiving')
+        log.publish(log_text)
+        print(log_text)
+
+
+def listener(args):
+    #rospy.init_node('receiver', anonymous=True)
+
+    #log = rospy.Publisher('log', String, queue_size=10)
+    str_time = str(datetime.now()).replace(' ', '_')
+    log_text = '[{}/{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, str_time, 'receiver connects ROS')
+    log.publish(log_text)
+    print(log_text)
+
+    rospy.Subscriber('operate', operate, start, (args))
+    rospy.Subscriber('end', operate, publish)
     rospy.spin()
 
 

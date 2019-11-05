@@ -5,14 +5,19 @@ import os
 import time
 import rospy
 from radar.msg import raw
+from std_msgs.msg import String
 
+rospy.init_node('fake_data', anonymous=True)
+fake_data = rospy.Publisher('raw', raw, queue_size=1)
+log = rospy.Publisher('log', String, queue_size=10)
 EXCHANGE_NAME = 'radar'
-data = bytearray()
+DATA = bytearray()
 
 if __name__ == '__main__':
-    rospy.init_node('fake_data', anonymous=True)
-    fake_data = rospy.Publisher('raw', raw, queue_size=1)
+    #rospy.init_node('fake_data', anonymous=True)
+    #fake_data = rospy.Publisher('raw', raw, queue_size=1)
     print('Connect ROS')
+    log.publish('Connect ROS')
     raw_data = raw()
 
     # read file
@@ -27,10 +32,10 @@ if __name__ == '__main__':
     try:
         # divide input
         print(len(read_data)//11724)
-        for i in range(int(len(read_data)//11724)):
+        for I in range(int(len(read_data) // 11724)):
             #print(i)
-            raw_data.num = i
-            raw_data.data = read_data[i * 11724:(i + 1) * 11724]
+            raw_data.num = I
+            raw_data.data = read_data[I * 11724:(I + 1) * 11724]
             #print(raw_data.num)
             #print(raw_data.data)
             fake_data.publish(raw_data)

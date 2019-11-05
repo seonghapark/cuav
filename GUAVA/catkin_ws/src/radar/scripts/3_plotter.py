@@ -3,24 +3,29 @@
 from threading import Thread
 
 import matplotlib.colors as colors
-from matplotlib.colors import BoundaryNorm
 
 #import matplotlib.pylab as plt
 import matplotlib.pyplot as plt
 from matplotlib import animation
 
 import numpy as np
-import sys
-#import pika
 import time
+from datetime import datetime
 import queue
 
-import argparse
-
 import rospy
-from radar.msg import wav
+from radar.msg import raw, wav
+from std_msgs.msg import String
 
-EXCHANGE_NAME = 'radar'
+PACKAGE_NAME = 'radar'
+NODE_NAME = 'plotter'
+DATA = bytearray()
+FLAG = bool()
+I = 0
+
+rospy.init_node('plotter', anonymous=True)
+log = rospy.Publisher('logs', String, queue_size=10)
+
 
 class ros_communication(Thread):
     def __init__(self, plotter):
@@ -43,7 +48,11 @@ class ros_communication(Thread):
 
 class colorgraph_handler():
     def __init__(self):
-        print('init colorgraph')
+        str_time = str(datetime.now()).replace(' ', '_')
+        log_text = '[{}/{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, str_time, 'Initialize plotter')
+        log.publish(log_text)
+        print(log_text)
+
         ## constants for frame
         self.n = int(5512/50)  # Samples per a ramp up-time
         # self.n = int(5512/50)
@@ -123,8 +132,8 @@ if __name__ == '__main__':
     plot = colorgraph_handler()
     ros = ros_communication(plot)
 
-    rospy.init_node('draw', anonymous=True)
-    rospy.Subscriber('wav', wav, ros.data_disassembler)
+    #rospy.init_node('draw', anonymous=True)
+    rospy.Subscriber('raw', raw, ros.data_disassembler)
     try:
         while(True):
             # print('main while(True)')

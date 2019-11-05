@@ -7,11 +7,14 @@ import rospy
 from radar.msg import raw, wav
 from std_msgs.msg import String
 
-log = rospy.Publisher('log', String, queue_size=10)
-package_name = 'radar'
-node_name = 'analyzer'
-data = bytearray()
+PACKAGE_NAME = 'radar'
+NODE_NAME = 'analyzer'
+DATA = bytearray()
 SAMPLE_RATE = 5862
+
+rospy.init_node('receiver', anonymous=True)
+pub_wav = rospy.Publisher('wav', wav, queue_size=1)
+log = rospy.Publisher('logs', String, queue_size=10)
 
 
 class RadarBinaryParser():
@@ -52,18 +55,17 @@ class RadarBinaryParser():
         return self.sync, self.data
 
 
-def callback(data, log):
+def callback(data):
     str_time = str(datetime.now()).replace(' ', '_')
-    log_text = '[{}/{}][{}][{}] {}'.format(package_name, node_name, 'SUB', str_time, 'Subscribe from raw')
-    print(log_text)
+    log_text = '[{}/{}][{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, 'SUB', str_time, 'Subscribe from raw')
     log.publish(log_text)
+    print(log_text)
 
     str_msg = 'Data num : ' + str(data.num)
-    log_text = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, str_msg)
-    print(log_text)
+    log_text = '[{}/{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, str_time, str_msg)
     log.publish(log_text)
+    print(log_text)
 
-    pub = rospy.Publisher('wav', wav, queue_size=1)
     raw_data = raw()
     raw_data.data = data.data
     raw_data.num = data.num
@@ -73,9 +75,9 @@ def callback(data, log):
 
     str_time = str(datetime.now()).replace(' ', '_')
     str_msg = 'Data : ' + str(data.shape) + ' Sync : ' + str(sync.shape)
-    log_text = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, str_msg)
-    print(log_text)
+    log_text = '[{}/{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, str_time, str_msg)
     log.publish(log_text)
+    print(log_text)
 
     # stacking audio data
     # audio = np.vstack((sync,data))
@@ -90,28 +92,29 @@ def callback(data, log):
 
     str_time = str(datetime.now()).replace(' ', '_')
     str_msg = 'wav_data : ' + str(len(wav_data.data)) + ' wav_sync : '+ str(len(wav_data.sync))
-    log_text = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, str_msg)
-    print(log_text)
+    log_text = '[{}/{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, str_time, str_msg)
     log.publish(log_text)
+    print(log_text)
 
     # Publish Audio Numpy data
-    pub.publish(wav_data)
+    pub_wav.publish(wav_data)
     str_time = str(datetime.now()).replace(' ', '_')
-    log_text = '[{}/{}][{}][{}] {}'.format(package_name, node_name, 'PUB', str_time, 'Publish to wav')
-    print(log_text)
+    log_text = '[{}/{}][{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, 'PUB', str_time, 'Publish to wav')
     log.publish(log_text)
+    print(log_text)
 
 
 def listener():
-    global log
-    rospy.init_node('analyzer', anonymous=True)
+    #global log
+    #rospy.init_node('analyzer', anonymous=True)
 
     #log = rospy.Publisher('log', String, queue_size=10)
     str_time = str(datetime.now()).replace(' ', '_')
-    log_text = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, 'analyzer connects ROS')
-    print(log_text)
+    log_text = '[{}/{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, str_time, 'analyzer connects ROS')
     log.publish(log_text)
-    rospy.Subscriber('raw', raw, callback, (log))
+    print(log_text)
+
+    rospy.Subscriber('raw', raw, callback)
     rospy.spin()
 
 

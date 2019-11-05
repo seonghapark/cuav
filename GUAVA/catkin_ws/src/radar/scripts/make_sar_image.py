@@ -31,8 +31,8 @@ C = 3e8  # light speed approximation
 # TODO : check pulse period
 MOD_PULSE_PERIOD = 20e-3
 # TODO : check for Frequency range of VCO
-VCO_FREQ_RANGE = [2400e6, 2591e6]  # at 25 degrees, taken from datasheet
-
+#VCO_FREQ_RANGE = [2400e6, 2591e6]  # at 25 degrees, taken from datasheet
+VCO_FREQ_RANGE = [2400e6, 2500e6]
 
 #       for my particular VCO given my adjugment of Vtune range.
 #
