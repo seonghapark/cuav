@@ -287,7 +287,7 @@ def RMA(sif, pulse_period=20e-3, freq_range=None, Rs=9.0):
     N = len(sif_padded)
 
     # construct Kx axis
-    Kx = numpy.linspace(-PI / delta_x, PI / delta_x, N)
+    Kx = numpy.linspace(-(PI/2) / delta_x, (PI/2) / delta_x, N)
 
     freqs = numpy.fft.fft(sif_padded, axis=0)  # note fft is along cross-range!
     S = numpy.fft.fftshift(freqs, axes=(0,))  # shifts 0-freq components to center of spectrum
