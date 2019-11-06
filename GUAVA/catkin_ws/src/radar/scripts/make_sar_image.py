@@ -39,6 +39,11 @@ VCO_FREQ_RANGE = [2400e6, 2500e6]
 #       MIT's freq range is a default parameter of the RMA
 #       if your data filename has the 'mit-' prefix.
 
+# Initialize node and declare publishers
+rospy.init_node('make_sar_image', anonymous=True)
+log = rospy.Publisher('log', String, queue_size=10)
+
+
 # Utility funcs for unit conversion
 def meters2feet(meters):
     return meters / 0.3048
@@ -495,9 +500,6 @@ def main(data, log):
 
 
 def listener():
-    rospy.init_node('make_sar_image', anonymous=True)
-
-    log = rospy.Publisher('log', String, queue_size=10)
     log_text = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, 'make_sar_image connects ROS')
     print(log_text)
     log.publish(log_text)
