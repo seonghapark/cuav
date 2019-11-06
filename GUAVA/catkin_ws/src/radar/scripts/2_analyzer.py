@@ -12,7 +12,7 @@ NODE_NAME = 'analyzer'
 DATA = bytearray()
 SAMPLE_RATE = 5862
 
-rospy.init_node('receiver', anonymous=True)
+rospy.init_node('analyzer', anonymous=True)
 pub_wav = rospy.Publisher('wav', wav, queue_size=1)
 log = rospy.Publisher('logs', String, queue_size=10)
 
