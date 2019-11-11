@@ -171,11 +171,12 @@ def get_sar_frames(sync_samples, data_samples, sample_rate, pulse_period=20e-3):
     #                               list(condition).count(True))
     # log3 = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, 'average of silent regions : ',
     #                               tmp / len(silent_regions))
-    log_text = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, 'minimum_silence_len : ', minimum_silence_len,
-                                       'num of False : ', list(condition).count(False), 'num of True : ', list(condition).count(True),
-                                       'average of silent regions : ', tmp / len(silent_regions))
+    msg = 'minimum_silence_len : ' + str(minimum_silence_len) + 'num of False : ' + str(list(condition).count(False)) \
+          + 'num of True : ' + str(list(condition).count(True)) + 'average of silent regions : ' + str(tmp / len(silent_regions))
+    log_text = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, msg)
     # print(log1, log2, log3, file=f)
-    #log.publish(log_text)
+    log.publish(log_text)
+    print(log_text)
 
     # select silent regions that is longer than minimum silence length
     long_enough_silent_regions = filter(lambda x: x[1] - x[0] > minimum_silence_len,
@@ -262,7 +263,7 @@ def RMA(sif, pulse_period=20e-3, freq_range=None, Rs=9.0):
     N, M = len(sif), len(sif[0])
 
     # construct Kr axis
-    delta_x = feet2meters(2 / 12.0)  # Assuming 2 inch antenna spacing between frames. (1 foot = 12 inch)
+    delta_x = feet2meters(1 / 12.0)  # Assuming 2 inch antenna spacing between frames. (1 foot = 12 inch)
     bandwidth = freq_range[1] - freq_range[0]
     center_freq = bandwidth / 2 + freq_range[0]
     # make Kr axis by Slicing (4*PI/C)*(center_freq - bandwidth/2) ~ (4*PI/C)*(center_freq + bandwidth/2) to number of samples in measured over time period(M)
@@ -405,8 +406,8 @@ def make_sar_image(setup_data, log):
     and saves to an output image.'''
     str_time = str(datetime.now()).replace(' ', '_')
     log_text = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, 'Making sar image')
-    print(log_text)
     log.publish(log_text)
+    print(log_text)
 
     sif = get_sar_frames(*open_wave(setup_data['filename'], log), pulse_period=MOD_PULSE_PERIOD)
 
@@ -445,20 +446,20 @@ def make_sar_image(setup_data, log):
 
     str_time = str(datetime.now()).replace(' ', '_')
     log_text = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, 'Finish plotting image')
-    print(log_text)
     log.publish(log_text)
+    print(log_text)
 
 
 def main(data, log):
     str_time = str(datetime.now()).replace(' ', '_')
     log_text = '[{}/{}][{}][{}] {}'.format(package_name, node_name, 'SUB', str_time, 'Subscribe from wav')
-    print(log_text)
     log.publish(log_text)
+    print(log_text)
 
     str_msg = 'Data num : ' + str(data.num)
     log_text = '[{}/{}][{}] [{}]'.format(package_name, node_name, str_time, str_msg)
-    print(log_text)
     log.publish(log_text)
+    print(log_text)
 
     parser = argparse.ArgumentParser(
         description="Generate a SAR image outputted by default to 'sar_image.png' from a WAV file of appropriate data.")
@@ -500,15 +501,14 @@ def main(data, log):
 
 
 def listener():
+    str_time = str(datetime.now()).replace(' ', '_')
     log_text = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, 'make_sar_image connects ROS')
-    print(log_text)
     log.publish(log_text)
+    print(log_text)
 
     rospy.Subscriber('wav', wav, main, (log))
     rospy.spin()
 
 
 if __name__ == '__main__':
-    str_time = str(datetime.now()).replace(' ', '_')
-
     listener()
