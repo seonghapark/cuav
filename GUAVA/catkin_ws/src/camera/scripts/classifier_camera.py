@@ -18,6 +18,7 @@ class ClassifierCamera:
 		self.detected_frames = []
 		self.detected_objects = []
 		self.detected_percentages = []
+		self.detected_coords = []
 		self.bridge = CvBridge()
 		self.frame_data = sendframe()
 		#self.log = rospy.Publisher('log', String, queue_size=10)
@@ -47,13 +48,16 @@ class ClassifierCamera:
 		except CvBridgeError as e:
 			print(e)
 
+		print(sub_data.object, sub_data.percent, sub_data.coords)
+
 		# cv2.imshow("classify Frame", cv_image)
 		# cv2.waitKey(10)
 
-		# accumulate detected frames + labels + percentages
+		# accumulate detected frames + labels + percentages + coords
 		self.detected_frames.append(cv_image)
 		self.detected_objects.append(sub_data.object)
 		self.detected_percentages.append(sub_data.percent)
+		self.detected_coords.append(sub_data.coords)
 
 	def summary_callback(self, sub_data):
 		# preprocess summarized data

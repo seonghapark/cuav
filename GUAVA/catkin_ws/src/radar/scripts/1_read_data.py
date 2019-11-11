@@ -1,17 +1,20 @@
 #!/usr/bin/env python3
 
 import sys
-import os
-import time
 import rospy
 from radar.msg import raw
 from std_msgs.msg import String
+from datetime import datetime
+import time
+
+PACKAGE_NAME = 'radar'
+NODE_NAME = 'fake_data'
 
 rospy.init_node('fake_data', anonymous=True)
 fake_data = rospy.Publisher('raw', raw, queue_size=1)
-log = rospy.Publisher('log', String, queue_size=10)
-EXCHANGE_NAME = 'radar'
+log = rospy.Publisher('logs', String, queue_size=10)
 DATA = bytearray()
+time.sleep(0.2)
 
 if __name__ == '__main__':
     #rospy.init_node('fake_data', anonymous=True)
@@ -21,26 +24,23 @@ if __name__ == '__main__':
     raw_data = raw()
 
     # read file
-    pwd = os.getcwd()# current working folder
-    # file_name = pwd+ '/' +sys.argv[1]
     file_name = sys.argv[1]
     file = open(file_name, "rb")
     read_data = file.read()
-    read_data = bytearray(read_data)
-    print('file read')
-
+    DATA = bytearray(read_data)
+    str_time = str(datetime.now()).replace(' ', '_')
+    msg = 'Data num : ' + str(1) + ', Data length: ' + str(len(DATA))
+    log_text = '[{}/{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, str_time, msg)
+    print(log_text)
+    log.publish(log_text)
     try:
-        # divide input
-        print(len(read_data)//11724)
-        for I in range(int(len(read_data) // 11724)):
-            #print(i)
-            raw_data.num = I
-            raw_data.data = read_data[I * 11724:(I + 1) * 11724]
-            #print(raw_data.num)
-            #print(raw_data.data)
-            fake_data.publish(raw_data)
-            time.sleep(0.1)
-
+        raw_data.num = 1
+        raw_data.data = DATA
+        fake_data.publish(raw_data)
+        str_time = str(datetime.now()).replace(' ', '_')
+        log_text = '[{}/{}][{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, 'PUB', str_time, 'Publish to raw')
+        log.publish(log_text)
+        print(log_text)
     except (KeyboardInterrupt, Exception) as ex:
         print(ex)
     finally:
