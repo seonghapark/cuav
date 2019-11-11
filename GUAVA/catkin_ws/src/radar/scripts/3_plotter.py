@@ -33,10 +33,6 @@ log = rospy.Publisher('logs', String, queue_size=10)
 class ros_communication(Thread):
     def __init__(self, plotter):
         global result_time, result_data, data_num
-        str_time = str(datetime.now()).replace(' ', '_')
-        log_text = '[{}/{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, str_time, 'plotter connects ROS')
-        log.publish(log_text)
-        print(log_text)
         self.result_time = []
         self.result_data = []
         self.plot = plotter
@@ -44,8 +40,10 @@ class ros_communication(Thread):
     def data_disassembler(self, data):
         print('data disassemble')
         self.data_num = data.num
-        self.result_time = np.fromstring(data.sync, dtype=np.float64)
-        self.result_data = np.fromstring(data.data, dtype=np.float64)
+        self.result_time = data.sync
+        self.result_data = data.data
+        #self.result_time = np.fromstring(data.sync, dtype=np.float64)
+        #self.result_data = np.fromstring(data.data, dtype=np.float64)
         #self.result_data = np.reshape(self.result_data, (int(len(self.result_time)), int(len(self.result_data)/len(self.result_time))))
         self.result_data = np.reshape(self.result_data, (int(len(self.result_time)), int(len(self.result_data)/len(self.result_time))))
         self.plot.set(self.result_time, self.result_data)

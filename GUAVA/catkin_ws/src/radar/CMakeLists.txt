@@ -54,6 +54,7 @@ add_message_files(
    wav.msg
    img.msg
    result.msg
+   realtime.msg
  )
 
 ## Generate services in the 'srv' folder
