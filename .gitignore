@@ -52,3 +52,4 @@ CATKIN_IGNORE
 
 # Idea
 GUAVA/.idea/*
+.idea/*
