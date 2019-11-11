@@ -76,11 +76,11 @@ class DetectBoxes:
             # add percentage
             percentage.append(confidences[i])
             # add coords
-            coords.append(left, top, left+width, top+height)
+            coords.append([left, top, left+width, top+height])
             self.draw_boxes(frame, class_ids[i], confidences[i], left, top, left + width, top + height)
 
         max_conf_idx = confidences.index(max(confidences))
-        return [labels[max_conf_idx]], [percentage[max_conf_idx]], [coords[max_conf_idx]]
+        return [labels[max_conf_idx]], [percentage[max_conf_idx]], [].extend(coords[max_conf_idx])
 
     # draw boxes higher than confidence threshold
     def draw_boxes(self, frame, class_id, conf, left, top, right, bottom):

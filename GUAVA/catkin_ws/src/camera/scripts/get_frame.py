@@ -98,10 +98,10 @@ class GetFrame:
 
             # Extract the bounding box and draw rectangles
             # self.frame_data.object, self.frame_data.percent = self.detect.detect_bounding_boxes(frame, network_output)
-            self.frame_data.object, self.frame_data.percent, coords = \
+            self.frame_data.object, self.frame_data.percent, self.frame_data.coords = \
                 self.detect.detect_bounding_boxes(frame, network_output)
 
-            print(self.frame_data.object, self.frame_data.percent, coords)
+            print(self.frame_data.object, self.frame_data.percent, self.frame_data.coords)
 
             # Efficiency information
             t, _ = self.net.getPerfProfile()
