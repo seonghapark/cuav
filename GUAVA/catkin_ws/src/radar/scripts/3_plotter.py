@@ -20,11 +20,9 @@ from std_msgs.msg import String
 PACKAGE_NAME = 'radar'
 NODE_NAME = 'plotter'
 DATA = bytearray()
-result_time = []
-result_data = []
-data_num = 0
-#q_result_data = queue.Queue()
-#q_result_time = queue.Queue()
+#result_time = []
+#result_data = []
+#data_num = 0
 
 rospy.init_node('plotter', anonymous=True)
 log = rospy.Publisher('logs', String, queue_size=10)
@@ -32,23 +30,28 @@ log = rospy.Publisher('logs', String, queue_size=10)
 
 class ros_communication(Thread):
     def __init__(self, plotter):
-        global result_time, result_data, data_num
+        #global result_time, result_data, data_num
         self.result_time = []
         self.result_data = []
+        self.data_num = 0
         self.plot = plotter
 
     def data_disassembler(self, data):
         print('data disassemble')
         self.data_num = data.num
-        self.result_time = data.sync
-        self.result_data = data.data
+        #self.result_time = data.sync
+        #self.result_data = data.data
+        self.result_time = np.fromstring(np.array(data.sync), dtype=np.float64)
+        self.result_data = np.fromstring(np.array(data.data), dtype=np.float64)
+        #print(result_data)
         #self.result_time = np.fromstring(data.sync, dtype=np.float64)
         #self.result_data = np.fromstring(data.data, dtype=np.float64)
         #self.result_data = np.reshape(self.result_data, (int(len(self.result_time)), int(len(self.result_data)/len(self.result_time))))
         self.result_data = np.reshape(self.result_data, (int(len(self.result_time)), int(len(self.result_data)/len(self.result_time))))
+        #print(result_data)
         self.plot.set(self.result_time, self.result_data)
 
-    def _callback(self, data):
+    def callback(self, data):
         str_time = str(datetime.now()).replace(' ', '_')
         log_text = '[{}/{}][{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, 'SUB', str_time, 'Subscribe from realtime_wav')
         log.publish(log_text)
@@ -56,12 +59,16 @@ class ros_communication(Thread):
         self.data_disassembler(data)
         #self.plot.set(self.result_time, self.result_data)
 
+    def listener(self):
+        rospy.Subscriber('realtime_wav', realtime, self.callback)
+        rospy.spin()
 
-class colorgraph_handler():
-    global result_data, result_time
+
+class colorgraph_handler(Thread):
+    #global result_data, result_time
 
     def __init__(self):
-        #Thread.__init__(self)
+        Thread.__init__(self)
         str_time = str(datetime.now()).replace(' ', '_')
         log_text = '[{}/{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, str_time, 'Initialize plotter')
         log.publish(log_text)
@@ -101,8 +108,8 @@ class colorgraph_handler():
         self.colorbar = plt.colorbar()
         self.colorlabel = self.colorbar.set_label('Intensity (dB)')
 
-    def get_fig(self):
-        return self.fig
+    #def get_fig(self):
+    #    return self.fig
 
     def set(self, result_time, result_data):
         print('set')
@@ -123,7 +130,7 @@ class colorgraph_handler():
         global data_num
         #print('data', self.data_val, self.data_val.shape)
         self.get()
-        print('data : ', self.data_val, self.data_val.shape)
+        print('AFTER GET\ndata : ', self.data_val, self.data_val.shape, self.data_val.dtype)
         time = time+1
 
         if time > self.set_t:
@@ -132,9 +139,9 @@ class colorgraph_handler():
             # makes it look ok when the animation loops
             lim = self.ax.set_xlim(0, self.set_t)
 
-        print(self.data_t.shape, self.y.shape, self.data_val.shape)
-        print(type(self.data_t), type(self.y), type(self.data_val[:self.data_tlen].T))
-        print(self.data_tlen)
+        #print(self.data_t.shape, self.y.shape, self.data_val.shape)
+        #print(type(self.data_t), type(self.y), type(self.data_val[:self.data_tlen].T))
+        #print(self.data_tlen)
         plt.pcolormesh(self.data_t, self.y, self.data_val[:self.data_tlen].T, norm=self.norm, cmap=self.cmap)
         plt.draw()
         print('animate ')
@@ -146,7 +153,6 @@ class colorgraph_handler():
         ani = animation.FuncAnimation(self.fig, self.animate, interval=1000, blit=False)
         plt.show()
 
-    '''
     def run(self):
         try:
             while(True):
@@ -162,27 +168,10 @@ class colorgraph_handler():
             print(ex)
         finally:
             print('Close all')
-    '''
 
 
 if __name__ == '__main__':
     plot = colorgraph_handler()
     ros = ros_communication(plot)
-    #plot.start()
-    rospy.Subscriber('realtime_wav', realtime, ros.data_disassembler)
-    try:
-        while (True):
-            # print('main while(True)')
-            if plot.q_result_time.empty():
-                # print('queue is empty')
-                time.sleep(1)
-            else:
-                # print('queue is not empty')
-                break
-        plot.draw_graph()
-    except(KeyboardInterrupt, Exception) as ex:
-        print(ex)
-    finally:
-        print('Close all')
-    #rospy.spin()
-    #ros.listener()
+    plot.start()
+    ros.listener()

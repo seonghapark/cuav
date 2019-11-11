@@ -142,7 +142,7 @@ def publish_realtime_wav(data):
 
     parser = RadarBinaryParser(raw_data.data, sr=SAMPLE_RATE)
     sync, real_data = parser.parse()
-    print("sync : ", sync.shape, type(sync), "data : ", real_data.shape, type(real_data))
+    print("After Parsing\nsync : ", sync.shape, type(sync), "data : ", real_data.shape, type(real_data))
 
     if sync is None:
         time.sleep(0.2)
@@ -150,17 +150,17 @@ def publish_realtime_wav(data):
     result_time, result_data = ifft.data_process(sync, real_data)  # It takes approximately 500 ms
 
     str_time = str(datetime.now()).replace(' ', '_')
-    str_msg = 'Data : ' + str(result_time.shape) + ' Sync : ' + str(result_time.shape)
+    str_msg = 'After IIFT Data : ' + str(result_time.shape) + ' Sync : ' + str(result_time.shape)
     log_text = '[{}/{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, str_time, str_msg)
     log.publish(log_text)
     print(log_text)
-    #print(result_time.dtype, type(result_time), result_data.dtype, type(result_data))
+    print(result_time.dtype, type(result_time), result_data.dtype, type(result_data))
 
     wav_data = realtime()
-    #wav_data.data = result_data.astype(np.uint8)
-    #wav_data.sync = result_time.astype(np.uint8)
-    wav_data.data = result_data
-    wav_data.sync = result_time
+    wav_data.data = result_data.astype(np.float64)
+    wav_data.sync = result_time.astype(np.float64)
+    #wav_data.data = result_data
+    #wav_data.sync = result_time
     wav_data.num = raw_data.num
     #wav_data.sr = SAMPLE_RATE
 
@@ -188,6 +188,7 @@ def publish_wav(data):
     # parse text binary file
     parser = RadarBinaryParser(raw_data.data, sr=SAMPLE_RATE)
     sync, data = parser.parse()
+    print("sync : ", sync.shape, type(sync), sync.dtype, "data : ", data.shape, type(data), data.dtype)
 
     str_time = str(datetime.now()).replace(' ', '_')
     str_msg = 'Data : ' + str(data.shape) + ' Sync : ' + str(sync.shape)
