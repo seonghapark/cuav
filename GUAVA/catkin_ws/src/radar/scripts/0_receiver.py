@@ -15,6 +15,7 @@ NODE_NAME = 'receiver'
 DATA = bytearray()
 FLAG = bool()
 I = 0
+realtime_cnt = 0
 
 rospy.init_node('receiver', anonymous=True)
 log = rospy.Publisher('logs', String, queue_size=10)
@@ -22,7 +23,7 @@ pub_raw = rospy.Publisher('raw', raw, queue_size=1)
 realtime = rospy.Publisher('realtime', raw, queue_size=10)
 
 def publish(operate):
-    global DATA, FLAG, I
+    global DATA, FLAG, I, realtime_cnt
     FLAG = False
 
     str_time = str(datetime.now()).replace(' ', '_')
@@ -42,6 +43,7 @@ def publish(operate):
     log.publish(log_text)
 
     I += 1
+    realtime_cnt = 0
     DATA = bytearray()
 
     pub_raw.publish(raw_data)
@@ -52,7 +54,7 @@ def publish(operate):
 
 
 def start(operate, args):
-    global FLAG, DATA
+    global FLAG, DATA, realtime_cnt
 
     str_time = str(datetime.now()).replace(' ', '_')
     log_text = '[{}/{}][{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, 'SUB', str_time, 'Subscribe from operate : start')
@@ -79,9 +81,10 @@ def start(operate, args):
             if current_time - start_time > 1.0:
                 if len(DATA) >= 11025:
                     raw_data = raw()
-                    raw_data.data = DATA[:11025]
-                    raw_data.num = I
+                    raw_data.data = DATA[11025 * realtime_cnt : 11025 * (realtime_cnt + 1)]
+                    raw_data.num = realtime_cnt
                     realtime.publish(raw_data)
+                    realtime_cnt += 1
 
                     str_time = str(datetime.now()).replace(' ', '_')
                     log_text = '[{}/{}][{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, 'PUB', str_time, 'Publish to realtime')

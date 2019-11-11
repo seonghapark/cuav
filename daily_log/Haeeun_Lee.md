@@ -134,6 +134,8 @@
 	- 원래 회의애서 정한대로 수정 중 오류를 발견하고 구조 변경 필요
 	- 임시로 토픽 만들어서 analyzer까지 연동되는 것 확인
 
+---
+# November
 ### 2019.11.4
 1. 레일에 레이더 올려서 실험 진행
 	- ROS publish 지연 문제 발견
@@ -150,3 +152,7 @@
 3. VM network bridge로 바꿔서 접속 시도
 	- ROS master node에는 접속이 되지만 localhost가 아닌 ROS URI를 사용하면 각 노드에서 subscribe를 하지 못함
 	- 라즈베리파이 포팅 필요. 내일 포팅할 예정
+	
+### 2019.11.6
+1. 라즈베리 파이 포팅 후 master node와 통신되는 것 확인
+2. realtime plotting 코드 수정 위해 분석
