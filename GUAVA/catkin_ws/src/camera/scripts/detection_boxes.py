@@ -30,7 +30,7 @@ class DetectBoxes:
 
         if self.nmsThreshold is not 0:
             return self.detect_yolo(frame, output, width, height)
-        return [], [], []
+        return None, None, None
 
     def detect_yolo(self, frame, output, frame_width, frame_height):
         '''
@@ -82,8 +82,6 @@ class DetectBoxes:
         if len(confidences) > 0:
             max_conf_idx = confidences.index(max(confidences))
             return labels[max_conf_idx], percentage[max_conf_idx], coords[max_conf_idx]
-        else:
-            return "", 0.0, []
 
     # draw boxes higher than confidence threshold
     def draw_boxes(self, frame, class_id, conf, left, top, right, bottom):
