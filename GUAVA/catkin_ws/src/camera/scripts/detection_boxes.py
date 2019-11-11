@@ -30,7 +30,7 @@ class DetectBoxes:
 
         if self.nmsThreshold is not 0:
             return self.detect_yolo(frame, output, width, height)
-        return [], []
+        return [], [], []
 
     def detect_yolo(self, frame, output, frame_width, frame_height):
         '''
@@ -63,7 +63,7 @@ class DetectBoxes:
         # Using non-maximum suppression remove overlapping boxes
         # with low confidence
         indices = cv2.dnn.NMSBoxes(boxes, confidences, self.confThreshold, self.nmsThreshold)
-        labels, percentage = [], []
+        labels, percentage, coords = [], [], []
         for i in indices:
             i = i[0]
             box = boxes[i]
@@ -75,8 +75,12 @@ class DetectBoxes:
             labels.append(self.classes[class_ids[i]])
             # add percentage
             percentage.append(confidences[i])
+            # add coords
+            coords.append([left, top, left+width, top+height])
             self.draw_boxes(frame, class_ids[i], confidences[i], left, top, left + width, top + height)
-        return labels, percentage
+
+        max_conf_idx = confidences.index(max(confidences))
+        return [labels[max_conf_idx]], [percentage[max_conf_idx]], [].extend(coords[max_conf_idx])
 
     # draw boxes higher than confidence threshold
     def draw_boxes(self, frame, class_id, conf, left, top, right, bottom):
