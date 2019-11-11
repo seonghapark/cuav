@@ -5,7 +5,9 @@ import rospy
 from threading import Thread
 from std_msgs.msg import String
 from main.msg import operate
+from camera.msg import sendframe
 from datetime import datetime
+from main.msg import realtime
 import time
 
 init_finish = False
@@ -55,27 +57,50 @@ def callback_radar(data, args):
 
 def callback_summary_camera(data, args):
     pub_log = args
-    rospy.loginfo(rospy.get_caller_id() + "I heard %s", data.data)
+
     status[1] = True
 
     # publish/subscribe log
     str_time2 = str(datetime.now()).replace(' ', '_')
     log_result = '[{}/{}][{}][{}] {}'.format('main', 'decision', 'SUB', str_time2,
-                                             "Get Message From <summary_camera> topic : " + data.data)
+                                             "Get Message From <summary_camera> topic")
     pub_log.publish(log_result)
     print(log_result)
 
 
 def callback_realtime_camera(data, args):
-    pub_log = args
-    rospy.loginfo(rospy.get_caller_id() + "I heard %s", data.data)
+    pub_log = args[0]
+    pub_realtime = args[1]
 
     # publish/subscriber log
     str_time3 = str(datetime.now()).replace(' ', '_')
     log_result = '[{}/{}][{}][{}] {}'.format('main', 'decision', 'SUB', str_time3,
-                                             "Get Message From <realtime_camera> topic : " + data.data)
-    pub_log.publish(args)
+                                             "Get Message From <realtime_camera> topic")
+    pub_log.publish(log_result)
     print(log_result)
+
+    # assign values to new message
+    realtime_result = realtime()
+    realtime_result.object = data.object
+    realtime_result.coords = data.coords
+    realtime_result.percent = data.percent
+    realtime_result.frame = data.frame
+
+    # publish to storage
+    pub_realtime.publish(realtime_result)
+
+    # publish/subscriber log
+    str_time3 = str(datetime.now()).replace(' ', '_')
+    log_result = '[{}/{}][{}][{}] {}'.format('main', 'decision', 'PUB', str_time3,
+                                             "Send Message to <realtime_result> topic")
+    pub_log.publish(log_result)
+    print(log_result)
+
+
+
+    # publish to web
+
+
 
 
 # transmit information to web node whenever receiving data.
@@ -188,8 +213,8 @@ def init():
     pub_log.publish(log)
 
     rospy.Subscriber('result_radar', String, callback_radar, pub_log)
-    rospy.Subscriber('summary_camera', String, callback_summary_camera, pub_log)
-    rospy.Subscriber('realtime_camera', String, callback_realtime_camera, pub_log)
+    rospy.Subscriber('summary_camera', sendframe, callback_summary_camera, pub_log)
+    rospy.Subscriber('realtime_camera', sendframe, callback_realtime_camera, (pub_log, pub_realtime))
     rospy.Subscriber('rail_end', String, callback_rail_end, pub_log)
 
 
@@ -197,6 +222,7 @@ if __name__ == '__main__':
     pub_storage = rospy.Publisher('result_storage', String, queue_size=10)
     pub_web = rospy.Publisher('result_web', String, queue_size=10)
     pub_log = rospy.Publisher('logs', String, queue_size=10)
+    pub_realtime = rospy.Publisher('realtime_result', realtime, queue_size=10)
 
     th2 = Thread(target=is_ready, args=(pub_storage, pub_web))
     th2.start()

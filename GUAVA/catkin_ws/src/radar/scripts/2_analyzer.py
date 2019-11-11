@@ -159,6 +159,7 @@ def publish_realtime_wav(data):
     wav_data = realtime()
     #wav_data.data = result_data.astype(np.uint8)
     #wav_data.sync = result_time.astype(np.uint8)
+    np.array(result_data)
     wav_data.data = result_data
     wav_data.sync = result_time
     wav_data.num = raw_data.num
