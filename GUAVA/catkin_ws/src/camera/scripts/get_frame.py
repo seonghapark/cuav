@@ -77,7 +77,7 @@ class GetFrame:
 
     def get_frame(self, operate):
         # if start signal came before init signal
-        if not self.cap.isOpened():
+        if self.cap is None or not self.cap.isOpened():
             self.initialize()
 
         while self.cap.isOpened():
@@ -100,8 +100,6 @@ class GetFrame:
             # self.frame_data.object, self.frame_data.percent = self.detect.detect_bounding_boxes(frame, network_output)
             self.frame_data.object, self.frame_data.percent, self.frame_data.coords = \
                 self.detect.detect_bounding_boxes(frame, network_output)
-
-            print(self.frame_data.object, self.frame_data.percent, self.frame_data.coords)
 
             # Efficiency information
             t, _ = self.net.getPerfProfile()
