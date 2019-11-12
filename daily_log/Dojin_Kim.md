@@ -129,7 +129,7 @@
   - ROS 설치된 라즈베리파이에 opencv 설치 시도.... troubleshooting 중
  
 ### 2019-10-16
-	- Camera node 코드 작성
+    - Camera node 코드 작성
 	- Railstart하면 yolo network load하고 frame들과 detect된 object이름들을 저장한 다음에 railstop때 publish하는 코드 작성
 
 ### 2019-10-17
@@ -163,21 +163,21 @@
 	- cv_bridge 설치 시도했으나 실패(이 부분만 성공하면 camera코드 실행될 것 같음)
 
 ### 2019-10-24
-  - cv_bridge, sensor_msgs 직접 github에서 다운 받고 패키지 저장, 그러나 catkin_make 실패
+    - cv_bridge, sensor_msgs 직접 github에서 다운 받고 패키지 저장, 그러나 catkin_make 실패
 	- ROS에 문제가 있을 것 같아서 새롭게 ROS+Raspberry pi 이미지를 다운 받아서 다시 설치 시
 	
 
 ## 2019-10-28 ~ 2019-11-01
 
 ### 2019-10-28
- - 라즈베리파이에 ros-kinetic opencv 설치
- - opencv가 python2 버전으로 설정되어있어서 python3 버전으로 가능하게 수정중
+    - 라즈베리파이에 ros-kinetic opencv 설치
+    - opencv가 python2 버전으로 설정되어있어서 python3 버전으로 가능하게 수정중
 
 ### 2019-10-29
- - python3에서 opencv작동 완료
- - ros node들 작동 완료
- - sh 파일 작성해서 자동으로 모든 script들이 실행되도록 해야함
- - classifier_camera, get_frame 코드 수정
+     - python3에서 opencv작동 완료
+     - ros node들 작동 완료
+     - sh 파일 작성해서 자동으로 모든 script들이 실행되도록 해야함
+     - classifier_camera, get_frame 코드 수정
 
 ### 2019-10-30
 	- fake_start, fake_rail 코드 작성해서 decision node에서 시작을 하는 것과 비슷한 프로세스를 적용함
@@ -222,4 +222,12 @@
 	- summary에서 사용될 코드 작성 중(roi로 이미지 추출 + 이미지 병합)
 	    - 여러 이미지들을 읽고 인식된 드론이 있으면 그 부분ROI만 추출 후 병합
 	    - 결국 하나의 이미지에 지금까지 인식된 드론들 나타냄
-	    
+
+### 2019-11-12
+	- sendframe.msg sendsummary.msg type 정
+	- yolov3-tiny darknet53.conv.74와 yolov3-tiny.conv15에 학습
+	- main package와 통신을 해서 사진 전달 및 storage에 저장 성공
+	- Summary때 detect된 이미지들 합치기 성공
+	- Summary때 detect된 이미지들 중 처음과 마지막을 통해 방향 알아내기 성공
+	
+	        
