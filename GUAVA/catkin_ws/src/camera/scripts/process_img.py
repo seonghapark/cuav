@@ -16,6 +16,8 @@ class ProcessImage:
         frame, direction = self.get_direction(frames, coords)
         percent = self.get_percent(percents)
 
+        print(direction, percent)
+
         return frame, direction, percent
 
     def get_direction(self, frs, cor):

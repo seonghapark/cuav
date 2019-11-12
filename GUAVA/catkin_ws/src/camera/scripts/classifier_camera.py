@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import uuid
+import time
 import cv2
 import rospy
 from std_msgs.msg import String
@@ -34,9 +34,10 @@ class ClassifierCamera:
 			self.log.publish(log_generator(self.node_name, "img_camera(rail operating)", "sub"))
 			self.realtime_callback(data)
 		elif data.operate == "end":
-                    print("end signal came")
+			print("end signal came")
 			self.log.publish(log_generator(self.node_name, "img_camera(rail ended)", "sub"))
 			self.summary_callback()
+			print("summary callback finish")
 
 	# publish subscribed data directly
 	def realtime_callback(self, sub_data):
@@ -47,14 +48,16 @@ class ClassifierCamera:
 	# process accumulated detection data
 	# and the publish summarized information
 	def summary_callback(self):
-            print("summary begin")
+		print("summary begin")
 		# process summarized data
 		frame, self.frame_data.direction, self.frame_data.percent = \
 			self.processor.process_summary(self.detected_frames, self.detected_coords, self.detected_percentages)
+		print("summary frame end", self.frame_data.direction, self.frame_data.percent)
 
 		# save image file
+		fileName = time.strftime("%Y%m%d_%H%M%S")
 		directory = '/home/project/cuav/GUAVA/catkin_ws/src/camera/'
-		cv2.imwrite(directory + uuid.uuid1() + '_image.jpg', frame)
+		cv2.imwrite(directory + fileName + '_image.jpg', frame)
 		print("image saved")
 
 		try:
