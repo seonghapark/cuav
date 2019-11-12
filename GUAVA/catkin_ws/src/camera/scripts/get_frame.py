@@ -21,9 +21,9 @@ def arg_parse():
                         default=0.5, type=float)
     parser.add_argument("--nms", dest="nmsThreshold", help="NMS threshold",
                         default=0.4, type=float)
-    parser.add_argument("--resolution", dest='resol', help="Input resolution of network. Higher "
-                                                      "increases accuracy but decreases speed",
-                        default="416", type=str)
+    parser.add_argument("--resolution", dest='resol',
+                        help="Input resolution of network. Higher resolution increases accuracy but decreases speed",
+                        default=416, type=int)
     return parser.parse_args()
 
 
@@ -31,7 +31,6 @@ class GetFrame:
     def __init__(self, node_name, log_pub):
         self.operate = rospy.Subscriber('operate', String, self.callback)
         self.pub_frame = rospy.Publisher('img_camera', sendframe, queue_size=3)
-        # self.log = rospy.Publisher('log', String, queue_size=10)
         self.log = log_pub
         self.node_name = node_name
         self.net = None
@@ -59,8 +58,10 @@ class GetFrame:
         self.net.setPreferableTarget(cv2.dnn.DNN_TARGET_CPU)
         self.log.publish(log_generator(self.node_name, "Network successfully loaded"))
 
-        # load detection class, default confidence threshold is 0.5
-        self.detect = DetectBoxes(self.args.labels, confidence_threshold=self.args.confidence, nms_threshold=self.args.nmsThreshold)
+        # load DetectBoxes class
+        self.detect = DetectBoxes(self.args.labels,
+                                  confidence_threshold=self.args.confidence,
+                                  nms_threshold=self.args.nmsThreshold)
         
         try:
             self.cap = cv2.VideoCapture(0)
@@ -77,17 +78,19 @@ class GetFrame:
 
     def get_frame(self, operate):
         # if start signal came before init signal
+        # initialize net & camera
         if self.cap is None or not self.cap.isOpened():
             self.initialize()
 
         while self.cap.isOpened():
             has_frame, frame = self.cap.read()
+
             # if end of frame, program is terminated
             if not has_frame:
                 break
 
             # Create a 4D blob from a frame.
-            blob = cv2.dnn.blobFromImage(frame, 1 / 255, (int(self.args.resol), int(self.args.resol)),
+            blob = cv2.dnn.blobFromImage(frame, 1 / 255, (self.args.resol, self.args.resol),
                                          (0, 0, 0), True, crop=False)
 
             # Set the input to the network
@@ -97,9 +100,7 @@ class GetFrame:
             network_output = self.net.forward(self.get_outputs_names(self.net))
 
             # Extract the bounding box and draw rectangles
-            # self.frame_data.object, self.frame_data.percent = self.detect.detect_bounding_boxes(frame, network_output)
-            self.frame_data.object, self.frame_data.percent, self.frame_data.coords = \
-                self.detect.detect_bounding_boxes(frame, network_output)
+            self.frame_data.percent, self.frame_data.coords = self.detect.detect_bounding_boxes(frame, network_output)
 
             # Efficiency information
             t, _ = self.net.getPerfProfile()
@@ -109,7 +110,7 @@ class GetFrame:
 
             print("FPS {:5.2f}".format(1000/elapsed))
 
-            # save image frames
+            # publish frames + detected objects
             self.frame_data.operate = operate.data
             try:   
                 self.frame_data.frame = self.bridge.cv2_to_imgmsg(frame, encoding="passthrough")
