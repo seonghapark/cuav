@@ -6,9 +6,11 @@ from main.msg import operate
 print('fake_rail')
 rospy.init_node("fake_rail")
 pub = rospy.Publisher('operate', operate, queue_size=3)
+pub_end = rospy.Publisher('end', operate, queue_size=3)
 rate = rospy.Rate(5)
 rospy.sleep(10)
 op = operate()
+op_end = operate()
 while not rospy.is_shutdown():
     rospy.sleep(3)
     print("rail start")
@@ -17,8 +19,8 @@ while not rospy.is_shutdown():
     pub.publish(op)
     rospy.sleep(60)
     print("rail end")
-    op.command = "end"
-    op.direction = True
-    pub.publish(op)
+    op_end.command = "end"
+    op_end.direction = True
+    pub.publish(op_end)
     print("rail end published")
     rospy.sleep(3)

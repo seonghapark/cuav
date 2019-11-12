@@ -48,7 +48,6 @@ class GetFrame:
             self.log.publish(log_generator(self.node_name, "operate(rail operating)", "sub"))
             self.get_frame(data)
         elif data.command == "end":
-            print("rail end is here")
             self.log.publish(log_generator(self.node_name, "operate(rail ended)", "sub"))
             self.get_frame(data)
 
