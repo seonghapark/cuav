@@ -1,74 +1,79 @@
 #!/usr/bin/env python3
 
 import cv2
-from collections import deque
 import numpy as np
 
 
-class GetDirection:
-    def __init__(self, buffer=32):
-        self.pts = deque(maxlen=buffer)
-        self.buffer = buffer
-        self.counter = 0
-        self.dXY= (0, 0)
-        self.direction = ""
+class ProcessImage:
 
-    def direction(self, frames, ):
-        # only proceed if at least one contour was found
-        if len(cnts) > 0:
-            # find the largest contour in the mask, then use
-            # it to compute the minimum enclosing circle and
-            # centroid
-            c = max(cnts, key=cv2.contourArea)
-            ((x, y), radius) = cv2.minEnclosingCircle(c)
-            M = cv2.moments(c)
-            center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
+    def __init__(self, channels=3):
+        self.width = None
+        self.height = None
+        self.channels = channels
 
-            # only proceed if the radius meets a minimum size
-            if radius > 10:
-                # draw the circle and centroid on the frame,
-                # then update the list of tracked points
-                cv2.circle(frame, (int(x), int(y)), int(radius),
-                           (0, 255, 255), 2)
-                cv2.circle(frame, center, 5, (0, 0, 255), -1)
-                self.pts.appendleft(center)
+    def process_summary(self, frames, coords, percents):
+        self.width, self.height = frames[0].shape[:2]
+        frame, direction = self.get_direction(frames, coords)
+        percent = self.get_percent(percents)
 
-        # loop over the set of tracked points
-        for i in np.arange(1, len(self.pts)):
-            # if either of the tracked points are None, ignore
-            # them
-            if self.pts[i - 1] is None or self.pts[i] is None:
-                continue
+        return frame, direction, percent
 
-            # check to see if enough points have been accumulated in
-            # the buffer
-            if self.counter >= 10 and i == 1 and self.pts[-10] is not None:
-                # compute the difference between the x and y
-                # coordinates and re-initialize the direction
-                # text variables
-                dX = self.pts[-10][0] - self.pts[i][0]
-                dY = self.pts[-10][1] - pts[i][1]
-                (dirX, dirY) = ("", "")
+    def get_direction(self, frs, cor):
+        """
+        frs: frames that contain detected object with bounding boxes
+        cor: coordinates of detected object in a frame
+        """
+        # initialize background with black
+        bg = np.zeros([self.width, self.height, self.channels], np.uint8)
 
-                # ensure there is significant movement in the
-                # x-direction
-                if np.abs(dX) > 20:
-                    dirX = "East" if np.sign(dX) == 1 else "West"
+        # center coordinate of 1st frame
+        before = ((cor[0][2] + cor[0][0]) // 2, (cor[0][3] + cor[0][1]) // 2)
+        for idx, f in enumerate(frs):
+            left = cor[idx][0]
+            top = cor[idx][1]
+            right = cor[idx][2]
+            bottom = cor[idx][3]
 
-                # ensure there is significant movement in the
-                # y-direction
-                if np.abs(dY) > 20:
-                    dirY = "North" if np.sign(dY) == 1 else "South"
+            rect_img = f[top:bottom, left:right]
+            bg[top:bottom, left:right] = rect_img
 
-                # handle when both directions are non-empty
-                if dirX != "" and dirY != "":
-                    self.direction = "{}-{}".format(dirY, dirX)
+            # cv2.imshow("f", bg)
+            # if cv2.waitKey(1) & 0xFF == ord('q'):
+            #     break
 
-                # otherwise, only one direction is non-empty
-                else:
-                    self.direction = dirX if dirX != "" else dirY
+        # center coordinate of last frame
+        # draw line from 1st frame's center coord to last frame's center coord
+        after = ((right + left) // 2, (top + bottom) // 2)
+        cv2.line(bg, before, after, (0, 0, 255), 5)
 
-            # otherwise, compute the thickness of the line and
-            # draw the connecting lines
-            thickness = int(np.sqrt(self.buffer / float(i + 1)) * 2.5)
-            cv2.line(frame, self.pts[i - 1], self.pts[i], (0, 0, 255), thickness)
+        dX = before[0] - after[0]
+        dY = before[1] - after[1]
+        (dirX, dirY) = ("", "")
+
+        # ensure there is significant movement in the
+        # x-direction
+        if np.abs(dX) > 20:
+            dirX = "East" if np.sign(dX) == 1 else "West"
+
+        # ensure there is significant movement in the
+        # y-direction
+        if np.abs(dY) > 20:
+            dirY = "North" if np.sign(dY) == 1 else "South"
+
+        # handle when both directions are non-empty
+        if dirX != "" and dirY != "":
+            direction = "{}-{}".format(dirY, dirX)
+
+        # handle when one direction is detected
+        elif dirX != "" or dirY != "":
+            direction = dirX if dirX != "" else dirY
+
+        # otherwise, object is not moved
+        else:
+            direction = "Not moved"
+
+        return bg, direction
+
+    def get_percent(self, percent):
+        return percent
+
