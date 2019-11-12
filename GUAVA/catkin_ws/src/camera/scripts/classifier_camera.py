@@ -27,6 +27,7 @@ class ClassifierCamera:
 		self.processor = ProcessImage()
 
 	def callback(self, data):
+		print(data)
 		if data.operate == "start":
 			print("start signal came")
 			self.log.publish(log_generator(self.node_name, "img_camera(rail operating)", "sub"))
@@ -37,7 +38,7 @@ class ClassifierCamera:
 			if data.coords:
 				self.accumulate_detections(data.frame, data.percent, data.coords)
 
-		elif data.operate == "end":
+		if data.command == "end":
 			print("end signal came")
 			self.log.publish(log_generator(self.node_name, "img_camera(rail ended)", "sub"))
 			self.summary_callback()
