@@ -1,7 +1,6 @@
 #! /usr/bin/env python3
 
 import rospy
-from std_msgs.msg import String
 from main.msg import operate
 
 print('fake_rail')

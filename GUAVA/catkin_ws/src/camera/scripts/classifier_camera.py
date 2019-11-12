@@ -51,8 +51,9 @@ class ClassifierCamera:
 			self.processor.process_summary(self.detected_frames, self.detected_coords, self.detected_percentages)
 
 		# save image file
-                #cv2.imwrite(uuid.uuid1() + '.jpg', frame)
-                #print("image saved")
+		directory = '/home/project/cuav/GUAVA/catkin_ws/src/camera/'
+		cv2.imwrite(directory + uuid.uuid1() + '_image.jpg', frame)
+		print("image saved")
 
 		try:
 			self.frame_data.frame = self.bridge.cv2_to_imgmsg(frame, encoding="passthrough")
