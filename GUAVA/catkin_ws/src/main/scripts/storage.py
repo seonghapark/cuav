@@ -9,6 +9,7 @@ from radar.msg import raw
 from cv_bridge import CvBridge, CvBridgeError
 import time
 import cv2
+from main.msg import realtime
 
 # from main.msg import result
 
@@ -40,7 +41,7 @@ def callback_raw(data,args):
 def callback_result(data,args):
 	pub_log = args
 	fileName = time.strftime("%Y%m%d_%H%M%S")
-	directory = '/home/project/cuav/GUAVA/catkin_ws/src/main/logs/storage/camera_image/'
+	directory = '/home/project/cuav/GUAVA/catkin_ws/src/main/storage/camera_image/'
 	image_data = open(directory+fileName+'_data.txt', 'wb')
 	bridge = CvBridge()
 
@@ -55,12 +56,12 @@ def callback_result(data,args):
 	# assign the value from parameter(message) to local variable
 	try:
 		cv_image = bridge.imgmsg_to_cv2(data.frame, desired_encoding="passthrough")
-		cv2.imwrite(directory+fileName+'_image.jpg')
+		cv2.imwrite(directory+fileName+'_image.jpg',cv_image)
 	except CvBridgeError as e:
 		print(e)
 
-	print("coordinates : " + data.coords, file=image_data)
-	print("percent : " + data.percent, file=image_data)
+	print("coordinates : ", data.coords, file=image_data)
+	print("percent : ", data.percent, file=image_data)
 
 	image_data.close()
 
@@ -85,8 +86,8 @@ def storage(pub_log):
 	log = '[{}/{}][{}] {}'.format('main', 'storage', str_time, 'storage node is initialized..')
 	print(log)
 	pub_log.publish(log)
-
-	rospy.Subscriber('result', String, callback_result, pub_log)
+	rospy.Subscriber('realtime_result', realtime, callback_result, pub_log)
+	#rospy.Subscriber('img_camera', realtime, callback_result, pub_log)
 	rospy.Subscriber('raw', raw, callback_raw, pub_log)
 	rospy.spin()
 
