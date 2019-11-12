@@ -81,7 +81,6 @@ def callback_realtime_camera(data, args):
 
     # assign values to new message
     realtime_result = realtime()
-    realtime_result.object = data.object
     realtime_result.coords = data.coords
     realtime_result.percent = data.percent
     realtime_result.frame = data.frame

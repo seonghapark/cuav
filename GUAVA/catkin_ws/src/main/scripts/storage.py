@@ -59,7 +59,6 @@ def callback_result(data,args):
 	except CvBridgeError as e:
 		print(e)
 
-	print("object : " + data.object, file=image_data)
 	print("coordinates : " + data.coords, file=image_data)
 	print("percent : " + data.percent, file=image_data)
 
