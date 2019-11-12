@@ -14,7 +14,7 @@ from process_img import ProcessImage
 class ClassifierCamera:
 	def __init__(self, node_name, log_pub):
 		self.classify = rospy.Subscriber('img_camera', sendframe, self.callback)
-		self.end_classify = rospy.Subscriber('end', operate, self.callback)
+		self.end_classify = rospy.Subscriber('end', operate, self.callback2)
 		self.realtime = rospy.Publisher('realtime_camera', sendframe, queue_size=3)
 		self.summary = rospy.Publisher('summary_camera', sendsummary, queue_size=3)
 		self.log = log_pub
@@ -27,17 +27,23 @@ class ClassifierCamera:
 		self.processor = ProcessImage()
 
 	def callback(self, data):
-		print(data)
+		# if object is detected, convert ros message to cv_frame
+		# append data to class variables
+		if data.coords:
+			self.accumulate_detections(data.frame, data.percent, data.coords)
+
 		if data.operate == "start":
 			print("start signal came")
 			self.log.publish(log_generator(self.node_name, "img_camera(rail operating)", "sub"))
 			self.realtime_callback(data)
 
-			# if object is detected, convert ros message to cv_frame
-			# append data to class variables
-			if data.coords:
-				self.accumulate_detections(data.frame, data.percent, data.coords)
+		elif data.operate == "end":
+			print("end signal came")
+			self.log.publish(log_generator(self.node_name, "img_camera(rail ended)", "sub"))
+			self.summary_callback()
+			print("summary callback finish")
 
+	def callback2(self, data):
 		if data.command == "end":
 			print("end signal came")
 			self.log.publish(log_generator(self.node_name, "img_camera(rail ended)", "sub"))
