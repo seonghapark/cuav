@@ -8,7 +8,7 @@ from std_msgs.msg import String
 from camera.msg import sendframe
 from cv_bridge import CvBridge, CvBridgeError
 from camera_log import log_generator
-
+from main.msg import operate
 
 def arg_parse():
     """ Parsing Arguments for detection """
@@ -29,7 +29,7 @@ def arg_parse():
 
 class GetFrame:
     def __init__(self, node_name, log_pub):
-        self.operate = rospy.Subscriber('operate', String, self.callback)
+        self.operate = rospy.Subscriber('operate', operate, self.callback)
         self.pub_frame = rospy.Publisher('img_camera', sendframe, queue_size=3)
         self.log = log_pub
         self.node_name = node_name
@@ -41,13 +41,13 @@ class GetFrame:
         self.bridge = CvBridge()
 
     def callback(self, data):
-        if data.data == "init":
+        if data.command == "init":
             self.log.publish(log_generator(self.node_name, "operate(camera - initialized)", "sub"))
             self.initialize()
-        elif data.data == "start":
+        elif data.command == "start":
             self.log.publish(log_generator(self.node_name, "operate(rail operating)", "sub"))
             self.get_frame(data)
-        elif data.data == "end":
+        elif data.command == "end":
             self.log.publish(log_generator(self.node_name, "operate(rail ended)", "sub"))
             self.get_frame(data)
 
@@ -111,7 +111,7 @@ class GetFrame:
             print("FPS {:5.2f}".format(1000/elapsed))
 
             # publish frames + detected objects
-            self.frame_data.operate = operate.data
+            self.frame_data.operate = operate.command
             try:   
                 self.frame_data.frame = self.bridge.cv2_to_imgmsg(frame, encoding="passthrough")
                 self.pub_frame.publish(self.frame_data)
