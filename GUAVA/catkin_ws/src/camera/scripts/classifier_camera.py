@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+import uuid
+import cv2
 import rospy
 from std_msgs.msg import String
 from camera.msg import sendframe, sendsummary
@@ -47,6 +49,9 @@ class ClassifierCamera:
 		# process summarized data
 		frame, self.frame_data.direction, self.frame_data.percent = \
 			self.processor.process_summary(self.detected_frames, self.detected_coords, self.detected_percentages)
+
+		# save image file
+		cv2.imwrite(uuid.uuid1() + '.jpg', frame)
 
 		try:
 			self.frame_data.frame = self.bridge.cv2_to_imgmsg(frame, encoding="passthrough")
