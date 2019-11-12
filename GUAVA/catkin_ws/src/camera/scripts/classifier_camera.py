@@ -4,6 +4,7 @@ import time
 import cv2
 import rospy
 from main.msg import operate
+from std_msgs.msg import String
 from camera.msg import sendframe, sendsummary
 from cv_bridge import CvBridge, CvBridgeError
 from camera_log import log_generator
@@ -13,7 +14,6 @@ from process_img import ProcessImage
 class ClassifierCamera:
 	def __init__(self, node_name, log_pub):
 		self.classify = rospy.Subscriber('img_camera', sendframe, self.callback)
-		self.classify_summary = rospy.Subscriber('end', operate, self.callback2)
 		self.realtime = rospy.Publisher('realtime_camera', sendframe, queue_size=3)
 		self.summary = rospy.Publisher('summary_camera', sendsummary, queue_size=3)
 		self.log = log_pub
@@ -22,6 +22,7 @@ class ClassifierCamera:
 		self.detected_percentages = []
 		self.detected_coords = []
 		self.bridge = CvBridge()
+		self.i = 0
 		self.frame_data = sendsummary()
 		self.processor = ProcessImage()
 
@@ -31,26 +32,19 @@ class ClassifierCamera:
 		if data.coords:
 			self.accumulate_detections(data.frame, data.percent, data.coords)
 
-		if data.operate == "start":
+		if data.operate == "start" and self.i<10:
+			print("start signal came")
 			self.log.publish(log_generator(self.node_name, "img_camera(rail operating)", "sub"))
 			self.realtime_callback(data)
-		elif data.operate == "end":
+		elif data.operate == "end" or self.i>10:
 			print("end signal came")
 			self.log.publish(log_generator(self.node_name, "img_camera(rail ended)", "sub"))
 			self.summary_callback()
 			print("summary callback finish")
+			i=0
 
-	def callback2(self,data):
-		# if object is detected, convert ros message to cv_frame
-		# append data to class variables
-		if data.coords:
-			self.accumulate_detections(data.frame, data.percent, data.coords)
+		self.i+=1
 
-		if data.operate == "end":
-			print("end signal came")
-			self.log.publish(log_generator(self.node_name, "img_camera(rail ended)", "sub"))
-			self.summary_callback()
-			print("summary callback finish")
 
 	# publish subscribed data directly
 	def realtime_callback(self, sub_data):
@@ -61,7 +55,6 @@ class ClassifierCamera:
 	# process accumulated detection data
 	# and the publish summarized information
 	def summary_callback(self):
-		print("summary begin")
 		# process summarized data
 		frame, self.frame_data.direction, self.frame_data.percent = \
 			self.processor.process_summary(self.detected_frames, self.detected_coords, self.detected_percentages)
