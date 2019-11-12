@@ -34,6 +34,7 @@ class ClassifierCamera:
 			self.log.publish(log_generator(self.node_name, "img_camera(rail operating)", "sub"))
 			self.realtime_callback(data)
 		elif data.operate == "end":
+                    print("end signal came")
 			self.log.publish(log_generator(self.node_name, "img_camera(rail ended)", "sub"))
 			self.summary_callback()
 
@@ -46,6 +47,7 @@ class ClassifierCamera:
 	# process accumulated detection data
 	# and the publish summarized information
 	def summary_callback(self):
+            print("summary begin")
 		# process summarized data
 		frame, self.frame_data.direction, self.frame_data.percent = \
 			self.processor.process_summary(self.detected_frames, self.detected_coords, self.detected_percentages)
