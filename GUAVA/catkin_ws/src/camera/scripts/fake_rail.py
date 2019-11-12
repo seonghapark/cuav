@@ -5,7 +5,7 @@ from main.msg import operate
 
 print('fake_rail')
 rospy.init_node("fake_rail")
-pub = rospy.Publisher('operate', operate, queue_size=1)
+pub = rospy.Publisher('operate', operate, queue_size=3)
 rate = rospy.Rate(5)
 rospy.sleep(10)
 op = operate()
@@ -20,4 +20,5 @@ while not rospy.is_shutdown():
     op.command = "end"
     op.direction = True
     pub.publish(op)
-    rospy.sleep(1)
+    print("rail end published")
+    rospy.sleep(3)
