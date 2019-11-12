@@ -159,10 +159,10 @@ def publish_realtime_wav(data):
     wav_data = realtime()
     wav_data.data = result_data.astype(np.float64)
     wav_data.sync = result_time.astype(np.float64)
-    #wav_data.data = result_data
-    #wav_data.sync = result_time
+    # wav_data.data = result_data
+    # wav_data.sync = result_time
     wav_data.num = raw_data.num
-    #wav_data.sr = SAMPLE_RATE
+    # wav_data.sr = SAMPLE_RATE
 
     pub_realtime_wav.publish(wav_data)
     str_time = str(datetime.now()).replace(' ', '_')
