@@ -114,7 +114,7 @@ def callback_realtime_camera(data, args):
 
 # transmit information to web node whenever receiving data.
 
-def is_ready(pub_decision_result, pub_web, pub_log):
+def is_ready(pub_decision_result, pub_log):
     time.sleep(2)
     print("waiting results...")
     try:
@@ -136,7 +136,7 @@ def is_ready(pub_decision_result, pub_web, pub_log):
     #pub_storage.publish("storage!, I'm " + result_message)
     #pub_web.publish("web!, I'm " + result_message)
 
-    result_message = DecisionClass.generate_message()
+    result_message = DecisionClass.generate_storage_message()
 
     pub_decision_result.publish(result_message)
 
@@ -146,11 +146,6 @@ def is_ready(pub_decision_result, pub_web, pub_log):
                                              "Send Message to <result> topic")
     pub_log.publish(log_result)
     print(log_result)
-
-
-
-
-
 
 
 def decision(pub_log):
@@ -244,11 +239,10 @@ def init():
 
 if __name__ == '__main__':
     pub_decision_result = rospy.Publisher('decision_result', String, queue_size=10)
-    pub_web = rospy.Publisher('result_web', String, queue_size=10)
     pub_log = rospy.Publisher('logs', String, queue_size=10)
     pub_realtime = rospy.Publisher('realtime_result', realtime, queue_size=10)
 
-    th2 = Thread(target=is_ready, args=(pub_decision_result, pub_web, pub_log))
+    th2 = Thread(target=is_ready, args=(pub_decision_result, pub_log))
     th2.start()
     decision(pub_log)
     rospy.spin()
