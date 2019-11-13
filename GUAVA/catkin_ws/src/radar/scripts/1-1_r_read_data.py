@@ -14,7 +14,7 @@ rospy.init_node('fake_data', anonymous=True)
 fake_data = rospy.Publisher('realtime', raw, queue_size=10)
 log = rospy.Publisher('logs', String, queue_size=10)
 DATA = bytearray()
-time.sleep(0.2) # no sleep time, publisher cannot publish data.
+time.sleep(2) # no sleep time, publisher cannot publish data.
 
 if __name__ == '__main__':
     #rospy.init_node('fake_data', anonymous=True)
@@ -43,6 +43,7 @@ if __name__ == '__main__':
             log_text = '[{}/{}][{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, 'PUB', str_time, 'Publish to raw')
             log.publish(log_text)
             print(log_text)
+            time.sleep(1)
     except (KeyboardInterrupt, Exception) as ex:
         print(ex)
     finally:
