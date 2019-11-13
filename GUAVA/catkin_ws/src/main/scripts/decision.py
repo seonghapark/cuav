@@ -238,7 +238,7 @@ def init():
 
 
 if __name__ == '__main__':
-    pub_decision_result = rospy.Publisher('decision_result', String, queue_size=10)
+    pub_decision_result = rospy.Publisher('final_result', result, queue_size=10)
     pub_log = rospy.Publisher('logs', String, queue_size=10)
     pub_realtime = rospy.Publisher('realtime_result', realtime, queue_size=10)
 

@@ -138,6 +138,6 @@ def storage(pub_log, pub_web):
 
 if __name__ == '__main__':
 	pub_log = rospy.Publisher('logs', String, queue_size=10)
-	pub_web = rospy.Publisher('result_web', result_web, queue_size=10)
+	pub_web = rospy.Publisher('web_result', result_web, queue_size=10)
 
 	storage(pub_log, pub_web)
