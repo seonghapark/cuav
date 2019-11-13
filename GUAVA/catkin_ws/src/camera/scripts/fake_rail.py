@@ -22,5 +22,4 @@ while not rospy.is_shutdown():
     op_end.command = "end"
     op_end.direction = True
     pub_end.publish(op_end)
-    print("rail end published")
     rospy.sleep(1)

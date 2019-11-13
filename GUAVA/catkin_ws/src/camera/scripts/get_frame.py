@@ -46,7 +46,6 @@ class GetFrame:
     def callback(self, data):
         self.FLAG = data.command
         if data.command == "init":
-            print("data.command == init")
             self.log.publish(log_generator(self.node_name, "operate(camera - initialized)", "sub"))
             self.initialize()
         elif data.command == "start":
@@ -56,7 +55,6 @@ class GetFrame:
         elif data.command == "end":
             print("data.command == end")
             self.log.publish(log_generator(self.node_name, "operate(rail ended)", "sub"))
-            self.FLAG = "start"
 
     def initialize(self):
         self.log.publish(log_generator(self.node_name, "Loading network....."))
@@ -119,6 +117,8 @@ class GetFrame:
 
             # publish frames + detected objects
             self.frame_data.operate = self.FLAG
+            if self.FLAG == "end":
+                self.FLAG = "start"
             try:
                 self.frame_data.frame = self.bridge.cv2_to_imgmsg(frame, encoding="passthrough")
                 self.pub_frame.publish(self.frame_data)
