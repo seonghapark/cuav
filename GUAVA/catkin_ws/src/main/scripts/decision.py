@@ -10,6 +10,7 @@ from datetime import datetime
 from main.msg import realtime
 import time
 from DecisionClass import DecisionClass
+from main_log import log_generator
 
 DecisionValues = DecisionClass()
 
@@ -22,8 +23,7 @@ status = [False, False]
 
 def terminate():
     # log
-    str_time = str(datetime.now()).replace(' ', '_')
-    log = '[{}/{}][{}] {}'.format('main', 'decision', str_time, 'decision node will be terminated..')
+    log = log_generator('decision','decision node will be terminated..', 'pub')
     print(log)
     pub_log.publish(log)
     rospy.signal_shutdown("decision node terminated.")
@@ -40,11 +40,9 @@ def callback_rail_end(data, args):
         cycle_finish = True
 
     # publish/subscribe log
-    str_time2 = str(datetime.now()).replace(' ', '_')
-    log_result = '[{}/{}][{}][{}] {}'.format('main', 'decision', 'SUB', str_time2,
-                                             "Get Message From <rail_end> topic : " + data.data)
-    pub_log.publish(log_result)
-    print(log_result)
+    log = log_generator('decision', "Get Message From <rail_end> topic : " + data.data, 'sub')
+    pub_log.publish(log)
+    print(log)
 
 
 def callback_radar(data, args):
@@ -53,11 +51,9 @@ def callback_radar(data, args):
     status[0] = True
 
     # publish/subscribe log
-    str_time2 = str(datetime.now()).replace(' ', '_')
-    log_result = '[{}/{}][{}][{}] {}'.format('main', 'decision', 'SUB', str_time2,
-                                             "Get Message From <result_radar> topic : " + data.data)
-    pub_log.publish(log_result)
-    print(log_result)
+    log = log_generator('decision',"Get Message From <result_radar> topic", 'sub')
+    pub_log.publish(log)
+    print(log)
 
     DecisionValues.image_radar = data.sar
     DecisionValues.percent_radar = data.percent
@@ -69,11 +65,9 @@ def callback_summary_camera(data, args):
     status[1] = True
 
     # publish/subscribe log
-    str_time2 = str(datetime.now()).replace(' ', '_')
-    log_result = '[{}/{}][{}][{}] {}'.format('main', 'decision', 'SUB', str_time2,
-                                             "Get Message From <summary_camera> topic")
-    pub_log.publish(log_result)
-    print(log_result)
+    log = log_generator('decision', "Get Message From <summary_camera> topic", 'sub')
+    pub_log.publish(log)
+    print(log)
 
     DecisionValues.image_camera = data.frame
     DecisionValues.percent_camera = data.percent
@@ -86,10 +80,9 @@ def callback_realtime_camera(data, args):
 
     # publish/subscriber log
     str_time3 = str(datetime.now()).replace(' ', '_')
-    log_result = '[{}/{}][{}][{}] {}'.format('main', 'decision', 'SUB', str_time3,
-                                             "Get Message From <realtime_camera> topic")
-    pub_log.publish(log_result)
-    print(log_result)
+    log = log_generator('decision',"Get Message From <realtime_camera> topic", 'sub')
+    pub_log.publish(log)
+    print(log)
 
     # assign values to new message
     realtime_result = realtime()
@@ -101,11 +94,9 @@ def callback_realtime_camera(data, args):
     pub_realtime.publish(realtime_result)
 
     # publish/subscriber log
-    str_time3 = str(datetime.now()).replace(' ', '_')
-    log_result = '[{}/{}][{}][{}] {}'.format('main', 'decision', 'PUB', str_time3,
-                                             "Send Message to <realtime_result> topic")
-    pub_log.publish(log_result)
-    print(log_result)
+    log = log_generator('decision',"Send Message to <realtime_result> topic",'pub')
+    pub_log.publish(log)
+    print(log)
 
 
 
@@ -141,12 +132,11 @@ def is_ready(pub_decision_result, pub_log):
     pub_decision_result.publish(result_message)
 
     # publish/subscriber log
-    str_time3 = str(datetime.now()).replace(' ', '_')
-    log_result = '[{}/{}][{}][{}] {}'.format('main', 'decision', 'PUB', str_time3,
-                                             "Send Message to <result> topic")
-    pub_log.publish(log_result)
-    print(log_result)
+    log = log_generator('decision', "Send Message to <result> topic", 'pub')
+    pub_log.publish(log)
+    print(log)
 
+################################### log function is applying ##############################
 
 def decision(pub_log):
     init()
