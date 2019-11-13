@@ -20,7 +20,8 @@ def callback_logs(data):
 		file_log.close()
 		rospy.signal_shutdown("log node terminated.")
 	else:
-		rospy.loginfo(rospy.get_caller_id() + " : %s", data.data)
+		#rospy.loginfo(rospy.get_caller_id() + " : %s", data.data)
+		print(data.data)
 		print(data.data, file=file_log)
 
 

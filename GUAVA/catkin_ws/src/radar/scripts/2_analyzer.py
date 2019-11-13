@@ -165,7 +165,7 @@ def publish_realtime_wav(data):
     wav_data.sync = result_time.tostring()
     print(type(wav_data.data), len(wav_data.data))
     wav_data.num = raw_data.num
-    #wav_data.sr = SAMPLE_RATE
+    # wav_data.sr = SAMPLE_RATE
 
     pub_realtime_wav.publish(wav_data)
     str_time = str(datetime.now()).replace(' ', '_')

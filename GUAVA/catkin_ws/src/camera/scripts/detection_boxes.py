@@ -21,10 +21,10 @@ class DetectBoxes:
 
     # detect bounding boxes from given frame
     def detect_bounding_boxes(self, frame, output):
-        '''
+        """
         frame: frame from video or webcam
         output: detected information generated from darknet
-        '''
+        """
         height = frame.shape[0]
         width = frame.shape[1]
 
@@ -33,12 +33,12 @@ class DetectBoxes:
         return None, None, None
 
     def detect_yolo(self, frame, output, frame_width, frame_height):
-        '''
+        """
         frame: frame from video or webcam
         output: detected information generated from darknet
         frame_width: width of frame
         frame_height: height of frame
-        '''
+        """
         # Search for all bounding boxes
         # Save bounding box that have higher score than given confidence threshold
         class_ids = []
@@ -71,22 +71,21 @@ class DetectBoxes:
             top = box[1]
             width = box[2]
             height = box[3]
-            # add labels
-            labels.append(self.classes[class_ids[i]])
             # add percentage
             percentage.append(confidences[i])
-            # add coords
-            coords.append([left, top, left+width, top+height])
+            # add coords (left, top, right, bottom)
+            coords.append([left, top, left + width, top + height])
             self.draw_boxes(frame, class_ids[i], confidences[i], left, top, left + width, top + height)
 
+        # return single object that has highest confidence
         if len(confidences) > 0:
-            max_conf_idx = confidences.index(max(confidences))
-            return labels[max_conf_idx], percentage[max_conf_idx], coords[max_conf_idx]
-        return "", 0.0, []
+            max_conf = confidences.index(max(confidences))
+            return percentage[max_conf], coords[max_conf]
+        return 0.0, []
 
     # draw boxes higher than confidence threshold
     def draw_boxes(self, frame, class_id, conf, left, top, right, bottom):
-        '''
+        """
         frame: frame from video or webcam
         class_id: class index that detected object belongs
         conf: confidence of the detected object
@@ -94,7 +93,7 @@ class DetectBoxes:
         top: top coord
         right: right coord
         bottom: bottom coord
-        '''
+        """
         color, txt_color = ((0, 0, 0), (0, 0, 0))
         label = '{}%'.format(round((conf*100), 1))
         if self.classes:

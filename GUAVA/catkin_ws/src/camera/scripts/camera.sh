@@ -8,6 +8,7 @@ rosrun camera get_frame.py --config cfg/yolo-drone.cfg --weight weights/yolo-dro
 sleep 2
 rosrun camera fake_rail.py &
 sleep 2
+# rosrun main decision.py &
 rosrun camera fake_start.py &
 #gnome-terminal -e "rosrun camera classifier_camera.py"
 #sleep 2

@@ -1,4 +1,3 @@
-float64[] coords
 float64 percent
-string operate
+string direction
 sensor_msgs/Image frame

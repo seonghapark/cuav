@@ -1,11 +1,15 @@
 #!/usr/bin/env python3
+
 #-*-coding:utf-8-*-
 
 import rospy
 from std_msgs.msg import String
 from datetime import datetime
 from radar.msg import raw
+from cv_bridge import CvBridge, CvBridgeError
 import time
+import cv2
+from main.msg import realtime
 
 # from main.msg import result
 
@@ -36,19 +40,33 @@ def callback_raw(data,args):
 
 def callback_result(data,args):
 	pub_log = args
-	rospy.loginfo(rospy.get_caller_id() + "I heard %s", data.data)
-	#publish/subscribe log
+	fileName = time.strftime("%Y%m%d_%H%M%S")
+	directory = '/home/project/cuav/GUAVA/catkin_ws/src/main/storage/camera_image/'
+	image_data = open(directory+fileName+'_data.txt', 'wb')
+	bridge = CvBridge()
+
+    # publish/subscribe log
 	str_time2 = str(datetime.now()).replace(' ','_')
-	log_result ='[{}/{}][{}][{}] {}'.format('main','storage','SUB',str_time2,"Get Message From <result> topic : "+data.data)
+	log_result ='[{}/{}][{}][{}] {}'.format('main','storage','SUB',str_time2,"Get Message From <result> topic")
 	pub_log.publish(log_result)
 	print(log_result)
-	
-	# assign the value from parameter(message) to local variable #
-	#							     #
-	# class = data.class					     #
-	# img = data.img					     #
-	# ....							     #
-	##############################################################
+
+
+
+	# assign the value from parameter(message) to local variable
+	try:
+		cv_image = bridge.imgmsg_to_cv2(data.frame, desired_encoding="passthrough")
+		cv2.imwrite(directory+fileName+'_image.jpg',cv_image)
+	except CvBridgeError as e:
+		print(e)
+
+	print("coordinates : ", data.coords, file=image_data)
+	print("percent : ", data.percent, file=image_data)
+
+	image_data.close()
+
+
+
 
 	# make file for backup
 	
@@ -68,8 +86,8 @@ def storage(pub_log):
 	log = '[{}/{}][{}] {}'.format('main', 'storage', str_time, 'storage node is initialized..')
 	print(log)
 	pub_log.publish(log)
-
-	rospy.Subscriber('result', String, callback_result, pub_log)
+	rospy.Subscriber('realtime_result', realtime, callback_result, pub_log)
+	#rospy.Subscriber('img_camera', realtime, callback_result, pub_log)
 	rospy.Subscriber('raw', raw, callback_raw, pub_log)
 	rospy.spin()
 
