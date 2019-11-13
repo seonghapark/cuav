@@ -3,7 +3,6 @@
 import time
 import cv2
 import rospy
-from main.msg import operate
 from std_msgs.msg import String
 from camera.msg import sendframe, sendsummary
 from cv_bridge import CvBridge, CvBridgeError
@@ -37,7 +36,7 @@ class ClassifierCamera:
 
 		elif data.operate == "end":
 			self.log.publish(log_generator(self.node_name, "img_camera(rail ended)", "sub"))
-			self.summary_callback()
+			self.summary_callback(data)
 
 	# publish subscribed data directly
 	def realtime_callback(self, sub_data):
@@ -47,10 +46,19 @@ class ClassifierCamera:
 
 	# process accumulated detection data
 	# and the publish summarized information
-	def summary_callback(self):
+	def summary_callback(self, sub_data):
 		# process summarized data
 		frame, self.frame_data.direction, self.frame_data.percent = \
 			self.processor.process_summary(self.detected_frames, self.detected_coords, self.detected_percentages)
+
+		# if no detection at all, send last frame to summary
+		if frame is None:
+			self.frame_data.frame = sub_data.frame
+		else:
+			try:
+				self.frame_data.frame = self.bridge.cv2_to_imgmsg(frame, encoding="passthrough")
+			except CvBridgeError as e:
+				print(e)
 
 		# save image file
 		fileName = time.strftime("%Y%m%d_%H%M%S")
@@ -58,12 +66,8 @@ class ClassifierCamera:
 		cv2.imwrite(directory + fileName + '_image.jpg', frame)
 		print("image saved")
 
-		try:
-			self.frame_data.frame = self.bridge.cv2_to_imgmsg(frame, encoding="passthrough")
-			self.summary.publish(self.frame_data)
-			self.log.publish(log_generator(self.node_name, "summary_camera", "pub"))
-		except CvBridgeError as e:
-			print(e)
+		self.summary.publish(self.frame_data)
+		self.log.publish(log_generator(self.node_name, "summary_camera", "pub"))
 
 		# empty data
 		self.detected_frames.clear()

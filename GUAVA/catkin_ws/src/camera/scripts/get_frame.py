@@ -9,7 +9,7 @@ from camera.msg import sendframe
 from cv_bridge import CvBridge, CvBridgeError
 from camera_log import log_generator
 from main.msg import operate
-import time
+
 
 def arg_parse():
     """ Parsing Arguments for detection """

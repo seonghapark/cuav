@@ -12,11 +12,13 @@ class ProcessImage:
         self.channels = channels
 
     def process_summary(self, frames, coords, percents):
-        self.width, self.height = frames[0].shape[:2]
-        frame, direction = self.get_direction(frames, coords)
-        percent = self.get_percent(percents)
+        if len(frames) > 0:
+            self.width, self.height = frames[0].shape[:2]
+            frame, direction = self.get_direction(frames, coords)
+            percent = self.get_percent(percents)
 
-        return frame, direction, percent
+            return frame, direction, percent
+        return None, "No Detection", 0.0
 
     def get_direction(self, frs, cor):
         """
@@ -71,6 +73,8 @@ class ProcessImage:
         # otherwise, object is not moved
         else:
             direction = "Not moved"
+
+        cv2.putText(bg, direction, (40, 40), cv2.FONT_HERSHEY_SIMPLEX, 0.75, (255, 0, 0), 2)
 
         return bg, direction
 
