@@ -52,6 +52,7 @@ class ClassifierCamera:
 		# process summarized data
 		frame, self.frame_data.direction, self.frame_data.percent = \
 			self.processor.process_summary(self.det_frames, self.det_coords, self.det_percentages, self.total_frames)
+		print("Summarized Result - ", self.frame_data.direction, self.frame_data.percent)
 
 		# if no detection at all, send last frame to summary
 		if frame is None:
