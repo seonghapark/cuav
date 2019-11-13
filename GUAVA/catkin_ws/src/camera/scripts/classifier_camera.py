@@ -33,12 +33,12 @@ class ClassifierCamera:
 			self.accumulate_detections(data.frame, data.percent, data.coords)
 
 		if data.operate == "start":
-			print("start signal came")
+			print("classifier - start signal")
 			self.log.publish(log_generator(self.node_name, "img_camera(rail operating)", "sub"))
 			self.realtime_callback(data)
 
 		elif data.operate == "end":
-			print("end signal came")
+			print("classifier - end signal")
 			self.log.publish(log_generator(self.node_name, "img_camera(rail ended)", "sub"))
 			self.summary_callback()
 			print("summary callback finish")

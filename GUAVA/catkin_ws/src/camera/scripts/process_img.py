@@ -30,11 +30,14 @@ class ProcessImage:
 
         # center coordinate of 1st frame
         before = ((cor[0][2] + cor[0][0]) // 2, (cor[0][3] + cor[0][1]) // 2)
+        print(before)
+        print(cor)
         for idx, f in enumerate(frs):
             left = cor[idx][0]
             top = cor[idx][1]
             right = cor[idx][2]
             bottom = cor[idx][3]
+            print(left, top, right, bottom)
 
             rect_img = f[top:bottom, left:right]
             bg[top:bottom, left:right] = rect_img
