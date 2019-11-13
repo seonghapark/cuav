@@ -29,14 +29,12 @@ class ProcessImage:
         bg = np.zeros([self.width, self.height, self.channels], np.uint8)
 
         # center coordinate of 1st frame
-        before = ((cor[0][2] + cor[0][0]) // 2, (cor[0][3] + cor[0][1]) // 2)
-        print(before)
-        print(cor)
+        before = (int((cor[0][2] + cor[0][0]) // 2), int((cor[0][3] + cor[0][1]) // 2))
         for idx, f in enumerate(frs):
-            left = cor[idx][0]
-            top = cor[idx][1]
-            right = cor[idx][2]
-            bottom = cor[idx][3]
+            left = int(cor[idx][0])
+            top = int(cor[idx][1])
+            right = int(cor[idx][2])
+            bottom = int(cor[idx][3])
             print(left, top, right, bottom)
 
             rect_img = f[top:bottom, left:right]
