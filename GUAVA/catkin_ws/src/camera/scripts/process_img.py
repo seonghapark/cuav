@@ -11,11 +11,11 @@ class ProcessImage:
         self.height = None
         self.channels = channels
 
-    def process_summary(self, frames, coords, percents):
+    def process_summary(self, frames, coords, percents, total_fr):
         if len(frames) > 0:
             self.width, self.height = frames[0].shape[:2]
             frame, direction = self.get_direction(frames, coords)
-            percent = self.get_percent(percents)
+            percent = self.get_percent(percents, total_fr)
 
             return frame, direction, percent
         return None, "No Detection", 0.0
@@ -66,18 +66,20 @@ class ProcessImage:
         if dirX != "" and dirY != "":
             direction = "{}-{}".format(dirY, dirX)
 
-        # handle when one direction is detected
-        elif dirX != "" or dirY != "":
-            direction = dirX if dirX != "" else dirY
-
-        # otherwise, object is not moved
-        else:
+        # handle when object is not moved
+        elif dirX == "" and dirY == "":
             direction = "Not moved"
+
+        # otherwise, handle when one direction is detected
+        # else dirX != "" or dirY != "":
+        else:
+            direction = dirX if dirX != "" else dirY
 
         cv2.putText(bg, direction, (40, 40), cv2.FONT_HERSHEY_SIMPLEX, 0.75, (255, 0, 0), 2)
 
         return bg, direction
 
-    def get_percent(self, percent):
-        return percent
+    @staticmethod
+    def get_percent(percent, total_fr):
+        return sum(percent) / total_fr
 

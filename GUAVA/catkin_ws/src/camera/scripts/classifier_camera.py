@@ -17,9 +17,10 @@ class ClassifierCamera:
 		self.summary = rospy.Publisher('summary_camera', sendsummary, queue_size=3)
 		self.log = log_pub
 		self.node_name = node_name
-		self.detected_frames = []
-		self.detected_percentages = []
-		self.detected_coords = []
+		self.total_frames = 0
+		self.det_frames = []
+		self.det_percentages = []
+		self.det_coords = []
 		self.bridge = CvBridge()
 		self.frame_data = sendsummary()
 		self.processor = ProcessImage()
@@ -30,6 +31,7 @@ class ClassifierCamera:
 		if data.coords:
 			self.accumulate_detections(data.frame, data.percent, data.coords)
 
+		self.total_frames += 1
 		if data.operate == "start":
 			self.log.publish(log_generator(self.node_name, "img_camera(rail operating)", "sub"))
 			self.realtime_callback(data)
@@ -49,11 +51,12 @@ class ClassifierCamera:
 	def summary_callback(self, sub_data):
 		# process summarized data
 		frame, self.frame_data.direction, self.frame_data.percent = \
-			self.processor.process_summary(self.detected_frames, self.detected_coords, self.detected_percentages)
+			self.processor.process_summary(self.det_frames, self.det_coords, self.det_percentages, self.total_frames)
 
 		# if no detection at all, send last frame to summary
 		if frame is None:
 			self.frame_data.frame = sub_data.frame
+			cv2.putText(frame, self.frame_data.direction, (40, 40), cv2.FONT_HERSHEY_SIMPLEX, 3, (255, 0, 0), 2)
 		else:
 			try:
 				self.frame_data.frame = self.bridge.cv2_to_imgmsg(frame, encoding="passthrough")
@@ -70,20 +73,20 @@ class ClassifierCamera:
 		self.log.publish(log_generator(self.node_name, "summary_camera", "pub"))
 
 		# empty data
-		self.detected_frames.clear()
-		self.detected_percentages.clear()
-		self.detected_coords.clear()
+		self.det_frames.clear()
+		self.det_percentages.clear()
+		self.det_coords.clear()
+		self.total_frames = 0
 
 	# accumulate detection information
 	def accumulate_detections(self, fr, per, cor):
 		try:
 			cv_image = self.bridge.imgmsg_to_cv2(fr, desired_encoding="passthrough")
+			self.det_frames.append(cv_image)
+			self.det_percentages.append(per)
+			self.det_coords.append(cor)
 		except CvBridgeError as e:
 			print(e)
-
-		self.detected_frames.append(cv_image)
-		self.detected_percentages.append(per)
-		self.detected_coords.append(cor)
 
 
 if __name__ == '__main__':
@@ -95,4 +98,3 @@ if __name__ == '__main__':
 		rospy.spin()
 	except KeyboardInterrupt:
 		print("Shut down - keyboard interruption")
-
