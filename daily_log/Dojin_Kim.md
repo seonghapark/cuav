@@ -64,7 +64,7 @@
     - torch 설치 Fail
     - opencv DNN으로 영상 detection 프로그램 run 됐으나 1초에 1프레임도 안나옴
   - 웹캠 실행해봤으나 매우 느림, 개선할 수 있는 방법 찾아봐야 함
-  
+
 ### 2019-09-19
   - 라즈베리파이에서 opencv dnn으로 drone detect 프로그램 실행 (약 0.5FPS)
   - Pytorch와 Tensoflow로 해보려고 시도
@@ -230,4 +230,31 @@
 	- Summary때 detect된 이미지들 합치기 성공
 	- Summary때 detect된 이미지들 중 처음과 마지막을 통해 방향 알아내기 성공
 	
-	        
+<div align="center">
+<img src="images/drone_direction.jpg" width=500/>
+</div>
+
+
+### 2019-11-13
+	- rail에서 end signal 받지 못하는 오류 해결
+	- 움직이지 않았다면 움직이지 않는다는 방향 반환
+	- rail이 작동하는 동안 아예 물체가 인식이 안되었다면 summary때 아무 인식도 없었다고 반환
+	- yolov3-tiny darknet53.conv.74에 학습한 결과
+
+
+<div align="center">
+<img src="images/drone_custom_darknet54.png" width=500/>
+</div>
+
+
+    - yolov3-tiny.conv15에 학습한 결과
+
+<div align="center">
+<img src="images/drone_custom_yolo_15_6000.png" width=500/>
+</div>
+
+    - yolov3-tiny.conv15가 더 학습 결과가 좋았기 때문에 mAP를 구해봤다
+    
+<div align="center">
+<img src="images/drone_custom_map_yolo15.png" width=500/>
+</div>
