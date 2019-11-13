@@ -49,11 +49,9 @@ class GetFrame:
             self.log.publish(log_generator(self.node_name, "operate(camera - initialized)", "sub"))
             self.initialize()
         elif data.command == "start":
-            print("data.command == start")
             self.log.publish(log_generator(self.node_name, "operate(rail operating)", "sub"))
             self.get_frame(data)
         elif data.command == "end":
-            print("data.command == end")
             self.log.publish(log_generator(self.node_name, "operate(rail ended)", "sub"))
 
     def initialize(self):

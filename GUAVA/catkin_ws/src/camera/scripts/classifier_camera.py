@@ -14,7 +14,6 @@ from process_img import ProcessImage
 class ClassifierCamera:
 	def __init__(self, node_name, log_pub):
 		rospy.Subscriber('img_camera', sendframe, self.callback)
-		# rospy.Subscriber('end', operate, self.callback2)
 		self.realtime = rospy.Publisher('realtime_camera', sendframe, queue_size=3)
 		self.summary = rospy.Publisher('summary_camera', sendsummary, queue_size=3)
 		self.log = log_pub
@@ -33,22 +32,12 @@ class ClassifierCamera:
 			self.accumulate_detections(data.frame, data.percent, data.coords)
 
 		if data.operate == "start":
-			print("classifier - start signal")
 			self.log.publish(log_generator(self.node_name, "img_camera(rail operating)", "sub"))
 			self.realtime_callback(data)
 
 		elif data.operate == "end":
-			print("classifier - end signal")
 			self.log.publish(log_generator(self.node_name, "img_camera(rail ended)", "sub"))
 			self.summary_callback()
-			print("summary callback finish")
-
-	# def callback2(self, data):
-	# 	if data.command == "end":
-	# 		print("end signal came")
-	# 		self.log.publish(log_generator(self.node_name, "img_camera(rail ended)", "sub"))
-	# 		self.summary_callback()
-	# 		print("summary callback finish")
 
 	# publish subscribed data directly
 	def realtime_callback(self, sub_data):
@@ -62,7 +51,6 @@ class ClassifierCamera:
 		# process summarized data
 		frame, self.frame_data.direction, self.frame_data.percent = \
 			self.processor.process_summary(self.detected_frames, self.detected_coords, self.detected_percentages)
-		print("summary frame end", self.frame_data.direction, self.frame_data.percent)
 
 		# save image file
 		fileName = time.strftime("%Y%m%d_%H%M%S")

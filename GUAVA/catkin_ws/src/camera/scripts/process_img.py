@@ -16,8 +16,6 @@ class ProcessImage:
         frame, direction = self.get_direction(frames, coords)
         percent = self.get_percent(percents)
 
-        print(direction, percent)
-
         return frame, direction, percent
 
     def get_direction(self, frs, cor):
@@ -35,7 +33,6 @@ class ProcessImage:
             top = int(cor[idx][1])
             right = int(cor[idx][2])
             bottom = int(cor[idx][3])
-            print(left, top, right, bottom)
 
             rect_img = f[top:bottom, left:right]
             bg[top:bottom, left:right] = rect_img
