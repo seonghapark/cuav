@@ -34,6 +34,7 @@ class GetFrame:
         self.pub_frame = rospy.Publisher('img_camera', sendframe, queue_size=3)
         self.log = log_pub
         self.node_name = node_name
+        self.command = "end"
         self.net = None
         self.detect = None
         self.cap = None
@@ -42,15 +43,16 @@ class GetFrame:
         self.bridge = CvBridge()
 
     def callback(self, data):
-        if data.command == "init":
+        self.command = data.command
+        if self.command == "init":
             self.log.publish(log_generator(self.node_name, "operate(camera - initialized)", "sub"))
             self.initialize()
-        elif data.command == "start":
+        elif self.command == "start":
             self.log.publish(log_generator(self.node_name, "operate(rail operating)", "sub"))
-            self.get_frame(data)
-        elif data.command == "end":
+            self.get_frame()
+        elif self.command == "end":
             self.log.publish(log_generator(self.node_name, "operate(rail ended)", "sub"))
-            self.get_frame(data)
+            self.get_frame()
 
     def initialize(self):
         self.log.publish(log_generator(self.node_name, "Loading network....."))
@@ -77,7 +79,10 @@ class GetFrame:
         layer_names = net.getLayerNames()
         return [layer_names[i[0] - 1] for i in net.getUnconnectedOutLayers()]
 
-    def get_frame(self, operate):
+    def get_frame(self):
+        if self.command != "start":
+            return
+
         # if start signal came before init signal
         # initialize net & camera
         if self.cap is None or not self.cap.isOpened():
@@ -112,7 +117,7 @@ class GetFrame:
             print("FPS {:5.2f}".format(1000/elapsed))
 
             # publish frames + detected objects
-            self.frame_data.operate = operate.command
+            self.frame_data.operate = self.command
             try:
                 self.frame_data.frame = self.bridge.cv2_to_imgmsg(frame, encoding="passthrough")
                 self.pub_frame.publish(self.frame_data)

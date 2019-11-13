@@ -17,10 +17,10 @@ while not rospy.is_shutdown():
     op.command = "start"
     op.direction = True
     pub.publish(op)
-    rospy.sleep(60)
+    rospy.sleep(30)
     print("rail end")
     op_end.command = "end"
     op_end.direction = True
     pub.publish(op_end)
     print("rail end published")
-    rospy.sleep(3)
+    rospy.sleep(1)
