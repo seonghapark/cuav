@@ -50,7 +50,7 @@ class GetFrame:
             self.initialize()
         elif data.command == "start":
             self.log.publish(log_generator(self.node_name, "operate(rail operating)", "sub"))
-            self.get_frame(data)
+            self.get_frame()
         elif data.command == "end":
             self.log.publish(log_generator(self.node_name, "operate(rail ended)", "sub"))
 
@@ -79,7 +79,7 @@ class GetFrame:
         layer_names = net.getLayerNames()
         return [layer_names[i[0] - 1] for i in net.getUnconnectedOutLayers()]
 
-    def get_frame(self, operate):
+    def get_frame(self):
         # if start signal came before init signal
         # initialize net & camera
         if self.cap is None or not self.cap.isOpened():
@@ -113,7 +113,7 @@ class GetFrame:
 
             print("FPS {:5.2f}".format(1000/elapsed))
 
-            # publish frames + detected objects
+            # convert frames and publish frames + detected objects
             self.frame_data.operate = self.FLAG
             if self.FLAG == "end":
                 self.FLAG = "start"
