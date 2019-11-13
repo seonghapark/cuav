@@ -16,8 +16,8 @@ SAMPLE_RATE = 5862
 rospy.init_node('analyzer', anonymous=True)
 pub_wav = rospy.Publisher('wav', wav, queue_size=1)
 #pub_realtime_wav = rospy.Publisher('realtime_wav', wav, queue_size=10)
-pub_realtime_wav = rospy.Publisher('realtime_wav', realtime, queue_size=10)
-log = rospy.Publisher('logs', String, queue_size=10)
+pub_realtime_wav = rospy.Publisher('realtime_wav', realtime, queue_size=100)
+log = rospy.Publisher('logs', String, queue_size=100)
 
 
 class RadarBinaryParser():
@@ -61,7 +61,8 @@ class RadarBinaryParser():
 class ifft_handler():
     def __init__(self):
         self.opp = 0
-        self.fs = 44100  # Sampling rate
+        #self.fs = 44100  # Sampling rate
+        self.fs = 5862
         self.Tp = 0.020   # Radar ramp up-time
         self.n = int(self.Tp*self.fs)   # Samples per ramp up-time
         self.fsif = np.zeros([10000,self.n], dtype=np.int16)  # Zero array for further data storage
@@ -125,6 +126,7 @@ class ifft_handler():
         result_time = result_time[:50]
         result_data = result_data[:50]
 
+        # print(result_time.dtype, result_data.dtype)
         return result_time, result_data
 
 
@@ -138,7 +140,7 @@ def publish_realtime_wav(data):
     raw_data = raw()
     raw_data.data = data.data
     raw_data.num = data.num
-    print("data num : ", data.num, " data len : ", len(data.data))
+    print("data num : ", data.num, " data len : ", len(raw_data.data))
 
     parser = RadarBinaryParser(raw_data.data, sr=SAMPLE_RATE)
     sync, real_data = parser.parse()
@@ -150,17 +152,18 @@ def publish_realtime_wav(data):
     result_time, result_data = ifft.data_process(sync, real_data)  # It takes approximately 500 ms
 
     str_time = str(datetime.now()).replace(' ', '_')
-    str_msg = 'After IIFT Data : ' + str(result_time.shape) + ' Sync : ' + str(result_time.shape)
+    str_msg = 'After IIFT Data : ' + str(result_data.shape) + ' Sync : ' + str(result_time.shape)
     log_text = '[{}/{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, str_time, str_msg)
     log.publish(log_text)
     print(log_text)
-    print(result_time.dtype, type(result_time), result_data.dtype, type(result_data))
+    print(result_time.dtype, type(result_time), result_data.dtype, type(result_data), len(result_data))
 
     wav_data = realtime()
-    wav_data.data = result_data.astype(np.float64)
-    wav_data.sync = result_time.astype(np.float64)
-    # wav_data.data = result_data
-    # wav_data.sync = result_time
+    #wav_data.data = result_data.astype(np.float64)
+    #wav_data.sync = result_time.astype(np.float64)
+    wav_data.data = result_data.tostring()
+    wav_data.sync = result_time.tostring()
+    print(type(wav_data.data), len(wav_data.data))
     wav_data.num = raw_data.num
     # wav_data.sr = SAMPLE_RATE
 

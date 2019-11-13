@@ -9,6 +9,11 @@ from camera.msg import sendframe
 from datetime import datetime
 from main.msg import realtime
 import time
+from DecisionClass import DecisionClass
+
+DecisionValues = DecisionClass()
+
+ 
 
 init_finish = False
 cycle_finish = False
@@ -54,6 +59,9 @@ def callback_radar(data, args):
     pub_log.publish(log_result)
     print(log_result)
 
+    DecisionValues.image_radar = data.sar
+    DecisionValues.percent_radar = data.percent
+
 
 def callback_summary_camera(data, args):
     pub_log = args
@@ -66,6 +74,10 @@ def callback_summary_camera(data, args):
                                              "Get Message From <summary_camera> topic")
     pub_log.publish(log_result)
     print(log_result)
+
+    DecisionValues.image_camera = data.frame
+    DecisionValues.percent_camera = data.percent
+    DecisionValues.direction = data.direction
 
 
 def callback_realtime_camera(data, args):
@@ -100,32 +112,45 @@ def callback_realtime_camera(data, args):
     # publish to web
 
 
-
-
 # transmit information to web node whenever receiving data.
 
-def is_ready(pub_storage, pub_web):
+def is_ready(pub_decision_result, pub_web, pub_log):
     time.sleep(2)
     print("waiting results...")
     try:
         while status[0] == False or status[1] == False:
             pass
     # if two results are received...
+
     ### processing results... ###
 
-    # later.. the type is not String type. that will be change to custom message type
+    # later.. the type is not String type. that will be changed to custom message type
     except KeyboardInterrupt:
         pass
     rate = rospy.Rate(10)
-    result_message = "done!"
-    rospy.loginfo("storage! I'm " + result_message)
-    rospy.loginfo("web! I'm " + result_message)
 
-    pub_storage.publish("storage!, I'm " + result_message)
-    pub_web.publish("web!, I'm " + result_message)
+    #result_message = "done!"
+    #rospy.loginfo("storage! I'm " + result_message)
+    #rospy.loginfo("web! I'm " + result_message)
+
+    #pub_storage.publish("storage!, I'm " + result_message)
+    #pub_web.publish("web!, I'm " + result_message)
+
+    result_message = DecisionClass.generate_message()
+
+    pub_decision_result.publish(result_message)
+
+    # publish/subscriber log
+    str_time3 = str(datetime.now()).replace(' ', '_')
+    log_result = '[{}/{}][{}][{}] {}'.format('main', 'decision', 'PUB', str_time3,
+                                             "Send Message to <result> topic")
+    pub_log.publish(log_result)
+    print(log_result)
 
 
-# rate.sleep()
+
+
+
 
 
 def decision(pub_log):
@@ -218,12 +243,12 @@ def init():
 
 
 if __name__ == '__main__':
-    pub_storage = rospy.Publisher('result_storage', String, queue_size=10)
+    pub_decision_result = rospy.Publisher('decision_result', String, queue_size=10)
     pub_web = rospy.Publisher('result_web', String, queue_size=10)
     pub_log = rospy.Publisher('logs', String, queue_size=10)
     pub_realtime = rospy.Publisher('realtime_result', realtime, queue_size=10)
 
-    th2 = Thread(target=is_ready, args=(pub_storage, pub_web))
+    th2 = Thread(target=is_ready, args=(pub_decision_result, pub_web, pub_log))
     th2.start()
     decision(pub_log)
     rospy.spin()
