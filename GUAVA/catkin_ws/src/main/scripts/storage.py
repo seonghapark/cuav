@@ -37,7 +37,7 @@ def callback_final_result(data, args):
 	# publish/subscribe log
 	log = log_generator('storage',"Get Message From <final_result> topic",'sub')
 	pub_log.publish(log)
-	print(log)
+	
 
 	# assign the value from parameter(message) to local variable
 	try:
@@ -62,7 +62,7 @@ def callback_final_result(data, args):
 	# publish/subscribe log
 	log = log_generator('storage',"Send Message to <web_result> topic",'pub')
 	pub_log.publish(log)
-	print(log)
+	
 
 
 
@@ -85,7 +85,7 @@ def callback_raw(data,args):
 	# log
 	log = log_generator('storage', 'raw data file from radar <' + fileNmae + '> is saved.')
 	pub_log.publish(log)
-	print(log)
+	
 
 
 
@@ -100,7 +100,7 @@ def callback_realtime_result(data,args):
 	# publish/subscribe log
 	log = log_generator('storage', "Get Message From <result> topic", 'sub')
 	pub_log.publish(log)
-	print(log)
+	
 
 
 
@@ -123,7 +123,7 @@ def storage(pub_log, pub_web):
 
 	# log
 	log = log_generator('storage', 'storage node is initialized..')
-	print(log)
+	
 	pub_log.publish(log)
 
 	rospy.Subscriber('realtime_result', realtime, callback_realtime_result, pub_log)
