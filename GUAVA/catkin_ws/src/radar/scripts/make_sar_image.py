@@ -468,13 +468,13 @@ def main(data, log):
                         help="Filename to save the SAR image to (default: sar_image.png)")
     parser.add_argument('-rs', nargs='?', type=float, default=30.0,
                         help='Downrange distance (ft) to calibration target at scene center (default: 30)')
-    parser.add_argument('-cr1', nargs='?', type=float, default=-80.0,
+    parser.add_argument('-cr1', nargs='?', type=float, default=-100.0,
                         help='Farthest crossrange distance (ft) left of scene center shown in image viewport (default: -80, minimum: -170)')
-    parser.add_argument('-cr2', nargs='?', type=float, default=80.0,
+    parser.add_argument('-cr2', nargs='?', type=float, default=100.0,
                         help='Farthest crossrange distance (ft) right of the scene center shown in image viewport (default: 80, maximum: 170)')
     parser.add_argument('-dr1', nargs='?', type=float, default=1.0,
                         help='Closest downrange distance (ft) away from the radar shown in image viewport (default: 1)')
-    parser.add_argument('-dr2', nargs='?', type=float, default=350.0,
+    parser.add_argument('-dr2', nargs='?', type=float, default=250.0,
                         help='Farthest downrange distance (ft) away from the radar shown in image viewport (default: 350, maximum: 565)')
     parser.add_argument('-bgsub', nargs='?', type=str, default=None,
                         help="Filename containing SAR data representing a background sample that will be subtracted from the main data given by -f (default: None)")
@@ -489,9 +489,9 @@ def main(data, log):
         raise AssertionError('Could not open output file %s for writing.' % args.o)
     assert args.rs > 0, "Rs cannot be 0. It can be 0.0001 or smaller."
     assert (
-                args.cr1 != args.cr2 and -170 <= args.cr1 <= 170 and -170 <= args.cr2 <= 170), "Crossrange values must be between -170 and 170 and not equal."
+                args.cr1 != args.cr2 and -145 <= args.cr1 <= 145 and -145 <= args.cr2 <= 145), "Crossrange values must be between -170 and 170 and not equal."
     assert (
-                args.dr1 != args.dr2 and 1 <= args.dr1 <= 565 and 1 <= args.dr2 <= 565), "Downrange values must be between 1 and 565 and not equal."
+                args.dr1 != args.dr2 and 1 <= args.dr1 <= 288.5 and 1 <= args.dr2 <= 288.5), "Downrange values must be between 1 and 565 and not equal."
     if args.bgsub is not None:
         assert os.path.exists(args.bgsub), "Background substitution file %s not found." % args.bgsub
 
