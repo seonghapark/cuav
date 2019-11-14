@@ -13,6 +13,7 @@ from main.msg import realtime
 from main.msg import result
 from main.msg import result_web
 from DecisionClass import DecisionClass
+from main_log import log_generator
 
 
 
@@ -34,10 +35,9 @@ def callback_final_result(data, args):
 	bridge = CvBridge()
 
 	# publish/subscribe log
-	str_time2 = str(datetime.now()).replace(' ', '_')
-	log_result = '[{}/{}][{}][{}] {}'.format('main', 'storage', 'SUB', str_time2, "Get Message From <final_result> topic")
-	pub_log.publish(log_result)
-	print(log_result)
+	log = log_generator('storage',"Get Message From <final_result> topic",'sub')
+	pub_log.publish(log)
+	print(log)
 
 	# assign the value from parameter(message) to local variable
 	try:
@@ -60,11 +60,9 @@ def callback_final_result(data, args):
 	pub_web.publish(web_message)
 
 	# publish/subscribe log
-	str_time2 = str(datetime.now()).replace(' ', '_')
-	log_result = '[{}/{}][{}][{}] {}'.format('main', 'storage', 'PUB', str_time2,
-											 "Send Message to <web_result> topic")
-	pub_log.publish(log_result)
-	print(log_result)
+	log = log_generator('storage',"Send Message to <web_result> topic",'pub')
+	pub_log.publish(log)
+	print(log)
 
 
 
@@ -85,8 +83,7 @@ def callback_raw(data,args):
 	binary_data.close()
 
 	# log
-	str_time = str(datetime.now()).replace(' ', '_')
-	log = '[{}/{}][{}] {}'.format('main', 'storage', str_time, 'raw data file from radar <' + fileNmae + '> is saved.')
+	log = log_generator('storage', 'raw data file from radar <' + fileNmae + '> is saved.')
 	pub_log.publish(log)
 	print(log)
 
@@ -100,11 +97,10 @@ def callback_realtime_result(data,args):
 	image_data = open(directory+fileName+'_data.txt', 'wb')
 	bridge = CvBridge()
 
-    # publish/subscribe log
-	str_time2 = str(datetime.now()).replace(' ','_')
-	log_result ='[{}/{}][{}][{}] {}'.format('main','storage','SUB',str_time2,"Get Message From <result> topic")
-	pub_log.publish(log_result)
-	print(log_result)
+	# publish/subscribe log
+	log = log_generator('storage', "Get Message From <result> topic", 'sub')
+	pub_log.publish(log)
+	print(log)
 
 
 
@@ -126,10 +122,10 @@ def storage(pub_log, pub_web):
 	rospy.init_node('storage', anonymous=True)
 
 	# log
-	str_time = str(datetime.now()).replace(' ', '_')
-	log = '[{}/{}][{}] {}'.format('main', 'storage', str_time, 'storage node is initialized..')
+	log = log_generator('storage', 'storage node is initialized..')
 	print(log)
 	pub_log.publish(log)
+
 	rospy.Subscriber('realtime_result', realtime, callback_realtime_result, pub_log)
 	rospy.Subscriber('final_result', result, callback_final_result, (pub_log, pub_web))
 	#rospy.Subscriber('img_camera', realtime, callback_result, pub_log)
