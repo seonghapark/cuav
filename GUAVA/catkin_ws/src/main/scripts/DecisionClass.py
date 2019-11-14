@@ -1,26 +1,19 @@
 import cv2
 from main.msg import result
 from main.msg import result_web
-from
+
 
 class DecisionClass:
-    def __init__(self):
-        self.coordinates = [0.0, 0.0]
-        self.percent_camera = 0.0
-        self.percent_radar = 0.0
-        self.image_camera = None
-        self.image_radar = None
-        self.direction = ""
-        self.image_radar_name = ""
-        self.image_camera_name = ""
-
-    def __init__(self, coordinates, percent_camera, percent_radar, image_camera, image_radar, direction):
+    def __init__(self, coordinates=[0.0, 0.0], percent_camera=0.0, percent_radar=0.0,
+                 image_camera=None, image_radar=None, direction=""):
         self.coordinates = coordinates
         self.percent_camera = percent_camera
         self.percent_radar = percent_radar
         self.image_camera = image_camera
         self.image_radar = image_radar
         self.direction = direction
+        self.image_radar_name = ""
+        self.image_camera_name = ""
 
     def generate_storage_message(self):
         msg = result()
