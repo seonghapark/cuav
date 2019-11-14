@@ -136,7 +136,6 @@ def is_ready(pub_decision_result, pub_log):
     pub_log.publish(log)
     print(log)
 
-################################### log function is applying ##############################
 
 def decision(pub_log):
     init()
@@ -156,11 +155,9 @@ def decision(pub_log):
     pub_operate.publish(init_message)
 
     # publish/subscribe log
-    str_time2 = str(datetime.now()).replace(' ', '_')
-    log_result = '[{}/{}][{}][{}] {}'.format('main', 'decision', 'PUB', str_time2,
-                                             "Publsih Message to <operate> topic : " + init_message.command)
-    pub_log.publish(log_result)
-    print(log_result)
+    log = log_generator('decision',"Publsih Message to <operate> topic : " + init_message.command, 'pub')
+    pub_log.publish(log)
+    print(log)
     # rate.sleep()
 
     # wait signal from railnode
@@ -178,11 +175,9 @@ def decision(pub_log):
     pub_operate.publish(start_message)
 
     # publish/subscribe log
-    str_time2 = str(datetime.now()).replace(' ', '_')
-    log_result = '[{}/{}][{}][{}] {}'.format('main', 'decision', 'PUB', str_time2,
-                                             "Publsih Message to <operate> topic : " + start_message.command)
-    pub_log.publish(log_result)
-    print(log_result)
+    log = log_generator('deicison',"Publsih Message to <operate> topic : " + start_message.command,'pub')
+    pub_log.publish(log)
+    print(log)
     # rate.sleep()
 
     # wait signal from railnode
@@ -201,11 +196,9 @@ def decision(pub_log):
     pub_end.publish(start_message)
 
     # publish/subscribe log
-    str_time2 = str(datetime.now()).replace(' ', '_')
-    log_result = '[{}/{}][{}][{}] {}'.format('main', 'decision', 'PUB', str_time2,
-                                             "Publsih Message to <end> topic : " + start_message.command)
-    pub_log.publish(log_result)
-    print(log_result)
+    log = log_generator('decision',"Publsih Message to <end> topic : " + start_message.command,'pub')
+    pub_log.publish(log)
+    print(log)
 
     rospy.on_shutdown(terminate)
 
@@ -216,8 +209,7 @@ def decision(pub_log):
 def init():
     rospy.init_node('decision', anonymous=True)
     # log
-    str_time = str(datetime.now()).replace(' ', '_')
-    log = '[{}/{}][{}] {}'.format('main', 'decision', str_time, 'decision node is initialized..')
+    log = log_generator('decision','decision node is initialized..')
     print(log)
     pub_log.publish(log)
 
