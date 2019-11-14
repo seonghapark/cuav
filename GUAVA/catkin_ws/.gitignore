@@ -52,3 +52,6 @@ CATKIN_IGNORE
 
 # Idea
 GUAVA/.idea/*
+
+# Pycharm
+GUAVA/catkin_ws/src/camera/scripts/__pycache__/*

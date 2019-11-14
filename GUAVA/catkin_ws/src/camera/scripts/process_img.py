@@ -39,10 +39,6 @@ class ProcessImage:
             rect_img = f[top:bottom, left:right]
             bg[top:bottom, left:right] = rect_img
 
-            # cv2.imshow("f", bg)
-            # if cv2.waitKey(1) & 0xFF == ord('q'):
-            #     break
-
         # center coordinate of last frame
         # draw line from 1st frame's center coord to last frame's center coord
         after = ((right + left) // 2, (top + bottom) // 2)
@@ -71,7 +67,6 @@ class ProcessImage:
             direction = "Not moved"
 
         # otherwise, handle when one direction is detected
-        # else dirX != "" or dirY != "":
         else:
             direction = dirX if dirX != "" else dirY
 
@@ -82,4 +77,3 @@ class ProcessImage:
     @staticmethod
     def get_percent(percent, total_fr):
         return sum(percent) / total_fr
-

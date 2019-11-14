@@ -16,6 +16,7 @@ DATA = bytearray()
 FLAG = bool()
 I = 0
 realtime_cnt = 0
+binary_data = None
 
 rospy.init_node('receiver', anonymous=True)
 log = rospy.Publisher('logs', String, queue_size=10)
@@ -23,7 +24,7 @@ pub_raw = rospy.Publisher('raw', raw, queue_size=1)
 realtime = rospy.Publisher('realtime', raw, queue_size=10)
 
 def publish(operate):
-    global DATA, FLAG, I, realtime_cnt
+    global DATA, FLAG, I, realtime_cnt, binary_data
     FLAG = False
 
     str_time = str(datetime.now()).replace(' ', '_')
@@ -44,6 +45,11 @@ def publish(operate):
 
     I += 1
     realtime_cnt = 0
+
+    lengthMSb = bytes([11025 >> 8])
+    lengthLSb = bytes([11025 & 0xFF])
+    binary_data.write(lengthMSb + lengthLSb + DATA)
+    binary_data.close()
     DATA = bytearray()
 
     pub_raw.publish(raw_data)
@@ -54,7 +60,7 @@ def publish(operate):
 
 
 def start(operate, args):
-    global FLAG, DATA, realtime_cnt
+    global FLAG, DATA, realtime_cnt, binary_data
 
     str_time = str(datetime.now()).replace(' ', '_')
     log_text = '[{}/{}][{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, 'SUB', str_time, 'Subscribe from operate : start')
@@ -69,6 +75,9 @@ def start(operate, args):
     log_text = '[{}/{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, str_time, 'Begin receiving')
     print(log_text)
     log.publish(log_text)
+
+    fileName = '../test_data/'+ time.strftime("%Y%m%d_%H%M%S") + '_binary.txt'
+    binary_data = open(fileName,'wb')   # Create a file
 
     with Serial(args.device, 115200) as serial:
         while FLAG:
