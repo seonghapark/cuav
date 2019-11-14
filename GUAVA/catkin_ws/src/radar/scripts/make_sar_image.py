@@ -29,7 +29,9 @@ node_name = 'make_sar_image'
 str_time = str(datetime.now()).replace(' ', '_')
 C = 3e8  # light speed approximation
 # TODO : check pulse period
-MOD_PULSE_PERIOD = 20e-3
+MOD_PULSE_PERIOD = 50 / 5862.0 # MOD_PULSE_PERIOD = 20e-3
+INCH_PER_SECOND = 4 / 7.0
+
 # TODO : check for Frequency range of VCO
 #VCO_FREQ_RANGE = [2400e6, 2591e6]  # at 25 degrees, taken from datasheet
 VCO_FREQ_RANGE = [2400e6, 2500e6]
@@ -128,7 +130,7 @@ def contiguous_regions(condition):
     return idx
 
 
-def get_sar_frames(sync_samples, data_samples, sample_rate, pulse_period=20e-3):
+def get_sar_frames(sync_samples, data_samples, sample_rate, pulse_period=MOD_PULSE_PERIOD):
     '''
     Your sync_samples should look something like this:
     |    ------    ------                   ------    ------
@@ -192,7 +194,7 @@ def get_sar_frames(sync_samples, data_samples, sample_rate, pulse_period=20e-3):
     # because the following code is fragile on the starting points where there
     # may be some extra unwanted oscillations, we set our boundaries a full frame ahead.
     min_time = int(0.25 * sample_rate)
-    frame_size = int(0.02 * sample_rate)
+    frame_size = int(MOD_PULSE_PERIOD * sample_rate)
     start += frame_size
 
     # make list of True data ranges. algorithm is same above
@@ -242,7 +244,7 @@ def get_sar_frames(sync_samples, data_samples, sample_rate, pulse_period=20e-3):
 
 
 # TODO : adjust Rs value
-def RMA(sif, pulse_period=20e-3, freq_range=None, Rs=9.0):
+def RMA(sif, pulse_period=MOD_PULSE_PERIOD, freq_range=None, Rs=9.0):
     '''Performs the Range Migration Algorithm.
     Returns a dictionary containing the finished S_image matrix
     and some other intermediary values needed for drawing the image.
@@ -258,12 +260,12 @@ def RMA(sif, pulse_period=20e-3, freq_range=None, Rs=9.0):
     Rs is distance (in METERS for just this function) to scene center. Default is ~30ft.
     '''
     if freq_range is None:
-        freq_range = [2260e6, 2590e6]  # Values from MIT
+        freq_range = [2400e6, 2500e6]  # Values from MIT
 
     N, M = len(sif), len(sif[0])
 
     # construct Kr axis
-    delta_x = feet2meters(1 / 12.0)  # Assuming 2 inch antenna spacing between frames. (1 foot = 12 inch)
+    delta_x = feet2meters(INCH_PER_SECOND / 12.0)  # Assuming 2 inch antenna spacing between frames. (1 foot = 12 inch)
     bandwidth = freq_range[1] - freq_range[0]
     center_freq = bandwidth / 2 + freq_range[0]
     # make Kr axis by Slicing (4*PI/C)*(center_freq - bandwidth/2) ~ (4*PI/C)*(center_freq + bandwidth/2) to number of samples in measured over time period(M)
@@ -288,7 +290,7 @@ def RMA(sif, pulse_period=20e-3, freq_range=None, Rs=9.0):
     N = len(sif_padded)
 
     # construct Kx axis
-    Kx = numpy.linspace(-(PI/2) / delta_x, (PI/2) / delta_x, N)
+    Kx = numpy.linspace(-PI / delta_x, PI / delta_x, N)
 
     freqs = numpy.fft.fft(sif_padded, axis=0)  # note fft is along cross-range!
     S = numpy.fft.fftshift(freqs, axes=(0,))  # shifts 0-freq components to center of spectrum
@@ -370,15 +372,15 @@ def plot_img(sar_img_data):
         if k != 'Py_S_image':
             exec('%s=%s' % (k, repr(v)))
     bw = C * (kstop - kstart) / (4 * PI)
-    max_range = (C * S_st_shape[1] / (2 * bw)) * 1 / 0.3048
+    max_range = (C * S_st_shape[1] / (2 * bw)) * 1 / 0.3048 ## 1/0.3048 -> meter2feet
 
     # data truncation
     dr_index1 = int(round((dr1 / max_range) * S_image.shape[0]))
     dr_index2 = int(round((dr2 / max_range) * S_image.shape[0]))
     cr_index1 = int(round(S_image.shape[1] * (
-            (cr1 + Ky_len * delta_x / (2 * 0.3048)) / (Ky_len * delta_x / 0.3048))))
+            (cr1 + Ky_len * delta_x / (INCH_PER_SECOND * 0.3048)) / (Ky_len * delta_x / 0.3048))))
     cr_index2 = int(round(S_image.shape[1] * (
-            (cr2 + Ky_len * delta_x / (2 * 0.3048)) / (Ky_len * delta_x / 0.3048))))
+            (cr2 + Ky_len * delta_x / (INCH_PER_SECOND * 0.3048)) / (Ky_len * delta_x / 0.3048))))
 
     trunc_image = S_image[dr_index1:dr_index2, cr_index1:cr_index2]
     downrange = numpy.linspace(-1 * dr1, -1 * dr2, trunc_image.shape[0]) + Rs
@@ -386,7 +388,7 @@ def plot_img(sar_img_data):
 
     for i in range(0, trunc_image.shape[1]):
         trunc_image[:, i] = (trunc_image[:, i]).transpose() * (abs(downrange * 0.3048)) ** (3 / 2.0)
-    trunc_image = 20 * numpy.log10(abs(trunc_image))
+    trunc_image = MOD_PULSE_PERIOD * numpy.log10(abs(trunc_image))
 
     pylab.figure()
     pylab.pcolormesh(crossrange, downrange, trunc_image, edgecolors='None', cmap='jet')
