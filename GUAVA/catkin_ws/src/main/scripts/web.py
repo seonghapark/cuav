@@ -3,7 +3,7 @@
 import rospy
 from threading import Thread
 from std_msgs.msg import String
-from main.msg import operate
+from main.msg import operate, result_web
 from datetime import datetime
 import time
 from flask import Flask, render_template, request, Response, url_for, redirect
@@ -46,7 +46,7 @@ def init():
     print(log)
     pub_log.publish(log)
 
-    rospy.Subscriber('final_result', String, callback_web, pub_log)
+    rospy.Subscriber('result_web', result_web, callback_web, pub_log)
 
 
 
@@ -60,7 +60,7 @@ app = Flask(__name__)
 
 
 # default connect
-@app.route("/")
+@app.route("/", methods=["GET"])
 def index():
     return render_template('index.html')
 
@@ -85,6 +85,7 @@ def getData():
 # Running web.py
 ##############################
 if __name__ == '__main__':
+    #app.run(debug=True)
     pub_log = rospy.Publisher('logs',String,queue_size=10)
 
     web(pub_log)

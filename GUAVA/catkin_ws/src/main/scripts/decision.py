@@ -8,6 +8,7 @@ from main.msg import operate
 from camera.msg import sendframe
 from datetime import datetime
 from main.msg import realtime
+from main.msg import result
 import time
 from DecisionClass import DecisionClass
 from main_log import log_generator
