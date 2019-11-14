@@ -85,10 +85,10 @@ def getData():
 # Running web.py
 ##############################
 if __name__ == '__main__':
-    #app.run(debug=True)
+    app.run(host='192.168.2.128', debug=True)
     pub_log = rospy.Publisher('logs',String,queue_size=10)
 
     web(pub_log)
     rospy.spin()
     
-    app.run(debug=True)
+    #app.run(debug=True)
