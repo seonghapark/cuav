@@ -71,10 +71,10 @@ class ifft_handler():
         input = input + 0.0000001
         return 20 * np.log10(abs(input))  # Calculate Decibel using received signal intensity value
 
-    def data_process(self, sync, data):
+    def data_process(self, sync, data, num):
         count = 0
         result_time = [] # time is a list
-        self.fs = len(sync)
+        #self.fs = len(sync)
         self.n = int(self.Tp*self.fs)
         self.fsif = np.zeros([10000,self.n], dtype=np.int16)
         # print(self.fs)
@@ -103,6 +103,7 @@ class ifft_handler():
                         break
 
         self.opp += 1
+        #temp = [x + num for x in result_time]
         result_time = np.array(result_time)  # change the format of time from list to to np.array
         sif = self.fsif[:count,:] # truncate sif --> remove all redundant array lists in sif, just in case if sif is longer then count
         sif = sif - np.tile(sif.mean(0), [sif.shape[0], 1])
@@ -149,14 +150,16 @@ def publish_realtime_wav(data):
     if sync is None:
         time.sleep(0.2)
 
-    result_time, result_data = ifft.data_process(sync, real_data)  # It takes approximately 500 ms
+    st = time.time() * 1000
+    result_time, result_data = ifft.data_process(sync, real_data, raw_data.num)  # It takes approximately 500 ms
+    et = time.time() * 1000
 
     str_time = str(datetime.now()).replace(' ', '_')
     str_msg = 'After IIFT Data : ' + str(result_data.shape) + ' Sync : ' + str(result_time.shape)
     log_text = '[{}/{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, str_time, str_msg)
     log.publish(log_text)
     print(log_text)
-    print(result_time.dtype, type(result_time), result_data.dtype, type(result_data), len(result_data))
+    print(result_time.dtype, type(result_time), result_time)
 
     wav_data = realtime()
     #wav_data.data = result_data.astype(np.float64)
@@ -191,13 +194,15 @@ def publish_wav(data):
     # parse text binary file
     parser = RadarBinaryParser(raw_data.data, sr=SAMPLE_RATE)
     sync, data = parser.parse()
-    print("sync : ", sync.shape, type(sync), sync.dtype, "data : ", data.shape, type(data), data.dtype)
+    #print("sync : ", sync.shape, type(sync), sync.dtype, "data : ", data.shape, type(data), data.dtype)
 
     str_time = str(datetime.now()).replace(' ', '_')
     str_msg = 'Data : ' + str(data.shape) + ' Sync : ' + str(sync.shape)
     log_text = '[{}/{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, str_time, str_msg)
     log.publish(log_text)
     print(log_text)
+    print('################################')
+    print(sync)
 
     wav_data = wav()
     wav_data.data = data.astype(np.uint16)
