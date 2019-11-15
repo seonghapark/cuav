@@ -3991,3 +3991,16 @@ body{-webkit-backface-visibility:hidden}
  	width: 80%;
  	padding: 20px;
  }
+
+
+
+
+.progress {
+	height:18px
+}
+.progress-bar {
+	width:0
+}
+.progress-bar {
+	background-color: #5fb1e2
+}
