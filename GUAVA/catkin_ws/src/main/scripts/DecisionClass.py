@@ -4,7 +4,7 @@ from main.msg import result_web
 
 
 class DecisionClass:
-    def __init__(self, coordinates=[0.0, 0.0], percent_camera=0.0, percent_radar=0.0,
+    def __init__(self, coordinates=(0.0, 0.0), percent_camera=0.0, percent_radar=0.0,
                  image_camera=None, image_radar=None, direction=""):
         self.coordinates = coordinates
         self.percent_camera = percent_camera
