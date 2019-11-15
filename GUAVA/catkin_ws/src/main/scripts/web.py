@@ -17,15 +17,13 @@ import DecisionClass
 # Global variables
 #############################
 result = ()
-
-
-
+app = Flask(__name__)
 
 
 #############################
 # ROS functions
 #############################
-class ros(Thread):
+class ROSWeb(Thread):
     def __init__(self):
         return
 
@@ -66,23 +64,10 @@ class ros(Thread):
         rospy.spin()
 
 
-
-    # def init():
-        # rospy.init_node('web', anonymous=True)
-        # #log
-        # str_time = str(datetime.now()).replace(' ', '_')
-        # log = '[{}/{}][{}] {}'.format('main', 'web', str_time, 'web node is initialized..')
-        # print(log)
-        # pub_log.publish(log)
-
-        # rospy.Subscriber('final_result', result_web, callback_web, pub_log)
-
-
-
 ##############################
 # Flask functions
 ##############################
-class web_service(Thread):
+class WebService(Thread):
     def __init__(self) :
         Thread.__init__(self)
 
@@ -90,11 +75,6 @@ class web_service(Thread):
         print('run')
         global app
         app.run(host='192.168.2.128')
-
-
-
-
-app = Flask(__name__)
 
 
 # default connect
@@ -111,14 +91,11 @@ def getData():
         ####result = callback_web()
         cameraIMGpath = result[0]
         #sarIMGpath = result[1]
-        cameraeAccuracy = result[1]
+        cameraAccuracy = result[1]
         #radarAccuracy = result[3]
         print("Flask running: Deploy Web(post)")
         #return render_template('index.html', cameraIMG=cameraIMGpath, sarIMG=sarIMGpath, cameraACCURACY=camera_accuracy, radarACCURACY=radarAccuracy)
-        return render_template('index.html', cameraIMG=cameraIMGpath, cameraACCURACY=camera_accuracy)
-
-
-
+        return render_template('index.html', cameraIMG=cameraIMGpath, cameraACCURACY=cameraAccuracy)
 
 
 ##############################
@@ -126,10 +103,8 @@ def getData():
 ##############################
 if __name__ == '__main__':
 
-    w = web_service()
+    w = WebService()
     w.start()
-    r = ros()
+    r = ROSWeb()
     r.listener()
 
-    #app.run(debug=True)
-     
