@@ -279,7 +279,7 @@ def RMA(sif, pulse_period=MOD_PULSE_PERIOD, freq_range=None, Rs=9.0):
     '''STEP 1: Cross-range FFT, turns S(x_n, w(t)) into S(Kx, Kr)'''
     # Add padding if we have less than this number of crossrange samples:
     # (requires numpy 1.7 or above)
-    chirp = 22528 ## initial: 2048
+    chirp = 2048 ## initial: 2048
     rows = (max(chirp, len(sif)) - len(sif)) // 2
     try:
         sif_padded = numpy.pad(sif, [[rows, rows], [0, 0]], 'constant', constant_values=0)
