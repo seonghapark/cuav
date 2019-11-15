@@ -15,7 +15,6 @@ SAMPLE_RATE = 5862
 
 rospy.init_node('analyzer', anonymous=True)
 pub_wav = rospy.Publisher('wav', wav, queue_size=1)
-#pub_realtime_wav = rospy.Publisher('realtime_wav', wav, queue_size=10)
 pub_realtime_wav = rospy.Publisher('realtime_wav', realtime, queue_size=100)
 log = rospy.Publisher('logs', String, queue_size=100)
 
@@ -54,7 +53,6 @@ class RadarBinaryParser():
         self.sync = np.array(sync)
         self.data = np.array(values)
 
-        # print(self.sync, self.data, len(self.sync), len(self.data))
         return self.sync, self.data
 
 
@@ -71,16 +69,12 @@ class ifft_handler():
         input = input + 0.0000001
         return 20 * np.log10(abs(input))  # Calculate Decibel using received signal intensity value
 
-    def data_process(self, sync, data, num):
+    def data_process(self, sync, data):
         count = 0
         result_time = [] # time is a list
-        #self.fs = len(sync)
+        self.fs = len(sync)
         self.n = int(self.Tp*self.fs)
         self.fsif = np.zeros([10000,self.n], dtype=np.int16)
-        # print(self.fs)
-
-        # print(data, data.shape, self.n)
-        # print(sync, sync.shape)
 
         spliter = 10 # to search rising edge
         val = 2
@@ -90,8 +84,6 @@ class ifft_handler():
             if (ii - spliter > 0) & (sync[ii] == True) & (sync[ii - val - spliter:ii - spliter].max() == False):  # if start[ii] is true and the mean of from start[ii-11] to start[ii-1] is zero (All False)
                 for jj in range(ii - spliter, ii):
                     if (sync[jj] == True) & (sync[jj - val:jj - 1].mean() == 0.0):
-                        # print(data[jj:jj + self.n], jj)
-                        # print(self.n)
                         self.fsif[count, :] = data[jj:jj + self.n]  # then copy rightarray from ii to ii+n and paste them to sif[count] --> sif[count] is a list
                         result_time.append((jj + int(sync.shape[0]) * self.opp) * 1. / self.fs)  # append time, the time is ii/fs --> few micro seconds (0.0001 sec or so)
                         count = count + 1
@@ -103,11 +95,11 @@ class ifft_handler():
                         break
 
         self.opp += 1
-        #temp = [x + num for x in result_time]
         result_time = np.array(result_time)  # change the format of time from list to to np.array
         sif = self.fsif[:count,:] # truncate sif --> remove all redundant array lists in sif, just in case if sif is longer then count
         sif = sif - np.tile(sif.mean(0), [sif.shape[0], 1])
-        zpad = int(8 * self.n / 2)  # create the number_of_ifft_entities --> which is the number of vales that has to be created from fft calculation
+        #zpad = int(8 * self.n / 2)  # create the number_of_ifft_entities --> which is the number of vales that has to be created from fft calculation
+        zpad = 440
         decibel = self.dbv(np.fft.ifft(sif, zpad, 1)) # Do fft calculation, and convert results to decibel through dbv function
         real_value = decibel[:,0:int(decibel.shape[1] / 2)]
         max_real = real_value.max()
@@ -117,7 +109,6 @@ class ifft_handler():
         sif2 = sif[1:sif.shape[0],:] - sif[:sif.shape[0]-1,:]
         last = sif[-1,:]
         sif2 = np.vstack((sif2, last))
-        # print(sif2, sif2.shape, sif.shape, zpad)
         v = np.fft.ifft(sif2, zpad, 1)
         decibel = self.dbv(v)
         real_value = decibel[:,0:int(decibel.shape[1] / 2)]
@@ -127,7 +118,6 @@ class ifft_handler():
         result_time = result_time[:50]
         result_data = result_data[:50]
 
-        # print(result_time.dtype, result_data.dtype)
         return result_time, result_data
 
 
@@ -137,21 +127,23 @@ def publish_realtime_wav(data):
     log.publish(log_text)
     print(log_text)
 
-    ifft = ifft_handler()
     raw_data = raw()
     raw_data.data = data.data
     raw_data.num = data.num
-    print("data num : ", data.num, " data len : ", len(raw_data.data))
+
+    str_msg = 'Data num : ' + str(data.num) + 'Data len : ' + str(len(data.data))
+    log_text = '[{}/{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, str_time, str_msg)
+    log.publish(log_text)
+    print(log_text)
 
     parser = RadarBinaryParser(raw_data.data, sr=SAMPLE_RATE)
     sync, real_data = parser.parse()
-    print("After Parsing\nsync : ", sync.shape, type(sync), "data : ", real_data.shape, type(real_data))
 
     if sync is None:
         time.sleep(0.2)
 
     st = time.time() * 1000
-    result_time, result_data = ifft.data_process(sync, real_data, raw_data.num)  # It takes approximately 500 ms
+    result_time, result_data = ifft.data_process(sync, real_data)  # It takes approximately 500 ms
     et = time.time() * 1000
 
     str_time = str(datetime.now()).replace(' ', '_')
@@ -159,16 +151,11 @@ def publish_realtime_wav(data):
     log_text = '[{}/{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, str_time, str_msg)
     log.publish(log_text)
     print(log_text)
-    print(result_time.dtype, type(result_time), result_time)
 
     wav_data = realtime()
-    #wav_data.data = result_data.astype(np.float64)
-    #wav_data.sync = result_time.astype(np.float64)
     wav_data.data = result_data.tostring()
     wav_data.sync = result_time.tostring()
-    print(type(wav_data.data), len(wav_data.data))
     wav_data.num = raw_data.num
-    # wav_data.sr = SAMPLE_RATE
 
     pub_realtime_wav.publish(wav_data)
     str_time = str(datetime.now()).replace(' ', '_')
@@ -194,15 +181,12 @@ def publish_wav(data):
     # parse text binary file
     parser = RadarBinaryParser(raw_data.data, sr=SAMPLE_RATE)
     sync, data = parser.parse()
-    #print("sync : ", sync.shape, type(sync), sync.dtype, "data : ", data.shape, type(data), data.dtype)
 
     str_time = str(datetime.now()).replace(' ', '_')
     str_msg = 'Data : ' + str(data.shape) + ' Sync : ' + str(sync.shape)
     log_text = '[{}/{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, str_time, str_msg)
     log.publish(log_text)
     print(log_text)
-    print('################################')
-    print(sync)
 
     wav_data = wav()
     wav_data.data = data.astype(np.uint16)
@@ -230,4 +214,5 @@ def listener():
 
 
 if __name__ == '__main__':
+    ifft = ifft_handler()
     listener()

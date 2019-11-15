@@ -4,12 +4,10 @@ from threading import Thread
 import io
 
 import matplotlib
-from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 import matplotlib.colors as colors
 from matplotlib import animation
-
 
 import numpy as np
 import time
@@ -22,7 +20,11 @@ from std_msgs.msg import String
 
 PACKAGE_NAME = 'radar'
 NODE_NAME = 'plotter'
+result_time = []
+result_data = []
 data_num = 0
+q_result_data = queue.Queue()
+q_result_time = queue.Queue()
 
 rospy.init_node('plotter', anonymous=True)
 log = rospy.Publisher('logs', String, queue_size=100)
@@ -30,15 +32,15 @@ log = rospy.Publisher('logs', String, queue_size=100)
 
 class ros_communication():
     def __init__(self, plotter):
+        global result_time
+        global result_data
+        global data_num
         self.result_time = []
         self.result_data = []
         #self.data_num = 0
         self.plot = plotter
 
     def data_disassembler(self, data):
-        global data_num
-        print('data disassemble')
-        data_num = data.num
         self.result_time = np.fromstring(data.sync, dtype=np.float64)
         self.result_data = np.fromstring(data.data, dtype=np.float64)
         self.result_data = np.reshape(self.result_data, (int(len(self.result_time)), int(len(self.result_data)/len(self.result_time))))
@@ -112,10 +114,7 @@ class colorgraph_handler():
             self.data_tlen = len(self.data_t)
 
     def animate(self, time):
-        global data_num
         self.get()
-        print('AFTER GET\ndata : ', self.data_val.shape, self.data_val.dtype)
-        print(len(self.data_t), len(self.y), len(self.data_val), self.data_tlen, self.data_val[:self.data_tlen].T.shape, self.max_detect)
         time = time+1
 
         if time > self.set_t:
@@ -124,14 +123,7 @@ class colorgraph_handler():
             # makes it look ok when the animation loops
             lim = self.ax.set_xlim(0, self.set_t)
 
-        #print(self.data_t.shape, self.y.shape, self.data_val.shape)
-        #print(type(self.data_t), type(self.y), type(self.data_val[:self.data_tlen].T))
-        #print(self.data_tlen)
-        #plt.pcolormesh(self.data_t, self.y, self.data_val[:self.data_tlen].T, norm=self.norm, cmap=self.cmap)
-        plt.pcolormesh(self.data_t, self.y, np.swapaxes(self.data_val[:self.data_tlen], 0, 1),
-                       norm=self.norm, cmap=self.cmap)
-        plt.plot(time, self.y[0])
-
+        plt.pcolormesh(self.data_t, self.y, np.swapaxes(self.data_val[:self.data_tlen], 0, 1), norm=self.norm, cmap=self.cmap)
         return self.ax
 
     def draw_graph(self):
@@ -158,6 +150,9 @@ if __name__ == '__main__':
     except(KeyboardInterrupt, Exception) as ex:
         print(ex)
     finally:
-        print('Close all')
+        str_time = str(datetime.now()).replace(' ', '_')
+        log_text = '[{}/{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, str_time, 'Clase All')
+        log.publish(log_text)
+        print(log_text)
 
     rospy.spin()
