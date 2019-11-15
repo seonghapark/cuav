@@ -13,16 +13,21 @@ import storage
 import main_log
 import DecisionClass
 
-##############################
-# ROS functions
+#############################
+# Global variables
 #############################
 result = ()
 
-class ros(Thread):
 
+
+
+
+#############################
+# ROS functions
+#############################
+class ros(Thread):
     def __init__(self):
         return
-
 
     def callback_web(self, data, args):
         # write logs
@@ -35,7 +40,6 @@ class ros(Thread):
         pub_log.publish(log_result)
         print(log_result)
 
-
         # load datas
         DecisionValues = DecisionClass(data.coords_camera, data.percent_camera, data.percent_radar, data.image_camera, data.image_radar, data.direction)
         image_camera_name = DecisionValues.image_camera_name
@@ -45,10 +49,6 @@ class ros(Thread):
 
         #result = (image_camera_name, image_sar_name, camera_accuracy, radar_accuracy)
         result = (image_camera_name, camera_accuracy)
-
-
-    # def web(pub_log):
-    #     init()
 
     def listener(self):
         rospy.init_node('web', anonymous=True)
@@ -79,11 +79,21 @@ class ros(Thread):
 
 
 
+##############################
+# Flask functions
+##############################
+class web_service(Thread):
+    def __init__(self) :
+        Thread.__init__(self)
+
+    def run(self):
+        print('run')
+        global app
+        app.run(host='192.168.2.128')
 
 
-##############################
-# default setting
-##############################
+
+
 app = Flask(__name__)
 
 
@@ -108,14 +118,8 @@ def getData():
         return render_template('index.html', cameraIMG=cameraIMGpath, cameraACCURACY=camera_accuracy)
 
 
-class web_service(Thread):
-    def __init__(self) :
-        Thread.__init__(self)
 
-    def run(self):
-        print('run')
-        global app
-        app.run(host='192.168.2.128')
+
 
 ##############################
 # Running web.py
