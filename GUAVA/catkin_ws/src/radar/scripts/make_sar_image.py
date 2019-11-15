@@ -278,7 +278,8 @@ def RMA(sif, pulse_period=MOD_PULSE_PERIOD, freq_range=None, Rs=9.0):
     '''STEP 1: Cross-range FFT, turns S(x_n, w(t)) into S(Kx, Kr)'''
     # Add padding if we have less than this number of crossrange samples:
     # (requires numpy 1.7 or above)
-    rows = (max(2048, len(sif)) - len(sif)) // 2
+    chirp = 22528 ## initial: 2048
+    rows = (max(chirp, len(sif)) - len(sif)) // 2
     try:
         sif_padded = numpy.pad(sif, [[rows, rows], [0, 0]], 'constant', constant_values=0)
     except Exception as e:
@@ -321,7 +322,7 @@ def RMA(sif, pulse_period=MOD_PULSE_PERIOD, freq_range=None, Rs=9.0):
 
     # TODO : check ksatrt, kstop value
     kstart, kstop = 73, 108.5  # match MIT's matlab -- why are these values chosen?
-    Ky_even = numpy.linspace(kstart, kstop, 1024)
+    Ky_even = numpy.linspace(kstart, kstop, chirp / 2)
 
     Ky = numpy.sqrt(Krr ** 2 - Kxx ** 2)  # same as phi_mf but without the Rs factor.
     try:
