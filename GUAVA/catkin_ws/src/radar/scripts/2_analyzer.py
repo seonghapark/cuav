@@ -11,7 +11,6 @@ from std_msgs.msg import String
 PACKAGE_NAME = 'radar'
 NODE_NAME = 'analyzer'
 DATA = bytearray()
-SAMPLE_RATE = 5862
 
 rospy.init_node('analyzer', anonymous=True)
 pub_wav = rospy.Publisher('wav', wav, queue_size=1)
@@ -137,13 +136,13 @@ def publish_realtime_wav(data):
     raw_data = raw()
     raw_data.data = data.data
     raw_data.num = data.num
-
+    raw_data.sr = data.sr
     str_msg = 'Data num : ' + str(data.num) + 'Data len : ' + str(len(data.data))
     log_text = '[{}/{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, str_time, str_msg)
     log.publish(log_text)
     print(log_text)
 
-    parser = RadarBinaryParser(raw_data.data, sr=SAMPLE_RATE)
+    parser = RadarBinaryParser(raw_data.data, sr=raw_data.sr)
     sync, real_data = parser.parse()
 
     for i,sync_data in enumerate(sync) :
@@ -157,7 +156,7 @@ def publish_realtime_wav(data):
     result_time, result_data = ifft.data_process(sync, real_data)  # It takes approximately 500 ms
 
     str_time = str(datetime.now()).replace(' ', '_')
-    str_msg = 'Data : ' + str(result_data.shape) + ' Sync : ' + str(result_time.shape)
+    str_msg = 'Data : ' + str(result_data.shape) + ' Sync : ' + str(result_time.shape) + 'Sample rate : ' + str(raw_data.sr)
     log_text = '[{}/{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, str_time, str_msg)
     log.publish(log_text)
     print(log_text)
@@ -188,12 +187,13 @@ def publish_wav(data):
     raw_data = raw()
     raw_data.data = data.data
     raw_data.num = data.num
+    raw_data.sr = data.sr
     # parse text binary file
-    parser = RadarBinaryParser(raw_data.data, sr=SAMPLE_RATE)
+    parser = RadarBinaryParser(raw_data.data, sr=raw_data.sr)
     sync, data = parser.parse()
 
     str_time = str(datetime.now()).replace(' ', '_')
-    str_msg = 'Data : ' + str(data.shape) + ' Sync : ' + str(sync.shape)
+    str_msg = 'Data : ' + str(data.shape) + ' Sync : ' + str(sync.shape) + 'Sample rate : ' + str(raw_data.sr)
     log_text = '[{}/{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, str_time, str_msg)
     log.publish(log_text)
     print(log_text)
@@ -202,7 +202,7 @@ def publish_wav(data):
     wav_data.data = data.astype(np.uint16)
     wav_data.sync = sync.astype(np.uint16)
     wav_data.num = raw_data.num
-    wav_data.sr = SAMPLE_RATE
+    wav_data.sr = raw_data.sr
 
     # Publish Audio Numpy data
     pub_wav.publish(wav_data)
