@@ -30,7 +30,7 @@ str_time = str(datetime.now()).replace(' ', '_')
 C = 3e8  # light speed approximation
 # TODO : check pulse period
 MOD_PULSE_PERIOD = 20e-3 # MOD_PULSE_PERIOD = 20e-3
-INCH_PER_SECOND = 4 / 7.0
+INCH_PER_SECOND = 2
 
 # TODO : check for Frequency range of VCO
 #VCO_FREQ_RANGE = [2400e6, 2591e6]  # at 25 degrees, taken from datasheet
@@ -185,6 +185,7 @@ def get_sar_frames(sync_samples, data_samples, sample_rate, pulse_period=MOD_PUL
                                         silent_regions)
     # make a list from selected silent regions returned by filter function.
     long_enough_silent_regions = list(long_enough_silent_regions)
+    print('long enough silent regions shape : ', len(long_enough_silent_regions))
 
     # get start idx of True data. that is second column of silent regions(idx of silent regions ends)
     _, start = long_enough_silent_regions.pop(0)
@@ -203,6 +204,7 @@ def get_sar_frames(sync_samples, data_samples, sample_rate, pulse_period=MOD_PUL
     for region in long_enough_silent_regions:
         data_ranges.append([start + 1, region[0]])
         start = region[1] + frame_size  # add frame size(boundary calculated above)
+    print('data ranges shape : ', len(data_ranges))
 
     sar_frames = []
     for start, end in data_ranges:
@@ -240,6 +242,7 @@ def get_sar_frames(sync_samples, data_samples, sample_rate, pulse_period=MOD_PUL
         sar_frames[i] = e - numpy.mean(sar_frames, 0)
 
     # TODO : check sar_frames shape
+    print('sar_frames shape : ', numpy.array(sar_frames).shape)
     return sar_frames
 
 
@@ -277,15 +280,11 @@ def RMA(sif, pulse_period=MOD_PULSE_PERIOD, freq_range=None, Rs=9.0):
     # Add padding if we have less than this number of crossrange samples:
     # (requires numpy 1.7 or above)
     
-    
-    #chirp = 384
     #chirp = 896
-    #chirp = 2048
+    #chirp = 1024
+    chirp = 2048
     #chirp = 4608
-    chirp = 10240
-
-
-
+    #chirp = 10240
 
     rows = (max(chirp, len(sif)) - len(sif)) // 2
     try:
