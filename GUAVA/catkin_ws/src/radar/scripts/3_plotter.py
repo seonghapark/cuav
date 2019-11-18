@@ -1,10 +1,5 @@
 #!/usr/bin/env python3
 
-from threading import Thread
-import io
-
-import matplotlib
-matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 import matplotlib.colors as colors
 from matplotlib import animation
@@ -37,7 +32,6 @@ class ros_communication():
         global data_num
         self.result_time = []
         self.result_data = []
-        #self.data_num = 0
         self.plot = plotter
 
     def data_disassembler(self, data):
@@ -51,6 +45,12 @@ class ros_communication():
         log_text = '[{}/{}][{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, 'SUB', str_time, 'Subscribe from realtime_wav')
         log.publish(log_text)
         print(log_text)
+
+        str_msg = 'Data num : ' + str(data.num) + 'Data len : ' + str(len(data.data))
+        log_text = '[{}/{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, str_time, str_msg)
+        log.publish(log_text)
+        print(log_text)
+
         self.data_disassembler(data)
 
 
@@ -101,7 +101,6 @@ class colorgraph_handler():
         return self.fig
 
     def set(self, result_time, result_data):
-        print('set')
         if self.previous != result_time.item(0):
             self.previous = result_time.item(0)
             self.q_result_time.put(result_time)
@@ -115,6 +114,13 @@ class colorgraph_handler():
 
     def animate(self, time):
         self.get()
+
+        str_time = str(datetime.now()).replace(' ', '_')
+        str_msg = 'Data : ' + str(self.data_val.shape) + ' Sync : ' + str(self.data_t.shape)
+        log_text = '[{}/{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, str_time, str_msg)
+        log.publish(log_text)
+        print(log_text)
+
         time = time+1
 
         if time > self.set_t:
@@ -134,7 +140,6 @@ class colorgraph_handler():
 if __name__ == '__main__':
     plot = colorgraph_handler()
     ros = ros_communication(plot)
-    print('before start')
     rospy.Subscriber('realtime_wav', realtime, ros.callback)
 
     try:
@@ -151,7 +156,7 @@ if __name__ == '__main__':
         print(ex)
     finally:
         str_time = str(datetime.now()).replace(' ', '_')
-        log_text = '[{}/{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, str_time, 'Clase All')
+        log_text = '[{}/{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, str_time, 'Close All')
         log.publish(log_text)
         print(log_text)
 
