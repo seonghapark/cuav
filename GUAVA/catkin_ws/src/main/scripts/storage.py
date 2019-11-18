@@ -82,7 +82,6 @@ def callback_raw(data, args):
 def callback_realtime_result(data, args):
 	pub_log = args[0]
 	pub_web = args[1]
-	print("here is realtime result")
 
 	fileName = time.strftime("%Y%m%d_%H%M%S")
 	directory = '/home/project/cuav/GUAVA/catkin_ws/src/main/storage/camera_image/'
@@ -109,7 +108,6 @@ def callback_realtime_result(data, args):
 
 	DecisionValues = DecisionClass(data.coords, data.percent, image_camera_name=directory+fileName+"_image.jpg")
 	pub_web.publish(DecisionValues.generate_web_message())
-	print("Publish Realtime result to Web")
 
 
 def storage(pub_log, pub_web):
