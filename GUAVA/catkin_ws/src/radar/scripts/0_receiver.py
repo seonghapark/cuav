@@ -41,7 +41,7 @@ def publish(operate):
     raw_data = raw()
     raw_data.data = DATA
     raw_data.num = I
-
+    raw_data.sr = sample_rate
     str_time = str(datetime.now()).replace(' ', '_')
     msg = 'Data num : ' + str(I) + ', Data length: ' + str(len(DATA))
     log_text = '[{}/{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, str_time, msg)
@@ -102,6 +102,7 @@ def start(operate, args):
                     raw_data = raw()
                     raw_data.data = DATA[(sample_rate*2) * realtime_cnt : (sample_rate*2) * (realtime_cnt + 1)]
                     raw_data.num = realtime_cnt
+                    raw_data.sr = sample_rate
                     realtime.publish(raw_data)
                     realtime_cnt += 1
 
