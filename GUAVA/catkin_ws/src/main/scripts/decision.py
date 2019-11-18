@@ -3,19 +3,15 @@
 
 import rospy
 from threading import Thread
-from std_msgs.msg import String
-from main.msg import operate
-from camera.msg import sendframe
-from datetime import datetime
-from main.msg import realtime
-from main.msg import result
 import time
+from camera.msg import sendframe
+from std_msgs.msg import String
+from main.msg import operate, realtime, result
 from DecisionClass import DecisionClass
 from main_log import log_generator
 
 DecisionValues = DecisionClass()
 
- 
 
 init_finish = False
 cycle_finish = False
@@ -24,9 +20,9 @@ status = [False, False]
 
 def terminate():
     # log
-    log = log_generator('decision','decision node will be terminated..', 'pub')
-
+    log = log_generator('decision', 'decision node will be terminated..', 'pub')
     pub_log.publish(log)
+
     rospy.signal_shutdown("decision node terminated.")
 
 
@@ -45,14 +41,13 @@ def callback_rail_end(data, args):
     pub_log.publish(log)
 
 
-
 def callback_radar(data, args):
     pub_log = args
     rospy.loginfo(rospy.get_caller_id() + " : %s", data.data)
     status[0] = True
 
     # publish/subscribe log
-    log = log_generator('decision',"Get Message From <result_radar> topic", 'sub')
+    log = log_generator('decision', "Get Message From <result_radar> topic", 'sub')
     pub_log.publish(log)
 
 
@@ -69,7 +64,6 @@ def callback_summary_camera(data, args):
     log = log_generator('decision', "Get Message From <summary_camera> topic", 'sub')
     pub_log.publish(log)
 
-
     DecisionValues.image_camera = data.frame
     DecisionValues.percent_camera = data.percent
     DecisionValues.direction = data.direction
@@ -80,10 +74,8 @@ def callback_realtime_camera(data, args):
     pub_realtime = args[1]
 
     # publish/subscriber log
-    str_time3 = str(datetime.now()).replace(' ', '_')
-    log = log_generator('decision',"Get Message From <realtime_camera> topic", 'sub')
+    log = log_generator('decision', "Get Message From <realtime_camera> topic", 'sub')
     pub_log.publish(log)
-
 
     # assign values to new message
     realtime_result = realtime()
@@ -95,17 +87,13 @@ def callback_realtime_camera(data, args):
     pub_realtime.publish(realtime_result)
 
     # publish/subscriber log
-    log = log_generator('decision',"Send Message to <realtime_result> topic",'pub')
+    log = log_generator('decision', "Send Message to <realtime_result> topic", 'pub')
     pub_log.publish(log)
-
-
-
 
     # publish to web
 
 
 # transmit information to web node whenever receiving data.
-
 def is_ready(pub_decision_result, pub_log):
     time.sleep(2)
     print("waiting results...")
@@ -137,7 +125,6 @@ def is_ready(pub_decision_result, pub_log):
     pub_log.publish(log)
 
 
-
 def decision(pub_log):
     init()
 
@@ -156,7 +143,7 @@ def decision(pub_log):
     pub_operate.publish(init_message)
 
     # publish/subscribe log
-    log = log_generator('decision',"Publsih Message to <operate> topic : " + init_message.command, 'pub')
+    log = log_generator('decision', "Publish Message to <operate> topic : " + init_message.command, 'pub')
     pub_log.publish(log)
 
     # rate.sleep()
@@ -176,14 +163,14 @@ def decision(pub_log):
     pub_operate.publish(start_message)
 
     # publish/subscribe log
-    log = log_generator('deicison',"Publsih Message to <operate> topic : " + start_message.command,'pub')
+    log = log_generator('decision', "Publish Message to <operate> topic : " + start_message.command, 'pub')
     pub_log.publish(log)
 
     # rate.sleep()
 
     # wait signal from railnode
     print("waiting init finished..")
-    while cycle_finish == False:
+    while not cycle_finish == False:
         pass
     print("end phase..")
 
@@ -197,9 +184,8 @@ def decision(pub_log):
     pub_end.publish(start_message)
 
     # publish/subscribe log
-    log = log_generator('decision',"Publsih Message to <end> topic : " + start_message.command,'pub')
+    log = log_generator('decision', "Publish Message to <end> topic : " + start_message.command, 'pub')
     pub_log.publish(log)
-
 
     rospy.on_shutdown(terminate)
 
@@ -209,9 +195,9 @@ def decision(pub_log):
 
 def init():
     rospy.init_node('decision', anonymous=True)
-    # log
-    log = log_generator('decision','decision node is initialized..')
 
+    # log
+    log = log_generator('decision', 'decision node is initialized..')
     pub_log.publish(log)
 
     rospy.Subscriber('result_radar', String, callback_radar, pub_log)
