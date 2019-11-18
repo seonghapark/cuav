@@ -260,7 +260,7 @@ def RMA(sif, pulse_period=MOD_PULSE_PERIOD, freq_range=None, Rs=9.0):
     Rs is distance (in METERS for just this function) to scene center. Default is ~30ft.
     '''
     if freq_range is None:
-        freq_range = [2400e6, 2500e6]  # Values from MIT
+        freq_range = VCO_FREQ_RANGE # Values from MIT
 
     N, M = len(sif), len(sif[0])
     print("N: ", N, " M: ", M)
