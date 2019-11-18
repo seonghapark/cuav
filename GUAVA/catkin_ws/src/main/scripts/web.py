@@ -3,15 +3,9 @@
 import rospy
 from threading import Thread
 from std_msgs.msg import String
-from main.msg import operate, result_web
+from main.msg import result_web
 from datetime import datetime
-import time
 from flask import Flask, render_template, request, Response, url_for, redirect
-import decision
-import log
-import storage
-import main_log
-import DecisionClass
 
 #############################
 # Global variables
@@ -28,6 +22,7 @@ class ROSWeb(Thread):
         return
 
     def callback_web(self, data, args):
+        print("callback web")
         # write logs
         global result
         pub_log = args
@@ -38,20 +33,21 @@ class ROSWeb(Thread):
         pub_log.publish(log_result)
         print(log_result)
 
-        # load datas
-        DecisionValues = DecisionClass(data.coords_camera, data.percent_camera, data.percent_radar, data.image_camera, data.image_radar, data.direction)
-        image_camera_name = DecisionValues.image_camera_name
-        #image_sar_name = DecisionValues.image_sar_name
-        camera_accuracy = DecisionValues.percent_camera
-        #radar_accuracy = DecisionValus.percent_radar
+        # load data
+        image_camera_name = data.image_camera
+        camera_accuracy = data.percent_camera
+        # camera_coords = data.coords_camera
+        # camera_direction = data.direction
+        # image_sar_name = data.image_radar
+        # radar_accuracy = data.percent_radar
 
-        #result = (image_camera_name, image_sar_name, camera_accuracy, radar_accuracy)
+        #result = (image_camera_name, camera_accuracy, image_sar_name, radar_accuracy)
         result = (image_camera_name, camera_accuracy)
 
     def listener(self):
         rospy.init_node('web', anonymous=True)
 
-        pub_log = rospy.Publisher('logs',String,queue_size=10)
+        pub_log = rospy.Publisher('logs', String, queue_size=10)
        
         #log
         str_time = str(datetime.now()).replace(' ', '_')
@@ -59,8 +55,7 @@ class ROSWeb(Thread):
         print(log)
         pub_log.publish(log)
 
-        rospy.Subscriber('final_result', result_web, self.callback_web, pub_log)
-
+        rospy.Subscriber('result_web', result_web, self.callback_web, pub_log)
         rospy.spin()
 
 
@@ -72,7 +67,7 @@ class WebService(Thread):
         Thread.__init__(self)
 
     def run(self):
-        print('run')
+        print('run Flask app')
         global app
         app.run(host='192.168.2.128')
 
@@ -89,10 +84,11 @@ def getData():
     if request.method == 'POST':
         global result
         ####result = callback_web()
+
         cameraIMGpath = result[0]
-        #sarIMGpath = result[1]
         cameraAccuracy = result[1]
-        #radarAccuracy = result[3]
+        # sarIMGpath = result[2]
+        # radarAccuracy = result[3]
         print("Flask running: Deploy Web(post)")
         #return render_template('index.html', cameraIMG=cameraIMGpath, sarIMG=sarIMGpath, cameraACCURACY=camera_accuracy, radarACCURACY=radarAccuracy)
         return render_template('index.html', cameraIMG=cameraIMGpath, cameraACCURACY=cameraAccuracy)

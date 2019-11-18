@@ -4,22 +4,16 @@
 
 import rospy
 from std_msgs.msg import String
-from datetime import datetime
 from radar.msg import raw
 from cv_bridge import CvBridge, CvBridgeError
 import time
 import cv2
-from main.msg import realtime
-from main.msg import result
-from main.msg import result_web
-from DecisionClass import DecisionClass
+from main.msg import realtime, result, result_web
+import DecisionClass
 from main_log import log_generator
-
-
+import DecisionClass
 
 # from main.msg import result
-
-
 def callback_final_result(data, args):
 	pub_log = args[0]
 	pub_web = args[1]
@@ -37,7 +31,6 @@ def callback_final_result(data, args):
 	# publish/subscribe log
 	log = log_generator('storage',"Get Message From <final_result> topic",'sub')
 	pub_log.publish(log)
-	
 
 	# assign the value from parameter(message) to local variable
 	try:
@@ -48,8 +41,9 @@ def callback_final_result(data, args):
 	except CvBridgeError as e:
 		print(e)
 
-	print("coordinates : ", data.coords_camera, file=image_data_camera)
-	print("percent : ", data.percent_camera, file=image_data_camera)
+	# print("coordinates : ", data.coords, file=image_data)
+	# print("percent : ", data.percent, file=image_data)
+	print("coordinates : ", data.coords, "percents: ", data.percent)
 
 	print("percent : ", data.percent_radar, file=image_data_radar)
 
@@ -60,15 +54,12 @@ def callback_final_result(data, args):
 	pub_web.publish(web_message)
 
 	# publish/subscribe log
-	log = log_generator('storage',"Send Message to <web_result> topic",'pub')
+	log = log_generator('storage', "Send Message to <web_result> topic", 'pub')
 	pub_log.publish(log)
-	
-
-
 
 
 # raw data from raw topic in radar
-def callback_raw(data,args):
+def callback_raw(data, args):
 	pub_log = args
 	fileNmae = time.strftime("%Y%m%d_%H%M%S") + '_binary.txt'
 	directory = '/home/project/cuav/GUAVA/catkin_ws/src/main/logs/storage/raw/'
@@ -85,13 +76,12 @@ def callback_raw(data,args):
 	# log
 	log = log_generator('storage', 'raw data file from radar <' + fileNmae + '> is saved.')
 	pub_log.publish(log)
-	
 
 
+def callback_realtime_result(data, args):
+	pub_log = args[0]
+	pub_web = args[1]
 
-
-def callback_realtime_result(data,args):
-	pub_log = args
 	fileName = time.strftime("%Y%m%d_%H%M%S")
 	directory = '/home/project/cuav/GUAVA/catkin_ws/src/main/storage/camera_image/'
 	image_data = open(directory+fileName+'_data.txt', 'wb')
@@ -100,37 +90,37 @@ def callback_realtime_result(data,args):
 	# publish/subscribe log
 	log = log_generator('storage', "Get Message From <result> topic", 'sub')
 	pub_log.publish(log)
-	
-
-
 
 	# assign the value from parameter(message) to local variable
 	try:
 		cv_image = bridge.imgmsg_to_cv2(data.frame, desired_encoding="passthrough")
-		cv2.imwrite(directory+fileName+'_image.jpg',cv_image)
+		cv2.imwrite(directory+fileName+'_image.jpg', cv_image)
 	except CvBridgeError as e:
 		print(e)
 
-	print("coordinates : ", data.coords, file=image_data)
-	print("percent : ", data.percent, file=image_data)
+	# print("coordinates : ", data.coords, file=image_data)
+	# print("percent : ", data.percent, file=image_data)
+	print("coordinates : ", data.coords, "percents: ", data.percent)
 
 	image_data.close()
 
+	DecisionValues = DecisionClass(data.coords, data.percent, image_camera_name=directory+fileName+"_image.jpg")
+	pub_web.publish(DecisionValues.generate_web_message())
+
 
 def storage(pub_log, pub_web):
-
 	rospy.init_node('storage', anonymous=True)
 
 	# log
 	log = log_generator('storage', 'storage node is initialized..')
-	
 	pub_log.publish(log)
 
-	rospy.Subscriber('realtime_result', realtime, callback_realtime_result, pub_log)
+	rospy.Subscriber('realtime_result', realtime, callback_realtime_result, (pub_log, pub_web))
 	rospy.Subscriber('final_result', result, callback_final_result, (pub_log, pub_web))
 	#rospy.Subscriber('img_camera', realtime, callback_result, pub_log)
 	rospy.Subscriber('raw', raw, callback_raw, pub_log)
 	rospy.spin()
+
 
 if __name__ == '__main__':
 	pub_log = rospy.Publisher('logs', String, queue_size=10)
