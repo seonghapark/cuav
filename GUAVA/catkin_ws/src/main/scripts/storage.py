@@ -11,7 +11,7 @@ import cv2
 from main.msg import realtime, result, result_web
 import DecisionClass
 from main_log import log_generator
-import DecisionClass
+from DecisionClass import DecisionClass
 
 # from main.msg import result
 def callback_final_result(data, args):
