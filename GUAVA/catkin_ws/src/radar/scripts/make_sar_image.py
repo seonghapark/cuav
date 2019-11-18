@@ -281,7 +281,7 @@ def RMA(sif, pulse_period=MOD_PULSE_PERIOD, freq_range=None, Rs=9.0):
     #chirp = 384
     #chirp = 896
     #chirp = 2048
-    #chirp = 4068
+    #chirp = 4608
     chirp = 10240
 
 
