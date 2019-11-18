@@ -145,7 +145,8 @@ def publish_realtime_wav(data):
 
     parser = RadarBinaryParser(raw_data.data, sr=SAMPLE_RATE)
     sync, real_data = parser.parse()
-
+    d = np.diff(sync)
+    print(d)
     if sync is None:
         time.sleep(0.2)
 
@@ -188,9 +189,6 @@ def publish_wav(data):
     # parse text binary file
     parser = RadarBinaryParser(raw_data.data, sr=SAMPLE_RATE)
     sync, data = parser.parse()
-
-    for i,sync_data in enumerate(sync) :
-        print(i, sync_data)
 
     str_time = str(datetime.now()).replace(' ', '_')
     str_msg = 'Data : ' + str(data.shape) + ' Sync : ' + str(sync.shape)
