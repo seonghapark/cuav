@@ -178,9 +178,9 @@ def get_sar_frames(sync_samples, data_samples, sample_rate, pulse_period=MOD_PUL
     # select silent regions that is longer than minimum silence length
     long_enough_silent_regions = filter(lambda x: x[1] - x[0] > minimum_silence_len,
                                         silent_regions)
-    print('long enough silent regions shape : ', numpy.array(list(long_enough_silent_regions)).shape)
     # make a list from selected silent regions returned by filter function.
     long_enough_silent_regions = list(long_enough_silent_regions)
+    print('long enough silent regions shape : ', len(long_enough_silent_regions))
     # get start idx of True data. that is second column of silent regions(idx of silent regions ends)
     _, start = long_enough_silent_regions.pop(0)
     data_ranges = []
@@ -198,7 +198,7 @@ def get_sar_frames(sync_samples, data_samples, sample_rate, pulse_period=MOD_PUL
     for region in long_enough_silent_regions:
         data_ranges.append([start + 1, region[0]])
         start = region[1] + frame_size  # add frame size(boundary calculated above)
-    print('data ranges shape : ', data_samples.shape)
+    print('data ranges shape : ', len(data_ranges))
     sar_frames = []
     for start, end in data_ranges:
         # find second complete positive-valued period
@@ -235,7 +235,7 @@ def get_sar_frames(sync_samples, data_samples, sample_rate, pulse_period=MOD_PUL
         sar_frames[i] = e - numpy.mean(sar_frames, 0)
 
     # TODO : check sar_frames shape
-    print('sar_frames shape : ', sar_frames.shape)
+    print('sar_frames shape : ', numpy.array(sar_frames).shape)
     return sar_frames
 
 
