@@ -56,13 +56,13 @@ class ClassifierCamera:
 
 		# if no detection at all, send last frame to summary
 		if frame is None:
-			frame = sub_data.frame
+			self.frame_data.frame = sub_data.frame
 			cv2.putText(frame, self.frame_data.direction, (40, 40), cv2.FONT_HERSHEY_SIMPLEX, 3, (255, 0, 0), 2)
-
-		try:
-			self.frame_data.frame = self.bridge.cv2_to_imgmsg(frame, encoding="passthrough")
-		except CvBridgeError as e:
-			print(e)
+		else:
+			try:
+				self.frame_data.frame = self.bridge.cv2_to_imgmsg(frame, encoding="passthrough")
+			except CvBridgeError as e:
+				print(e)
 
 		# save image file
 		fileName = time.strftime("%Y%m%d_%H%M%S")
