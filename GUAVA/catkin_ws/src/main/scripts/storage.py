@@ -11,7 +11,7 @@ import cv2
 from main.msg import realtime, result, result_web
 import DecisionClass
 from main_log import log_generator
-import DecisionClass
+from DecisionClass import DecisionClass
 
 # from main.msg import result
 def callback_final_result(data, args):
@@ -104,7 +104,7 @@ def callback_realtime_result(data, args):
 
 	image_data.close()
 
-	DecisionValues = DecisionClass(data.coords, data.percent, image_camera_name=directory+fileName+"_image.jpg")
+	DecisionValues = DecisionClass(data.coords, data.percent, image_camera_name=fileName+"_image.jpg")
 	pub_web.publish(DecisionValues.generate_web_message())
 
 

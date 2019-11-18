@@ -11,8 +11,8 @@ from flask import Flask, render_template, request, Response, url_for, redirect
 # Global variables
 #############################
 result = ()
-app = Flask(__name__)
-
+# app = Flask(__name__)
+app = Flask(__name__, static_folder='/home/project/cuav/GUAVA/catkin_ws/src/main/storage/camera_image/')
 
 #############################
 # ROS functions
