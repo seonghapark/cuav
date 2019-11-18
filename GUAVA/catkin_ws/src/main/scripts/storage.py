@@ -43,7 +43,6 @@ def callback_final_result(data, args):
 
 	# print("coordinates : ", data.coords, file=image_data)
 	print("coordinates : ", data.coords)
-	print("coordinates(str) :", '{:.5f}'.format(data.coords))
 	print("percent : ", data.percent_camera, file=image_data_camera)
 
 	print("percent : ", data.percent_radar, file=image_data_radar)
@@ -101,7 +100,6 @@ def callback_realtime_result(data, args):
 
 	# print("coordinates : ", data.coords, file=image_data)
 	print("coordinates : ", data.coords)
-	print("coordinates(str) :", '{:.5f}'.format(data.coords))
 	print("percent : ", data.percent, file=image_data)
 
 	image_data.close()

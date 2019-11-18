@@ -4,7 +4,7 @@
 import rospy
 from threading import Thread
 import time
-from camera.msg import sendframe
+from camera.msg import sendframe, sendsummary
 from std_msgs.msg import String
 from main.msg import operate, realtime, result
 from DecisionClass import DecisionClass
@@ -201,7 +201,7 @@ def init():
     pub_log.publish(log)
 
     rospy.Subscriber('result_radar', String, callback_radar, pub_log)
-    rospy.Subscriber('summary_camera', sendframe, callback_summary_camera, pub_log)
+    rospy.Subscriber('summary_camera', sendsummary, callback_summary_camera, pub_log)
     rospy.Subscriber('realtime_camera', sendframe, callback_realtime_camera, (pub_log, pub_realtime))
     rospy.Subscriber('rail_end', String, callback_rail_end, pub_log)
 
