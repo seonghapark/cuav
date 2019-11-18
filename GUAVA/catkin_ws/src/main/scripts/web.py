@@ -22,6 +22,7 @@ class ROSWeb(Thread):
         return
 
     def callback_web(self, data, args):
+        print("callback web")
         # write logs
         global result
         pub_log = args
@@ -32,7 +33,7 @@ class ROSWeb(Thread):
         pub_log.publish(log_result)
         print(log_result)
 
-        # load datas
+        # load data
         image_camera_name = data.image_camera
         camera_accuracy = data.percent_camera
         # camera_coords = data.coords_camera
@@ -55,7 +56,6 @@ class ROSWeb(Thread):
         pub_log.publish(log)
 
         rospy.Subscriber('final_result', result_web, self.callback_web, pub_log)
-
         rospy.spin()
 
 
