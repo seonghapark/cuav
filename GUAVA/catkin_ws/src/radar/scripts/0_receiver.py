@@ -23,8 +23,12 @@ log = rospy.Publisher('logs', String, queue_size=10)
 pub_raw = rospy.Publisher('raw', raw, queue_size=1)
 realtime = rospy.Publisher('realtime', raw, queue_size=10)
 
+end_time = time.time()
+start_time = time.time()
+
 def publish(operate):
-    global DATA, FLAG, I, realtime_cnt, binary_data
+    global DATA, FLAG, I, realtime_cnt, binary_data, end_time, start_time
+
     FLAG = False
 
     str_time = str(datetime.now()).replace(' ', '_')
@@ -32,6 +36,7 @@ def publish(operate):
     print(log_text)
     log.publish(log_text)
 
+    end_time = time.time()
     #pub = rospy.Publisher('raw', raw, queue_size=1)
     raw_data = raw()
     raw_data.data = DATA
@@ -51,7 +56,8 @@ def publish(operate):
     binary_data.write(lengthMSb + lengthLSb + DATA)
     binary_data.close()
     DATA = bytearray()
-
+    print("#"*50)
+    print("Time estimated :", end_time - start_time)
     pub_raw.publish(raw_data)
     str_time = str(datetime.now()).replace(' ', '_')
     log_text = '[{}/{}][{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, 'PUB', str_time, 'Publish to raw')
@@ -60,7 +66,7 @@ def publish(operate):
 
 
 def start(operate, args):
-    global FLAG, DATA, realtime_cnt, binary_data
+    global FLAG, DATA, realtime_cnt, binary_data, start_time
 
     str_time = str(datetime.now()).replace(' ', '_')
     log_text = '[{}/{}][{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, 'SUB', str_time, 'Subscribe from operate : start')
