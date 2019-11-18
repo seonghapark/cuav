@@ -154,12 +154,17 @@ def get_sar_frames(sync_samples, data_samples, sample_rate, pulse_period=MOD_PUL
     # 0.1 is arbitrarily the limit of sensitivity we have for this
     condition = numpy.abs(
         sync_samples) < 1e-5  # If condition is True : Sync is low value(False data) | False : Sync is high(True data)
-    print('sync shape :, ', sync_samples.shape, 'data shape : ',data_samples.shape)
-    print('condition shape : ',condition.shape)
+    # print('condition : ')
+    # print(condition)
+    # print('num of False : ',list(condition).count(False))
+    # print('num of True : ',list(condition).count(True))
     silent_regions = contiguous_regions(
         condition)  # silent_regions : 2D Array that is first column is Start idx of Silent Area (False data), second is end idx of Silent Area
-    print('silent regions shape : ', silent_regions.shape)
+    # print('silent regions : ')
     tmp = 0
+    for regions in silent_regions:
+        tmp += regions[1] - regions[0]
+    # print('average : ', tmp/len(silent_regions))
 
     str_time = str(datetime.now()).replace(' ', '_')
     # log1 = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, 'minimum_silence_len : ', minimum_silence_len)
@@ -169,7 +174,7 @@ def get_sar_frames(sync_samples, data_samples, sample_rate, pulse_period=MOD_PUL
     # log3 = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, 'average of silent regions : ',
     #                               tmp / len(silent_regions))
     msg = 'minimum_silence_len : ' + str(minimum_silence_len) + 'num of False : ' + str(list(condition).count(False)) \
-          + 'num of True : ' + str(list(condition).count(True))
+          + 'num of True : ' + str(list(condition).count(True)) + 'average of silent regions : ' + str(tmp / len(silent_regions))
     log_text = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, msg)
     # print(log1, log2, log3, file=f)
     log.publish(log_text)
@@ -178,9 +183,9 @@ def get_sar_frames(sync_samples, data_samples, sample_rate, pulse_period=MOD_PUL
     # select silent regions that is longer than minimum silence length
     long_enough_silent_regions = filter(lambda x: x[1] - x[0] > minimum_silence_len,
                                         silent_regions)
-    print('long enough silent regions shape : ', numpy.array(list(long_enough_silent_regions)).shape)
     # make a list from selected silent regions returned by filter function.
     long_enough_silent_regions = list(long_enough_silent_regions)
+
     # get start idx of True data. that is second column of silent regions(idx of silent regions ends)
     _, start = long_enough_silent_regions.pop(0)
     data_ranges = []
@@ -198,7 +203,7 @@ def get_sar_frames(sync_samples, data_samples, sample_rate, pulse_period=MOD_PUL
     for region in long_enough_silent_regions:
         data_ranges.append([start + 1, region[0]])
         start = region[1] + frame_size  # add frame size(boundary calculated above)
-    print('data ranges shape : ', data_samples.shape)
+
     sar_frames = []
     for start, end in data_ranges:
         # find second complete positive-valued period
@@ -235,7 +240,6 @@ def get_sar_frames(sync_samples, data_samples, sample_rate, pulse_period=MOD_PUL
         sar_frames[i] = e - numpy.mean(sar_frames, 0)
 
     # TODO : check sar_frames shape
-    print('sar_frames shape : ', sar_frames.shape)
     return sar_frames
 
 
@@ -244,15 +248,12 @@ def RMA(sif, pulse_period=MOD_PULSE_PERIOD, freq_range=None, Rs=9.0):
     '''Performs the Range Migration Algorithm.
     Returns a dictionary containing the finished S_image matrix
     and some other intermediary values needed for drawing the image.
-
     sif is a NxM array where N is the number of SAR frames and M
     is the number of samples within each measurement over the time period
     of frequency modulation increase.
-
     freq_range should be a tuple of your starting frequency in a range sample and your final frequency.
     If given none, the values from MIT will be used. Please consult your VCO's datasheet data otherwise
     and adjust the constant at the top of this file.
-
     Rs is distance (in METERS for just this function) to scene center. Default is ~30ft.
     '''
     if freq_range is None:
@@ -275,7 +276,17 @@ def RMA(sif, pulse_period=MOD_PULSE_PERIOD, freq_range=None, Rs=9.0):
     '''STEP 1: Cross-range FFT, turns S(x_n, w(t)) into S(Kx, Kr)'''
     # Add padding if we have less than this number of crossrange samples:
     # (requires numpy 1.7 or above)
-    chirp = 2048 ## initial: 2048
+    
+    
+    #chirp = 384
+    #chirp = 896
+    #chirp = 2048
+    #chirp = 4068
+    chirp = 10240
+
+
+
+
     rows = (max(chirp, len(sif)) - len(sif)) // 2
     try:
         sif_padded = numpy.pad(sif, [[rows, rows], [0, 0]], 'constant', constant_values=0)
