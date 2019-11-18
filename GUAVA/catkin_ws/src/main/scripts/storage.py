@@ -104,7 +104,7 @@ def callback_realtime_result(data, args):
 
 	image_data.close()
 
-	DecisionValues = DecisionClass(data.coords, data.percent, image_camera_name=directory+fileName+"_image.jpg")
+	DecisionValues = DecisionClass(data.coords, data.percent, image_camera_name=fileName+"_image.jpg")
 	pub_web.publish(DecisionValues.generate_web_message())
 
 
