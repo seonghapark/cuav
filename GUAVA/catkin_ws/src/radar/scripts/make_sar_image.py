@@ -29,7 +29,7 @@ node_name = 'make_sar_image'
 str_time = str(datetime.now()).replace(' ', '_')
 C = 3e8  # light speed approximation
 # TODO : check pulse period
-MOD_PULSE_PERIOD = 50 / 5862.0 # MOD_PULSE_PERIOD = 20e-3
+MOD_PULSE_PERIOD = 20e-3 # MOD_PULSE_PERIOD = 20e-3
 INCH_PER_SECOND = 4 / 7.0
 
 # TODO : check for Frequency range of VCO
