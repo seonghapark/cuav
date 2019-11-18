@@ -37,7 +37,6 @@ def publish(operate):
     print(log_text)
     log.publish(log_text)
 
-    end_time = time.time()
     #pub = rospy.Publisher('raw', raw, queue_size=1)
     raw_data = raw()
     raw_data.data = DATA
@@ -51,6 +50,8 @@ def publish(operate):
 
     I += 1
     realtime_cnt = 0
+
+    end_time = time.time()
 
     lengthMSb = bytes([11025 >> 8])
     lengthLSb = bytes([11025 & 0xFF])
@@ -76,7 +77,6 @@ def start(operate, args):
 
     #rail starts moving, get data from radar
     FLAG = True
-    start_time = time.time()
 
     str_time = str(datetime.now()).replace(' ', '_')
     log_text = '[{}/{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, str_time, 'Begin receiving')
@@ -86,6 +86,7 @@ def start(operate, args):
     fileName = '../test_data/'+ time.strftime("%Y%m%d_%H%M%S") + '_binary.txt'
     binary_data = open(fileName,'wb')   # Create a file
 
+    start_time = time.time()
     with Serial(args.device, 115200) as serial:
         while FLAG:
             if serial.inWaiting() > 0:
