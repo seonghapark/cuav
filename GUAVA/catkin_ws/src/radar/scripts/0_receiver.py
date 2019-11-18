@@ -68,7 +68,7 @@ def publish(operate):
 
 
 def start(operate, args):
-    global FLAG, DATA, realtime_cnt, binary_data, start_time
+    global FLAG, DATA, realtime_cnt, binary_data, start_time, sample_rate
 
     str_time = str(datetime.now()).replace(' ', '_')
     log_text = '[{}/{}][{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, 'SUB', str_time, 'Subscribe from operate : start')
@@ -96,6 +96,8 @@ def start(operate, args):
 
             current_time = time.time()
             if current_time - start_time > 1.0:
+                sample_rate = len(DATA)//2 // (realtime_cnt+1)
+                print("current estimate sample rate : ", sample_rate)
                 if len(DATA) >= sample_rate*2:
                     raw_data = raw()
                     raw_data.data = DATA[(sample_rate*2) * realtime_cnt : (sample_rate*2) * (realtime_cnt + 1)]
