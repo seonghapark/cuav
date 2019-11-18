@@ -17,6 +17,7 @@ FLAG = bool()
 I = 0
 realtime_cnt = 0
 binary_data = None
+sample_rate = 5862
 
 rospy.init_node('receiver', anonymous=True)
 log = rospy.Publisher('logs', String, queue_size=10)
@@ -94,9 +95,9 @@ def start(operate, args):
 
             current_time = time.time()
             if current_time - start_time > 1.0:
-                if len(DATA) >= 11025:
+                if len(DATA) >= sample_rate*2:
                     raw_data = raw()
-                    raw_data.data = DATA[11025 * realtime_cnt : 11025 * (realtime_cnt + 1)]
+                    raw_data.data = DATA[(sample_rate*2) * realtime_cnt : (sample_rate*2) * (realtime_cnt + 1)]
                     raw_data.num = realtime_cnt
                     realtime.publish(raw_data)
                     realtime_cnt += 1
