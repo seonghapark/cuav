@@ -68,7 +68,7 @@ class colorgraph_handler():
         #self.zpad = 8 * (self.n / 2)  # the number of data in 0.08 seconds?
         self.zpad = 440
         # self.lfm = [2260E6, 2590E6]  # Radar frequency sweep range
-        self.lfm = [2400E6, 2500E6]
+        self.lfm = [2350E6, 2500E6]
         self.max_detect = 3E8/(2*(self.lfm[1]-self.lfm[0]))*self.n/2 # Max detection distance according to the radar frequency
         self.set_t = 10 #int(sys.argv[1])  # Frame length on x axis
         # self.set_t = 25  # Frame length on x axis --> 25 seconds

@@ -34,7 +34,7 @@ INCH_PER_SECOND = 4 / 7.0
 
 # TODO : check for Frequency range of VCO
 #VCO_FREQ_RANGE = [2400e6, 2591e6]  # at 25 degrees, taken from datasheet
-VCO_FREQ_RANGE = [2400e6, 2500e6]
+VCO_FREQ_RANGE = [2350e6, 2500e6]
 
 #       for my particular VCO given my adjugment of Vtune range.
 #
