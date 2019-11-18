@@ -55,7 +55,7 @@ class ROSWeb(Thread):
         print(log)
         pub_log.publish(log)
 
-        rospy.Subscriber('final_result', result_web, self.callback_web, pub_log)
+        rospy.Subscriber('result_web', result_web, self.callback_web, pub_log)
         rospy.spin()
 
 
