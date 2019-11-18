@@ -9,9 +9,9 @@ from cv_bridge import CvBridge, CvBridgeError
 import time
 import cv2
 from main.msg import realtime, result, result_web
-import DecisionClass
 from main_log import log_generator
 from DecisionClass import DecisionClass
+
 
 # from main.msg import result
 def callback_final_result(data, args):
@@ -23,8 +23,8 @@ def callback_final_result(data, args):
 	DecisionValues.image_radar_name = fileName + '_camera.jpg'
 
 	directory = '/home/project/cuav/GUAVA/catkin_ws/src/main/storage/final_result/'
-	image_data_camera = open(directory + fileName + '_camera_data.txt', 'wb')
-	image_data_radar = open(directory + fileName + '_radar_data.txt', 'wb')
+	image_data_camera = open(directory + fileName + '_camera_data.txt', 'w')
+	image_data_radar = open(directory + fileName + '_radar_data.txt', 'w')
 
 	bridge = CvBridge()
 
@@ -41,9 +41,8 @@ def callback_final_result(data, args):
 	except CvBridgeError as e:
 		print(e)
 
-	# print("coordinates : ", data.coords, file=image_data)
-	# print("percent : ", data.percent, file=image_data)
-	print("coordinates : ", data.coords, "percents: ", data.percent)
+	print("coordinates : ", data.coords_camera, file=image_data_camera)
+	print("percent : ", data.percent_camera, file=image_data_camera)
 
 	print("percent : ", data.percent_radar, file=image_data_radar)
 
@@ -84,7 +83,7 @@ def callback_realtime_result(data, args):
 
 	fileName = time.strftime("%Y%m%d_%H%M%S")
 	directory = '/home/project/cuav/GUAVA/catkin_ws/src/main/storage/camera_image/'
-	image_data = open(directory+fileName+'_data.txt', 'wb')
+	image_data = open(directory+fileName+'_data.txt', 'w')
 	bridge = CvBridge()
 
 	# publish/subscribe log
@@ -98,9 +97,8 @@ def callback_realtime_result(data, args):
 	except CvBridgeError as e:
 		print(e)
 
-	# print("coordinates : ", data.coords, file=image_data)
-	# print("percent : ", data.percent, file=image_data)
-	print("coordinates : ", data.coords, "percents: ", data.percent)
+	print("coordinates : ", data.coords, file=image_data)
+	print("percent : ", data.percent, file=image_data)
 
 	image_data.close()
 
