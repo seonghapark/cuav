@@ -63,7 +63,8 @@ class colorgraph_handler():
         print(log_text)
 
         ## constants for frame
-        self.n = int(5862/50)  # Samples per a ramp up-time
+        #self.n = int(5862/50)  # Samples per a ramp up-time
+        self.n = 136    # measured ramp up time
         # self.n = int(5512/50)
         #self.zpad = 8 * (self.n / 2)  # the number of data in 0.08 seconds?
         self.zpad = 440
