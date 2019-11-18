@@ -30,7 +30,7 @@ str_time = str(datetime.now()).replace(' ', '_')
 C = 3e8  # light speed approximation
 # TODO : check pulse period
 MOD_PULSE_PERIOD = 20e-3 # MOD_PULSE_PERIOD = 20e-3
-INCH_PER_SECOND = 4 / 7.0
+INCH_PER_SECOND = 2
 
 # TODO : check for Frequency range of VCO
 #VCO_FREQ_RANGE = [2400e6, 2591e6]  # at 25 degrees, taken from datasheet
@@ -280,15 +280,11 @@ def RMA(sif, pulse_period=MOD_PULSE_PERIOD, freq_range=None, Rs=9.0):
     # Add padding if we have less than this number of crossrange samples:
     # (requires numpy 1.7 or above)
     
-    
-    #chirp = 384
     #chirp = 896
-    #chirp = 2048
+    #chirp = 1024
+    chirp = 2048
     #chirp = 4608
-    chirp = 10240
-
-
-
+    #chirp = 10240
 
     rows = (max(chirp, len(sif)) - len(sif)) // 2
     try:
