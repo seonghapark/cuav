@@ -11,11 +11,11 @@ from process_img import ProcessImage
 
 
 class ClassifierCamera:
-	def __init__(self, node_name, log_pub):
+	def __init__(self, node_name, pub_log):
 		rospy.Subscriber('img_camera', sendframe, self.callback)
 		self.realtime = rospy.Publisher('realtime_camera', sendframe, queue_size=3)
 		self.summary = rospy.Publisher('summary_camera', sendsummary, queue_size=3)
-		self.log = log_pub
+		self.log = pub_log
 		self.node_name = node_name
 		self.total_frames = 0
 		self.det_frames = []

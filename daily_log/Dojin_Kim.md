@@ -258,3 +258,16 @@
 <div align="center">
 <img src="images/drone_custom_map_yolo15.png" width=500/>
 </div>
+
+
+## 2019-11-18 ~ 2019-11-22
+
+### 2019-11-18
+	- storage, web 코드 일부 수정
+	    - log convention
+	    - code reformat
+	- web Flask의 static folder 수정해서 이미지 plot 완료 (실시간으로 plot되는지는 확인해봐야함)
+    
+<div align="center">
+<img src="images/plot_web.png" width=600/>
+</div>

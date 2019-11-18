@@ -4,34 +4,29 @@ import rospy
 from threading import Thread
 from std_msgs.msg import String
 from main.msg import result_web
-from datetime import datetime
 from flask import Flask, render_template, request, Response, url_for, redirect
+from main_log import log_generator
 
 #############################
 # Global variables
 #############################
 result = ()
-# app = Flask(__name__)
 app = Flask(__name__, static_folder='/home/project/cuav/GUAVA/catkin_ws/src/main/storage/camera_image/')
+
 
 #############################
 # ROS functions
 #############################
 class ROSWeb(Thread):
-    def __init__(self):
-        return
-
-    def callback_web(self, data, args):
-        print("callback web")
+    @staticmethod
+    def web_callback(data, args):
         # write logs
         global result
         pub_log = args
-        str_time2 = str(datetime.now()).replace(' ', '_')
-        log_result = '[{}/{}][{}][{}] {}'.format('main', 'web', 'SUB', str_time2,
-                                                 "Get Message From <result> topic : ")
 
-        pub_log.publish(log_result)
-        print(log_result)
+        # log
+        log = log_generator('web', "Get Message From <result> topic : ", 'sub')
+        pub_log.publish(log)
 
         # load data
         image_camera_name = data.image_camera
@@ -48,14 +43,12 @@ class ROSWeb(Thread):
         rospy.init_node('web', anonymous=True)
 
         pub_log = rospy.Publisher('logs', String, queue_size=10)
-       
-        #log
-        str_time = str(datetime.now()).replace(' ', '_')
-        log = '[{}/{}][{}] {}'.format('main', 'web', str_time, 'web node is initialized..')
-        print(log)
+
+        # log
+        log = log_generator('web', 'web node is initialized..')
         pub_log.publish(log)
 
-        rospy.Subscriber('result_web', result_web, self.callback_web, pub_log)
+        rospy.Subscriber('result_web', result_web, self.web_callback, pub_log)
         rospy.spin()
 
 
@@ -63,11 +56,10 @@ class ROSWeb(Thread):
 # Flask functions
 ##############################
 class WebService(Thread):
-    def __init__(self) :
+    def __init__(self):
         Thread.__init__(self)
 
     def run(self):
-        print('run Flask app')
         global app
         app.run(host='192.168.2.128')
 
@@ -89,7 +81,6 @@ def getData():
         cameraAccuracy = result[1]
         # sarIMGpath = result[2]
         # radarAccuracy = result[3]
-        print("Flask running: Deploy Web(post)")
         #return render_template('index.html', cameraIMG=cameraIMGpath, sarIMG=sarIMGpath, cameraACCURACY=camera_accuracy, radarACCURACY=radarAccuracy)
         return render_template('index.html', cameraIMG=cameraIMGpath, cameraACCURACY=cameraAccuracy)
 
@@ -98,7 +89,6 @@ def getData():
 # Running web.py
 ##############################
 if __name__ == '__main__':
-
     w = WebService()
     w.start()
     r = ROSWeb()
