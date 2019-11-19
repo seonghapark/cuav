@@ -47,7 +47,7 @@ class ROSWeb(Thread):
 
 
         #result = (image_camera_name, camera_accuracy, realtime_camera_image, realtime_camera_accuracy, image_sar_name, radar_accuracy)
-        result = (image_camera_name, camera_accuracy, realtime_camera_image, realtime_camera_accuracy)
+        result = (image_camera_name, image_camera_accuracy, realtime_camera_image, realtime_camera_accuracy)
 
     def listener(self):
         rospy.init_node('web', anonymous=True)
