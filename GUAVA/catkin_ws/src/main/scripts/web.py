@@ -97,10 +97,10 @@ def getData():
         # radarAccuracy = result[3]
         #return render_template('index.html', cameraIMG=cameraIMGpath, sarIMG=sarIMGpath, cameraACCURACY=camera_accuracy, radarACCURACY=radarAccuracy)
 
-        if realtimeCameraIMG != "":
-            Response(realIMG=realtimeCameraIMG, realACCURACY=realtimeCameraAccuracy)
-        else:
-            return render_template('index.html', cameraIMG=cameraIMGpath, cameraACCURACY=cameraAccuracy, realIMG=realtimeCameraIMG, realACCURACY=realtimeCameraAccuracy)
+        # if realtimeCameraIMG != "":
+        #     Response(realIMG=realtimeCameraIMG, realACCURACY=realtimeCameraAccuracy)
+        # else:
+        return render_template('index.html', cameraIMG=cameraIMGpath, cameraACCURACY=cameraAccuracy, realIMG=realtimeCameraIMG, realACCURACY=realtimeCameraAccuracy)
 
 
 ##############################
