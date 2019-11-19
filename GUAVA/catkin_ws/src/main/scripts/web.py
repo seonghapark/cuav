@@ -11,8 +11,8 @@ from main_log import log_generator
 # Global variables
 #############################
 result = ()
-app = Flask(__name__, static_folder='/home/project/cuav/GUAVA/catkin_ws/src/main/storage/static')
-
+#app = Flask(__name__, static_folder='/home/project/cuav/GUAVA/catkin_ws/src/main/storage/static')
+app = Flask(__name__)
 
 #############################
 # ROS functions
@@ -38,6 +38,7 @@ class ROSWeb(Thread):
         image_sar_name = data.image_radar
         # radar_accuracy = round(data.percent_radar * 100, 2)
 
+
         if image_sar_name == "": # realtime camera image
             realtime_camera_image = data.image_camera
             realtime_camera_accuracy = round(data.percent_camera * 100, 2)
@@ -45,6 +46,7 @@ class ROSWeb(Thread):
             image_camera_name = data.image_camera
             image_camera_accuracy = round(data.percent_camera * 100, 2)
 
+        print(realtime_camera_image, realtime_camera_accuracy, "WEB NODE RESULT")
 
         #result = (image_camera_name, camera_accuracy, realtime_camera_image, realtime_camera_accuracy, image_sar_name, radar_accuracy)
         result = (image_camera_name, image_camera_accuracy, realtime_camera_image, realtime_camera_accuracy)
