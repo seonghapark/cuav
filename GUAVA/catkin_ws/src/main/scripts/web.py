@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 #-*-coding:utf-8-*-
 import rospy
+import requests
 from threading import Thread
 from std_msgs.msg import String
 from main.msg import result_web
@@ -50,7 +51,8 @@ class ROSWeb(Thread):
         #result = (image_camera_name, camera_accuracy, realtime_camera_image, realtime_camera_accuracy, image_sar_name, radar_accuracy)
         result = (image_camera_name, image_camera_accuracy, realtime_camera_image, realtime_camera_accuracy)
 
-        getData()
+        requests.get("http://192.168.2.128/getData")
+
 
     def listener(self):
         rospy.init_node('web', anonymous=True)
@@ -82,7 +84,7 @@ class WebService(Thread):
 def index():
     return render_template('index.html')
 
-           
+
 # click START button(getting images)
 @app.route("/getData", methods=['POST'])
 def getData():
