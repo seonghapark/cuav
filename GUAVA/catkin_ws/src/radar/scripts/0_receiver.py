@@ -24,12 +24,12 @@ log = rospy.Publisher('logs', String, queue_size=10)
 pub_raw = rospy.Publisher('raw', raw, queue_size=1)
 realtime = rospy.Publisher('realtime', raw, queue_size=10)
 
-end_time = time.time()
-start_time = time.time()
+end_time = None
+system_start_time = None
+
 
 def publish(operate):
-    global DATA, FLAG, I, realtime_cnt, binary_data, end_time, start_time
-
+    global DATA, FLAG, I, realtime_cnt, binary_data, end_time, system_start_time
     FLAG = False
 
     str_time = str(datetime.now()).replace(' ', '_')
@@ -38,11 +38,10 @@ def publish(operate):
     log.publish(log_text)
     end_time = time.time()
 
-    #pub = rospy.Publisher('raw', raw, queue_size=1)
     raw_data = raw()
     raw_data.data = DATA
     raw_data.num = I
-    raw_data.sr = (len(DATA)//2) // (end_time-start_time)
+    raw_data.sr = int((len(DATA)//2) // (end_time-system_start_time))
     str_time = str(datetime.now()).replace(' ', '_')
     msg = 'Data num : ' + str(I) + ', Data length: ' + str(len(DATA))
     log_text = '[{}/{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, str_time, msg)
@@ -52,14 +51,13 @@ def publish(operate):
     I += 1
     realtime_cnt = 0
 
-
     lengthMSb = bytes([11025 >> 8])
     lengthLSb = bytes([11025 & 0xFF])
     binary_data.write(lengthMSb + lengthLSb + DATA)
     binary_data.close()
     DATA = bytearray()
-    print("#"*50)
-    print("Time estimated :", end_time - start_time)
+    print("Time estimated :", end_time - system_start_time)
+
     pub_raw.publish(raw_data)
     str_time = str(datetime.now()).replace(' ', '_')
     log_text = '[{}/{}][{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, 'PUB', str_time, 'Publish to raw')
@@ -68,7 +66,7 @@ def publish(operate):
 
 
 def start(operate, args):
-    global FLAG, DATA, realtime_cnt, binary_data, start_time, sample_rate
+    global FLAG, DATA, realtime_cnt, binary_data, system_start_time, sample_rate
 
     str_time = str(datetime.now()).replace(' ', '_')
     log_text = '[{}/{}][{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, 'SUB', str_time, 'Subscribe from operate : start')
@@ -86,6 +84,7 @@ def start(operate, args):
     fileName = '../test_data/'+ time.strftime("%Y%m%d_%H%M%S") + '_binary.txt'
     binary_data = open(fileName,'wb')   # Create a file
 
+    system_start_time = time.time()
     start_time = time.time()
     with Serial(args.device, 115200) as serial:
         while FLAG:
@@ -120,9 +119,6 @@ def start(operate, args):
 
 
 def listener(args):
-    #rospy.init_node('receiver', anonymous=True)
-
-    #log = rospy.Publisher('log', String, queue_size=10)
     str_time = str(datetime.now()).replace(' ', '_')
     log_text = '[{}/{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, str_time, 'receiver connects ROS')
     log.publish(log_text)
