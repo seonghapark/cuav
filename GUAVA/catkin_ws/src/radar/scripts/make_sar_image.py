@@ -266,7 +266,7 @@ def RMA(sif, pulse_period=MOD_PULSE_PERIOD, freq_range=None, Rs=9.0):
     print("N: ", N, " M: ", M)
 
     
-    CONSTANT_Kr = 10
+    CONSTANT_Kr = 4
     # construct Kr axis
     delta_x = feet2meters(INCH_PER_SECOND / 12.0)  # Assuming 2 inch antenna spacing between frames. (1 foot = 12 inch)
     bandwidth = freq_range[1] - freq_range[0]
