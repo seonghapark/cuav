@@ -17,6 +17,7 @@ FLAG = bool()
 I = 0
 realtime_cnt = 0
 binary_data = None
+sample_rate = 5862
 
 rospy.init_node('receiver', anonymous=True)
 log = rospy.Publisher('logs', String, queue_size=10)
@@ -36,12 +37,11 @@ def publish(operate):
     print(log_text)
     log.publish(log_text)
 
-    end_time = time.time()
     #pub = rospy.Publisher('raw', raw, queue_size=1)
     raw_data = raw()
     raw_data.data = DATA
     raw_data.num = I
-
+    raw_data.sr = sample_rate
     str_time = str(datetime.now()).replace(' ', '_')
     msg = 'Data num : ' + str(I) + ', Data length: ' + str(len(DATA))
     log_text = '[{}/{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, str_time, msg)
@@ -50,6 +50,8 @@ def publish(operate):
 
     I += 1
     realtime_cnt = 0
+
+    end_time = time.time()
 
     lengthMSb = bytes([11025 >> 8])
     lengthLSb = bytes([11025 & 0xFF])
@@ -66,7 +68,7 @@ def publish(operate):
 
 
 def start(operate, args):
-    global FLAG, DATA, realtime_cnt, binary_data, start_time
+    global FLAG, DATA, realtime_cnt, binary_data, start_time, sample_rate
 
     str_time = str(datetime.now()).replace(' ', '_')
     log_text = '[{}/{}][{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, 'SUB', str_time, 'Subscribe from operate : start')
@@ -75,7 +77,6 @@ def start(operate, args):
 
     #rail starts moving, get data from radar
     FLAG = True
-    start_time = time.time()
 
     str_time = str(datetime.now()).replace(' ', '_')
     log_text = '[{}/{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, str_time, 'Begin receiving')
@@ -85,6 +86,7 @@ def start(operate, args):
     fileName = '../test_data/'+ time.strftime("%Y%m%d_%H%M%S") + '_binary.txt'
     binary_data = open(fileName,'wb')   # Create a file
 
+    start_time = time.time()
     with Serial(args.device, 115200) as serial:
         while FLAG:
             if serial.inWaiting() > 0:
@@ -94,10 +96,13 @@ def start(operate, args):
 
             current_time = time.time()
             if current_time - start_time > 1.0:
-                if len(DATA) >= 11025:
+                sample_rate = len(DATA)//2 // (realtime_cnt+1)
+                print("current estimate sample rate : ", sample_rate)
+                if len(DATA) >= sample_rate*2:
                     raw_data = raw()
-                    raw_data.data = DATA[11025 * realtime_cnt : 11025 * (realtime_cnt + 1)]
+                    raw_data.data = DATA[(sample_rate*2) * realtime_cnt : (sample_rate*2) * (realtime_cnt + 1)]
                     raw_data.num = realtime_cnt
+                    raw_data.sr = sample_rate
                     realtime.publish(raw_data)
                     realtime_cnt += 1
 
