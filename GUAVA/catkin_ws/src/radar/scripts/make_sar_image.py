@@ -149,18 +149,14 @@ def get_sar_frames(sync_samples, data_samples, sample_rate, pulse_period=MOD_PUL
     '''
     ramp_up_time = pulse_period  # the length of the flat top of a sync sample, the time (20 ms) for the frequency modulation to go from lowest to highest.
     # TODO : check for minimum silence length
-    minimum_silence_len = sample_rate * ramp_up_time  # arbitrary amount of silence between frames
+    #minimum_silence_len = sample_rate * ramp_up_time  # arbitrary amount of silence between frames
+    minimum_silence_len = 135 #samples per ramp up time in KSW radar
     # print('minimum_silence_len : ', minimum_silence_len)
     # 0.1 is arbitrarily the limit of sensitivity we have for this
     condition = numpy.abs(
         sync_samples) < 1e-5  # If condition is True : Sync is low value(False data) | False : Sync is high(True data)
-    # print('condition : ')
-    # print(condition)
-    # print('num of False : ',list(condition).count(False))
-    # print('num of True : ',list(condition).count(True))
     silent_regions = contiguous_regions(
         condition)  # silent_regions : 2D Array that is first column is Start idx of Silent Area (False data), second is end idx of Silent Area
-    # print('silent regions : ')
     tmp = 0
     for regions in silent_regions:
         tmp += regions[1] - regions[0]
@@ -280,11 +276,7 @@ def RMA(sif, pulse_period=MOD_PULSE_PERIOD, freq_range=None, Rs=9.0):
     # Add padding if we have less than this number of crossrange samples:
     # (requires numpy 1.7 or above)
     
-    #chirp = 896
-    #chirp = 1024
     chirp = 2048
-    #chirp = 4608
-    #chirp = 10240
 
     rows = (max(chirp, len(sif)) - len(sif)) // 2
     try:
