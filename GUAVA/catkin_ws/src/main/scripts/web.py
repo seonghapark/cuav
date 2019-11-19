@@ -51,10 +51,8 @@ class ROSWeb(Thread):
         #result = (image_camera_name, camera_accuracy, realtime_camera_image, realtime_camera_accuracy, image_sar_name, radar_accuracy)
         result = (image_camera_name, image_camera_accuracy, realtime_camera_image, realtime_camera_accuracy)
 
-
-        d = {"realIMG": result[2], "realACCURACY":result[3]}
-        requests.post("http://192.168.2.128/getData", data=d)
-
+        return render_template('index.html', cameraIMG=result[0], cameraACCURACY=result[1],
+                               realIMG=result[2], realACCURACY=result[3])
 
     def listener(self):
         rospy.init_node('web', anonymous=True)
