@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 #-*-coding:utf-8-*-
 import rospy
+import requests
 from threading import Thread
 from std_msgs.msg import String
 from main.msg import result_web
@@ -11,8 +12,8 @@ from main_log import log_generator
 # Global variables
 #############################
 result = ()
-#app = Flask(__name__, static_folder='/home/project/cuav/GUAVA/catkin_ws/src/main/storage/static')
-app = Flask(__name__)
+app = Flask(__name__, static_folder='/home/project/cuav/GUAVA/catkin_ws/src/main/storage')
+
 
 #############################
 # ROS functions
@@ -38,7 +39,6 @@ class ROSWeb(Thread):
         image_sar_name = data.image_radar
         # radar_accuracy = round(data.percent_radar * 100, 2)
 
-
         if image_sar_name == "": # realtime camera image
             realtime_camera_image = data.image_camera
             realtime_camera_accuracy = round(data.percent_camera * 100, 2)
@@ -50,6 +50,11 @@ class ROSWeb(Thread):
 
         #result = (image_camera_name, camera_accuracy, realtime_camera_image, realtime_camera_accuracy, image_sar_name, radar_accuracy)
         result = (image_camera_name, image_camera_accuracy, realtime_camera_image, realtime_camera_accuracy)
+
+
+        d = {"realIMG": result[2], "realACCURACY":result[3]}
+        requests.post("http://192.168.2.128/getData", data=d)
+
 
     def listener(self):
         rospy.init_node('web', anonymous=True)
@@ -81,7 +86,7 @@ class WebService(Thread):
 def index():
     return render_template('index.html')
 
-           
+
 # click START button(getting images)
 @app.route("/getData", methods=['POST'])
 def getData():
@@ -97,10 +102,10 @@ def getData():
         # radarAccuracy = result[3]
         #return render_template('index.html', cameraIMG=cameraIMGpath, sarIMG=sarIMGpath, cameraACCURACY=camera_accuracy, radarACCURACY=radarAccuracy)
 
-        # if realtimeCameraIMG != "":
-        #     Response(realIMG=realtimeCameraIMG, realACCURACY=realtimeCameraAccuracy)
-        # else:
-        return render_template('index.html', cameraIMG=cameraIMGpath, cameraACCURACY=cameraAccuracy, realIMG=realtimeCameraIMG, realACCURACY=realtimeCameraAccuracy)
+        if realtimeCameraIMG != "":
+            return render_template("index.html", realIMG=realtimeCameraIMG, realACCURACY=realtimeCameraAccuracy)
+        else:
+            return render_template('index.html', cameraIMG=cameraIMGpath, cameraACCURACY=cameraAccuracy, realIMG=realtimeCameraIMG, realACCURACY=realtimeCameraAccuracy)
 
 
 ##############################
