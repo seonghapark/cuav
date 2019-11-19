@@ -37,7 +37,8 @@ class ros_communication():
     def data_disassembler(self, data):
         self.result_time = np.fromstring(data.sync, dtype=np.float64)
         self.result_data = np.fromstring(data.data, dtype=np.float64)
-        self.result_data = np.reshape(self.result_data, (int(len(self.result_time)), int(len(self.result_data)/len(self.result_time))))
+        self.result_data = np.reshape(self.result_data,
+                                      (int(len(self.result_time)), int(len(self.result_data) / len(self.result_time))))
         self.plot.set(self.result_time, self.result_data)
 
     def callback(self, data):
@@ -56,27 +57,28 @@ class ros_communication():
 
 class colorgraph_handler():
     def __init__(self):
-        #Thread.__init__(self)
+        # Thread.__init__(self)
         str_time = str(datetime.now()).replace(' ', '_')
         log_text = '[{}/{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, str_time, 'Initialize plotter')
         log.publish(log_text)
         print(log_text)
 
         ## constants for frame
-        #self.n = int(5862/50)  # Samples per a ramp up-time
-        self.n = 136    # measured ramp up time
+        # self.n = int(5862/50)  # Samples per a ramp up-time
+        self.n = 136  # measured ramp up time
         # self.n = int(5512/50)
-        #self.zpad = 8 * (self.n / 2)  # the number of data in 0.08 seconds?
+        # self.zpad = 8 * (self.n / 2)  # the number of data in 0.08 seconds?
         self.zpad = 440
         # self.lfm = [2260E6, 2590E6]  # Radar frequency sweep range
         self.lfm = [2350E6, 2500E6]
-        self.max_detect = 3E8/(2*(self.lfm[1]-self.lfm[0]))*self.n/2 # Max detection distance according to the radar frequency
-        self.set_t = 10 #int(sys.argv[1])  # Frame length on x axis
+        self.max_detect = 3E8 / (2 * (
+                    self.lfm[1] - self.lfm[0])) * self.n / 2  # Max detection distance according to the radar frequency
+        self.set_t = 10  # int(sys.argv[1])  # Frame length on x axis
         # self.set_t = 25  # Frame length on x axis --> 25 seconds
 
         ## variables for incoming data
-        self.y = np.linspace(0,self.max_detect, int(self.zpad/2))
-        #self.y = [220, ]
+        self.y = np.linspace(0, self.max_detect, int(self.zpad / 2))
+        # self.y = [220, ]
         self.data_tlen = 0
         self.data_t = np.zeros((50))
         self.data_val = np.zeros((50, self.y.shape[0]))
@@ -91,7 +93,7 @@ class colorgraph_handler():
         self.xlabel = plt.xlabel('Time(s)')
         self.ylabel = plt.ylabel('Distance(m)')
         self.ylim = plt.ylim(0, self.max_detect)
-        #self.ylim = plt.ylim(0, 1)  ## For bottom noise
+        # self.ylim = plt.ylim(0, 1)  ## For bottom noise
         self.cmap = plt.get_cmap('jet')
         self.norm = colors.BoundaryNorm([i for i in range(-80, 1)], ncolors=self.cmap.N, clip=True)
         self.pcolormesh = plt.pcolormesh(self.data_t, self.y, self.data_val.T, norm=self.norm, cmap=self.cmap)
@@ -122,7 +124,7 @@ class colorgraph_handler():
         log.publish(log_text)
         print(log_text)
 
-        time = time+1
+        time = time + 1
 
         if time > self.set_t:
             lim = self.ax.set_xlim(time - self.set_t, time)
@@ -130,7 +132,8 @@ class colorgraph_handler():
             # makes it look ok when the animation loops
             lim = self.ax.set_xlim(0, self.set_t)
 
-        plt.pcolormesh(self.data_t, self.y, np.swapaxes(self.data_val[:self.data_tlen], 0, 1), norm=self.norm, cmap=self.cmap)
+        plt.pcolormesh(self.data_t, self.y, np.swapaxes(self.data_val[:self.data_tlen], 0, 1), norm=self.norm,
+                       cmap=self.cmap)
         return self.ax
 
     def draw_graph(self):

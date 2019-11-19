@@ -41,7 +41,7 @@ def publish(operate):
     raw_data = raw()
     raw_data.data = DATA
     raw_data.num = I
-    raw_data.sr = int((len(DATA)//2) // (end_time-system_start_time))
+    raw_data.sr = int((len(DATA) // 2) // (end_time - system_start_time))
     str_time = str(datetime.now()).replace(' ', '_')
     msg = 'Data num : ' + str(I) + ', Data length: ' + str(len(DATA))
     log_text = '[{}/{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, str_time, msg)
@@ -73,7 +73,7 @@ def start(operate, args):
     print(log_text)
     log.publish(log_text)
 
-    #rail starts moving, get data from radar
+    # rail starts moving, get data from radar
     FLAG = True
 
     str_time = str(datetime.now()).replace(' ', '_')
@@ -81,8 +81,8 @@ def start(operate, args):
     print(log_text)
     log.publish(log_text)
 
-    fileName = '../test_data/'+ time.strftime("%Y%m%d_%H%M%S") + '_binary.txt'
-    binary_data = open(fileName,'wb')   # Create a file
+    fileName = '../test_data/' + time.strftime("%Y%m%d_%H%M%S") + '_binary.txt'
+    binary_data = open(fileName, 'wb')  # Create a file
 
     system_start_time = time.time()
     start_time = time.time()
@@ -95,18 +95,19 @@ def start(operate, args):
 
             current_time = time.time()
             if current_time - start_time > 1.0:
-                sample_rate = len(DATA)//2 // (realtime_cnt+1)
+                sample_rate = len(DATA) // 2 // (realtime_cnt + 1)
                 print("current estimate sample rate : ", sample_rate)
-                if len(DATA) >= sample_rate*2:
+                if len(DATA) >= sample_rate * 2:
                     raw_data = raw()
-                    raw_data.data = DATA[(sample_rate*2) * realtime_cnt : (sample_rate*2) * (realtime_cnt + 1)]
+                    raw_data.data = DATA[(sample_rate * 2) * realtime_cnt: (sample_rate * 2) * (realtime_cnt + 1)]
                     raw_data.num = realtime_cnt
                     raw_data.sr = sample_rate
                     realtime.publish(raw_data)
                     realtime_cnt += 1
 
                     str_time = str(datetime.now()).replace(' ', '_')
-                    log_text = '[{}/{}][{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, 'PUB', str_time, 'Publish to realtime')
+                    log_text = '[{}/{}][{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, 'PUB', str_time,
+                                                           'Publish to realtime')
                     log.publish(log_text)
                     print(log_text)
 
