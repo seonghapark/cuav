@@ -22,14 +22,14 @@ def general_log_generator(node_name, str_msg):
 
 
 def pub_log_generator(node_name, topic_name):
-    str_msg = 'Send message to <{}> topic'.format(topic_name)
+    str_msg = 'Publish to <{}> topic'.format(topic_name)
     log_text = '[{}/{}][{}][{}] {}'.format(package_name, node_name, "PUB", time_generator(), str_msg)
     print(log_text)
     return log_text
 
 
 def sub_log_generator(node_name, topic_name):
-    str_msg = 'Receive message from <{}> topic'.format(topic_name)
+    str_msg = 'Subscribe from <{}> topic'.format(topic_name)
     log_text = '[{}/{}][{}][{}] {}'.format(package_name, node_name, "SUB", time_generator(), str_msg)
     print(log_text)
     return log_text

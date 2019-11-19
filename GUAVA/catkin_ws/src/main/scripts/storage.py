@@ -15,8 +15,8 @@ from DecisionClass import DecisionClass
 
 # from main.msg import result
 def callback_final_result(data, args):
-	pub_log = args[0]
-	pub_web = args[1]
+	pub_log, pub_web = args[0], args[1]
+
 	DecisionValues = DecisionClass(data.coords_camera, data.percent_camera, data.percent_radar, data.image_camera, data.image_radar, data.direction)
 	fileName = time.strftime("%Y%m%d_%H%M%S")
 	DecisionValues.image_camera_name = fileName + '_radar.jpg'
@@ -29,7 +29,7 @@ def callback_final_result(data, args):
 	bridge = CvBridge()
 
 	# publish/subscribe log
-	log = log_generator('storage',"Get Message From <final_result> topic",'sub')
+	log = log_generator('storage', "final_result", 'sub')
 	pub_log.publish(log)
 
 	# assign the value from parameter(message) to local variable
@@ -53,7 +53,7 @@ def callback_final_result(data, args):
 	pub_web.publish(web_message)
 
 	# publish/subscribe log
-	log = log_generator('storage', "Send Message to <web_result> topic", 'pub')
+	log = log_generator('storage', "web_result", 'pub')
 	pub_log.publish(log)
 
 
@@ -78,8 +78,7 @@ def callback_raw(data, args):
 
 
 def callback_realtime_result(data, args):
-	pub_log = args[0]
-	pub_web = args[1]
+	pub_log, pub_web = args[0], args[1]
 
 	fileName = time.strftime("%Y%m%d_%H%M%S")
 	directory = '/home/project/cuav/GUAVA/catkin_ws/src/main/storage/camera_image/'
@@ -87,7 +86,7 @@ def callback_realtime_result(data, args):
 	bridge = CvBridge()
 
 	# publish/subscribe log
-	log = log_generator('storage', "Get Message From <result> topic", 'sub')
+	log = log_generator('storage', "result", 'sub')
 	pub_log.publish(log)
 
 	# assign the value from parameter(message) to local variable

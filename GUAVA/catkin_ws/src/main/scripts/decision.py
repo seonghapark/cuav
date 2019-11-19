@@ -37,7 +37,7 @@ def callback_rail_end(data, args):
         cycle_finish = True
 
     # publish/subscribe log
-    log = log_generator('decision', "Get Message From <rail_end> topic : " + data.data, 'sub')
+    log = log_generator('decision', "rail_end", 'sub')
     pub_log.publish(log)
 
 
@@ -47,9 +47,8 @@ def callback_radar(data, args):
     status[0] = True
 
     # publish/subscribe log
-    log = log_generator('decision', "Get Message From <result_radar> topic", 'sub')
+    log = log_generator('decision', "result_radar", 'sub')
     pub_log.publish(log)
-
 
     DecisionValues.image_radar = data.sar
     DecisionValues.percent_radar = data.percent
@@ -61,7 +60,7 @@ def callback_summary_camera(data, args):
     status[1] = True
 
     # publish/subscribe log
-    log = log_generator('decision', "Get Message From <summary_camera> topic", 'sub')
+    log = log_generator('decision', "summary_camera", 'sub')
     pub_log.publish(log)
 
     DecisionValues.image_camera = data.frame
@@ -74,7 +73,7 @@ def callback_realtime_camera(data, args):
     pub_realtime = args[1]
 
     # publish/subscriber log
-    log = log_generator('decision', "Get Message From <realtime_camera> topic", 'sub')
+    log = log_generator('decision', "realtime_camera", 'sub')
     pub_log.publish(log)
 
     # assign values to new message
@@ -87,10 +86,8 @@ def callback_realtime_camera(data, args):
     pub_realtime.publish(realtime_result)
 
     # publish/subscriber log
-    log = log_generator('decision', "Send Message to <realtime_result> topic", 'pub')
+    log = log_generator('decision', "realtime_result", 'pub')
     pub_log.publish(log)
-
-    # publish to web
 
 
 # transmit information to web node whenever receiving data.
@@ -121,7 +118,7 @@ def is_ready(pub_decision_result, pub_log):
     pub_decision_result.publish(result_message)
 
     # publish/subscriber log
-    log = log_generator('decision', "Send Message to <result> topic", 'pub')
+    log = log_generator('decision', "result", 'pub')
     pub_log.publish(log)
 
 
@@ -143,7 +140,7 @@ def decision(pub_log):
     pub_operate.publish(init_message)
 
     # publish/subscribe log
-    log = log_generator('decision', "Publish Message to <operate> topic : " + init_message.command, 'pub')
+    log = log_generator('decision', "operate", 'pub')
     pub_log.publish(log)
 
     # rate.sleep()
@@ -163,7 +160,7 @@ def decision(pub_log):
     pub_operate.publish(start_message)
 
     # publish/subscribe log
-    log = log_generator('decision', "Publish Message to <operate> topic : " + start_message.command, 'pub')
+    log = log_generator('decision', "operate", 'pub')
     pub_log.publish(log)
 
     # rate.sleep()
@@ -184,7 +181,7 @@ def decision(pub_log):
     pub_end.publish(start_message)
 
     # publish/subscribe log
-    log = log_generator('decision', "Publish Message to <end> topic : " + start_message.command, 'pub')
+    log = log_generator('decision', "end", 'pub')
     pub_log.publish(log)
 
     rospy.on_shutdown(terminate)
