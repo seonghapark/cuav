@@ -31,6 +31,7 @@ C = 3e8  # light speed approximation
 # TODO : check pulse period
 MOD_PULSE_PERIOD = 20e-3 # MOD_PULSE_PERIOD = 20e-3
 INCH_PER_SECOND = 4/7
+CONSTANT_Kr = 4
 
 # TODO : check for Frequency range of VCO
 #VCO_FREQ_RANGE = [2400e6, 2591e6]  # at 25 degrees, taken from datasheet
@@ -261,8 +262,7 @@ def RMA(sif, pulse_period=MOD_PULSE_PERIOD, freq_range=None, Rs=9.0):
     N, M = len(sif), len(sif[0])
     print("N: ", N, " M: ", M)
 
-    
-    CONSTANT_Kr = 4
+   
     # construct Kr axis
     delta_x = feet2meters(INCH_PER_SECOND / 12.0)  # Assuming 2 inch antenna spacing between frames. (1 foot = 12 inch)
     bandwidth = freq_range[1] - freq_range[0]
@@ -377,7 +377,8 @@ def plot_img(sar_img_data):
     for k, v in sar_img_data.items():
         if k != 'Py_S_image':
             exec('%s=%s' % (k, repr(v)))
-    bw = C * (kstop - kstart) / (4 * PI)
+    bw = C * (kstop - kstart) / (4 * PI * CONSTANT_Kr)
+    # bw = C * (kstop - kstart) / (4 * PI)
     max_range = (C * S_st_shape[1] / (2 * bw)) * 1 / 0.3048 ## 1/0.3048 -> meter2feet
 
     # data truncation
