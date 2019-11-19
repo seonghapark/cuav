@@ -271,3 +271,8 @@
 <div align="center">
 <img src="images/plot_web.png" width=600/>
 </div>
+
+### 2019-11-19
+	- log convention 다시 통일
+	- web Flask static folder 수정 및 총 3개의 이미지가 나오게 설정
+	- 새로운 사진이 들어올 때마다 사진이 업데이트 되는 작업 진행 중
