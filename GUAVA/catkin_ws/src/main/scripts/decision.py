@@ -107,7 +107,7 @@ def is_ready(pub_decision_result, pub_log):
 
     # if two results are received...
     log = log_generator('decision', 'All results are received. It will be transferred to storage node')
-    pub_log(log)
+    pub_log.publish(log)
 
     # message generation
     result_message = DecisionClass.generate_storage_message()
@@ -126,7 +126,7 @@ def decision(pub_log):
     ############################ init phase ################################
 
     log = log_generator('decision', ' ** init phase **')
-    pub_log.publish(pub_log)
+    pub_log.publish(log)
 
     # generate message for init
     init_message = operate()
@@ -146,7 +146,7 @@ def decision(pub_log):
 
     # wait signal from railnode
     log = log_generator('decision', "waiting init finished..")
-    pub_log(log)
+    pub_log.publish(log)
 
 
     while init_finish == False:
@@ -155,7 +155,7 @@ def decision(pub_log):
     ############################ start phase ################################
 
     log = log_generator('decision', ' ** start phase **')
-    pub_log.publish(pub_log)
+    pub_log.publish(log)
 
     start_message = operate()
     start_message.command = "start"
@@ -170,16 +170,16 @@ def decision(pub_log):
 
     # wait signal from railnode
     log = log_generator('decision', "waiting cycle finished..")
-    pub_log(log)
+    pub_log.publish(log)
 
-    while not cycle_finish == False:
+    while cycle_finish == False:
         pass
 
 
     ############################ end phase ################################
 
     log = log_generator('decision', ' ** end phase **')
-    pub_log.publish(pub_log)
+    pub_log.publish(log)
 
     start_message = operate()
     start_message.command = "end"
