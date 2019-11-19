@@ -22,7 +22,7 @@ class ROSWeb(Thread):
     @staticmethod
     def web_callback(data, args):
         # write logs
-        global result
+        global result, app
         pub_log = args
 
         # log
@@ -51,8 +51,9 @@ class ROSWeb(Thread):
         #result = (image_camera_name, camera_accuracy, realtime_camera_image, realtime_camera_accuracy, image_sar_name, radar_accuracy)
         result = (image_camera_name, image_camera_accuracy, realtime_camera_image, realtime_camera_accuracy)
 
-        return render_template('index.html', cameraIMG=result[0], cameraACCURACY=result[1],
-                               realIMG=result[2], realACCURACY=result[3])
+        with app.app_context():
+            context = {'realIMG': result[0], 'realACCURACY': result[1]}
+            return render_template("index.html", **context)
 
     def listener(self):
         rospy.init_node('web', anonymous=True)
