@@ -11,8 +11,8 @@ from main_log import log_generator
 # Global variables
 #############################
 result = ()
-#app = Flask(__name__, static_folder='/home/project/cuav/GUAVA/catkin_ws/src/main/storage/static')
-app = Flask(__name__)
+app = Flask(__name__, static_folder='/home/project/cuav/GUAVA/catkin_ws/src/main/storage')
+#app = Flask(__name__)
 
 #############################
 # ROS functions
