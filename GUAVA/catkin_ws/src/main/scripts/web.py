@@ -85,53 +85,50 @@ def index():
 # click START button(getting images)
 @app.route("/getData", methods=['POST'])
 def getData(data, args):
-    if request.method == 'POST':
-        global result
+    # if request.method == 'POST':
+    global result
+    pub_log = args
 
-        # write logs
-        global result
-        pub_log = args
+    # log
+    log = log_generator('web', "result", 'sub')
+    pub_log.publish(log)
 
-        # log
-        log = log_generator('web', "result", 'sub')
-        pub_log.publish(log)
+    # load data
+    realtime_camera_image = ""
+    realtime_camera_accuracy = 0.0
+    image_camera_name = ""
+    image_camera_accuracy = 0.0
+    # camera_coords = data.coords_camera
+    # camera_direction = data.direction
+    image_sar_name = data.image_radar
+    # radar_accuracy = round(data.percent_radar * 100, 2)
 
-        # load data
-        realtime_camera_image = ""
-        realtime_camera_accuracy = 0.0
-        image_camera_name = ""
-        image_camera_accuracy = 0.0
-        # camera_coords = data.coords_camera
-        # camera_direction = data.direction
-        image_sar_name = data.image_radar
-        # radar_accuracy = round(data.percent_radar * 100, 2)
+    if image_sar_name == "":  # realtime camera image
+        realtime_camera_image = data.image_camera
+        realtime_camera_accuracy = round(data.percent_camera * 100, 2)
+    else:
+        image_camera_name = data.image_camera
+        image_camera_accuracy = round(data.percent_camera * 100, 2)
 
-        if image_sar_name == "":  # realtime camera image
-            realtime_camera_image = data.image_camera
-            realtime_camera_accuracy = round(data.percent_camera * 100, 2)
-        else:
-            image_camera_name = data.image_camera
-            image_camera_accuracy = round(data.percent_camera * 100, 2)
+    print(realtime_camera_image, realtime_camera_accuracy, "WEB NODE RESULT")
 
-        print(realtime_camera_image, realtime_camera_accuracy, "WEB NODE RESULT")
+    # result = (image_camera_name, camera_accuracy, realtime_camera_image, realtime_camera_accuracy, image_sar_name, radar_accuracy)
+    result = (image_camera_name, image_camera_accuracy, realtime_camera_image, realtime_camera_accuracy)
 
-        # result = (image_camera_name, camera_accuracy, realtime_camera_image, realtime_camera_accuracy, image_sar_name, radar_accuracy)
-        result = (image_camera_name, image_camera_accuracy, realtime_camera_image, realtime_camera_accuracy)
+    ####result = callback_web()
 
-        ####result = callback_web()
+    cameraIMGpath = result[0]
+    cameraAccuracy = result[1]
+    realtimeCameraIMG = result[2]
+    realtimeCameraAccuracy = result[3]
+    # sarIMGpath = result[2]
+    # radarAccuracy = result[3]
+    #return render_template('index.html', cameraIMG=cameraIMGpath, sarIMG=sarIMGpath, cameraACCURACY=camera_accuracy, radarACCURACY=radarAccuracy)
 
-        cameraIMGpath = result[0]
-        cameraAccuracy = result[1]
-        realtimeCameraIMG = result[2]
-        realtimeCameraAccuracy = result[3]
-        # sarIMGpath = result[2]
-        # radarAccuracy = result[3]
-        #return render_template('index.html', cameraIMG=cameraIMGpath, sarIMG=sarIMGpath, cameraACCURACY=camera_accuracy, radarACCURACY=radarAccuracy)
-
-        if realtimeCameraIMG != "":
-            return Response(realIMG=realtimeCameraIMG, realACCURACY=realtimeCameraAccuracy)
-        else:
-            return render_template('index.html', cameraIMG=cameraIMGpath, cameraACCURACY=cameraAccuracy, realIMG=realtimeCameraIMG, realACCURACY=realtimeCameraAccuracy)
+    if realtimeCameraIMG != "":
+        return render_template("index.html", realIMG=realtimeCameraIMG, realACCURACY=realtimeCameraAccuracy)
+    else:
+        return render_template('index.html', cameraIMG=cameraIMGpath, cameraACCURACY=cameraAccuracy, realIMG=realtimeCameraIMG, realACCURACY=realtimeCameraAccuracy)
 
 
 ##############################
