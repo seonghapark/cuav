@@ -326,7 +326,7 @@ def RMA(sif, pulse_period=MOD_PULSE_PERIOD, freq_range=None, Rs=9.0):
     print('Kxx'*20)
     print(Kxx)
     # TODO : check ksatrt, kstop value
-    kstart, kstop = 320, 370  # match MIT's matlab -- why are these values chosen?
+    kstart, kstop = 300, 420  # match MIT's matlab -- why are these values chosen?
     Ky_even = numpy.linspace(kstart, kstop, chirp / 2)
     Ky = numpy.sqrt(Krr ** 2 - Kxx ** 2)  # same as phi_mf but without the Rs factor.
     print('Ky'*20)
