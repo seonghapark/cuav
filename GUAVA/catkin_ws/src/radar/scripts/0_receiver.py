@@ -36,12 +36,13 @@ def publish(operate):
     log_text = '[{}/{}][{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, 'SUB', str_time, 'Subscribe from end')
     print(log_text)
     log.publish(log_text)
+    end_time = time.time()
 
     #pub = rospy.Publisher('raw', raw, queue_size=1)
     raw_data = raw()
     raw_data.data = DATA
     raw_data.num = I
-    raw_data.sr = sample_rate
+    raw_data.sr = (len(DATA)//2) // (end_time-start_time)
     str_time = str(datetime.now()).replace(' ', '_')
     msg = 'Data num : ' + str(I) + ', Data length: ' + str(len(DATA))
     log_text = '[{}/{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, str_time, msg)
@@ -51,7 +52,6 @@ def publish(operate):
     I += 1
     realtime_cnt = 0
 
-    end_time = time.time()
 
     lengthMSb = bytes([11025 >> 8])
     lengthLSb = bytes([11025 & 0xFF])

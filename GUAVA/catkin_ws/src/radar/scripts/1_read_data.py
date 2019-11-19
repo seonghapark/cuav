@@ -15,6 +15,7 @@ fake_data = rospy.Publisher('raw', raw, queue_size=1)
 log = rospy.Publisher('logs', String, queue_size=10)
 DATA = bytearray()
 time.sleep(0.2)
+sample_rate = 6800
 
 if __name__ == '__main__':
     #rospy.init_node('fake_data', anonymous=True)
@@ -36,6 +37,7 @@ if __name__ == '__main__':
     try:
         raw_data.num = 1
         raw_data.data = DATA
+        raw_data.sr = sample_rate
         fake_data.publish(raw_data)
         str_time = str(datetime.now()).replace(' ', '_')
         log_text = '[{}/{}][{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, 'PUB', str_time, 'Publish to raw')

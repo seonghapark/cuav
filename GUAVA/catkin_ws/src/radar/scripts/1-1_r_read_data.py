@@ -15,6 +15,7 @@ fake_data = rospy.Publisher('realtime', raw, queue_size=10)
 log = rospy.Publisher('logs', String, queue_size=10)
 DATA = bytearray()
 time.sleep(2) # no sleep time, publisher cannot publish data.
+sample_rate = 6800
 
 if __name__ == '__main__':
     #rospy.init_node('fake_data', anonymous=True)
@@ -30,9 +31,10 @@ if __name__ == '__main__':
     DATA = bytearray(read_data)
     try:
         # divide input
-        for i in range(int(len(DATA) // 11025)):
+        for i in range(int(len(DATA) // sample_rate*2)):
             raw_data.num = i
-            raw_data.data = DATA[i * 11025:(i + 1) * 11025]
+            raw_data.data = DATA[i * (sample_rate*2):(i + 1) * (sample_rate*2)]
+            raw_data.sr=sample_rate
             str_time = str(datetime.now()).replace(' ', '_')
             msg = 'Data num : ' + str(i) + ', Data length: ' + str(len(raw_data.data))
             log_text = '[{}/{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, str_time, msg)
