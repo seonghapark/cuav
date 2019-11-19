@@ -11,7 +11,7 @@ from main_log import log_generator
 # Global variables
 #############################
 result = ()
-app = Flask(__name__, static_folder='/home/project/cuav/GUAVA/catkin_ws/src/main/storage/camera_image/')
+app = Flask(__name__, static_folder='/home/project/cuav/GUAVA/catkin_ws/src/main/storage/')
 
 
 #############################
@@ -25,7 +25,7 @@ class ROSWeb(Thread):
         pub_log = args
 
         # log
-        log = log_generator('web', "Get Message From <result> topic : ", 'sub')
+        log = log_generator('web', "result", 'sub')
         pub_log.publish(log)
 
         # load data
