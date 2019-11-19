@@ -29,12 +29,12 @@ node_name = 'make_sar_image'
 str_time = str(datetime.now()).replace(' ', '_')
 C = 3e8  # light speed approximation
 # TODO : check pulse period
-MOD_PULSE_PERIOD = 20e-3 # MOD_PULSE_PERIOD = 20e-3
-INCH_PER_SECOND = 4/7
+MOD_PULSE_PERIOD = 20e-3  # MOD_PULSE_PERIOD = 20e-3
+INCH_PER_SECOND = 4 / 7
 CONSTANT_Kr = 4
 
 # TODO : check for Frequency range of VCO
-#VCO_FREQ_RANGE = [2400e6, 2591e6]  # at 25 degrees, taken from datasheet
+# VCO_FREQ_RANGE = [2400e6, 2591e6]  # at 25 degrees, taken from datasheet
 VCO_FREQ_RANGE = [2350e6, 2500e6]
 
 #       for my particular VCO given my adjugment of Vtune range.
@@ -66,7 +66,7 @@ def open_wave(data, log):
     raw_sync = numpy.array(raw_sync, dtype=numpy.uint16)
 
     str_time = str(datetime.now()).replace(' ', '_')
-    str_msg = 'Data : '+ str(raw_data.shape)+ ' Sync : '+ str(raw_sync.shape) + ' Sample rate : '+ str(data.sr)
+    str_msg = 'Data : ' + str(raw_data.shape) + ' Sync : ' + str(raw_sync.shape) + ' Sample rate : ' + str(data.sr)
     log_text = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, str_msg)
     print(log_text)
     log.publish(log_text)
@@ -98,7 +98,8 @@ def open_wave(data, log):
     # print(log, file=f)
     # log2 = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, 'data samples after normalization \n',
     #                               data_samples)
-    str_msg = 'sync samples after normalization \n' + str(sync_samples) + '\ndata samples after normalization \n' + str(data_samples)
+    str_msg = 'sync samples after normalization \n' + str(sync_samples) + '\ndata samples after normalization \n' + str(
+        data_samples)
     log_text = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, str_msg)
     # print(log1, log2, file=f)
     log.publish(log_text)
@@ -150,8 +151,8 @@ def get_sar_frames(sync_samples, data_samples, sample_rate, pulse_period=MOD_PUL
     '''
     ramp_up_time = pulse_period  # the length of the flat top of a sync sample, the time (20 ms) for the frequency modulation to go from lowest to highest.
     # TODO : check for minimum silence length
-    #minimum_silence_len = sample_rate * ramp_up_time  # arbitrary amount of silence between frames
-    minimum_silence_len = 135 #samples per ramp up time in KSW radar
+    # minimum_silence_len = sample_rate * ramp_up_time  # arbitrary amount of silence between frames
+    minimum_silence_len = 135  # samples per ramp up time in KSW radar
     # print('minimum_silence_len : ', minimum_silence_len)
     # 0.1 is arbitrarily the limit of sensitivity we have for this
     condition = numpy.abs(
@@ -171,7 +172,8 @@ def get_sar_frames(sync_samples, data_samples, sample_rate, pulse_period=MOD_PUL
     # log3 = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, 'average of silent regions : ',
     #                               tmp / len(silent_regions))
     msg = 'minimum_silence_len : ' + str(minimum_silence_len) + 'num of False : ' + str(list(condition).count(False)) \
-          + 'num of True : ' + str(list(condition).count(True)) + 'average of silent regions : ' + str(tmp / len(silent_regions))
+          + 'num of True : ' + str(list(condition).count(True)) + 'average of silent regions : ' + str(
+        tmp / len(silent_regions))
     log_text = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, msg)
     # print(log1, log2, log3, file=f)
     log.publish(log_text)
@@ -257,18 +259,18 @@ def RMA(sif, pulse_period=MOD_PULSE_PERIOD, freq_range=None, Rs=9.0):
     Rs is distance (in METERS for just this function) to scene center. Default is ~30ft.
     '''
     if freq_range is None:
-        freq_range = VCO_FREQ_RANGE # Values from MIT
+        freq_range = VCO_FREQ_RANGE  # Values from MIT
 
     N, M = len(sif), len(sif[0])
     print("N: ", N, " M: ", M)
 
-   
     # construct Kr axis
     delta_x = feet2meters(INCH_PER_SECOND / 12.0)  # Assuming 2 inch antenna spacing between frames. (1 foot = 12 inch)
     bandwidth = freq_range[1] - freq_range[0]
     center_freq = bandwidth / 2 + freq_range[0]
     # make Kr axis by Slicing (4*PI/C)*(center_freq - bandwidth/2) ~ (4*PI/C)*(center_freq + bandwidth/2) to number of samples in measured over time period(M)
-    Kr = numpy.linspace(((CONSTANT_Kr * 4 * PI / C) * (center_freq - bandwidth / 2)), ((CONSTANT_Kr * 4 * PI / C) * (center_freq + bandwidth / 2)),
+    Kr = numpy.linspace(((CONSTANT_Kr * 4 * PI / C) * (center_freq - bandwidth / 2)),
+                        ((CONSTANT_Kr * 4 * PI / C) * (center_freq + bandwidth / 2)),
                         M)
 
     # smooth data with hanning window
@@ -277,7 +279,7 @@ def RMA(sif, pulse_period=MOD_PULSE_PERIOD, freq_range=None, Rs=9.0):
     '''STEP 1: Cross-range FFT, turns S(x_n, w(t)) into S(Kx, Kr)'''
     # Add padding if we have less than this number of crossrange samples:
     # (requires numpy 1.7 or above)
-    
+
     chirp = 2048
 
     rows = (max(chirp, len(sif)) - len(sif)) // 2
@@ -321,15 +323,15 @@ def RMA(sif, pulse_period=MOD_PULSE_PERIOD, freq_range=None, Rs=9.0):
     Compensates range curvature of all other scatterers by warping the signal data.
     '''
 
-    print('Krr'*20)
+    print('Krr' * 20)
     print(Krr)
-    print('Kxx'*20)
+    print('Kxx' * 20)
     print(Kxx)
     # TODO : check ksatrt, kstop value
     kstart, kstop = 300, 420  # match MIT's matlab -- why are these values chosen?
     Ky_even = numpy.linspace(kstart, kstop, chirp / 2)
     Ky = numpy.sqrt(Krr ** 2 - Kxx ** 2)  # same as phi_mf but without the Rs factor.
-    print('Ky'*20)
+    print('Ky' * 20)
     print(Ky)
     try:
         S_st = numpy.zeros((len(Ky), len(Ky_even)), dtype=numpy.complex128)
@@ -379,7 +381,7 @@ def plot_img(sar_img_data):
             exec('%s=%s' % (k, repr(v)))
     bw = C * (kstop - kstart) / (4 * PI * CONSTANT_Kr)
     # bw = C * (kstop - kstart) / (4 * PI)
-    max_range = (C * S_st_shape[1] / (2 * bw)) * 1 / 0.3048 ## 1/0.3048 -> meter2feet
+    max_range = (C * S_st_shape[1] / (2 * bw)) * 1 / 0.3048  ## 1/0.3048 -> meter2feet
 
     # data truncation
     dr_index1 = int(round((dr1 / max_range) * S_image.shape[0]))
@@ -498,9 +500,9 @@ def main(data, log):
         raise AssertionError('Could not open output file %s for writing.' % args.o)
     assert args.rs > 0, "Rs cannot be 0. It can be 0.0001 or smaller."
     assert (
-                args.cr1 != args.cr2 and -170 <= args.cr1 <= 170 and -170 <= args.cr2 <= 170), "Crossrange values must be between -170 and 170 and not equal."
+            args.cr1 != args.cr2 and -170 <= args.cr1 <= 170 and -170 <= args.cr2 <= 170), "Crossrange values must be between -170 and 170 and not equal."
     assert (
-                args.dr1 != args.dr2 and 1 <= args.dr1 <= 288.5 and 1 <= args.dr2 <= 288.5), "Downrange values must be between 1 and 565 and not equal."
+            args.dr1 != args.dr2 and 1 <= args.dr1 <= 288.5 and 1 <= args.dr2 <= 288.5), "Downrange values must be between 1 and 565 and not equal."
     if args.bgsub is not None:
         assert os.path.exists(args.bgsub), "Background substitution file %s not found." % args.bgsub
 

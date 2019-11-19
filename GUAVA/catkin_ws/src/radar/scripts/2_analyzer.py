@@ -145,18 +145,18 @@ def publish_realtime_wav(data):
     parser = RadarBinaryParser(raw_data.data, sr=raw_data.sr)
     sync, real_data = parser.parse()
 
-    for i,sync_data in enumerate(sync) :
+    for i, sync_data in enumerate(sync):
         print(i, sync_data)
 
     if sync is None:
         time.sleep(0.2)
 
-
     st = time.time() * 1000
     result_time, result_data = ifft.data_process(sync, real_data)  # It takes approximately 500 ms
 
     str_time = str(datetime.now()).replace(' ', '_')
-    str_msg = 'Data : ' + str(result_data.shape) + ' Sync : ' + str(result_time.shape) + 'Sample rate : ' + str(raw_data.sr)
+    str_msg = 'Data : ' + str(result_data.shape) + ' Sync : ' + str(result_time.shape) + 'Sample rate : ' + str(
+        raw_data.sr)
     log_text = '[{}/{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, str_time, str_msg)
     log.publish(log_text)
     print(log_text)
