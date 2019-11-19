@@ -29,15 +29,25 @@ class ROSWeb(Thread):
         pub_log.publish(log)
 
         # load data
-        image_camera_name = data.image_camera
-        camera_accuracy = round(data.percent_camera * 100, 2)
+        realtime_camera_image = ""
+        realtime_camera_accuracy = 0.0
+        image_camera_name = ""
+        image_camera_accuracy = 0.0
         # camera_coords = data.coords_camera
         # camera_direction = data.direction
-        # image_sar_name = data.image_radar
-        # radar_accuracy = data.percent_radar
+        image_sar_name = data.image_radar
+        # radar_accuracy = round(data.percent_radar * 100, 2)
 
-        #result = (image_camera_name, camera_accuracy, image_sar_name, radar_accuracy)
-        result = (image_camera_name, camera_accuracy)
+        if image_sar_name == "": # realtime camera image
+            realtime_camera_image = data.image_camera
+            realtime_camera_accuracy = round(data.percent_camera * 100, 2)
+        else:
+            image_camera_name = data.image_camera
+            image_camera_accuracy = round(data.percent_camera * 100, 2)
+
+
+        #result = (image_camera_name, camera_accuracy, realtime_camera_image, realtime_camera_accuracy, image_sar_name, radar_accuracy)
+        result = (image_camera_name, camera_accuracy, realtime_camera_image, realtime_camera_accuracy)
 
     def listener(self):
         rospy.init_node('web', anonymous=True)
@@ -79,10 +89,16 @@ def getData():
 
         cameraIMGpath = result[0]
         cameraAccuracy = result[1]
+        realtimeCameraIMG = result[2]
+        realtimeCameraAccuracy = result[3]
         # sarIMGpath = result[2]
         # radarAccuracy = result[3]
         #return render_template('index.html', cameraIMG=cameraIMGpath, sarIMG=sarIMGpath, cameraACCURACY=camera_accuracy, radarACCURACY=radarAccuracy)
-        return render_template('index.html', cameraIMG=cameraIMGpath, cameraACCURACY=cameraAccuracy)
+
+        if realtimeCameraIMG != "":
+            Response(realIMG=realtimeCameraIMG, realACCURACY=realtimeCameraAccuracy)
+        else:
+            return render_template('index.html', cameraIMG=cameraIMGpath, cameraACCURACY=cameraAccuracy, realIMG=realtimeCameraIMG, realACCURACY=realtimeCameraAccuracy)
 
 
 ##############################
