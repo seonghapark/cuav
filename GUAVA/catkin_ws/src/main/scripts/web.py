@@ -12,44 +12,45 @@ from main_log import log_generator
 #############################
 result = ()
 app = Flask(__name__, static_folder='/home/project/cuav/GUAVA/catkin_ws/src/main/storage')
-#app = Flask(__name__)
+
 
 #############################
 # ROS functions
 #############################
 class ROSWeb(Thread):
-    # @staticmethod
-    # def web_callback(data, args):
-    #     # write logs
-    #     global result
-    #     pub_log = args
-    #
-    #     # log
-    #     log = log_generator('web', "result", 'sub')
-    #     pub_log.publish(log)
-    #
-    #     # load data
-    #     realtime_camera_image = ""
-    #     realtime_camera_accuracy = 0.0
-    #     image_camera_name = ""
-    #     image_camera_accuracy = 0.0
-    #     # camera_coords = data.coords_camera
-    #     # camera_direction = data.direction
-    #     image_sar_name = data.image_radar
-    #     # radar_accuracy = round(data.percent_radar * 100, 2)
-    #
-    #
-    #     if image_sar_name == "": # realtime camera image
-    #         realtime_camera_image = data.image_camera
-    #         realtime_camera_accuracy = round(data.percent_camera * 100, 2)
-    #     else:
-    #         image_camera_name = data.image_camera
-    #         image_camera_accuracy = round(data.percent_camera * 100, 2)
-    #
-    #     print(realtime_camera_image, realtime_camera_accuracy, "WEB NODE RESULT")
-    #
-    #     #result = (image_camera_name, camera_accuracy, realtime_camera_image, realtime_camera_accuracy, image_sar_name, radar_accuracy)
-    #     result = (image_camera_name, image_camera_accuracy, realtime_camera_image, realtime_camera_accuracy)
+    @staticmethod
+    def web_callback(data, args):
+        # write logs
+        global result
+        pub_log = args
+
+        # log
+        log = log_generator('web', "result", 'sub')
+        pub_log.publish(log)
+
+        # load data
+        realtime_camera_image = ""
+        realtime_camera_accuracy = 0.0
+        image_camera_name = ""
+        image_camera_accuracy = 0.0
+        # camera_coords = data.coords_camera
+        # camera_direction = data.direction
+        image_sar_name = data.image_radar
+        # radar_accuracy = round(data.percent_radar * 100, 2)
+
+        if image_sar_name == "": # realtime camera image
+            realtime_camera_image = data.image_camera
+            realtime_camera_accuracy = round(data.percent_camera * 100, 2)
+        else:
+            image_camera_name = data.image_camera
+            image_camera_accuracy = round(data.percent_camera * 100, 2)
+
+        print(realtime_camera_image, realtime_camera_accuracy, "WEB NODE RESULT")
+
+        #result = (image_camera_name, camera_accuracy, realtime_camera_image, realtime_camera_accuracy, image_sar_name, radar_accuracy)
+        result = (image_camera_name, image_camera_accuracy, realtime_camera_image, realtime_camera_accuracy)
+
+        getData()
 
     def listener(self):
         rospy.init_node('web', anonymous=True)
@@ -60,7 +61,7 @@ class ROSWeb(Thread):
         log = log_generator('web', 'web node is initialized..')
         pub_log.publish(log)
 
-        rospy.Subscriber('result_web', result_web, getData, pub_log)
+        rospy.Subscriber('result_web', result_web, self.web_callback, pub_log)
         rospy.spin()
 
 
@@ -84,51 +85,23 @@ def index():
            
 # click START button(getting images)
 @app.route("/getData", methods=['POST'])
-def getData(data, args):
-    # if request.method == 'POST':
-    global result
-    pub_log = args
+def getData():
+    if request.method == 'POST':
+        global result
+        ####result = callback_web()
 
-    # log
-    log = log_generator('web', "result", 'sub')
-    pub_log.publish(log)
+        cameraIMGpath = result[0]
+        cameraAccuracy = result[1]
+        realtimeCameraIMG = result[2]
+        realtimeCameraAccuracy = result[3]
+        # sarIMGpath = result[2]
+        # radarAccuracy = result[3]
+        #return render_template('index.html', cameraIMG=cameraIMGpath, sarIMG=sarIMGpath, cameraACCURACY=camera_accuracy, radarACCURACY=radarAccuracy)
 
-    # load data
-    realtime_camera_image = ""
-    realtime_camera_accuracy = 0.0
-    image_camera_name = ""
-    image_camera_accuracy = 0.0
-    # camera_coords = data.coords_camera
-    # camera_direction = data.direction
-    image_sar_name = data.image_radar
-    # radar_accuracy = round(data.percent_radar * 100, 2)
-
-    if image_sar_name == "":  # realtime camera image
-        realtime_camera_image = data.image_camera
-        realtime_camera_accuracy = round(data.percent_camera * 100, 2)
-    else:
-        image_camera_name = data.image_camera
-        image_camera_accuracy = round(data.percent_camera * 100, 2)
-
-    print(realtime_camera_image, realtime_camera_accuracy, "WEB NODE RESULT")
-
-    # result = (image_camera_name, camera_accuracy, realtime_camera_image, realtime_camera_accuracy, image_sar_name, radar_accuracy)
-    result = (image_camera_name, image_camera_accuracy, realtime_camera_image, realtime_camera_accuracy)
-
-    ####result = callback_web()
-
-    cameraIMGpath = result[0]
-    cameraAccuracy = result[1]
-    realtimeCameraIMG = result[2]
-    realtimeCameraAccuracy = result[3]
-    # sarIMGpath = result[2]
-    # radarAccuracy = result[3]
-    #return render_template('index.html', cameraIMG=cameraIMGpath, sarIMG=sarIMGpath, cameraACCURACY=camera_accuracy, radarACCURACY=radarAccuracy)
-
-    if realtimeCameraIMG != "":
-        return render_template("index.html", realIMG=realtimeCameraIMG, realACCURACY=realtimeCameraAccuracy)
-    else:
-        return render_template('index.html', cameraIMG=cameraIMGpath, cameraACCURACY=cameraAccuracy, realIMG=realtimeCameraIMG, realACCURACY=realtimeCameraAccuracy)
+        if realtimeCameraIMG != "":
+            return render_template("index.html", realIMG=realtimeCameraIMG, realACCURACY=realtimeCameraAccuracy)
+        else:
+            return render_template('index.html', cameraIMG=cameraIMGpath, cameraACCURACY=cameraAccuracy, realIMG=realtimeCameraIMG, realACCURACY=realtimeCameraAccuracy)
 
 
 ##############################
