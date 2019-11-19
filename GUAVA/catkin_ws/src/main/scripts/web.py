@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 #-*-coding:utf-8-*-
 import rospy
-import requests
 from threading import Thread
 from std_msgs.msg import String
 from main.msg import result_web
-from flask import Flask, render_template, request, Response, url_for, redirect
+from flask import Flask, render_template, Response, stream_with_context
 from main_log import log_generator
 
 #############################
@@ -53,7 +52,11 @@ class ROSWeb(Thread):
 
         with app.app_context():
             context = {'realIMG': result[0], 'realACCURACY': result[1]}
-            return render_template("index.html", **context)
+
+            def generate():
+                yield render_template('index.html', **context)
+            # return render_template("index.html", **context)
+            return Response(stream_with_context(generate()))
 
     def listener(self):
         rospy.init_node('web', anonymous=True)
