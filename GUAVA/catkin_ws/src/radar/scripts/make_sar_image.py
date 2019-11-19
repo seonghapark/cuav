@@ -30,7 +30,7 @@ str_time = str(datetime.now()).replace(' ', '_')
 C = 3e8  # light speed approximation
 # TODO : check pulse period
 MOD_PULSE_PERIOD = 20e-3 # MOD_PULSE_PERIOD = 20e-3
-INCH_PER_SECOND = 2
+INCH_PER_SECOND = 4/7
 
 # TODO : check for Frequency range of VCO
 #VCO_FREQ_RANGE = [2400e6, 2591e6]  # at 25 degrees, taken from datasheet
@@ -321,11 +321,16 @@ def RMA(sif, pulse_period=MOD_PULSE_PERIOD, freq_range=None, Rs=9.0):
     Compensates range curvature of all other scatterers by warping the signal data.
     '''
 
+    print('Krr'*20)
+    print(Krr)
+    print('Kxx'*20)
+    print(Kxx)
     # TODO : check ksatrt, kstop value
-    kstart, kstop = 73, 108.5  # match MIT's matlab -- why are these values chosen?
+    kstart, kstop = 320, 370  # match MIT's matlab -- why are these values chosen?
     Ky_even = numpy.linspace(kstart, kstop, chirp / 2)
-
     Ky = numpy.sqrt(Krr ** 2 - Kxx ** 2)  # same as phi_mf but without the Rs factor.
+    print('Ky'*20)
+    print(Ky)
     try:
         S_st = numpy.zeros((len(Ky), len(Ky_even)), dtype=numpy.complex128)
     except:
@@ -347,7 +352,6 @@ def RMA(sif, pulse_period=MOD_PULSE_PERIOD, freq_range=None, Rs=9.0):
     ifft_len = [len(S_st), len(S_st[0])]  # if memory allows, multiply both
     # elements by 4 for perhaps a somewhat better image. Probably only viable on 64-bit Pythons.
     S_img = numpy.fliplr(numpy.rot90(numpy.fft.ifft2(S_st, ifft_len)))
-
     return {'Py_S_image': S_img, 'S_st_shape': S_st.shape, 'Ky_len': len(Ky), 'delta_x': delta_x, 'kstart': kstart,
             'kstop': kstop}
 
