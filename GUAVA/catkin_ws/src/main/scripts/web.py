@@ -30,7 +30,7 @@ class ROSWeb(Thread):
 
         # load data
         image_camera_name = data.image_camera
-        camera_accuracy = data.percent_camera
+        camera_accuracy = round(data.percent_camera,4) * 100
         # camera_coords = data.coords_camera
         # camera_direction = data.direction
         # image_sar_name = data.image_radar
