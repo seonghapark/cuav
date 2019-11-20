@@ -269,7 +269,9 @@ def RMA(sif, pulse_period=MOD_PULSE_PERIOD, freq_range=None, Rs=9.0):
     bandwidth = freq_range[1] - freq_range[0]
     center_freq = bandwidth / 2 + freq_range[0]
     # make Kr axis by Slicing (4*PI/C)*(center_freq - bandwidth/2) ~ (4*PI/C)*(center_freq + bandwidth/2) to number of samples in measured over time period(M)
-    Kr = numpy.linspace(((CONSTANT_Kr * 4 * PI / C) * (center_freq - bandwidth / 2)), ((CONSTANT_Kr * 4 * PI / C) * (center_freq + bandwidth / 2)), M)
+    Kr = numpy.linspace(((CONSTANT_Kr * 4 * PI / C) * (center_freq - bandwidth / 2)),
+                        ((CONSTANT_Kr * 4 * PI / C) * (center_freq + bandwidth / 2)),
+                        M)
 
     # smooth data with hanning window
     sif *= numpy.hanning(M)
