@@ -61,7 +61,8 @@ class ROSWeb(Thread):
             def generate():
                 yield render_template('index.html', **context)
             # return render_template("index.html", **context)
-            return Response(stream_with_context(generate()))
+            #return Response(stream_with_context(generate()))
+            return redirect(url_for('/getData'))
 
     def listener(self):
         rospy.init_node('web', anonymous=True)
