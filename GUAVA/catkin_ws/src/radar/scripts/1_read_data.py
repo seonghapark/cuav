@@ -18,8 +18,8 @@ time.sleep(0.2)
 sample_rate = 6300
 
 if __name__ == '__main__':
-    #rospy.init_node('fake_data', anonymous=True)
-    #fake_data = rospy.Publisher('raw', raw, queue_size=1)
+    # rospy.init_node('fake_data', anonymous=True)
+    # fake_data = rospy.Publisher('raw', raw, queue_size=1)
     print('Connect ROS')
     log.publish('Connect ROS')
     raw_data = raw()
