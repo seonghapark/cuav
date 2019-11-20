@@ -15,7 +15,7 @@ fake_data = rospy.Publisher('raw', raw, queue_size=1)
 log = rospy.Publisher('logs', String, queue_size=10)
 DATA = bytearray()
 time.sleep(0.2)
-sample_rate = 5862
+sample_rate = 6300
 
 if __name__ == '__main__':
     #rospy.init_node('fake_data', anonymous=True)

@@ -268,8 +268,7 @@ def RMA(sif, pulse_period=MOD_PULSE_PERIOD, freq_range=None, Rs=9.0):
     bandwidth = freq_range[1] - freq_range[0]
     center_freq = bandwidth / 2 + freq_range[0]
     # make Kr axis by Slicing (4*PI/C)*(center_freq - bandwidth/2) ~ (4*PI/C)*(center_freq + bandwidth/2) to number of samples in measured over time period(M)
-    Kr = numpy.linspace(((CONSTANT_Kr * 4 * PI / C) * (center_freq - bandwidth / 2)), ((CONSTANT_Kr * 4 * PI / C) * (center_freq + bandwidth / 2)),
-                        M)
+    Kr = numpy.linspace(((CONSTANT_Kr * 4 * PI / C) * (center_freq - bandwidth / 2)), ((CONSTANT_Kr * 4 * PI / C) * (center_freq + bandwidth / 2)), M)
 
     # smooth data with hanning window
     sif *= numpy.hanning(M)
@@ -326,7 +325,7 @@ def RMA(sif, pulse_period=MOD_PULSE_PERIOD, freq_range=None, Rs=9.0):
     print('Kxx'*20)
     print(Kxx)
     # TODO : check ksatrt, kstop value
-    kstart, kstop = 300, 420  # match MIT's matlab -- why are these values chosen?
+    kstart, kstop = 300, 420 # match MIT's matlab -- why are these values chosen?
     Ky_even = numpy.linspace(kstart, kstop, chirp / 2)
     Ky = numpy.sqrt(Krr ** 2 - Kxx ** 2)  # same as phi_mf but without the Rs factor.
     print('Ky'*20)
@@ -401,7 +400,7 @@ def plot_img(sar_img_data):
     pylab.pcolormesh(crossrange, downrange, trunc_image, edgecolors='None', cmap='jet')
     pylab.plt.gca().invert_yaxis()
     pylab.colorbar()
-    pylab.clim([numpy.max(trunc_image) - 0.1, numpy.max(trunc_image) - 0])
+    pylab.clim([numpy.max(trunc_image) - 0.05, numpy.max(trunc_image) - 0])
     pylab.title('Final image')
     pylab.ylabel('Downrange (ft)')
     pylab.xlabel('Crossrange (ft)')
