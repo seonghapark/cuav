@@ -7,17 +7,11 @@ from main.msg import result_web
 from flask import Flask, render_template, Response, redirect, url_for, request, stream_with_context
 from main_log import log_generator
 
-from flask_socketio import SocketIO
-import pyinotify
-
 #############################
 # Global variables
 #############################
 result = ()
 app = Flask(__name__, static_folder='/home/project/cuav/GUAVA/catkin_ws/src/main/storage')
-app.config['SECRET_KEY'] = 'secret!'
-socketio = SocketIO(app)
-thread = None
 
 #############################
 # ROS functions
@@ -111,29 +105,6 @@ def getData():
             return render_template("index.html", realIMG=realtimeCameraIMG, realACCURACY=realtimeCameraAccuracy)
         else:
             return render_template('index.html', cameraIMG=cameraIMGpath, cameraACCURACY=cameraAccuracy, realIMG=realtimeCameraIMG, realACCURACY=realtimeCameraAccuracy)
-
-
-class ModHandler(pyinotify.ProcessEvent):
-    def process_IN_CLOSE_WRITE(self, evt):
-        socketio.emit('file updated')
-
-
-def background_thread():
-    handler = ModHandler()
-    wm = pyinotify.WatchManager()
-    notifier = pyinotify.Notifier(wm, handler)
-    wm.add_watch('test.log', pyinotify.IN_CLOSE_WRITE)
-    notifier.loop()
-
-
-@socketio.on('connect')
-def test_connect():
-    global thread
-    if thread is None:
-        thread = socketio.start_background_task(target=background_thread)
-
-
-
 
 
 ##############################
