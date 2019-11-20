@@ -23,14 +23,13 @@
 <script type="text/javascript" src="../static/assets/scripts/main.js"></script>
 <script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
 <script>
 	var p ;
 	$('.start').on('click', function(){
 		if ( p ) {
 			p.prependTo( "body" );
 			p = null;
-		} 
+		}
 		$(".progress-bar").css('width', 0);
 		$(".progress-bar").stop().animate({
 			width: "100%"
@@ -42,14 +41,6 @@
 
 		});
 	});
-
-	var socket = io.connect('http://' + document.domain + ':' + location.port);
-    socket.on('connect', function() {
-        socket.emit('my event', {data: 'I\'m connected!'});
-    });
-    socket.on('file updated', function(data) {
-        console.log('the file has been updated');
-    });
 </script>
 </head>
 
@@ -62,7 +53,7 @@
 				</div>
 			</div>
 
-			<!-- logos: ksq, iitp, purdue / Github-->    
+			<!-- logos: ksq, iitp, purdue / Github-->
 			<div class="app-header__content">
 				<div class="app-header-left">
 					<div class="search-wrapper">
@@ -81,7 +72,7 @@
 								</div>
 							</div>
 						</div>
-					</div>       
+					</div>
 				</div>
 			</div>
 		</div>
@@ -116,7 +107,7 @@
 						</div>
 					</div>
 					<div class="row">
-						
+
 						<div class="col-md-6 col-xl-4">
 							<div class="mb-3 card">
 								<div class="card-header-tab card-header-tab-animation card-header">

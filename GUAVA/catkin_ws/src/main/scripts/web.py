@@ -4,15 +4,20 @@ import rospy
 from threading import Thread
 from std_msgs.msg import String
 from main.msg import result_web
-from flask import Flask, render_template, Response, stream_with_context
+from flask import Flask, render_template, Response, request, stream_with_context
 from main_log import log_generator
+
+from flask_socketio import SocketIO
+import pyinotify
 
 #############################
 # Global variables
 #############################
 result = ()
 app = Flask(__name__, static_folder='/home/project/cuav/GUAVA/catkin_ws/src/main/storage')
-
+app.config['SECRET_KEY'] = 'secret!'
+socketio = SocketIO(app)
+thread = None
 
 #############################
 # ROS functions
@@ -80,13 +85,14 @@ class WebService(Thread):
 
     def run(self):
         global app
-        app.run(host='192.168.2.128')
-
+        # app.run(host='192.168.2.128')
+        socketio.run(app, host='192.168.2.128')
 
 # default connect
 @app.route("/")
 def index():
-    return render_template('index.html')
+    # return render_template('index.html')
+    return render_template('index.html', async_mode=socketio.async_mode)
 
 
 # click START button(getting images)
@@ -108,6 +114,29 @@ def getData():
             return render_template("index.html", realIMG=realtimeCameraIMG, realACCURACY=realtimeCameraAccuracy)
         else:
             return render_template('index.html', cameraIMG=cameraIMGpath, cameraACCURACY=cameraAccuracy, realIMG=realtimeCameraIMG, realACCURACY=realtimeCameraAccuracy)
+
+
+class ModHandler(pyinotify.ProcessEvent):
+    def process_IN_CLOSE_WRITE(self, evt):
+        socketio.emit('file updated')
+
+
+def background_thread():
+    handler = ModHandler()
+    wm = pyinotify.WatchManager()
+    notifier = pyinotify.Notifier(wm, handler)
+    wm.add_watch('test.log', pyinotify.IN_CLOSE_WRITE)
+    notifier.loop()
+
+
+@socketio.on('connect')
+def test_connect():
+    global thread
+    if thread is None:
+        thread = socketio.start_background_task(target=background_thread)
+
+
+
 
 
 ##############################
