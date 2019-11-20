@@ -4,7 +4,7 @@ import rospy
 from threading import Thread
 from std_msgs.msg import String
 from main.msg import result_web
-from flask import Flask, render_template, Response, request, stream_with_context
+from flask import Flask, render_template, Response, redirect, url_for, request, stream_with_context
 from main_log import log_generator
 
 from flask_socketio import SocketIO
@@ -57,12 +57,8 @@ class ROSWeb(Thread):
 
         with app.app_context():
             context = {'realIMG': result[0], 'realACCURACY': result[1]}
-
-            def generate():
-                yield render_template('index.html', **context)
-            # return render_template("index.html", **context)
+            return render_template("index.html", **context)
             #return Response(stream_with_context(generate()))
-            return redirect(url_for('/getData'))
 
     def listener(self):
         rospy.init_node('web', anonymous=True)
