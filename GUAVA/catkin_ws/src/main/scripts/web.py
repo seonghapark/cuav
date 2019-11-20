@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 #-*-coding:utf-8-*-
 import rospy
-import requests
 from threading import Thread
 from std_msgs.msg import String
 from main.msg import result_web
-from flask import Flask, render_template, request, Response, url_for, redirect
+from flask import Flask, render_template, Response, stream_with_context
 from main_log import log_generator
 
 #############################
@@ -22,7 +21,7 @@ class ROSWeb(Thread):
     @staticmethod
     def web_callback(data, args):
         # write logs
-        global result
+        global result, app
         pub_log = args
 
         # log
@@ -51,10 +50,14 @@ class ROSWeb(Thread):
         #result = (image_camera_name, camera_accuracy, realtime_camera_image, realtime_camera_accuracy, image_sar_name, radar_accuracy)
         result = (image_camera_name, image_camera_accuracy, realtime_camera_image, realtime_camera_accuracy)
 
+        with app.app_context():
+            context = {'realIMG': result[0], 'realACCURACY': result[1]}
 
-        d = {"realIMG": result[2], "realACCURACY":result[3]}
-        requests.post("http://192.168.2.128/getData", data=d)
-
+            def generate():
+                yield render_template('index.html', **context)
+            # return render_template("index.html", **context)
+            #return Response(stream_with_context(generate()))
+            return redirect(url_for('/getData'))
 
     def listener(self):
         rospy.init_node('web', anonymous=True)
