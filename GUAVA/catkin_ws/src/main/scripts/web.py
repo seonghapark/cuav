@@ -4,7 +4,7 @@ import rospy
 from threading import Thread
 from std_msgs.msg import String
 from main.msg import result_web
-from flask import Flask, render_template, Response, stream_with_context
+from flask import Flask, render_template, Response, redirect, url_for, request, stream_with_context
 from main_log import log_generator
 
 #############################
@@ -12,7 +12,6 @@ from main_log import log_generator
 #############################
 result = ()
 app = Flask(__name__, static_folder='/home/project/cuav/GUAVA/catkin_ws/src/main/storage')
-
 
 #############################
 # ROS functions
@@ -52,12 +51,8 @@ class ROSWeb(Thread):
 
         with app.app_context():
             context = {'realIMG': result[0], 'realACCURACY': result[1]}
-
-            def generate():
-                yield render_template('index.html', **context)
-            # return render_template("index.html", **context)
+            return render_template("index.html", **context)
             #return Response(stream_with_context(generate()))
-            return redirect(url_for('/getData'))
 
     def listener(self):
         rospy.init_node('web', anonymous=True)
@@ -81,13 +76,14 @@ class WebService(Thread):
 
     def run(self):
         global app
-        app.run(host='192.168.2.128')
-
+        # app.run(host='192.168.2.128')
+        socketio.run(app, host='192.168.2.128')
 
 # default connect
 @app.route("/")
 def index():
-    return render_template('index.html')
+    # return render_template('index.html')
+    return render_template('index.html', async_mode=socketio.async_mode)
 
 
 # click START button(getting images)
