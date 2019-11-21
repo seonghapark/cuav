@@ -142,6 +142,7 @@ class colorgraph_handler():
 
 
 if __name__ == '__main__':
+    time.sleep(3)
     plot = colorgraph_handler()
     ros = ros_communication(plot)
     rospy.Subscriber('realtime_wav', realtime, ros.callback)
