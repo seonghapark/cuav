@@ -1,0 +1,14 @@
+[main/log][2019-11-05_16:21:10.314473] log node is initialized..
+hello
+hello
+[camera/get_frame][SUB][2019-11-05_21:32:58.624880] Subscribe from operate(camera - initialized) topic
+[camera/get_frame][2019-11-05_21:32:58.626250] Loading network.....
+[camera/get_frame][2019-11-05_21:32:58.776139] Network successfully loaded
+[camera/get_frame][2019-11-05_21:32:58.785653] Webcam initialized
+[camera/get_frame][SUB][2019-11-05_21:33:08.687778] Subscribe from operate(rail operating) topic
+[camera/get_frame][PUB][2019-11-05_21:33:15.732099] Publish to img_camera topic
+[camera/classifier_camera][SUB][2019-11-05_21:33:15.751578] Subscribe from img_camera(rail operating) topic
+[camera/classifier_camera][PUB][2019-11-05_21:33:15.753051] Publish to realtime_camera topic
+[camera/get_frame][PUB][2019-11-05_21:33:21.758184] Publish to img_camera topic
+[camera/classifier_camera][SUB][2019-11-05_21:33:21.778514] Subscribe from img_camera(rail operating) topic
+[camera/classifier_camera][PUB][2019-11-05_21:33:21.782328] Publish to realtime_camera topic

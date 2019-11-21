@@ -1,0 +1,24 @@
+[main/log][2019-11-05_16:34:40.495369] log node is initialized..
+[camera/get_frame][SUB][2019-11-05_21:35:22.230634] Subscribe from operate(camera - initialized) topic
+[camera/get_frame][2019-11-05_21:35:22.231515] Loading network.....
+[camera/get_frame][2019-11-05_21:35:22.374193] Network successfully loaded
+[camera/get_frame][2019-11-05_21:35:22.383558] Webcam initialized
+[camera/get_frame][SUB][2019-11-05_21:35:32.266201] Subscribe from operate(rail operating) topic
+[camera/get_frame][PUB][2019-11-05_21:35:39.315907] Publish to img_camera topic
+[camera/classifier_camera][SUB][2019-11-05_21:35:39.342941] Subscribe from img_camera(rail operating) topic
+[camera/classifier_camera][PUB][2019-11-05_21:35:39.344097] Publish to realtime_camera topic
+[camera/get_frame][PUB][2019-11-05_21:35:45.457855] Publish to img_camera topic
+[camera/classifier_camera][SUB][2019-11-05_21:35:45.475671] Subscribe from img_camera(rail operating) topic
+[camera/classifier_camera][PUB][2019-11-05_21:35:45.478527] Publish to realtime_camera topic
+[camera/get_frame][PUB][2019-11-05_21:35:51.588939] Publish to img_camera topic
+[camera/classifier_camera][SUB][2019-11-05_21:35:51.606773] Subscribe from img_camera(rail operating) topic
+[camera/classifier_camera][PUB][2019-11-05_21:35:51.610918] Publish to realtime_camera topic
+[camera/get_frame][PUB][2019-11-05_21:35:57.752518] Publish to img_camera topic
+[camera/classifier_camera][SUB][2019-11-05_21:35:57.774115] Subscribe from img_camera(rail operating) topic
+[camera/classifier_camera][PUB][2019-11-05_21:35:57.775421] Publish to realtime_camera topic
+[camera/get_frame][PUB][2019-11-05_21:36:03.795799] Publish to img_camera topic
+[camera/classifier_camera][SUB][2019-11-05_21:36:03.816709] Subscribe from img_camera(rail operating) topic
+[camera/classifier_camera][PUB][2019-11-05_21:36:03.817680] Publish to realtime_camera topic
+[camera/get_frame][PUB][2019-11-05_21:36:09.933691] Publish to img_camera topic
+[camera/classifier_camera][SUB][2019-11-05_21:36:09.953625] Subscribe from img_camera(rail operating) topic
+[camera/classifier_camera][PUB][2019-11-05_21:36:09.954979] Publish to realtime_camera topic

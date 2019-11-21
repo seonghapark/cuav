@@ -1,0 +1,62 @@
+[main/log][2019-11-06_14:36:39.564794] log node is initialized..
+[radar/receiver][2019-11-06_19:41:06.730434] receiver connects ROS
+[radar/receiver][SUB][2019-11-06_19:41:12.864102] Subscribe from operate : start
+[radar/receiver][2019-11-06_19:41:12.865073] Begin receiving
+[radar/receiver][PUB][2019-11-06_19:41:13.874807] Publish to realtime
+[radar/receiver][PUB][2019-11-06_19:41:14.878643] Publish to realtime
+[radar/receiver][PUB][2019-11-06_19:41:15.879315] Publish to realtime
+[radar/receiver][PUB][2019-11-06_19:41:16.882587] Publish to realtime
+[radar/receiver][SUB][2019-11-06_19:41:17.864206] Subscribe from end
+[radar/analyzer][SUB][2019-11-06_19:41:17.870364] Subscribe from raw
+[radar/receiver][2019-11-06_19:41:17.865238] Data num : 0, Data length: 59401
+[radar/receiver][PUB][2019-11-06_19:41:17.867330] Publish to raw
+[radar/receiver][2019-11-06_19:41:17.869142] End receiving
+[radar/analyzer][2019-11-06_19:41:17.870364] Data num : 0
+[radar/analyzer][2019-11-06_19:41:18.126369] Data : (29700,) Sync : (29700,)
+[radar/analyzer][2019-11-06_19:41:18.127614] wav_data : 29700 wav_sync : 29700
+[radar/analyzer][PUB][2019-11-06_19:41:18.207148] Publish to wav
+[radar/receiver][SUB][2019-11-06_19:41:27.859521] Subscribe from operate : start
+[radar/receiver][2019-11-06_19:41:27.860292] Begin receiving
+[radar/receiver][PUB][2019-11-06_19:41:28.868967] Publish to realtime
+[radar/receiver][PUB][2019-11-06_19:41:29.869092] Publish to realtime
+[radar/receiver][PUB][2019-11-06_19:41:30.869369] Publish to realtime
+[radar/receiver][PUB][2019-11-06_19:41:31.878546] Publish to realtime
+[radar/receiver][SUB][2019-11-06_19:41:32.860109] Subscribe from end
+[radar/analyzer][SUB][2019-11-06_19:41:32.864557] Subscribe from raw
+[radar/receiver][2019-11-06_19:41:32.860973] Data num : 1, Data length: 59094
+[radar/receiver][PUB][2019-11-06_19:41:32.861900] Publish to raw
+[radar/receiver][2019-11-06_19:41:32.862903] End receiving
+[radar/analyzer][2019-11-06_19:41:32.864557] Data num : 1
+[radar/analyzer][2019-11-06_19:41:33.063313] Data : (29547,) Sync : (29547,)
+[radar/analyzer][2019-11-06_19:41:33.064648] wav_data : 29547 wav_sync : 29547
+[radar/analyzer][PUB][2019-11-06_19:41:33.144717] Publish to wav
+[radar/receiver][SUB][2019-11-06_19:41:42.862988] Subscribe from operate : start
+[radar/receiver][2019-11-06_19:41:42.863851] Begin receiving
+[radar/receiver][PUB][2019-11-06_19:41:43.872330] Publish to realtime
+[radar/receiver][PUB][2019-11-06_19:41:44.874249] Publish to realtime
+[radar/receiver][PUB][2019-11-06_19:41:45.883499] Publish to realtime
+[radar/receiver][PUB][2019-11-06_19:41:46.884944] Publish to realtime
+[radar/receiver][SUB][2019-11-06_19:41:47.858399] Subscribe from end
+[radar/analyzer][SUB][2019-11-06_19:41:47.861213] Subscribe from raw
+[radar/receiver][2019-11-06_19:41:47.859020] Data num : 2, Data length: 59126
+[radar/receiver][PUB][2019-11-06_19:41:47.859895] Publish to raw
+[radar/analyzer][2019-11-06_19:41:47.861213] Data num : 2
+[radar/receiver][2019-11-06_19:41:47.881023] End receiving
+[radar/analyzer][2019-11-06_19:41:48.083394] Data : (29563,) Sync : (29563,)
+[radar/analyzer][2019-11-06_19:41:48.084663] wav_data : 29563 wav_sync : 29563
+[radar/analyzer][PUB][2019-11-06_19:41:48.164036] Publish to wav
+[radar/receiver][SUB][2019-11-06_19:41:57.862797] Subscribe from operate : start
+[radar/receiver][2019-11-06_19:41:57.863337] Begin receiving
+[radar/receiver][PUB][2019-11-06_19:41:58.864739] Publish to realtime
+[radar/receiver][PUB][2019-11-06_19:41:59.873447] Publish to realtime
+[radar/receiver][PUB][2019-11-06_19:42:00.874773] Publish to realtime
+[radar/receiver][PUB][2019-11-06_19:42:01.879611] Publish to realtime
+[radar/receiver][SUB][2019-11-06_19:42:02.861471] Subscribe from end
+[radar/analyzer][SUB][2019-11-06_19:42:02.864031] Subscribe from raw
+[radar/receiver][2019-11-06_19:42:02.861971] Data num : 3, Data length: 59170
+[radar/receiver][PUB][2019-11-06_19:42:02.862731] Publish to raw
+[radar/analyzer][2019-11-06_19:42:02.864031] Data num : 3
+[radar/receiver][2019-11-06_19:42:02.877729] End receiving
+[radar/analyzer][2019-11-06_19:42:03.066935] Data : (29585,) Sync : (29585,)
+[radar/analyzer][2019-11-06_19:42:03.068232] wav_data : 29585 wav_sync : 29585
+[radar/analyzer][PUB][2019-11-06_19:42:03.147994] Publish to wav
