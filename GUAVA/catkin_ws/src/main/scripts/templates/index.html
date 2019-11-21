@@ -41,6 +41,16 @@
 
 		});
 	});
+
+	setInterval(                               //Periodically
+        function()
+        {
+         $.getJSON(                            //Get some values from the server
+            $SCRIPT_ROOT + '/getData',      // At this URL
+            {});
+        },
+    1000);
+
 </script>
 </head>
 
