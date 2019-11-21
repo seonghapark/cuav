@@ -145,8 +145,6 @@ def publish_realtime_wav(data):
     parser = RadarBinaryParser(raw_data.data, sr=raw_data.sr)
     sync, real_data = parser.parse()
 
-    for i, sync_data in enumerate(sync):
-        print(i, sync_data)
 
     if sync is None:
         time.sleep(0.2)
