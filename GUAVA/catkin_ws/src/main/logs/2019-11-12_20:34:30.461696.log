@@ -1,0 +1,262 @@
+[main/log][2019-11-12_20:34:30.462301] log node is initialized..
+[main/storage][2019-11-12_20:34:42.260473] storage node is initialized..
+[main/decision][2019-11-12_20:34:46.151420] decision node is initialized..
+[main/decision][PUB][2019-11-12_20:34:46.297209] Publsih Message to <operate> topic : init
+[main/storage][2019-11-12_20:35:43.553816] storage node is initialized..
+[camera/get_frame][SUB][2019-11-12_20:36:14.189939] Subscribe from operate(rail operating) topic
+[camera/get_frame][2019-11-12_20:36:14.191166] Loading network.....
+[camera/get_frame][2019-11-12_20:36:14.336072] Network successfully loaded
+[camera/get_frame][2019-11-12_20:36:14.347604] Webcam initialized
+[camera/get_frame][SUB][2019-11-12_20:37:48.287554] Subscribe from operate(rail operating) topic
+[camera/get_frame][2019-11-12_20:37:48.288395] Loading network.....
+[camera/get_frame][2019-11-12_20:37:48.435814] Network successfully loaded
+[camera/get_frame][2019-11-12_20:37:48.446665] Webcam initialized
+[camera/get_frame][PUB][2019-11-12_20:37:57.326420] Publish to img_camera topic
+[camera/get_frame][PUB][2019-11-12_20:38:05.234818] Publish to img_camera topic
+[camera/get_frame][PUB][2019-11-12_20:38:13.219716] Publish to img_camera topic
+[camera/get_frame][PUB][2019-11-12_20:38:21.183260] Publish to img_camera topic
+[camera/get_frame][PUB][2019-11-12_20:38:29.221072] Publish to img_camera topic
+[camera/get_frame][PUB][2019-11-12_20:38:37.236695] Publish to img_camera topic
+[camera/get_frame][PUB][2019-11-12_20:38:45.203891] Publish to img_camera topic
+[camera/get_frame][PUB][2019-11-12_20:38:52.993495] Publish to img_camera topic
+[camera/get_frame][PUB][2019-11-12_20:39:00.783274] Publish to img_camera topic
+[camera/get_frame][PUB][2019-11-12_20:39:08.757652] Publish to img_camera topic
+[camera/get_frame][PUB][2019-11-12_20:39:16.505849] Publish to img_camera topic
+[camera/get_frame][PUB][2019-11-12_20:39:24.600755] Publish to img_camera topic
+[camera/get_frame][PUB][2019-11-12_20:39:32.636096] Publish to img_camera topic
+[camera/get_frame][PUB][2019-11-12_20:39:40.650809] Publish to img_camera topic
+[camera/get_frame][PUB][2019-11-12_20:39:48.796260] Publish to img_camera topic
+[camera/get_frame][PUB][2019-11-12_20:39:56.788062] Publish to img_camera topic
+[camera/get_frame][PUB][2019-11-12_20:40:04.775902] Publish to img_camera topic
+[camera/get_frame][PUB][2019-11-12_20:40:12.744993] Publish to img_camera topic
+[camera/get_frame][PUB][2019-11-12_20:40:20.599142] Publish to img_camera topic
+[camera/get_frame][PUB][2019-11-12_20:40:28.597954] Publish to img_camera topic
+[camera/get_frame][PUB][2019-11-12_20:40:36.807766] Publish to img_camera topic
+[camera/get_frame][PUB][2019-11-12_20:40:44.710146] Publish to img_camera topic
+[camera/get_frame][PUB][2019-11-12_20:40:52.553954] Publish to img_camera topic
+[camera/get_frame][PUB][2019-11-12_20:41:00.871802] Publish to img_camera topic
+[camera/get_frame][PUB][2019-11-12_20:41:08.962560] Publish to img_camera topic
+[camera/get_frame][PUB][2019-11-12_20:41:16.775309] Publish to img_camera topic
+[camera/get_frame][PUB][2019-11-12_20:41:24.857160] Publish to img_camera topic
+[camera/get_frame][PUB][2019-11-12_20:41:33.255013] Publish to img_camera topic
+[camera/get_frame][PUB][2019-11-12_20:41:41.252588] Publish to img_camera topic
+[camera/get_frame][PUB][2019-11-12_20:41:49.361781] Publish to img_camera topic
+[camera/get_frame][PUB][2019-11-12_20:41:57.334165] Publish to img_camera topic
+[camera/get_frame][PUB][2019-11-12_20:42:05.310863] Publish to img_camera topic
+[camera/get_frame][PUB][2019-11-12_20:42:13.449529] Publish to img_camera topic
+[camera/get_frame][PUB][2019-11-12_20:42:21.311091] Publish to img_camera topic
+[camera/get_frame][PUB][2019-11-12_20:42:29.097660] Publish to img_camera topic
+[main/storage][2019-11-12_20:42:36.829921] storage node is initialized..
+[camera/get_frame][PUB][2019-11-12_20:42:38.731805] Publish to img_camera topic
+[camera/get_frame][PUB][2019-11-12_20:42:46.583370] Publish to img_camera topic
+[camera/get_frame][PUB][2019-11-12_20:42:54.562728] Publish to img_camera topic
+[camera/get_frame][PUB][2019-11-12_20:43:02.548066] Publish to img_camera topic
+[camera/get_frame][PUB][2019-11-12_20:43:10.265957] Publish to img_camera topic
+[camera/get_frame][PUB][2019-11-12_20:43:18.160666] Publish to img_camera topic
+[camera/get_frame][PUB][2019-11-12_20:43:26.364272] Publish to img_camera topic
+[camera/get_frame][PUB][2019-11-12_20:43:34.449119] Publish to img_camera topic
+[camera/get_frame][PUB][2019-11-12_20:43:42.481738] Publish to img_camera topic
+[camera/get_frame][PUB][2019-11-12_20:43:50.557453] Publish to img_camera topic
+[main/decision][2019-11-12_20:44:17.728304] decision node is initialized..
+[main/decision][PUB][2019-11-12_20:44:17.879043] Publsih Message to <operate> topic : init
+[main/storage][2019-11-12_20:45:17.623523] storage node is initialized..
+[camera/get_frame][SUB][2019-11-12_20:45:37.281627] Subscribe from operate(rail operating) topic
+[camera/get_frame][2019-11-12_20:45:37.282599] Loading network.....
+[camera/get_frame][2019-11-12_20:45:37.420857] Network successfully loaded
+[camera/get_frame][2019-11-12_20:45:37.430857] Webcam initialized
+[camera/get_frame][PUB][2019-11-12_20:45:46.061780] Publish to img_camera topic
+[camera/classifier_camera][SUB][2019-11-12_20:45:46.092577] Subscribe from img_camera(rail operating) topic
+[camera/classifier_camera][PUB][2019-11-12_20:45:46.104961] Publish to realtime_camera topic
+[main/decision][SUB][2019-11-12_20:45:46.176936] Get Message From <realtime_camera> topic
+[main/decision][PUB][2019-11-12_20:45:46.204506] Send Message to <realtime_result> topic
+[camera/get_frame][PUB][2019-11-12_20:45:53.871472] Publish to img_camera topic
+[camera/classifier_camera][SUB][2019-11-12_20:45:53.902999] Subscribe from img_camera(rail operating) topic
+[camera/classifier_camera][PUB][2019-11-12_20:45:53.916633] Publish to realtime_camera topic
+[main/decision][SUB][2019-11-12_20:45:53.979221] Get Message From <realtime_camera> topic
+[main/decision][PUB][2019-11-12_20:45:54.027484] Send Message to <realtime_result> topic
+[camera/get_frame][PUB][2019-11-12_20:46:02.128940] Publish to img_camera topic
+[camera/classifier_camera][SUB][2019-11-12_20:46:02.153102] Subscribe from img_camera(rail operating) topic
+[camera/classifier_camera][PUB][2019-11-12_20:46:02.166616] Publish to realtime_camera topic
+[main/decision][SUB][2019-11-12_20:46:02.286368] Get Message From <realtime_camera> topic
+[main/decision][PUB][2019-11-12_20:46:02.321196] Send Message to <realtime_result> topic
+[camera/get_frame][PUB][2019-11-12_20:46:09.999899] Publish to img_camera topic
+[camera/classifier_camera][SUB][2019-11-12_20:46:10.022125] Subscribe from img_camera(rail operating) topic
+[camera/classifier_camera][PUB][2019-11-12_20:46:10.035665] Publish to realtime_camera topic
+[main/decision][SUB][2019-11-12_20:46:10.120450] Get Message From <realtime_camera> topic
+[main/decision][PUB][2019-11-12_20:46:10.147063] Send Message to <realtime_result> topic
+[camera/get_frame][PUB][2019-11-12_20:46:18.081793] Publish to img_camera topic
+[camera/classifier_camera][SUB][2019-11-12_20:46:18.108977] Subscribe from img_camera(rail operating) topic
+[camera/classifier_camera][PUB][2019-11-12_20:46:18.126537] Publish to realtime_camera topic
+[main/decision][SUB][2019-11-12_20:46:18.190451] Get Message From <realtime_camera> topic
+[main/decision][PUB][2019-11-12_20:46:18.214637] Send Message to <realtime_result> topic
+[camera/get_frame][PUB][2019-11-12_20:46:26.008863] Publish to img_camera topic
+[camera/classifier_camera][SUB][2019-11-12_20:46:26.038205] Subscribe from img_camera(rail operating) topic
+[camera/classifier_camera][PUB][2019-11-12_20:46:26.050958] Publish to realtime_camera topic
+[main/decision][SUB][2019-11-12_20:46:26.134696] Get Message From <realtime_camera> topic
+[main/decision][PUB][2019-11-12_20:46:26.135949] Send Message to <realtime_result> topic
+[camera/get_frame][PUB][2019-11-12_20:46:33.958530] Publish to img_camera topic
+[camera/classifier_camera][SUB][2019-11-12_20:46:33.980875] Subscribe from img_camera(rail operating) topic
+[camera/classifier_camera][PUB][2019-11-12_20:46:33.994697] Publish to realtime_camera topic
+[main/decision][SUB][2019-11-12_20:46:34.140083] Get Message From <realtime_camera> topic
+[main/decision][PUB][2019-11-12_20:46:34.141162] Send Message to <realtime_result> topic
+[camera/get_frame][PUB][2019-11-12_20:46:41.919246] Publish to img_camera topic
+[camera/classifier_camera][SUB][2019-11-12_20:46:41.937098] Subscribe from img_camera(rail operating) topic
+[camera/classifier_camera][PUB][2019-11-12_20:46:41.948797] Publish to realtime_camera topic
+[main/decision][SUB][2019-11-12_20:46:42.052825] Get Message From <realtime_camera> topic
+[main/decision][PUB][2019-11-12_20:46:42.073749] Send Message to <realtime_result> topic
+[camera/get_frame][PUB][2019-11-12_20:46:49.914175] Publish to img_camera topic
+[camera/classifier_camera][SUB][2019-11-12_20:46:49.936318] Subscribe from img_camera(rail operating) topic
+[camera/classifier_camera][PUB][2019-11-12_20:46:49.951006] Publish to realtime_camera topic
+[main/decision][SUB][2019-11-12_20:46:50.045280] Get Message From <realtime_camera> topic
+[main/decision][PUB][2019-11-12_20:46:50.046806] Send Message to <realtime_result> topic
+[camera/get_frame][PUB][2019-11-12_20:46:57.872142] Publish to img_camera topic
+[camera/classifier_camera][SUB][2019-11-12_20:46:57.901839] Subscribe from img_camera(rail operating) topic
+[camera/classifier_camera][PUB][2019-11-12_20:46:57.918738] Publish to realtime_camera topic
+[main/decision][SUB][2019-11-12_20:46:58.016818] Get Message From <realtime_camera> topic
+[main/decision][PUB][2019-11-12_20:46:58.040478] Send Message to <realtime_result> topic
+[camera/get_frame][PUB][2019-11-12_20:47:05.963122] Publish to img_camera topic
+[camera/classifier_camera][SUB][2019-11-12_20:47:05.983754] Subscribe from img_camera(rail operating) topic
+[camera/classifier_camera][PUB][2019-11-12_20:47:05.992753] Publish to realtime_camera topic
+[main/decision][SUB][2019-11-12_20:47:06.124849] Get Message From <realtime_camera> topic
+[main/decision][PUB][2019-11-12_20:47:06.136346] Send Message to <realtime_result> topic
+[camera/get_frame][PUB][2019-11-12_20:47:13.877008] Publish to img_camera topic
+[camera/classifier_camera][SUB][2019-11-12_20:47:13.899307] Subscribe from img_camera(rail operating) topic
+[camera/classifier_camera][PUB][2019-11-12_20:47:13.908792] Publish to realtime_camera topic
+[main/decision][SUB][2019-11-12_20:47:14.054873] Get Message From <realtime_camera> topic
+[main/decision][PUB][2019-11-12_20:47:14.089465] Send Message to <realtime_result> topic
+[camera/get_frame][PUB][2019-11-12_20:47:22.030567] Publish to img_camera topic
+[camera/classifier_camera][SUB][2019-11-12_20:47:22.052568] Subscribe from img_camera(rail operating) topic
+[camera/classifier_camera][PUB][2019-11-12_20:47:22.064786] Publish to realtime_camera topic
+[main/decision][SUB][2019-11-12_20:47:22.134356] Get Message From <realtime_camera> topic
+[main/decision][PUB][2019-11-12_20:47:22.135546] Send Message to <realtime_result> topic
+[camera/get_frame][PUB][2019-11-12_20:47:30.048766] Publish to img_camera topic
+[camera/classifier_camera][SUB][2019-11-12_20:47:30.069885] Subscribe from img_camera(rail operating) topic
+[camera/classifier_camera][PUB][2019-11-12_20:47:30.083060] Publish to realtime_camera topic
+[main/decision][SUB][2019-11-12_20:47:30.168526] Get Message From <realtime_camera> topic
+[main/decision][PUB][2019-11-12_20:47:30.198023] Send Message to <realtime_result> topic
+[camera/get_frame][PUB][2019-11-12_20:47:38.234808] Publish to img_camera topic
+[camera/classifier_camera][SUB][2019-11-12_20:47:38.260293] Subscribe from img_camera(rail operating) topic
+[camera/classifier_camera][PUB][2019-11-12_20:47:38.273120] Publish to realtime_camera topic
+[main/decision][SUB][2019-11-12_20:47:38.345576] Get Message From <realtime_camera> topic
+[main/decision][PUB][2019-11-12_20:47:38.362014] Send Message to <realtime_result> topic
+[camera/get_frame][PUB][2019-11-12_20:47:46.603287] Publish to img_camera topic
+[camera/classifier_camera][SUB][2019-11-12_20:47:46.625641] Subscribe from img_camera(rail operating) topic
+[camera/classifier_camera][PUB][2019-11-12_20:47:46.636062] Publish to realtime_camera topic
+[main/decision][SUB][2019-11-12_20:47:46.750329] Get Message From <realtime_camera> topic
+[main/decision][PUB][2019-11-12_20:47:46.756779] Send Message to <realtime_result> topic
+[main/storage][2019-11-12_20:47:50.887225] storage node is initialized..
+[camera/get_frame][PUB][2019-11-12_20:47:55.599346] Publish to img_camera topic
+[camera/classifier_camera][SUB][2019-11-12_20:47:55.619675] Subscribe from img_camera(rail operating) topic
+[camera/classifier_camera][PUB][2019-11-12_20:47:55.628760] Publish to realtime_camera topic
+[main/decision][SUB][2019-11-12_20:47:55.712848] Get Message From <realtime_camera> topic
+[main/decision][PUB][2019-11-12_20:47:55.739113] Send Message to <realtime_result> topic
+[main/storage][SUB][2019-11-12_20:47:55.792989] Get Message From <result> topic
+[camera/get_frame][PUB][2019-11-12_20:48:03.280645] Publish to img_camera topic
+[camera/classifier_camera][SUB][2019-11-12_20:48:03.308551] Subscribe from img_camera(rail operating) topic
+[camera/classifier_camera][PUB][2019-11-12_20:48:03.322390] Publish to realtime_camera topic
+[main/decision][SUB][2019-11-12_20:48:03.430153] Get Message From <realtime_camera> topic
+[main/decision][PUB][2019-11-12_20:48:03.474096] Send Message to <realtime_result> topic
+[main/storage][SUB][2019-11-12_20:48:03.503950] Get Message From <result> topic
+[camera/get_frame][PUB][2019-11-12_20:48:11.122173] Publish to img_camera topic
+[camera/classifier_camera][SUB][2019-11-12_20:48:11.154134] Subscribe from img_camera(rail operating) topic
+[camera/classifier_camera][PUB][2019-11-12_20:48:11.174170] Publish to realtime_camera topic
+[main/decision][SUB][2019-11-12_20:48:11.362775] Get Message From <realtime_camera> topic
+[main/decision][PUB][2019-11-12_20:48:11.425999] Send Message to <realtime_result> topic
+[main/storage][SUB][2019-11-12_20:48:11.445198] Get Message From <result> topic
+[camera/get_frame][PUB][2019-11-12_20:48:19.126536] Publish to img_camera topic
+[camera/classifier_camera][SUB][2019-11-12_20:48:19.148490] Subscribe from img_camera(rail operating) topic
+[camera/classifier_camera][PUB][2019-11-12_20:48:19.162482] Publish to realtime_camera topic
+[main/decision][SUB][2019-11-12_20:48:19.223776] Get Message From <realtime_camera> topic
+[main/decision][PUB][2019-11-12_20:48:19.288800] Send Message to <realtime_result> topic
+[main/storage][SUB][2019-11-12_20:48:19.283273] Get Message From <result> topic
+[camera/get_frame][PUB][2019-11-12_20:48:27.332009] Publish to img_camera topic
+[camera/classifier_camera][SUB][2019-11-12_20:48:27.353540] Subscribe from img_camera(rail operating) topic
+[camera/classifier_camera][PUB][2019-11-12_20:48:27.367893] Publish to realtime_camera topic
+[main/decision][SUB][2019-11-12_20:48:27.431443] Get Message From <realtime_camera> topic
+[main/decision][PUB][2019-11-12_20:48:27.463789] Send Message to <realtime_result> topic
+[main/storage][SUB][2019-11-12_20:48:27.486960] Get Message From <result> topic
+[camera/get_frame][PUB][2019-11-12_20:48:35.610707] Publish to img_camera topic
+[camera/classifier_camera][SUB][2019-11-12_20:48:35.633042] Subscribe from img_camera(rail operating) topic
+[camera/classifier_camera][PUB][2019-11-12_20:48:35.647840] Publish to realtime_camera topic
+[main/decision][SUB][2019-11-12_20:48:35.718330] Get Message From <realtime_camera> topic
+[main/decision][PUB][2019-11-12_20:48:35.783905] Send Message to <realtime_result> topic
+[main/storage][SUB][2019-11-12_20:48:35.805678] Get Message From <result> topic
+[camera/get_frame][PUB][2019-11-12_20:48:43.919386] Publish to img_camera topic
+[camera/classifier_camera][SUB][2019-11-12_20:48:43.940040] Subscribe from img_camera(rail operating) topic
+[camera/classifier_camera][PUB][2019-11-12_20:48:43.954778] Publish to realtime_camera topic
+[main/decision][SUB][2019-11-12_20:48:44.070794] Get Message From <realtime_camera> topic
+[main/decision][PUB][2019-11-12_20:48:44.095500] Send Message to <realtime_result> topic
+[camera/get_frame][PUB][2019-11-12_20:48:52.020034] Publish to img_camera topic
+[camera/classifier_camera][SUB][2019-11-12_20:48:52.039161] Subscribe from img_camera(rail operating) topic
+[camera/classifier_camera][PUB][2019-11-12_20:48:52.059224] Publish to realtime_camera topic
+[main/decision][SUB][2019-11-12_20:48:52.156347] Get Message From <realtime_camera> topic
+[main/decision][PUB][2019-11-12_20:48:52.170291] Send Message to <realtime_result> topic
+[camera/get_frame][PUB][2019-11-12_20:49:00.027141] Publish to img_camera topic
+[camera/classifier_camera][SUB][2019-11-12_20:49:00.049070] Subscribe from img_camera(rail operating) topic
+[camera/classifier_camera][PUB][2019-11-12_20:49:00.066594] Publish to realtime_camera topic
+[main/decision][SUB][2019-11-12_20:49:00.161024] Get Message From <realtime_camera> topic
+[main/decision][PUB][2019-11-12_20:49:00.173877] Send Message to <realtime_result> topic
+[main/storage][2019-11-12_20:49:08.694778] storage node is initialized..
+[camera/get_frame][PUB][2019-11-12_20:49:09.636317] Publish to img_camera topic
+[camera/classifier_camera][SUB][2019-11-12_20:49:09.674586] Subscribe from img_camera(rail operating) topic
+[camera/classifier_camera][PUB][2019-11-12_20:49:09.694076] Publish to realtime_camera topic
+[main/decision][SUB][2019-11-12_20:49:09.769369] Get Message From <realtime_camera> topic
+[main/storage][SUB][2019-11-12_20:49:09.833105] Get Message From <result> topic
+[main/decision][PUB][2019-11-12_20:49:09.854324] Send Message to <realtime_result> topic
+[camera/get_frame][PUB][2019-11-12_20:49:17.553298] Publish to img_camera topic
+[camera/classifier_camera][SUB][2019-11-12_20:49:17.575550] Subscribe from img_camera(rail operating) topic
+[camera/classifier_camera][PUB][2019-11-12_20:49:17.583936] Publish to realtime_camera topic
+[main/decision][SUB][2019-11-12_20:49:17.658763] Get Message From <realtime_camera> topic
+[main/storage][SUB][2019-11-12_20:49:17.729723] Get Message From <result> topic
+[main/decision][PUB][2019-11-12_20:49:17.733134] Send Message to <realtime_result> topic
+[camera/get_frame][PUB][2019-11-12_20:49:25.334119] Publish to img_camera topic
+[camera/classifier_camera][SUB][2019-11-12_20:49:25.353163] Subscribe from img_camera(rail operating) topic
+[camera/classifier_camera][PUB][2019-11-12_20:49:25.365539] Publish to realtime_camera topic
+[main/decision][SUB][2019-11-12_20:49:25.508273] Get Message From <realtime_camera> topic
+[main/storage][SUB][2019-11-12_20:49:25.543709] Get Message From <result> topic
+[main/decision][PUB][2019-11-12_20:49:25.579055] Send Message to <realtime_result> topic
+[camera/get_frame][PUB][2019-11-12_20:49:33.531943] Publish to img_camera topic
+[camera/classifier_camera][SUB][2019-11-12_20:49:33.551863] Subscribe from img_camera(rail operating) topic
+[camera/classifier_camera][PUB][2019-11-12_20:49:33.560626] Publish to realtime_camera topic
+[main/decision][SUB][2019-11-12_20:49:33.661666] Get Message From <realtime_camera> topic
+[main/decision][PUB][2019-11-12_20:49:33.689896] Send Message to <realtime_result> topic
+[camera/get_frame][PUB][2019-11-12_20:49:41.401956] Publish to img_camera topic
+[camera/classifier_camera][SUB][2019-11-12_20:49:41.425261] Subscribe from img_camera(rail operating) topic
+[camera/classifier_camera][PUB][2019-11-12_20:49:41.436712] Publish to realtime_camera topic
+[main/decision][SUB][2019-11-12_20:49:41.495204] Get Message From <realtime_camera> topic
+[main/decision][PUB][2019-11-12_20:49:41.509629] Send Message to <realtime_result> topic
+[camera/get_frame][PUB][2019-11-12_20:49:49.405649] Publish to img_camera topic
+[camera/classifier_camera][SUB][2019-11-12_20:49:49.435827] Subscribe from img_camera(rail operating) topic
+[camera/classifier_camera][PUB][2019-11-12_20:49:49.449781] Publish to realtime_camera topic
+[main/decision][SUB][2019-11-12_20:49:49.518043] Get Message From <realtime_camera> topic
+[main/decision][PUB][2019-11-12_20:49:49.556414] Send Message to <realtime_result> topic
+[camera/get_frame][PUB][2019-11-12_20:49:57.120272] Publish to img_camera topic
+[camera/classifier_camera][SUB][2019-11-12_20:49:57.141672] Subscribe from img_camera(rail operating) topic
+[camera/classifier_camera][PUB][2019-11-12_20:49:57.152259] Publish to realtime_camera topic
+[main/decision][SUB][2019-11-12_20:49:57.324673] Get Message From <realtime_camera> topic
+[main/decision][PUB][2019-11-12_20:49:57.339126] Send Message to <realtime_result> topic
+[camera/get_frame][PUB][2019-11-12_20:50:05.102427] Publish to img_camera topic
+[camera/classifier_camera][SUB][2019-11-12_20:50:05.121008] Subscribe from img_camera(rail operating) topic
+[camera/classifier_camera][PUB][2019-11-12_20:50:05.131445] Publish to realtime_camera topic
+[main/decision][SUB][2019-11-12_20:50:05.220229] Get Message From <realtime_camera> topic
+[main/decision][PUB][2019-11-12_20:50:05.222256] Send Message to <realtime_result> topic
+[camera/get_frame][PUB][2019-11-12_20:50:13.061707] Publish to img_camera topic
+[camera/classifier_camera][SUB][2019-11-12_20:50:13.093214] Subscribe from img_camera(rail operating) topic
+[camera/classifier_camera][PUB][2019-11-12_20:50:13.111554] Publish to realtime_camera topic
+[main/decision][SUB][2019-11-12_20:50:13.194638] Get Message From <realtime_camera> topic
+[main/decision][PUB][2019-11-12_20:50:13.205710] Send Message to <realtime_result> topic
+[camera/get_frame][PUB][2019-11-12_20:50:21.144173] Publish to img_camera topic
+[camera/classifier_camera][SUB][2019-11-12_20:50:21.172789] Subscribe from img_camera(rail operating) topic
+[camera/classifier_camera][PUB][2019-11-12_20:50:21.192791] Publish to realtime_camera topic
+[main/decision][SUB][2019-11-12_20:50:21.297884] Get Message From <realtime_camera> topic
+[main/decision][PUB][2019-11-12_20:50:21.310589] Send Message to <realtime_result> topic
+[camera/get_frame][PUB][2019-11-12_20:50:29.092649] Publish to img_camera topic
+[camera/classifier_camera][SUB][2019-11-12_20:50:29.119921] Subscribe from img_camera(rail operating) topic
+[camera/classifier_camera][PUB][2019-11-12_20:50:29.138033] Publish to realtime_camera topic
+[main/decision][SUB][2019-11-12_20:50:29.205228] Get Message From <realtime_camera> topic
+[main/decision][PUB][2019-11-12_20:50:29.211922] Send Message to <realtime_result> topic
+[camera/get_frame][PUB][2019-11-12_20:50:37.028339] Publish to img_camera topic
+[camera/classifier_camera][SUB][2019-11-12_20:50:37.044978] Subscribe from img_camera(rail operating) topic
+[camera/classifier_camera][PUB][2019-11-12_20:50:37.062319] Publish to realtime_camera topic
+[main/decision][SUB][2019-11-12_20:50:37.135427] Get Message From <realtime_camera> topic
+[main/decision][PUB][2019-11-12_20:50:37.146676] Send Message to <realtime_result> topic
