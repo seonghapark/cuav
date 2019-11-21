@@ -1,5 +1,5 @@
 devel/
-logs/
+__pycache__/
 build/
 bin/
 lib/

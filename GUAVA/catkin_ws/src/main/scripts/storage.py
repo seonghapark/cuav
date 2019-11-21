@@ -60,9 +60,9 @@ def callback_final_result(data, args):
 # raw data from raw topic in radar
 def callback_raw(data, args):
 	pub_log = args
-	fileNmae = time.strftime("%Y%m%d_%H%M%S") + '_binary.txt'
-	directory = '/home/project/cuav/GUAVA/catkin_ws/src/main/logs/storage/raw/'
-	binary_data = open(directory+fileNmae, 'wb')
+	fileName = time.strftime("%Y%m%d_%H%M%S") + '_binary.txt'
+	directory = '/home/project/cuav/GUAVA/catkin_ws/src/main/storage/raw/'
+	binary_data = open(directory+fileName, 'wb')
 
 	received_data = bytearray()
 	received_data = data.data
