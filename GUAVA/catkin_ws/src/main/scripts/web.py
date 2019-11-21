@@ -44,15 +44,13 @@ class ROSWeb(Thread):
             image_camera_name = data.image_camera
             image_camera_accuracy = round(data.percent_camera * 100, 2)
 
-        print(realtime_camera_image, realtime_camera_accuracy, "WEB NODE RESULT")
-
         #result = (image_camera_name, camera_accuracy, realtime_camera_image, realtime_camera_accuracy, image_sar_name, radar_accuracy)
         result = (image_camera_name, image_camera_accuracy, realtime_camera_image, realtime_camera_accuracy)
 
-        with app.app_context():
-            context = {'realIMG': result[0], 'realACCURACY': result[1]}
-            return render_template("index.html", **context)
-            #return Response(stream_with_context(generate()))
+        # with app.app_context():
+        #     context = {'realIMG': result[0], 'realACCURACY': result[1]}
+        #     return render_template("index.html", **context)
+        #     #return Response(stream_with_context(generate()))
 
     def listener(self):
         rospy.init_node('web', anonymous=True)
@@ -76,14 +74,12 @@ class WebService(Thread):
 
     def run(self):
         global app
-        # app.run(host='192.168.2.128')
-        socketio.run(app, host='192.168.2.128')
+        app.run(host='192.168.2.128')
 
 # default connect
 @app.route("/")
 def index():
-    # return render_template('index.html')
-    return render_template('index.html', async_mode=socketio.async_mode)
+    return render_template('index.html')
 
 
 # click START button(getting images)
