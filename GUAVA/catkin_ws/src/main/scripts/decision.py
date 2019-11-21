@@ -6,6 +6,7 @@ from threading import Thread
 import time
 from camera.msg import sendframe, sendsummary
 from std_msgs.msg import String
+from sensor_msgs.msg import Image
 from main.msg import operate, realtime, result
 from DecisionClass import DecisionClass
 from main_log import log_generator
@@ -50,8 +51,7 @@ def callback_radar(data, args):
     log = log_generator('decision', "result_radar", 'sub')
     pub_log.publish(log)
 
-    DecisionValues.image_radar = data.sar
-    DecisionValues.percent_radar = data.percent
+    DecisionValues.image_radar = data
 
 
 def callback_summary_camera(data, args):
@@ -204,7 +204,7 @@ def init():
     log = log_generator('decision', 'Decision node is initialized..')
     pub_log.publish(log)
 
-    rospy.Subscriber('result_radar', String, callback_radar, pub_log)
+    rospy.Subscriber('result_radar', Image, callback_radar, pub_log)
     rospy.Subscriber('summary_camera', sendsummary, callback_summary_camera, pub_log)
     rospy.Subscriber('realtime_camera', sendframe, callback_realtime_camera, (pub_log, pub_realtime))
     rospy.Subscriber('rail_end', String, callback_rail_end, pub_log)
