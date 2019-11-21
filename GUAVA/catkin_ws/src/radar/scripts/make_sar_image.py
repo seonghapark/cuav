@@ -151,7 +151,7 @@ def get_sar_frames(sync_samples, data_samples, sample_rate, pulse_period=MOD_PUL
     '''
     ramp_up_time = pulse_period  # the length of the flat top of a sync sample, the time (20 ms) for the frequency modulation to go from lowest to highest.
     # TODO : check for minimum silence length
-    # minimum_silence_len = sample_rate * ramp_up_time  # arbitrary amount of silence between frames
+    #minimum_silence_len = sample_rate * ramp_up_time  # arbitrary amount of silence between frames
     minimum_silence_len = 135  # samples per ramp up time in KSW radar
     # print('minimum_silence_len : ', minimum_silence_len)
     # 0.1 is arbitrarily the limit of sensitivity we have for this
@@ -522,4 +522,5 @@ def listener():
 
 
 if __name__ == '__main__':
+    time.sleep(3)
     listener()

@@ -133,5 +133,5 @@ def listener(args):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-d', '--device', dest='device', help='Device path')
-
+    time.sleep(3)
     listener(parser.parse_args())

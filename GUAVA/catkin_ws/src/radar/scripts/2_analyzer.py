@@ -223,4 +223,5 @@ def listener():
 
 if __name__ == '__main__':
     ifft = ifft_handler()
+    time.sleep(3)
     listener()
