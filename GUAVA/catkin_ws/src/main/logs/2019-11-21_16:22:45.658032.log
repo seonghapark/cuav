@@ -1,0 +1,7 @@
+[main/log][2019-11-21_16:22:45.658412] log node is initialized..
+[camera/get_frame][2019-11-21_16:22:57.155986] Start get_frame
+[main/decision][2019-11-21_16:23:11.699830] decision node is initialized..
+[main/decision][PUB][2019-11-21_16:23:11.803170] Publsih Message to <operate> topic : init
+[camera/classifier_camera][2019-11-21_16:26:22.683175] Start classifier_camera
+[camera/get_frame][2019-11-21_16:26:24.521362] Start get_frame
+[main/decision][PUB][2019-11-21_16:26:30.359738] Publsih Message to <operate> topic : init
