@@ -1,0 +1,3 @@
+[main/log][2019-11-18_20:32:08.391820] log node is initialized..
+[main/decision][2019-11-18_20:32:50.124643] decision node is initialized..
+[main/decision][PUB][2019-11-18_20:32:50.282890] Publish to Publish Message to <operate> topic : init topic
