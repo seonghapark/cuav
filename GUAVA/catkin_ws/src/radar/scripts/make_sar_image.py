@@ -5,9 +5,16 @@ import scipy
 import scipy.signal
 import matplotlib.pylab as pylab
 import time
+import os
+import argparse
+from math import pi as PI
+from datetime import datetime
+import cv2
+from cv_bridge import CvBridge, CvBridgeError
 
 import rospy
 from radar.msg import wav
+from sensor_msgs.msg import Image
 from std_msgs.msg import String
 
 try:
@@ -19,14 +26,8 @@ except Exception as e:
     print("else build them from source.")
     raise e
 
-import os
-import argparse
-from math import pi as PI
-from datetime import datetime
-
-package_name = 'radar'
-node_name = 'make_sar_image'
-str_time = str(datetime.now()).replace(' ', '_')
+PACKAGE_NAME = 'radar'
+NODE_NAME = 'make_sar_image'
 C = 3e8  # light speed approximation
 # TODO : check pulse period
 MOD_PULSE_PERIOD = 20e-3  # MOD_PULSE_PERIOD = 20e-3
@@ -44,6 +45,7 @@ VCO_FREQ_RANGE = [2350e6, 2500e6]
 
 # Initialize node and declare publishers
 rospy.init_node('make_sar_image', anonymous=True)
+pub_img = rospy.Publisher('result_radar', Image, queue_size=1)
 log = rospy.Publisher('log', String, queue_size=10)
 
 
@@ -67,7 +69,7 @@ def open_wave(data, log):
 
     str_time = str(datetime.now()).replace(' ', '_')
     str_msg = 'Data : ' + str(raw_data.shape) + ' Sync : ' + str(raw_sync.shape) + ' Sample rate : ' + str(data.sr)
-    log_text = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, str_msg)
+    log_text = '[{}/{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, str_time, str_msg)
     print(log_text)
     log.publish(log_text)
 
@@ -100,7 +102,7 @@ def open_wave(data, log):
     #                               data_samples)
     str_msg = 'sync samples after normalization \n' + str(sync_samples) + '\ndata samples after normalization \n' + str(
         data_samples)
-    log_text = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, str_msg)
+    log_text = '[{}/{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, str_time, str_msg)
     # print(log1, log2, file=f)
     log.publish(log_text)
 
@@ -174,7 +176,7 @@ def get_sar_frames(sync_samples, data_samples, sample_rate, pulse_period=MOD_PUL
     msg = 'minimum_silence_len : ' + str(minimum_silence_len) + 'num of False : ' + str(list(condition).count(False)) \
           + 'num of True : ' + str(list(condition).count(True)) + 'average of silent regions : ' + str(
         tmp / len(silent_regions))
-    log_text = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, msg)
+    log_text = '[{}/{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, str_time, msg)
     # print(log1, log2, log3, file=f)
     log.publish(log_text)
     print(log_text)
@@ -416,7 +418,7 @@ def make_sar_image(setup_data, log):
     '''Gets the frames from an input file, performs the RMA on the SAR data,
     and saves to an output image.'''
     str_time = str(datetime.now()).replace(' ', '_')
-    log_text = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, 'Making sar image')
+    log_text = '[{}/{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, str_time, 'Making sar image')
     log.publish(log_text)
     print(log_text)
 
@@ -456,19 +458,28 @@ def make_sar_image(setup_data, log):
     plot_img(sar_img_data)
 
     str_time = str(datetime.now()).replace(' ', '_')
-    log_text = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, 'Finish plotting image')
+    log_text = '[{}/{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, str_time, 'Finish plotting image')
+    log.publish(log_text)
+    print(log_text)
+
+    cv_image = cv2.imread(sar_img_data['outfilename'])
+    image_message = CvBridge.cv2_to_imgmsg(cv_image, encoding="passthrough")
+
+    pub_img.publish(image_message)
+    str_time = str(datetime.now()).replace(' ', '_')
+    log_text = '[{}/{}][{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, 'PUB', str_time, 'Publish to result_radar')
     log.publish(log_text)
     print(log_text)
 
 
 def main(data, log):
     str_time = str(datetime.now()).replace(' ', '_')
-    log_text = '[{}/{}][{}][{}] {}'.format(package_name, node_name, 'SUB', str_time, 'Subscribe from wav')
+    log_text = '[{}/{}][{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, 'SUB', str_time, 'Subscribe from wav')
     log.publish(log_text)
     print(log_text)
 
     str_msg = 'Data num : ' + str(data.num)
-    log_text = '[{}/{}][{}] [{}]'.format(package_name, node_name, str_time, str_msg)
+    log_text = '[{}/{}][{}] [{}]'.format(PACKAGE_NAME, NODE_NAME, str_time, str_msg)
     log.publish(log_text)
     print(log_text)
 
@@ -513,7 +524,7 @@ def main(data, log):
 
 def listener():
     str_time = str(datetime.now()).replace(' ', '_')
-    log_text = '[{}/{}][{}] {}'.format(package_name, node_name, str_time, 'make_sar_image connects ROS')
+    log_text = '[{}/{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, str_time, 'make_sar_image connects ROS')
     log.publish(log_text)
     print(log_text)
 
