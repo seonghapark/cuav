@@ -68,6 +68,9 @@ def publish(operate):
 def start(operate, args):
     global FLAG, DATA, realtime_cnt, binary_data, system_start_time, sample_rate
 
+    if operate.command != "start":
+        return
+
     str_time = str(datetime.now()).replace(' ', '_')
     log_text = '[{}/{}][{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, 'SUB', str_time, 'Subscribe from operate : start')
     print(log_text)
