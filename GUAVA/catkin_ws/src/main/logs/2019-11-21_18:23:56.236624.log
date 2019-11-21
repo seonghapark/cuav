@@ -95,3 +95,36 @@
 [main/decision][2019-11-21_18:30:02.682093]  ** end phase **
 [camera/get_frame][SUB][2019-11-21_18:30:02.736297] Subscribe from <operate(rail ended)> topic
 [main/decision][PUB][2019-11-21_18:30:02.725750] Publish to <end> topic
+[camera/get_frame][PUB][2019-11-21_18:30:05.838819] Publish to <img_camera> topic
+[camera/classifier_camera][SUB][2019-11-21_18:30:05.860489] Subscribe from <img_camera(rail ended)> topic
+[camera/classifier_camera][PUB][2019-11-21_18:30:05.874114] Publish to <summary_camera> topic
+[main/decision][SUB][2019-11-21_18:30:08.153078] Subscribe from <summary_camera> topic
+[camera/get_frame][PUB][2019-11-21_18:30:11.796811] Publish to <img_camera> topic
+[camera/classifier_camera][SUB][2019-11-21_18:30:11.815636] Subscribe from <img_camera(rail operating)> topic
+[camera/classifier_camera][PUB][2019-11-21_18:30:11.826054] Publish to <realtime_camera> topic
+[main/decision][SUB][2019-11-21_18:30:13.796142] Subscribe from <realtime_camera> topic
+[main/storage][SUB][2019-11-21_18:30:13.820561] Subscribe from <result> topic
+[main/decision][PUB][2019-11-21_18:30:13.818685] Publish to <realtime_result> topic
+[main/web][SUB][2019-11-21_18:30:13.841847] Subscribe from <result> topic
+[camera/get_frame][PUB][2019-11-21_18:30:17.663205] Publish to <img_camera> topic
+[camera/classifier_camera][SUB][2019-11-21_18:30:17.681747] Subscribe from <img_camera(rail operating)> topic
+[camera/classifier_camera][PUB][2019-11-21_18:30:17.696631] Publish to <realtime_camera> topic
+[main/decision][SUB][2019-11-21_18:30:19.936245] Subscribe from <realtime_camera> topic
+[main/decision][PUB][2019-11-21_18:30:19.959689] Publish to <realtime_result> topic
+[main/storage][SUB][2019-11-21_18:30:19.996377] Subscribe from <result> topic
+[main/web][SUB][2019-11-21_18:30:20.033308] Subscribe from <result> topic
+[camera/get_frame][PUB][2019-11-21_18:30:23.590884] Publish to <img_camera> topic
+[camera/classifier_camera][SUB][2019-11-21_18:30:23.612791] Subscribe from <img_camera(rail operating)> topic
+[camera/classifier_camera][PUB][2019-11-21_18:30:23.626813] Publish to <realtime_camera> topic
+[main/decision][SUB][2019-11-21_18:30:25.974960] Subscribe from <realtime_camera> topic
+[main/storage][SUB][2019-11-21_18:30:26.005545] Subscribe from <result> topic
+[main/decision][PUB][2019-11-21_18:30:25.989939] Publish to <realtime_result> topic
+[main/web][SUB][2019-11-21_18:30:26.026771] Subscribe from <result> topic
+[camera/get_frame][PUB][2019-11-21_18:30:29.475497] Publish to <img_camera> topic
+[camera/classifier_camera][SUB][2019-11-21_18:30:29.494680] Subscribe from <img_camera(rail operating)> topic
+[camera/classifier_camera][PUB][2019-11-21_18:30:29.508369] Publish to <realtime_camera> topic
+[main/decision][SUB][2019-11-21_18:30:31.536023] Subscribe from <realtime_camera> topic
+[main/decision][PUB][2019-11-21_18:30:31.543797] Publish to <realtime_result> topic
+[main/storage][SUB][2019-11-21_18:30:31.559807] Subscribe from <result> topic
+[main/web][SUB][2019-11-21_18:30:31.581165] Subscribe from <result> topic
+[main/decision][PUB][2019-11-21_19:12:01.693141] Publish to <Decision node will be terminated..> topic

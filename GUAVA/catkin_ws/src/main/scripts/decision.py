@@ -103,7 +103,7 @@ def is_ready(pub_decision_result, pub_log):
     # later.. the type is not String type. that will be changed to custom message type
     except KeyboardInterrupt:
         pass
-    rate = rospy.Rate(10)
+    #rate = rospy.Rate(10)
 
     # if two results are received...
     log = log_generator('decision', 'All results are received. It will be transferred to storage node')

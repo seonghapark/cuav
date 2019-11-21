@@ -24,7 +24,6 @@ def callback_final_result(data, args):
 
 	directory = '/home/project/cuav/GUAVA/catkin_ws/src/main/storage/final_result/'
 	image_data_camera = open(directory + fileName + '_camera_data.txt', 'w')
-	image_data_radar = open(directory + fileName + '_radar_data.txt', 'w')
 
 	bridge = CvBridge()
 
@@ -44,10 +43,7 @@ def callback_final_result(data, args):
 	print("coordinates : ", data.coords_camera, file=image_data_camera)
 	print("percent : ", data.percent_camera, file=image_data_camera)
 
-	print("percent : ", data.percent_radar, file=image_data_radar)
-
 	image_data_camera.close()
-	image_data_radar.close()
 
 	web_message = DecisionValues.generate_web_message()
 	pub_web.publish(web_message)
@@ -69,7 +65,7 @@ def callback_raw(data, args):
 
 	lengthMSb = bytes([11025 >> 8])
 	lengthLSb = bytes([11025 & 0xFF])
-	binary_data.write(lengthMSb + lengthLSb + data)
+	binary_data.write(lengthMSb + lengthLSb + data.data)
 	binary_data.close()
 
 	# log
@@ -115,7 +111,7 @@ def storage(pub_log, pub_web):
 	rospy.Subscriber('realtime_result', realtime, callback_realtime_result, (pub_log, pub_web))
 	rospy.Subscriber('final_result', result, callback_final_result, (pub_log, pub_web))
 	#rospy.Subscriber('img_camera', realtime, callback_result, pub_log)
-	rospy.Subscriber('raw', raw, callback_raw, pub_log)
+	#rospy.Subscriber('raw', raw, callback_raw, pub_log)
 	rospy.spin()
 
 

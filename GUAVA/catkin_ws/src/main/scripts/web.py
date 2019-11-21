@@ -6,6 +6,7 @@ from std_msgs.msg import String
 from main.msg import result_web
 from flask import Flask, render_template, Response, redirect, url_for, request, stream_with_context
 from main_log import log_generator
+import time
 
 #############################
 # Global variables
@@ -54,6 +55,7 @@ class ROSWeb(Thread):
         rospy.init_node('web', anonymous=True)
 
         pub_log = rospy.Publisher('logs', String, queue_size=10)
+        time.sleep(2)
 
         # log
         log = log_generator('web', 'web node is initialized..')
