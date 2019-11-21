@@ -276,3 +276,11 @@
 	- log convention 다시 통일
 	- web Flask static folder 수정 및 총 3개의 이미지가 나오게 설정
 	- 새로운 사진이 들어올 때마다 사진이 업데이트 되는 작업 진행 중
+	
+### 2019-11-20
+	- 실험 진행
+	- 문제점:
+	    - 처음에 log.py에 노드들 initialize되는 부분 읽히지 않는다
+	    - 메인이 init 보낼 때 카메라에서 읽어지지가 않는다
+	    - 메인과 카메라 메세지 type mismatch
+	    - storage에 저장이 제대로 안된다
