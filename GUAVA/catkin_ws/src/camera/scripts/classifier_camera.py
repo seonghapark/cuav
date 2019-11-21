@@ -96,6 +96,7 @@ if __name__ == '__main__':
 	time.sleep(2)
 	log.publish(log_generator("classifier_camera", "Start classifier_camera"))
 	classifier_camera = ClassifierCamera('classifier_camera', log)
+	time.sleep(2)
 	try:
 		rospy.spin()
 	except KeyboardInterrupt:

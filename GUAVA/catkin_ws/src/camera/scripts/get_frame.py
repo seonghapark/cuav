@@ -136,6 +136,7 @@ if __name__ == '__main__':
     time.sleep(2)
     log.publish(log_generator('get_frame', "Start get_frame"))
     g_frame = GetFrame('get_frame', log)
+    time.sleep(2)
     try:
         rospy.spin()
     except KeyboardInterrupt:
