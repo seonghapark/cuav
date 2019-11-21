@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import cv2
 import sys
+import time
 import rospy
 import argparse
 from detection_boxes import DetectBoxes
@@ -132,6 +133,7 @@ class GetFrame:
 if __name__ == '__main__':
     rospy.init_node('get_frame', anonymous=True)
     log = rospy.Publisher('logs', String, queue_size=10)
+    time.sleep(2)
     log.publish(log_generator('get_frame', "Start get_frame"))
     g_frame = GetFrame('get_frame', log)
     try:
