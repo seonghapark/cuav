@@ -1,0 +1,188 @@
+[main/log][2019-11-20_19:14:53.993314] log node is initialized..
+[main/storage][2019-11-20_19:15:00.605531] storage node is initialized..
+[main/decision][2019-11-20_19:16:13.392147] Decision node is initialized..
+[main/decision][2019-11-20_19:16:13.453195]  ** init phase **
+[main/decision][PUB][2019-11-20_19:16:13.480404] Publish to <operate> topic
+[main/decision][2019-11-20_19:16:13.480988] waiting init finished..
+[main/decision][2019-11-20_19:16:15.184441] waiting results from radar and camera
+[main/decision][SUB][2019-11-20_19:17:17.401117] Subscribe from <rail_end> topic
+[main/decision][2019-11-20_19:17:17.401280]  ** start phase **
+[camera/get_frame][SUB][2019-11-20_19:17:17.461612] Subscribe from <operate(rail operating)> topic
+[main/decision][PUB][2019-11-20_19:17:17.464863] Publish to <operate> topic
+[camera/get_frame][2019-11-20_19:17:17.462440] Loading network.....
+[radar/receiver][SUB][2019-11-20_19:17:17.473071] Subscribe from operate : start
+[radar/receiver][2019-11-20_19:17:17.474116] Begin receiving
+[main/decision][2019-11-20_19:17:17.491007] waiting cycle finished..
+[radar/analyzer][SUB][2019-11-20_19:17:18.482279] Subscribe from realtime
+[radar/receiver][PUB][2019-11-20_19:17:18.481712] Publish to realtime
+[radar/analyzer][2019-11-20_19:17:18.482279] Data num : 0Data len : 11748
+[radar/receiver][PUB][2019-11-20_19:17:19.487157] Publish to realtime
+[radar/analyzer][SUB][2019-11-20_19:17:19.487620] Subscribe from realtime
+[radar/analyzer][2019-11-20_19:17:19.487620] Data num : 1Data len : 11824
+[camera/get_frame][2019-11-20_19:17:19.803910] Network successfully loaded
+[camera/get_frame][2019-11-20_19:17:19.812455] Webcam initialized
+[radar/receiver][PUB][2019-11-20_19:17:20.490648] Publish to realtime
+[radar/analyzer][SUB][2019-11-20_19:17:20.492720] Subscribe from realtime
+[radar/analyzer][2019-11-20_19:17:20.492720] Data num : 2Data len : 11844
+[radar/receiver][PUB][2019-11-20_19:17:21.492022] Publish to realtime
+[radar/analyzer][SUB][2019-11-20_19:17:21.493590] Subscribe from realtime
+[radar/analyzer][2019-11-20_19:17:21.493590] Data num : 3Data len : 11842
+[radar/receiver][PUB][2019-11-20_19:17:22.496234] Publish to realtime
+[radar/analyzer][SUB][2019-11-20_19:17:22.497820] Subscribe from realtime
+[radar/analyzer][2019-11-20_19:17:22.497820] Data num : 4Data len : 11850
+[radar/receiver][PUB][2019-11-20_19:17:23.499486] Publish to realtime
+[radar/analyzer][SUB][2019-11-20_19:17:23.499947] Subscribe from realtime
+[radar/analyzer][2019-11-20_19:17:23.499947] Data num : 5Data len : 11854
+[radar/receiver][PUB][2019-11-20_19:17:24.500593] Publish to realtime
+[radar/analyzer][SUB][2019-11-20_19:17:24.502530] Subscribe from realtime
+[radar/analyzer][2019-11-20_19:17:24.502530] Data num : 6Data len : 11852
+[radar/receiver][PUB][2019-11-20_19:17:25.507672] Publish to realtime
+[radar/analyzer][SUB][2019-11-20_19:17:25.509947] Subscribe from realtime
+[radar/analyzer][2019-11-20_19:17:25.509947] Data num : 7Data len : 11858
+[radar/receiver][PUB][2019-11-20_19:17:26.509130] Publish to realtime
+[radar/analyzer][SUB][2019-11-20_19:17:26.511267] Subscribe from realtime
+[radar/analyzer][2019-11-20_19:17:26.511267] Data num : 8Data len : 11860
+[camera/get_frame][PUB][2019-11-20_19:17:26.530586] Publish to <img_camera> topic
+[camera/classifier_camera][SUB][2019-11-20_19:17:26.547270] Subscribe from <img_camera(rail operating)> topic
+[camera/classifier_camera][PUB][2019-11-20_19:17:26.556623] Publish to <realtime_camera> topic
+[main/decision][SUB][2019-11-20_19:17:27.270047] Subscribe from <realtime_camera> topic
+[main/decision][PUB][2019-11-20_19:17:27.357833] Publish to <realtime_result> topic
+[main/storage][SUB][2019-11-20_19:17:27.375152] Subscribe from <result> topic
+[main/web][SUB][2019-11-20_19:17:27.394139] Subscribe from <result> topic
+[radar/receiver][PUB][2019-11-20_19:17:27.509816] Publish to realtime
+[radar/analyzer][SUB][2019-11-20_19:17:27.512014] Subscribe from realtime
+[radar/analyzer][2019-11-20_19:17:27.512014] Data num : 9Data len : 11856
+[radar/receiver][PUB][2019-11-20_19:17:28.511314] Publish to realtime
+[radar/analyzer][SUB][2019-11-20_19:17:28.513442] Subscribe from realtime
+[radar/analyzer][2019-11-20_19:17:28.513442] Data num : 10Data len : 11858
+[radar/receiver][PUB][2019-11-20_19:17:29.520531] Publish to realtime
+[radar/analyzer][SUB][2019-11-20_19:17:29.522344] Subscribe from realtime
+[radar/analyzer][2019-11-20_19:17:29.522344] Data num : 11Data len : 11864
+[radar/receiver][PUB][2019-11-20_19:17:30.530220] Publish to realtime
+[radar/analyzer][SUB][2019-11-20_19:17:30.531919] Subscribe from realtime
+[radar/analyzer][2019-11-20_19:17:30.531919] Data num : 12Data len : 11870
+[radar/receiver][PUB][2019-11-20_19:17:31.539323] Publish to realtime
+[radar/analyzer][SUB][2019-11-20_19:17:31.540999] Subscribe from realtime
+[radar/analyzer][2019-11-20_19:17:31.540999] Data num : 13Data len : 11876
+[camera/get_frame][PUB][2019-11-20_19:17:32.362539] Publish to <img_camera> topic
+[camera/classifier_camera][SUB][2019-11-20_19:17:32.383752] Subscribe from <img_camera(rail operating)> topic
+[camera/classifier_camera][PUB][2019-11-20_19:17:32.396510] Publish to <realtime_camera> topic
+[radar/receiver][PUB][2019-11-20_19:17:32.539707] Publish to realtime
+[radar/analyzer][SUB][2019-11-20_19:17:32.540168] Subscribe from realtime
+[radar/analyzer][2019-11-20_19:17:32.540168] Data num : 14Data len : 11872
+[main/decision][SUB][2019-11-20_19:17:33.236595] Subscribe from <realtime_camera> topic
+[main/storage][SUB][2019-11-20_19:17:33.261949] Subscribe from <result> topic
+[main/web][SUB][2019-11-20_19:17:33.322644] Subscribe from <result> topic
+[main/decision][PUB][2019-11-20_19:17:33.246819] Publish to <realtime_result> topic
+[radar/analyzer][SUB][2019-11-20_19:17:33.542103] Subscribe from realtime
+[radar/receiver][PUB][2019-11-20_19:17:33.541882] Publish to realtime
+[radar/analyzer][2019-11-20_19:17:33.542103] Data num : 15Data len : 11872
+[radar/receiver][PUB][2019-11-20_19:17:34.542865] Publish to realtime
+[radar/analyzer][SUB][2019-11-20_19:17:34.543077] Subscribe from realtime
+[radar/analyzer][2019-11-20_19:17:34.543077] Data num : 16Data len : 11870
+[radar/receiver][PUB][2019-11-20_19:17:35.546642] Publish to realtime
+[radar/analyzer][SUB][2019-11-20_19:17:35.546863] Subscribe from realtime
+[radar/analyzer][2019-11-20_19:17:35.546863] Data num : 17Data len : 11870
+[radar/receiver][PUB][2019-11-20_19:17:36.547816] Publish to realtime
+[radar/analyzer][SUB][2019-11-20_19:17:36.548026] Subscribe from realtime
+[radar/analyzer][2019-11-20_19:17:36.548026] Data num : 18Data len : 11870
+[radar/receiver][PUB][2019-11-20_19:17:37.549206] Publish to realtime
+[radar/analyzer][SUB][2019-11-20_19:17:37.549420] Subscribe from realtime
+[radar/analyzer][2019-11-20_19:17:37.549420] Data num : 19Data len : 11868
+[radar/analyzer][2019-11-20_19:17:37.716080] Data : (18, 220) Sync : (18,)Sample rate : 5934
+[radar/plotter][SUB][2019-11-20_19:17:37.717989] Subscribe from realtime_wav
+[radar/analyzer][PUB][2019-11-20_19:17:37.717409] Publish to realtime_wav
+[radar/plotter][2019-11-20_19:17:37.717989] Data num : 19Data len : 31680
+[radar/plotter][2019-11-20_19:17:38.006543] Close All
+[camera/get_frame][PUB][2019-11-20_19:17:38.127252] Publish to <img_camera> topic
+[camera/classifier_camera][SUB][2019-11-20_19:17:38.147158] Subscribe from <img_camera(rail operating)> topic
+[camera/classifier_camera][PUB][2019-11-20_19:17:38.157378] Publish to <realtime_camera> topic
+[radar/analyzer][SUB][2019-11-20_19:17:38.550376] Subscribe from realtime
+[radar/receiver][PUB][2019-11-20_19:17:38.550169] Publish to realtime
+[radar/analyzer][2019-11-20_19:17:38.550376] Data num : 20Data len : 11868
+[radar/analyzer][2019-11-20_19:17:38.752134] Data : (50, 220) Sync : (50,)Sample rate : 5934
+[radar/plotter][SUB][2019-11-20_19:17:38.755002] Subscribe from realtime_wav
+[radar/analyzer][PUB][2019-11-20_19:17:38.753635] Publish to realtime_wav
+[radar/plotter][2019-11-20_19:17:38.755002] Data num : 20Data len : 88000
+[main/decision][SUB][2019-11-20_19:17:38.798661] Subscribe from <realtime_camera> topic
+[main/decision][PUB][2019-11-20_19:17:38.924895] Publish to <realtime_result> topic
+[main/storage][SUB][2019-11-20_19:17:38.952946] Subscribe from <result> topic
+[main/web][SUB][2019-11-20_19:17:38.970647] Subscribe from <result> topic
+[radar/analyzer][SUB][2019-11-20_19:17:39.551291] Subscribe from realtime
+[radar/receiver][PUB][2019-11-20_19:17:39.551076] Publish to realtime
+[radar/analyzer][2019-11-20_19:17:39.551291] Data num : 21Data len : 11866
+[radar/analyzer][2019-11-20_19:17:39.756427] Data : (50, 220) Sync : (50,)Sample rate : 5933
+[radar/plotter][SUB][2019-11-20_19:17:39.759382] Subscribe from realtime_wav
+[radar/analyzer][PUB][2019-11-20_19:17:39.757877] Publish to realtime_wav
+[radar/plotter][2019-11-20_19:17:39.759382] Data num : 21Data len : 88000
+[radar/receiver][PUB][2019-11-20_19:17:40.551222] Publish to realtime
+[radar/analyzer][SUB][2019-11-20_19:17:40.551469] Subscribe from realtime
+[radar/analyzer][2019-11-20_19:17:40.551469] Data num : 22Data len : 11870
+[radar/analyzer][2019-11-20_19:17:40.759078] Data : (48, 220) Sync : (48,)Sample rate : 5935
+[radar/plotter][SUB][2019-11-20_19:17:40.762071] Subscribe from realtime_wav
+[radar/analyzer][PUB][2019-11-20_19:17:40.760572] Publish to realtime_wav
+[radar/plotter][2019-11-20_19:17:40.762071] Data num : 22Data len : 84480
+[radar/analyzer][SUB][2019-11-20_19:17:41.560966] Subscribe from realtime
+[radar/receiver][PUB][2019-11-20_19:17:41.560748] Publish to realtime
+[radar/analyzer][2019-11-20_19:17:41.560966] Data num : 23Data len : 11868
+[radar/analyzer][2019-11-20_19:17:41.769832] Data : (50, 220) Sync : (50,)Sample rate : 5934
+[radar/plotter][SUB][2019-11-20_19:17:41.772838] Subscribe from realtime_wav
+[radar/analyzer][PUB][2019-11-20_19:17:41.771330] Publish to realtime_wav
+[radar/plotter][2019-11-20_19:17:41.772838] Data num : 23Data len : 88000
+[radar/analyzer][SUB][2019-11-20_19:17:42.563479] Subscribe from realtime
+[radar/receiver][PUB][2019-11-20_19:17:42.563284] Publish to realtime
+[radar/analyzer][2019-11-20_19:17:42.563479] Data num : 24Data len : 11868
+[radar/analyzer][2019-11-20_19:17:42.775852] Data : (50, 220) Sync : (50,)Sample rate : 5934
+[radar/plotter][SUB][2019-11-20_19:17:42.778404] Subscribe from realtime_wav
+[radar/analyzer][PUB][2019-11-20_19:17:42.777358] Publish to realtime_wav
+[radar/plotter][2019-11-20_19:17:42.778404] Data num : 24Data len : 88000
+[radar/analyzer][SUB][2019-11-20_19:17:43.565968] Subscribe from realtime
+[radar/receiver][PUB][2019-11-20_19:17:43.565766] Publish to realtime
+[radar/analyzer][2019-11-20_19:17:43.565968] Data num : 25Data len : 11868
+[radar/analyzer][2019-11-20_19:17:43.729690] Data : (50, 220) Sync : (50,)Sample rate : 5934
+[radar/plotter][SUB][2019-11-20_19:17:43.732265] Subscribe from realtime_wav
+[radar/analyzer][PUB][2019-11-20_19:17:43.731159] Publish to realtime_wav
+[radar/plotter][2019-11-20_19:17:43.732265] Data num : 25Data len : 88000
+[camera/get_frame][PUB][2019-11-20_19:17:43.876276] Publish to <img_camera> topic
+[camera/classifier_camera][SUB][2019-11-20_19:17:43.896020] Subscribe from <img_camera(rail operating)> topic
+[camera/classifier_camera][PUB][2019-11-20_19:17:43.905213] Publish to <realtime_camera> topic
+[radar/analyzer][SUB][2019-11-20_19:17:44.569805] Subscribe from realtime
+[radar/receiver][PUB][2019-11-20_19:17:44.569591] Publish to realtime
+[radar/analyzer][2019-11-20_19:17:44.569805] Data num : 26Data len : 11868
+[radar/analyzer][2019-11-20_19:17:44.735077] Data : (50, 220) Sync : (50,)Sample rate : 5934
+[radar/plotter][SUB][2019-11-20_19:17:44.737874] Subscribe from realtime_wav
+[radar/analyzer][PUB][2019-11-20_19:17:44.736622] Publish to realtime_wav
+[radar/plotter][2019-11-20_19:17:44.737874] Data num : 26Data len : 88000
+[main/decision][SUB][2019-11-20_19:17:44.794901] Subscribe from <realtime_camera> topic
+[main/storage][SUB][2019-11-20_19:17:44.820528] Subscribe from <result> topic
+[main/decision][PUB][2019-11-20_19:17:44.805245] Publish to <realtime_result> topic
+[main/web][SUB][2019-11-20_19:17:44.879984] Subscribe from <result> topic
+[radar/analyzer][SUB][2019-11-20_19:17:45.571330] Subscribe from realtime
+[radar/receiver][PUB][2019-11-20_19:17:45.571118] Publish to realtime
+[radar/analyzer][2019-11-20_19:17:45.571330] Data num : 27Data len : 11868
+[radar/analyzer][2019-11-20_19:17:45.741175] Data : (50, 220) Sync : (50,)Sample rate : 5934
+[radar/plotter][SUB][2019-11-20_19:17:45.743798] Subscribe from realtime_wav
+[radar/analyzer][PUB][2019-11-20_19:17:45.742683] Publish to realtime_wav
+[radar/plotter][2019-11-20_19:17:45.743798] Data num : 27Data len : 88000
+[radar/analyzer][SUB][2019-11-20_19:17:46.575093] Subscribe from realtime
+[radar/receiver][PUB][2019-11-20_19:17:46.574871] Publish to realtime
+[radar/analyzer][2019-11-20_19:17:46.575093] Data num : 28Data len : 11868
+[radar/analyzer][2019-11-20_19:17:46.745653] Data : (50, 220) Sync : (50,)Sample rate : 5934
+[radar/plotter][SUB][2019-11-20_19:17:46.748288] Subscribe from realtime_wav
+[radar/analyzer][PUB][2019-11-20_19:17:46.747177] Publish to realtime_wav
+[radar/plotter][2019-11-20_19:17:46.748288] Data num : 28Data len : 88000
+[radar/receiver][PUB][2019-11-20_19:17:47.584377] Publish to realtime
+[radar/analyzer][SUB][2019-11-20_19:17:47.584872] Subscribe from realtime
+[radar/analyzer][2019-11-20_19:17:47.584872] Data num : 29Data len : 11870
+[radar/analyzer][2019-11-20_19:17:47.755953] Data : (50, 220) Sync : (50,)Sample rate : 5935
+[radar/plotter][SUB][2019-11-20_19:17:47.758640] Subscribe from realtime_wav
+[radar/analyzer][PUB][2019-11-20_19:17:47.757500] Publish to realtime_wav
+[radar/plotter][2019-11-20_19:17:47.758640] Data num : 29Data len : 88000
+[radar/analyzer][SUB][2019-11-20_19:17:48.594425] Subscribe from realtime
+[radar/receiver][PUB][2019-11-20_19:17:48.593817] Publish to realtime
+[radar/analyzer][2019-11-20_19:17:48.594425] Data num : 30Data len : 11872
+[radar/analyzer][2019-11-20_19:17:48.764550] Data : (50, 220) Sync : (50,)Sample rate : 5936
+[radar/plotter][SUB][2019-11-20_19:17:48.767414] Subscribe from realtime_wav
+[radar/analyzer][PUB][2019-11-20_19:17:48.765992] Publish to realtime_wav
+[radar/plotter][2019-11-20_19:17:48.767414] Data num : 30Data len : 88000
+[radar/receiver][PUB][2019-11-20_19:17:49.598719] Publish to realtime

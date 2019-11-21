@@ -1,0 +1,3 @@
+[main/log][2019-11-21_16:06:16.696819] log node is initialized..
+[camera/classifier_camera][2019-11-21_16:07:14.447991] Start classifier_camera
+[camera/get_frame][2019-11-21_16:07:16.403110] Start get_frame

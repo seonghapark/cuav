@@ -1,0 +1,3 @@
+[main/log][2019-11-20_19:44:09.641439] log node is initialized..
+[main/storage][2019-11-20_19:44:13.048554] storage node is initialized..
+[radar/receiver][2019-11-20_19:44:29.096489] receiver connects ROS

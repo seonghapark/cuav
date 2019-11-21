@@ -1,0 +1,36 @@
+[main/log][2019-11-20_20:28:33.625516] log node is initialized..
+[main/storage][2019-11-20_20:28:37.781319] storage node is initialized..
+[radar/receiver][2019-11-20_20:39:15.511918] receiver connects ROS
+[main/decision][2019-11-20_20:39:29.336228] decision node is initialized..
+[main/decision][PUB][2019-11-20_20:39:29.434713] Publsih Message to <operate> topic : init
+[main/decision][SUB][2019-11-20_20:39:43.554447] Get Message From <rail_end> topic : init_finish
+[main/decision][PUB][2019-11-20_20:39:43.598874] Publsih Message to <operate> topic : start
+[camera/get_frame][SUB][2019-11-20_20:39:43.565815] Subscribe from <operate(rail operating)> topic
+[camera/get_frame][2019-11-20_20:39:43.566686] Loading network.....
+[camera/get_frame][2019-11-20_20:39:43.705402] Network successfully loaded
+[camera/get_frame][2019-11-20_20:39:43.714668] Webcam initialized
+[camera/get_frame][PUB][2019-11-20_20:39:50.441402] Publish to <img_camera> topic
+[camera/classifier_camera][SUB][2019-11-20_20:39:50.461556] Subscribe from <img_camera(rail operating)> topic
+[camera/classifier_camera][PUB][2019-11-20_20:39:50.463473] Publish to <realtime_camera> topic
+[camera/get_frame][PUB][2019-11-20_20:39:56.204492] Publish to <img_camera> topic
+[camera/classifier_camera][SUB][2019-11-20_20:39:56.219826] Subscribe from <img_camera(rail operating)> topic
+[camera/classifier_camera][PUB][2019-11-20_20:39:56.221150] Publish to <realtime_camera> topic
+[camera/get_frame][PUB][2019-11-20_20:40:01.924453] Publish to <img_camera> topic
+[camera/classifier_camera][SUB][2019-11-20_20:40:01.936311] Subscribe from <img_camera(rail operating)> topic
+[camera/classifier_camera][PUB][2019-11-20_20:40:01.937887] Publish to <realtime_camera> topic
+[main/decision][SUB][2019-11-20_20:40:03.181899] Get Message From <rail_end> topic : init_finish
+[camera/get_frame][PUB][2019-11-20_20:40:07.703688] Publish to <img_camera> topic
+[camera/classifier_camera][SUB][2019-11-20_20:40:07.722665] Subscribe from <img_camera(rail operating)> topic
+[camera/classifier_camera][PUB][2019-11-20_20:40:07.723945] Publish to <realtime_camera> topic
+[camera/get_frame][PUB][2019-11-20_20:40:13.428708] Publish to <img_camera> topic
+[camera/classifier_camera][SUB][2019-11-20_20:40:13.447039] Subscribe from <img_camera(rail operating)> topic
+[camera/classifier_camera][PUB][2019-11-20_20:40:13.448047] Publish to <realtime_camera> topic
+[camera/get_frame][PUB][2019-11-20_20:40:19.191991] Publish to <img_camera> topic
+[camera/classifier_camera][SUB][2019-11-20_20:40:19.209464] Subscribe from <img_camera(rail operating)> topic
+[camera/classifier_camera][PUB][2019-11-20_20:40:19.214526] Publish to <realtime_camera> topic
+[camera/get_frame][PUB][2019-11-20_20:40:24.944431] Publish to <img_camera> topic
+[camera/classifier_camera][SUB][2019-11-20_20:40:24.963239] Subscribe from <img_camera(rail operating)> topic
+[camera/classifier_camera][PUB][2019-11-20_20:40:24.964760] Publish to <realtime_camera> topic
+[camera/get_frame][PUB][2019-11-20_20:40:30.679558] Publish to <img_camera> topic
+[camera/classifier_camera][SUB][2019-11-20_20:40:30.694509] Subscribe from <img_camera(rail operating)> topic
+[camera/classifier_camera][PUB][2019-11-20_20:40:30.695858] Publish to <realtime_camera> topic

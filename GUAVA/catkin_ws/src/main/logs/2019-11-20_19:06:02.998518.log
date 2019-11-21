@@ -1,0 +1,7 @@
+[main/log][2019-11-20_19:06:02.998888] log node is initialized..
+[main/storage][2019-11-20_19:06:08.263475] storage node is initialized..
+[main/decision][2019-11-20_19:07:22.070249] Decision node is initialized..
+[main/decision][2019-11-20_19:07:22.129187]  ** init phase **
+[main/decision][PUB][2019-11-20_19:07:22.152346] Publish to <operate> topic
+[main/decision][2019-11-20_19:07:22.152799] waiting init finished..
+[main/decision][2019-11-20_19:07:23.837707] waiting results from radar and camera
