@@ -9,7 +9,7 @@ from std_msgs.msg import String
 from main.msg import operate, realtime, result
 from DecisionClass import DecisionClass
 from main_log import log_generator
-
+import time
 DecisionValues = DecisionClass()
 
 
@@ -137,6 +137,7 @@ def decision(pub_log):
     pub_end = rospy.Publisher('end', operate, queue_size=10)
     # pub_log = rospy.Publisher('logs', String, queue_size=10)
     rate = rospy.Rate(10)
+    time.sleep(3)
 
     pub_operate.publish(init_message)
 
