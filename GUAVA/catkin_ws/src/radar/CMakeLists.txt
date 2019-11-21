@@ -53,8 +53,6 @@ add_message_files(
    FILES
    raw.msg
    wav.msg
-   img.msg
-   result.msg
    realtime.msg
  )
 
