@@ -190,6 +190,10 @@ def publish_wav(data):
     parser = RadarBinaryParser(raw_data.data, sr=raw_data.sr)
     sync, data = parser.parse()
 
+    #d=np.diff(sync)
+    #idx, = d.nonzero()
+    #for i in range(len(idx)-1) :
+    #    print(idx[i+1] - idx[i])
     str_time = str(datetime.now()).replace(' ', '_')
     str_msg = 'Data : ' + str(data.shape) + ' Sync : ' + str(sync.shape) + 'Sample rate : ' + str(raw_data.sr)
     log_text = '[{}/{}][{}] {}'.format(PACKAGE_NAME, NODE_NAME, str_time, str_msg)
