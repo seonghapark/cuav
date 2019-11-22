@@ -18,25 +18,10 @@ Thus, I concluded to use opencv DNN and yolov3 for camera detection. I found abo
 
 After dataset was prepared, I used google colab to train custom classes. I used google colab because training process takes a long time and the time can be diminished using GPU. Image processing requires a lot of computation and GPU is faster than CPU when doing computation (referred to article [GPU vs CPU](https://medium.com/@shachishah.ce/do-we-really-need-gpu-for-deep-learning-47042c02efe2)). This is the reason for choosing google colab instead trying to do training in my computer's CPU. I set the learnig rate to 0.001 and trained for 6000 batches, 64 images each for a batch. It took about 3 hours to train 1000 batches, since I set to 6000 batches the total training time took 18 hours. Google colab provides free GPU for 12 hours per session. Thus, I saved weight every 1000 batches, so when the session expired I again began from previously saved weight.<br/>
   
-In coming weeks, I will install ros in raspberry pi and upload custom-trained yolo weights, detection codes to the device. I chose to use raspberry pi and camera module to detect objects because the counter UAV radar system projects was mainly focusing on detecting drones precisely in affordable price. Raspberry pi is a affordable device that has fine computational power. I do not have specific standard about how to measure the performance. For now I will try detecting drones in videos with drones that I will download from youtube. Later, if it seems to detect quite well I will find how performance of object detection model is measured and apply to my model. Usually accuracy of object detecion model is meassured with [mAP(mean Average)](https://medium.com/@jonathan_hui/map-mean-average-precision-for-object-detection-45c121a31173). If the rate is low I will try to train the model with more images or try to change the parameter of the net. Currently, I am not sure which parameter I should modify. <br/><br/>
+After a meeting, I re-trained a model so that it could detect only drones. I trained yolov3-tiny.con15 and darknet.conv54 weights that were previously trained on ImageNet dataset. When both weights were trained, the model that was retrained in yolov3-tiny.conv 15 had less averagee loss so I chose this model to use in the project. Then, I installed ros+opencv in raspberry pi. Raspberry pi was used because the counter UAV radar system project's main focus was creating drone detecting system that is affordable in price. I wrote a code that reads message from "operate" topic, and if "init" message is subscribed the raspberry pi initiates camera and the net. When "start" message is subscribed it begins detecting the object in a camera frame and sends frames to "img_camera" topic. The classifier_camera node subscribes "img_camera" topic and republishes to "realtime_camera" topic if the "operate" message received has start value. Also, if it reads start value it stores, detected frame locally for later use to process summary image. If "operate" meessage has end value, it processes summary. It analyzies gathered frames, detectes direction of drone from first "start" message subscribed until "end" message was subscribed. Then it sends the information through "summary_camera" topic.<br/><br/>
 
-Also, I will integrate camera detection system with ros nodes. Overall process of camera detection would be as follows:
+The code was tested well and worked well. Later I would simply have to improve the performance of model. 
 
-1. Receive start signal from main node.
-2. Read image frame from the camera.
-3. Send the frame through yolov3 network.
-4. Receive detection output from the network.
-5. Send position information of drone, image frame with bouding box drawn on it to the main node.
-
-If everything is set I will help radar team for analyzing the SAR image using machine learning. I am not familiar with ros so integrating might be difficult, but I will ask other teammates who are familiar with ros to solve the problem.  
-<br/>
-Below is gif showing how drones are detected using pre-trained yolo drone weight
-
-[Drone-detection](https://i.imgur.com/5UL6AvU.gifv)
-
-Below is repository I am working on for camera detection
-
-[drone_detection Repo](https://github.com/dojinkimm/drone_detection)
   
 <br><br><br>
 
