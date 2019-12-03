@@ -399,13 +399,13 @@ def plot_img(sar_img_data):
 
     for i in range(0, trunc_image.shape[1]):
         trunc_image[:, i] = (trunc_image[:, i]).transpose() * (abs(downrange * 0.3048)) ** (3 / 2.0)
-    trunc_image = MOD_PULSE_PERIOD * numpy.log10(abs(trunc_image))
+    trunc_image = MOD_PULSE_PERIOD * numpy.log10(abs(trunc_image)) * 1e2
 
     pylab.figure()
     pylab.pcolormesh(crossrange, downrange, trunc_image, edgecolors='None', cmap='jet')
     pylab.plt.gca().invert_yaxis()
     pylab.colorbar()
-    pylab.clim([numpy.max(trunc_image) - 0.05, numpy.max(trunc_image) - 0])
+    pylab.clim([numpy.max(trunc_image) - 40, numpy.max(trunc_image) - 0])
     pylab.title('Final image')
     pylab.ylabel('Downrange (ft)')
     pylab.xlabel('Crossrange (ft)')
