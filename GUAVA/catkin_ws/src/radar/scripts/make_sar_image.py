@@ -383,23 +383,23 @@ def plot_img(sar_img_data):
             exec('%s=%s' % (k, repr(v)))
     bw = C * (kstop - kstart) / (4 * PI * CONSTANT_Kr)
     # bw = C * (kstop - kstart) / (4 * PI)
-    max_range = (C * S_st_shape[1] / (2 * bw)) * 1 / 0.3048  ## 1/0.3048 -> meter2feet
+    max_range = meters2feet((C * S_st_shape[1] / (2 * bw)))
 
     # data truncation
     dr_index1 = int(round((dr1 / max_range) * S_image.shape[0]))
     dr_index2 = int(round((dr2 / max_range) * S_image.shape[0]))
     cr_index1 = int(round(S_image.shape[1] * (
-            (cr1 + Ky_len * delta_x / (INCH_PER_SECOND * 0.3048)) / (Ky_len * delta_x / 0.3048))))
+            (cr1 + Ky_len * delta_x / (INCH_PER_SECOND * 0.3048)) / meters2feet(Ky_len * delta_x))))
     cr_index2 = int(round(S_image.shape[1] * (
-            (cr2 + Ky_len * delta_x / (INCH_PER_SECOND * 0.3048)) / (Ky_len * delta_x / 0.3048))))
+            (cr2 + Ky_len * delta_x / (INCH_PER_SECOND * 0.3048)) / meters2feet(Ky_len * delta_x))))
 
     trunc_image = S_image[dr_index1:dr_index2, cr_index1:cr_index2]
     downrange = numpy.linspace(-1 * dr1, -1 * dr2, trunc_image.shape[0]) + Rs
     crossrange = numpy.linspace(cr1, cr2, trunc_image.shape[1])
 
     for i in range(0, trunc_image.shape[1]):
-        trunc_image[:, i] = (trunc_image[:, i]).transpose() * (abs(downrange * 0.3048)) ** (3 / 2.0)
-    trunc_image = MOD_PULSE_PERIOD * numpy.log10(abs(trunc_image)) * 1e2
+        trunc_image[:, i] = (trunc_image[:, i]).transpose() * (abs(feet2meters(downrange))) ** (3 / 2.0)
+    trunc_image = MOD_PULSE_PERIOD * numpy.log10(abs(trunc_image)) * 1e3
 
     pylab.figure()
     pylab.pcolormesh(crossrange, downrange, trunc_image, edgecolors='None', cmap='jet')
