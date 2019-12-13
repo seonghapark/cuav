@@ -16,6 +16,7 @@ import rospy
 from radar.msg import wav
 from sensor_msgs.msg import Image
 from std_msgs.msg import String
+import copy
 
 try:
     import scipy.interpolate
@@ -263,8 +264,18 @@ def RMA(sif, pulse_period=MOD_PULSE_PERIOD, freq_range=None, Rs=9.0):
     if freq_range is None:
         freq_range = VCO_FREQ_RANGE  # Values from MIT
 
+    #'''
+    temp_sif = []
+    for i in range(len(sif)):
+        if i % 50 == 0:
+            temp_sif.append(sif[i])
+
+    sif = copy.copy(temp_sif)
+    #'''        
+
     N, M = len(sif), len(sif[0])
     print("N: ", N, " M: ", M)
+
 
     # construct Kr axis
     delta_x = feet2meters(INCH_PER_SECOND / 12.0)  # Assuming 2 inch antenna spacing between frames. (1 foot = 12 inch)
