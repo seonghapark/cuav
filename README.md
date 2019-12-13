@@ -2,7 +2,7 @@
 
 ## Introduce our team
 - [`Inbae Kang`](https://github.com/cleverdevk) cleverdevk@gmail.com
-  - ROS
+  - Team leader, ROS
 - [`Dojin Kim`](https://github.com/dojinkimm) dojinkim119@gmail.com
   - camera
 - [`Haeeun Lee`](https://github.com/ihaeeun) ihaeeun16@gmail.com
