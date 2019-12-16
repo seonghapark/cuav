@@ -70,13 +70,13 @@ export ROS_HOSTNAME=localhost
 
 ### How to run radar code
 ```bash
-$ source devel/setup.bash
 $ cd /home/project/cuav/GUAVA/catkin_ws/
+$ source devel/setup.bash
 $ rosrun radar [file_name.py]
 ```
 There is shell script for launching all rada codes. If you want to run with radar, you should use `radar.sh` and you want to run with binary files, you should use `test_radar.sh`.
 ```bash
-$ cd //home/project/cuav/GUAVA/catkin_ws/radar/scripts
+$ cd /home/project/cuav/GUAVA/catkin_ws/radar/scripts
 $ ./radar.sh
 $ ./test_radar.sh
 ```
