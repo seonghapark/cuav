@@ -60,7 +60,7 @@ $ source devel/setup.bash
 $ rosrun main log.py
 $ rosrun main storage.py
 $ rosrun main web.py
-<<run radar, camera code>>
+#<<run radar, camera code>>
 $ rosrun main decision.py
 ```
 
