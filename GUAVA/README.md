@@ -53,6 +53,16 @@ export ROS_HOSTNAME=localhost
 ```
 
 ## Main
+### How to run main code
+```bash
+$ cd /home/project/cuav/GUAVA/catkin_ws/
+$ source devel/setup.bash
+$ rosrun main log.py
+$ rosrun main storage.py
+$ rosrun main web.py
+<<run radar, camera code>>
+$ rosrun main decision.py
+```
 
 ## Radar
 ### How to use radar
