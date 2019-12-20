@@ -7,6 +7,16 @@ cuav - 2019-12-19 ver.
 ├ Documents
 ├ └ Rail
 ├ Flask Server
+├ ├ model
+├ ├ src
+├ ├ static
+├ ├ ├ assets
+├ ├ ├ ├ fonts
+├ ├ ├ ├ images
+├ ├ ├ ├ └ avatars
+├ ├ ├ └ scripts
+├ ├ └ img
+├ └ templates
 ├ GUAVA
 ├ daily_log
 ├ references
