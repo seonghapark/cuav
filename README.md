@@ -9,7 +9,7 @@ But, the problem is our system can make sar image, but it need to be improved an
 
 So the remaining roles is improving camera detection, improving making SAR images, detecting drones in SAR image, and announce it through flask server. We wish you good luck.
 
-For more specific information or before starting this project, we ***strongly recommend*** read the documents in `Documents` and `references` folder. 
+For more specific information or before starting this project, we ***strongly recommend*** read the documents in [`Documents`](https://github.com/seonghapark/cuav/tree/fall2019/Documents), [`references`](https://github.com/seonghapark/cuav/tree/fall2019/references), and [Wiki](https://github.com/seonghapark/cuav/wiki). 
 
 </br>
 
