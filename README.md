@@ -1,6 +1,37 @@
 # GUAVA
 
-## Introduce our team
+
+## Description of directory
+```
+cuav - 2019-12-19 ver.
+├ Documents
+├ └ Rail
+├ Flask Server
+├ GUAVA
+├ daily_log
+├ references
+├ Progression_2019_09_20.md
+├ Progression_2019_10_04.md
+└ Progression_2019_11_22.md
+
+```
+* **Flask Server**  
+  * GUAVA Web server
+
+* **GUAVA**  
+  * catkin_ws : Catkin Workspace of GUAVA  
+  * setup_scripts : Python code to start whole system
+
+* **daily_log**  
+  * GUAVA team member's daily log
+
+* **references**  
+  * radar_sar_rma : Program of making SAR images using a radar of MIT OpenCourseWare
+  * referenced papars
+
+
+
+## Our Team
 - [`Inbae Kang`](https://github.com/cleverdevk) cleverdevk@gmail.com
   - Team leader, ROS
 - [`Dojin Kim`](https://github.com/dojinkimm) dojinkim119@gmail.com
@@ -13,20 +44,3 @@
   - rail, radar
 - [`Youngjin Kim`](https://github.com/ANGJIN) zmfjrxmfjr@naver.com
   - radar
-
-<br><br>
-
-## Description of directory
-- **Flask Server**  
-  - GUAVA Web server
-
-- **GUAVA**  
-  - catkin_ws : Catkin Workspace of GUAVA  
-  - setup_scripts : Python code to start whole system
-
-- **daily_log**  
-  - GUAVA team member's daily log
-
-- **references**  
-  - radar_sar_rma : Program of making SAR images using a radar of MIT OpenCourseWare
-  - referenced papars
