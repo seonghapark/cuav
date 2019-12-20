@@ -45,24 +45,22 @@ cuav - 2019-12-19 ver.
 │ └ setup_scripts
 ├ daily_log
 ├ references
+│ └ radar_sar_rma
 ├ Progression_2019_09_20.md
 ├ Progression_2019_10_04.md
 └ Progression_2019_11_22.md
 
 ```
-* **Flask Server**  
-  * GUAVA Web server
+* **Flask Server**: GUAVA Web server
 
 * **GUAVA**  
   * catkin_ws : Catkin Workspace of GUAVA  
   * setup_scripts : Python code to start whole system
 
-* **daily_log**  
-  * GUAVA team member's daily log
+* **daily_log**: GUAVA team member's daily log
 
-* **references**  
+* **references**: referenced papars
   * radar_sar_rma : Program of making SAR images using a radar of MIT OpenCourseWare
-  * referenced papars
 
 </br>
 
